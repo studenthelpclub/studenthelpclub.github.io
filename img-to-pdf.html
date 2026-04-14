@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF - Student Help Club</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+        <h1>STUDENT HELP CLUB</h1>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-expand-arrows-alt"></i> Image Resize</a></li>
+            <li><a href="pdf-resize.html"><i class="fas fa-compress-arrows-alt"></i> PDF Resize</a></li>
+            <li><a href="pdf-merge.html"><i class="fas fa-object-group"></i> PDF Merge</a></li>
+            <li><a href="pdf-split.html"><i class="fas fa-cut"></i> PDF Split</a></li>
+            <li><a href="pdf-to-word.html"><i class="fas fa-file-word"></i> PDF/Image to Word</a></li>
+            <li><a href="img-to-pdf.html" class="active"><i class="fas fa-file-pdf"></i> Image to PDF</a></li>
+            <li><a href="pdf-to-img.html"><i class="fas fa-file-image"></i> PDF to Image</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Image to PDF Converter</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Convert JPG, PNG, WEBP images into a single high-quality PDF</p>
+        
+        <div class="upload-container" id="dropZone" style="border-color: #198754; background: #f4fff9;">
+            <i class="fas fa-images" style="font-size: 50px; color: #198754;"></i>
+            <p id="statusText" style="margin-top: 15px; font-weight: 500;">Select or Drag Images here</p>
+            <input type="file" id="imageInput" accept="image/*" multiple hidden>
+            <button type="button" class="select-btn" style="margin-top: 10px; background: #198754; color: white;">Add Images</button>
+        </div>
+
+        <div id="imageList" style="margin: 20px 0; text-align: left;"></div>
+
+        <div id="pdfSettings" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+            <div class="input-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <label style="font-weight: 600;">Page Orientation:</label>
+                <select id="orientation" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 130px;">
+                    <option value="p">Portrait</option>
+                    <option value="l">Landscape</option>
+                </select>
+            </div>
+            
+            <button id="convertBtn" class="main-btn" style="background: #198754;">
+                Create PDF Now
+            </button>
+            <button id="resetBtn" class="reset-btn">Clear All</button>
+        </div>
+
+        <div id="resultArea" style="display: none; margin-top: 30px;">
+            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
+            <h3 style="color: #198754;"><i class="fas fa-check-circle"></i> PDF Generated!</h3>
+            <div id="previewContainer" style="margin-top: 15px;"></div>
+            <button id="downloadBtn" class="download-btn" style="background: #0d6efd;">
+                Download My PDF
+            </button>
+        </div>
+
+        <div class="how-to-use">
+            <h3 style="color: #333; border-bottom: 2px solid #198754; display: inline-block; padding-bottom: 5px;">How to Use?</h3>
+            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
+                <li>Select one or multiple images from your device.</li>
+                <li>Arrange the order or remove unwanted images.</li>
+                <li>Choose <b>Portrait</b> (Vertical) or <b>Landscape</b> (Horizontal) layout.</li>
+                <li>Click <b>"Create PDF Now"</b> and download your file.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Follow Us For Updates:</p>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="img-to-pdf.js"></script>
+</body>
+</html>

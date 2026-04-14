@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF/Image to Word - Student Help Club</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+        <h1>STUDENT HELP CLUB</h1>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-expand-arrows-alt"></i> Image Resize</a></li>
+            <li><a href="pdf-resize.html"><i class="fas fa-compress-arrows-alt"></i> PDF Resize</a></li>
+            <li><a href="pdf-merge.html"><i class="fas fa-object-group"></i> PDF Merge</a></li>
+            <li><a href="pdf-split.html"><i class="fas fa-cut"></i> PDF Split</a></li>
+            <li><a href="pdf-to-word.html" class="active"><i class="fas fa-file-word"></i> PDF/Image to Word</a></li>
+            <li><a href="img-to-pdf.html"><i class="fas fa-file-pdf"></i> Image to PDF</a></li>
+            <li><a href="pdf-to-img.html"><i class="fas fa-file-image"></i> PDF to Image</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>OCR PDF & Image to Word</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Convert scanned PDF or Images into editable Word files</p>
+        
+        <div class="upload-container" id="dropZone" style="border-color: #007bff; background: #f0f7ff;">
+            <i class="fas fa-file-word" style="font-size: 50px; color: #007bff;"></i>
+            <p id="statusText" style="margin-top: 15px; font-weight: 500;">Select PDF or Image (JPG/PNG/WEBP)</p>
+            <input type="file" id="fileInput" accept="application/pdf, image/*" hidden>
+            <button type="button" class="select-btn" style="margin-top: 10px; background: #007bff; color: white;">Choose File</button>
+        </div>
+
+        <div id="processSettings" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
+            <p id="fileName" style="font-weight: bold; margin-bottom: 15px; font-size: 14px; color: #333;"></p>
+            <button id="convertBtn" class="main-btn" style="background: #007bff;">
+                Start Text Extraction (OCR)
+            </button>
+        </div>
+
+        <div id="progressArea" style="display: none; margin-top: 20px; text-align: center;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: #007bff;"></i>
+            <p id="progressStatus" style="margin-top: 10px; font-size: 13px; color: #666;">Reading document text...</p>
+        </div>
+
+        <div id="resultArea" style="display: none; margin-top: 30px;">
+            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
+            <h3 style="color: #198754;"><i class="fas fa-check-circle"></i> Extraction Complete!</h3>
+            <p style="font-size: 12px; color: #666; margin-bottom: 10px;">You can edit the text below before downloading.</p>
+            <textarea id="textPreview" style="width: 100%; height: 250px; padding: 12px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 20px; font-family: sans-serif; box-sizing: border-box;"></textarea>
+            
+            <button id="downloadBtn" class="download-btn" style="background: #198754;">
+                Download as Word (.docx)
+            </button>
+        </div>
+
+        <div class="how-to-use">
+            <h3 style="color: #333; border-bottom: 2px solid #007bff; display: inline-block; padding-bottom: 5px;">How to Use?</h3>
+            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
+                <li>Upload a PDF or an Image (JPG/PNG).</li>
+                <li>Wait for the <b>OCR engine</b> to read the text.</li>
+                <li>Edit any mistakes in the text box.</li>
+                <li>Click <b>"Download as Word"</b> to save your editable file.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Follow Us For Updates:</p>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://unpkg.com/docx@8.2.2/build/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="pdf-to-word.js"></script>
+</body>
+</html>
