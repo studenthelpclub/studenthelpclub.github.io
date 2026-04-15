@@ -277,21 +277,24 @@ h2 {
 .social-links a.whatsapp { color: #25D366; }
 
 /* --- 11. Responsive Design (Mobile) --- */
-@media (max-width: 600px) {
-    .hero-banner {
-        padding: 40px 15px; /* मोबाइल पर बैनर थोड़ा छोटा */
+/* Mobile Responsive Code */
+/* Mobile Responsive Code */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 3%;
     }
-    .hero-banner h2 {
-        font-size: 1.8rem; /* टेक्स्ट मोबाइल के हिसाब से सेट */
+    .brand h1 {
+        font-size: 1rem;
+    }
+    .hero h2 {
+        font-size: 1.8rem;
     }
     .tools-grid {
-        gap: 10px; /* कार्ड्स के बीच कम गैप */
+        grid-template-columns: 1fr; /* Mobile par tools ek ke niche ek dikhenge */
+        padding: 10px;
     }
-    .tool-card {
-        padding: 25px 15px; /* कार्ड के अंदर कम जगह ताकि टेक्स्ट अच्छे से दिखे */
-    }
-    .social-links a {
-        font-size: 40px; /* मोबाइल पर बड़े आइकॉन्स */
-        margin: 0 15px;
+    .container {
+        width: 95%;
+        margin: 20px auto;
     }
 }
