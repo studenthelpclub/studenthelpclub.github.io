@@ -4,121 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Age Calculator - Student Help Club</title>
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #f8f9fa; color: #333; }
+        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #0d6efd; }
+        .header h1 { font-size: 20px; color: #1d3557; margin-top: 5px; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: center; }
+        input[type="date"] { width: 100%; padding: 12px; margin: 10px 0 20px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; }
+        .main-btn { width: 100%; padding: 15px; background: #0d6efd; color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        #ageResult { margin-top: 25px; padding: 20px; background: #eef2f7; border-radius: 12px; display: none; border: 1px solid #0d6efd; }
+        .footer { text-align: center; padding: 30px; margin-top: 40px; background: #fff; border-top: 1px solid #eee; }
+        .social-links a { font-size: 28px; margin: 0 15px; text-decoration: none; }
+    </style>
 </head>
 <body>
-
     <header class="header">
         <img src="shc-logo.jpg" alt="SHC Logo" class="logo">
         <h1>STUDENT HELP CLUB</h1>
     </header>
-
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="age-calculator.html" class="active"><i class="fas fa-calculator"></i> Age Calculator</a></li>
-        </ul>
-    </nav>
-
     <div class="container">
         <h2>Age Calculator</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Calculate your exact age in years, months, and days.</p>
-        
-        <div style="text-align: left; margin-bottom: 20px;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Date of Birth:</label>
-            <input type="date" id="dob" style="width: 100%; padding: 12px; border: 2px solid #0d6efd; border-radius: 10px; font-size: 16px;">
+        <p style="margin-bottom: 20px; color: #666;">Calculate exact age for exam forms.</p>
+        <div style="text-align: left;">
+            <label>Date of Birth:</label>
+            <input type="date" id="dob">
+            <label>Age at the Date of:</label>
+            <input type="date" id="today">
         </div>
-
-        <div style="text-align: left; margin-bottom: 25px;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Age at the Date of:</label>
-            <input type="date" id="today" style="width: 100%; padding: 12px; border: 2px solid #ccc; border-radius: 10px; font-size: 16px;">
-        </div>
-
-        <button onclick="calculateAge()" class="main-btn">Calculate Exact Age</button>
-
-        <div id="ageResult" style="display: none; margin-top: 30px; padding: 20px; background: #f8fbff; border-radius: 15px; border: 1px solid #0d6efd;">
-            <h3 style="color: #1d3557; margin-bottom: 10px;">Your Age is:</h3>
-            <div style="font-size: 22px; font-weight: bold; color: #28a745;" id="resultText"></div>
-            <p id="totalDays" style="margin-top: 10px; color: #666; font-size: 14px;"></p>
-        </div>
-
-        <div class="how-to-use">
-            <h3>How to Use?</h3>
-            <ul style="margin-top: 10px; font-size: 14px; color: #555;">
-                <li>Select your <b>Date of Birth</b> from the first box.</li>
-                <li>The second box is set to <b>Today's Date</b> by default.</li>
-                <li>Click <b>Calculate Exact Age</b> to see the result.</li>
-                <li>This is very useful for filling UPSC, SSC, and Bank exam forms.</li>
-            </ul>
+        <button onclick="calculateAge()" class="main-btn">Calculate Age</button>
+        <div id="ageResult">
+            <h3 id="resultText" style="color: #28a745;"></h3>
         </div>
     </div>
-
     <footer class="footer">
-        <p>Follow Us For Updates:</p>
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" style="color:#ff0000"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color:#0088cc"><i class="fab fa-telegram-plane"></i></a>
         </div>
-        <div class="policy-links" style="margin-top: 15px;">
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a>
-        </div>
+        <p style="margin-top: 15px; font-size: 12px;">© 2026 Student Help Club</p>
     </footer>
-
     <script>
-        // Set default "Age at the Date of" to Today
         document.getElementById('today').valueAsDate = new Date();
-
         function calculateAge() {
-            const dobInput = document.getElementById('dob').value;
-            const todayInput = document.getElementById('today').value;
-
-            if (!dobInput) {
-                alert("Please select your Date of Birth");
-                return;
-            }
-
-            const dob = new Date(dobInput);
-            const today = new Date(todayInput);
-
-            if (dob > today) {
-                alert("Date of Birth cannot be in the future!");
-                return;
-            }
-
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date(document.getElementById('today').value);
+            if(!dob || dob > today) return alert("Please enter valid dates");
             let years = today.getFullYear() - dob.getFullYear();
             let months = today.getMonth() - dob.getMonth();
             let days = today.getDate() - dob.getDate();
-
-            if (days < 0) {
-                months--;
-                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-            }
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            const resultDiv = document.getElementById('ageResult');
-            const resultText = document.getElementById('resultText');
-            
-            resultText.innerText = `${years} Years, ${months} Months, ${days} Days`;
-            resultDiv.style.display = "block";
-            
-            // Total Days Calculation
-            const diffTime = Math.abs(today - dob);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            document.getElementById('totalDays').innerText = `Total days since birth: ${diffDays}`;
+            if (days < 0) { months--; days += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+            if (months < 0) { years--; months += 12; }
+            document.getElementById('resultText').innerText = `${years} Years, ${months} Months, ${days} Days`;
+            document.getElementById('ageResult').style.display = "block";
         }
     </script>
 </body>
