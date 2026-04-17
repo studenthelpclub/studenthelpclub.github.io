@@ -5,120 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Color Inverter - Student Help Club</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WKEZF1XEMF');
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-
-<link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; margin: 0; padding: 0; }
+        .container { max-width: 500px; margin: 40px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; }
+        .upload-container { border: 2px dashed #1d3557; padding: 40px 20px; border-radius: 10px; cursor: pointer; background: #f8f9fa; }
+        .main-btn { background: #1d3557; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 20px; font-weight: bold; }
+        .download-btn { background: #198754; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 18px; width: 100%; margin-top: 20px; font-weight: bold; display: none; }
+        .main-btn:disabled { background: #ccc; cursor: not-allowed; }
+        #selectedFileName { margin-top: 15px; font-size: 14px; color: #1d3557; font-weight: bold; }
+        .success-msg { color: #198754; margin-top: 20px; display: none; }
+    </style>
 </head>
 <body>
 
-    <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-        <h1>STUDENT HELP CLUB</h1>
-    </header>
-
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="pdf-invert.html" class="active"><i class="fas fa-circle-half-stroke"></i> PDF Invert</a></li>
-        </ul>
-    </nav>
-
     <div class="container">
-        <h2>Smart PDF Color Inverter</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Invert PDF colors for easy reading in Dark Mode</p>
-        
-        <div class="upload-container" id="pdfDropZone">
-            <i class="fas fa-moon" style="font-size: 50px; color: #1d3557;"></i>
-            <p id="pdfStatusText" style="margin-top: 15px; font-weight: 500;">Select or Drag PDF here</p>
+        <h2 style="color: #1d3557;">Smart PDF Inverter</h2>
+        <p style="color: #666; font-size: 14px;">Dark Mode for your PDF files</p>
+
+        <div class="upload-container" id="dropZone">
+            <i class="fas fa-file-pdf" style="font-size: 50px; color: #1d3557;"></i>
+            <p id="statusText">Click or Drag PDF here</p>
             <input type="file" id="pdfInput" accept="application/pdf" hidden>
-            <button type="button" class="select-btn" style="margin-top: 10px; background: #1d3557; color: white;">Select PDF</button>
         </div>
 
-        <div id="pdfSettings" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
-            <div id="selectedFileName" style="font-size: 13px; color: #333; margin-bottom: 15px; font-weight: bold; text-align: left;"></div>
-            
-            <div style="margin: 20px 0; background: #f1f1f1; padding: 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <span id="labelBefore">Original</span>
-                <label class="switch-ui">
-                    <input type="checkbox" id="modeToggle" checked>
-                    <span class="slider-ui"></span>
-                </label>
-                <span id="labelAfter" style="font-weight: bold;">Inverted</span>
+        <div id="selectedFileName"></div>
+
+        <button id="invertBtn" class="main-btn" style="display: none;">
+            Invert Colors Now
+        </button>
+
+        <div id="resultArea">
+            <div class="success-msg" id="successMsg">
+                <i class="fas fa-check-circle"></i> Inversion Successful!
             </div>
-
-            <button id="invertBtn" class="main-btn">
-                Invert Colors & Preview
+            <button id="downloadBtn" class="download-btn">
+                <i class="fas fa-download"></i> Download Inverted PDF
             </button>
-        </div>
-
-        <div id="pdfResultArea" style="display: none; margin-top: 30px;">
-            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
-            <h3 style="color: #198754;"><i class="fas fa-check-circle"></i> Inversion Successful!</h3>
-            
-            <iframe id="pdfPreview" style="width: 100%; height: 500px; border: 1px solid #ddd; border-radius: 10px; margin-top: 15px;"></iframe>
-            
-            <button id="downloadPdfBtn" class="download-btn" style="margin-top: 20px;">
-                Download Inverted PDF
-            </button>
-        </div>
-
-        <div class="how-to-use">
-            <h3 style="color: #333; border-bottom: 2px solid #1d3557; display: inline-block; padding-bottom: 5px;">How to Use PDF Inverter?</h3>
-            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
-                <li>Upload the PDF you want to convert to Dark Mode.</li>
-                <li>Click on <b>"Invert Colors & Preview"</b>.</li>
-                <li>Use the <b>Switch</b> to compare Original and Inverted versions.</li>
-                <li>Click <b>"Download Inverted PDF"</b> to save your file.</li>
-            </ul>
-        </div>
-        
-        <div class="footer-nav-links" style="margin-top: 30px; display: flex; justify-content: center; gap: 15px; font-size: 13px;">
-            <a href="about.html" style="color: #666; text-decoration: none;">About Us</a>
-            <a href="contact.html" style="color: #666; text-decoration: none;">Contact Us</a>
-            <a href="privacy-policy.html" style="color: #666; text-decoration: none;">Privacy Policy</a>
         </div>
     </div>
 
-    <footer class="footer">
-        <p>Follow Us For Updates:</p>
-        <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <p style="font-size: 11px; margin-top: 10px; opacity: 0.7;">© 2026 Student Help Club</p>
-    </footer>
-
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="pdf-invert-logic.js"></script>
-
-    <style>
-        /* Custom UI for Switch inside your style.css theme */
-        .switch-ui { position: relative; display: inline-block; width: 50px; height: 26px; }
-        .switch-ui input { opacity: 0; width: 0; height: 0; }
-        .slider-ui { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
-        .slider-ui:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider-ui { background-color: #1d3557; }
-        input:checked + .slider-ui:before { transform: translateX(22px); }
-    </style>
 </body>
 </html>
