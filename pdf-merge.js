@@ -1,7 +1,10 @@
+// 1. Library Initialization
 const { jsPDF } = window.jspdf;
 const { PDFDocument } = PDFLib;
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
+// 2. Elements Mapping
 const pdfInput = document.getElementById('pdfInput');
 const pdfDropZone = document.getElementById('pdfDropZone');
 const fileList = document.getElementById('fileList');
@@ -15,8 +18,9 @@ const finalPdfSize = document.getElementById('finalPdfSize');
 const previewContainer = document.getElementById('previewContainer');
 
 let selectedFiles = [];
-let mergedPdfBlobUrl = null;
+let globalMergedBlob = null; 
 
+// 3. File Handling Logic
 pdfDropZone.addEventListener('click', () => pdfInput.click());
 pdfInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
@@ -40,7 +44,8 @@ function updateUI() {
     });
     const hasFiles = selectedFiles.length > 0;
     actionButtons.style.display = hasFiles ? 'flex' : 'none';
-    document.getElementById('resizeOptionBox').style.display = hasFiles ? 'block' : 'none';
+    const resizeBox = document.getElementById('resizeOptionBox');
+    if(resizeBox) resizeBox.style.display = hasFiles ? 'block' : 'none';
 }
 
 window.moveFile = (idx, dir) => {
@@ -54,7 +59,7 @@ window.moveFile = (idx, dir) => {
 window.removeFile = (i) => { selectedFiles.splice(i, 1); updateUI(); };
 document.getElementById('resetPdfBtn').onclick = () => location.reload();
 
-// Fast Merge (Original Quality)
+// 4. Fast Merge (Original Quality)
 fastMergeBtn.addEventListener('click', async () => {
     fastMergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Merging...`;
     try {
@@ -64,21 +69,21 @@ fastMergeBtn.addEventListener('click', async () => {
             const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
             pages.forEach(p => mergedPdf.addPage(p));
         }
-        showResult(new Blob([await mergedPdf.save()], { type: 'application/pdf' }));
+        const blob = new Blob([await mergedPdf.save()], { type: 'application/pdf' });
+        showResult(blob);
     } catch(e) { alert("Error merging PDFs"); }
     fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge`;
 });
 
-// --- NEW ULTRA-PRECISION MERGE & RESIZE LOGIC ---
+// 5. Merge & Resize Logic (Precision Engine)
 mergeBtn.addEventListener('click', async () => {
     const targetKb = parseFloat(targetKbInput.value);
     if (!targetKb) return alert("Please enter Target KB");
 
-    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Target: ${targetKb}KB...`;
+    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
     mergeBtn.disabled = true;
     
     try {
-        // Step 1: Strict Dynamic DPI Scaling
         let scale = targetKb > 1500 ? 5.5 : (targetKb > 800 ? 4.0 : 2.5);
 
         const getCanvases = async (s) => {
@@ -92,8 +97,6 @@ mergeBtn.addEventListener('click', async () => {
                     const ctx = canvas.getContext('2d');
                     canvas.height = viewport.height; 
                     canvas.width = viewport.width;
-                    ctx.imageSmoothingEnabled = true;
-                    ctx.imageSmoothingQuality = 'high';
                     await page.render({canvasContext: ctx, viewport: viewport}).promise;
                     canvases.push(canvas);
                 }
@@ -102,19 +105,11 @@ mergeBtn.addEventListener('click', async () => {
         };
 
         let pagesCanvas = await getCanvases(scale);
-
-        // Step 2: Extreme Precision Binary Search (35 Iterations)
         let minQ = 0.0001, maxQ = 1.0, bestBlob = null, bestSize = 0;
 
         for (let i = 0; i < 35; i++) {
             let q = (minQ + maxQ) / 2;
-            const outPdf = new jsPDF({
-                orientation: 'p',
-                unit: 'pt',
-                format: 'a4',
-                compress: false
-            });
-
+            const outPdf = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4', compress: false });
             const pWidth = outPdf.internal.pageSize.getWidth();
             const pHeight = outPdf.internal.pageSize.getHeight();
 
@@ -136,46 +131,90 @@ mergeBtn.addEventListener('click', async () => {
             } else {
                 maxQ = q;
             }
-
-            // --- AUTO-CORRECTION IF UNDERWEIGHT ---
             if (i === 20 && bestSize < targetKb * 0.85 && scale < 8) {
                 scale += 2.0;
                 pagesCanvas = await getCanvases(scale);
-                minQ = 0.5; // High Scale par quality firse check karein
+                minQ = 0.5;
             }
-
-            // 10KB Tolerance Break
             if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 10) break;
         }
 
-        if (bestBlob) {
-            showResult(bestBlob);
-        } else {
-            alert("Could not reach target accurately. Try a higher KB.");
-        }
+        if (bestBlob) showResult(bestBlob);
+        else alert("Could not reach target accurately.");
 
-    } catch(e) { 
-        alert("Precision error during Merge-Resize."); 
-        console.error(e);
-    } finally {
+    } catch(e) { alert("Precision error."); }
+    finally {
         mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize`;
         mergeBtn.disabled = false;
     }
 });
 
-function showResult(blob) {
-    if (mergedPdfBlobUrl) URL.revokeObjectURL(mergedPdfBlobUrl);
-    mergedPdfBlobUrl = URL.createObjectURL(blob);
-    previewContainer.innerHTML = `<iframe src="${mergedPdfBlobUrl}" style="width:100%; height:400px; border-radius:12px; border:1px solid #ddd;"></iframe>`;
+// 6. Final Multi-Page Preview Engine (Fixed for Mobile)
+async function showResult(blob) {
+    globalMergedBlob = blob;
+    previewContainer.innerHTML = ''; 
+    
+    try {
+        const reader = new FileReader();
+        reader.onload = async function() {
+            const typedarray = new Uint8Array(this.result);
+            const pdf = await pdfjsLib.getDocument({data: typedarray}).promise;
+            
+            // Loop for ALL pages
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                
+                const canvas = document.createElement('canvas');
+                canvas.style.width = "100%";
+                canvas.style.borderRadius = "10px";
+                canvas.style.border = "1px solid #ddd";
+                canvas.style.marginBottom = "15px";
+                canvas.style.background = "#fff";
+                previewContainer.appendChild(canvas);
+
+                const context = canvas.getContext('2d');
+                const baseViewport = page.getViewport({scale: 1.0});
+                
+                // Calculate display scale
+                const containerWidth = previewContainer.clientWidth || 300;
+                const displayScale = (containerWidth / baseViewport.width) * 1.5;
+                const viewport = page.getViewport({scale: displayScale});
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                await page.render({canvasContext: context, viewport: viewport}).promise;
+            }
+        };
+        reader.readAsArrayBuffer(blob);
+    } catch (e) {
+        console.error("Preview failed:", e);
+        previewContainer.innerHTML = "<p>Preview error, file is ready to download.</p>";
+    }
+
     finalPdfSize.innerText = `Final Size: ${(blob.size / 1024).toFixed(2)} KB`;
     pdfResultArea.style.display = 'block';
     pdfResultArea.scrollIntoView({ behavior: 'smooth' });
 }
 
-downloadPdfBtn.onclick = () => {
+// 7. Secure Download Logic (Mobile-Proof)
+downloadPdfBtn.onclick = (e) => {
+    e.preventDefault();
+    if (!globalMergedBlob) return alert("File not ready!");
+    
     const name = document.getElementById('customFileName').value.trim() || "Merged_Document_SHC";
+    const url = window.URL.createObjectURL(globalMergedBlob);
+    
     const a = document.createElement('a');
-    a.href = mergedPdfBlobUrl;
+    a.style.display = 'none';
+    a.href = url;
     a.download = `${name}.pdf`;
+    
+    document.body.appendChild(a);
     a.click();
+    
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 2000);
 };
