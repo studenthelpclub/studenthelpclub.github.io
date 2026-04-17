@@ -8,7 +8,6 @@ const statusText = document.getElementById('statusText');
 
 let invertedBlobUrl = null;
 let currentFileName = "";
-
 // Selection Logic
 dropZone.onclick = () => pdfInput.click();
 pdfInput.onchange = (e) => handleFile(e.target.files[0]);
