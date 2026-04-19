@@ -1,7 +1,6 @@
 const { jsPDF } = window.jspdf;
 
 const imageInput = document.getElementById('imageInput');
-const dropZone = document.getElementById('dropZone');
 const imageList = document.getElementById('imageList');
 const pdfSettings = document.getElementById('pdfSettings');
 const convertBtn = document.getElementById('convertBtn');
@@ -14,68 +13,79 @@ const orientationSelect = document.getElementById('orientation');
 let selectedImages = [];
 let finalPdfBlobUrl = null;
 
-dropZone.addEventListener('click', () => imageInput.click());
-imageInput.addEventListener('change', (e) => handleFiles(e.target.files));
-
-function handleFiles(files) {
+// File change listener
+imageInput.addEventListener('change', (e) => {
+    const files = e.target.files;
+    if (files.length === 0) return;
+    
     Array.from(files).forEach(file => {
         if (!file.type.startsWith('image/')) return;
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = (event) => {
             selectedImages.push({ 
                 name: file.name, 
-                src: e.target.result,
-                type: file.type // फाइल का असली टाइप (PNG/JPG) सेव करना
+                src: event.target.result,
+                type: file.type 
             });
             updateUI();
         };
         reader.readAsDataURL(file);
     });
-}
+});
 
 function updateUI() {
-    imageList.innerHTML = selectedImages.length > 0 ? `<p style="font-weight:bold; margin-bottom:12px;">Images Added (${selectedImages.length}):</p>` : "";
+    imageList.innerHTML = selectedImages.length > 0 ? `<p style="font-weight:bold; margin-bottom:10px;">Images Added (${selectedImages.length}):</p>` : "";
+    
     selectedImages.forEach((img, i) => {
         const item = document.createElement('div');
-        item.className = "file-item";
+        item.style = "display:flex; justify-content:space-between; align-items:center; background:#fff; padding:12px; border-radius:10px; margin-bottom:10px; border:1px solid #eee;";
         item.innerHTML = `
-            <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${img.src}" style="width:45px; height:45px; border-radius:6px; object-fit:cover; border:1px solid #eee;">
-                <span style="font-size:13px; font-weight:500;">${img.name}</span>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="${img.src}" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                <span style="font-size:12px; font-weight:500;">${img.name}</span>
             </div>
-            <div>
-                <i class="fas fa-arrow-up" style="cursor:pointer; color:#198754; margin-right:15px;" onclick="moveImage(${i}, -1)"></i>
+            <div style="display:flex; gap:15px;">
+                <i class="fas fa-arrow-up" style="color:#198754; cursor:pointer;" onclick="moveImage(${i}, -1)"></i>
                 <i class="fas fa-trash-alt" style="color:#dc3545; cursor:pointer;" onclick="removeImage(${i})"></i>
             </div>`;
         imageList.appendChild(item);
     });
+    
     pdfSettings.style.display = selectedImages.length > 0 ? 'block' : 'none';
+    resultArea.style.display = 'none';
 }
 
 window.moveImage = (idx, dir) => {
     const newIdx = idx + dir;
-    if (newIdx >= 0 && newIdx < selectedFiles.length) {
+    if (newIdx >= 0 && newIdx < selectedImages.length) {
         [selectedImages[idx], selectedImages[newIdx]] = [selectedImages[newIdx], selectedImages[idx]];
         updateUI();
     }
 };
 
-window.removeImage = (i) => { selectedImages.splice(i, 1); updateUI(); };
-resetBtn.onclick = () => { selectedImages = []; updateUI(); resultArea.style.display = 'none'; };
+window.removeImage = (i) => { 
+    selectedImages.splice(i, 1); 
+    updateUI(); 
+};
 
-// --- HIGH QUALITY PDF LOGIC ---
+resetBtn.onclick = () => { 
+    selectedImages = []; 
+    imageInput.value = "";
+    updateUI(); 
+    resultArea.style.display = 'none'; 
+};
+
+// --- PDF GENERATION LOGIC ---
 convertBtn.addEventListener('click', async () => {
     if (selectedImages.length === 0) return;
     
-    convertBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Converting in High Quality...`;
+    convertBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Converting...`;
     convertBtn.disabled = true;
 
-    // यूनिट को 'pt' (points) में रखने से क्लैरिटी बढ़ती है
     const pdf = new jsPDF({
         orientation: orientationSelect.value,
         unit: 'pt',
-        format: 'a4',
-        compress: false // इंटरनल कम्प्रेसन बंद
+        format: 'a4'
     });
 
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -84,11 +94,7 @@ convertBtn.addEventListener('click', async () => {
     for (let i = 0; i < selectedImages.length; i++) {
         const img = selectedImages[i];
         if (i > 0) pdf.addPage();
-
-        // इमेज का फॉर्मेट (JPEG/PNG) पहचानना
         const format = img.type.includes('png') ? 'PNG' : 'JPEG';
-        
-        // 'FAST' के बजाय 'NONE' कम्प्रेशन और हाई रिज़ॉल्यूशन रेंडरिंग
         pdf.addImage(img.src, format, 0, 0, pdfWidth, pdfHeight, undefined, 'NONE');
     }
 
@@ -96,7 +102,17 @@ convertBtn.addEventListener('click', async () => {
     if (finalPdfBlobUrl) URL.revokeObjectURL(finalPdfBlobUrl);
     finalPdfBlobUrl = URL.createObjectURL(blob);
     
-    previewContainer.innerHTML = `<iframe src="${finalPdfBlobUrl}" style="width:100%; height:400px; border-radius:12px; border:1px solid #ddd;"></iframe>`;
+    // --- DEVICE DETECTION LOGIC ---
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        // Phone par Preview Container khali rakhein
+        previewContainer.innerHTML = "";
+    } else {
+        // PC par Iframe Preview dikhayein
+        previewContainer.innerHTML = `<iframe src="${finalPdfBlobUrl}"></iframe>`;
+    }
+
     resultArea.style.display = 'block';
     convertBtn.innerHTML = "Create PDF Now";
     convertBtn.disabled = false;
@@ -104,8 +120,11 @@ convertBtn.addEventListener('click', async () => {
 });
 
 downloadBtn.onclick = () => {
+    if (!finalPdfBlobUrl) return;
     const a = document.createElement('a');
     a.href = finalPdfBlobUrl;
-    a.download = `HighRes_Images_to_PDF_SHC.pdf`;
+    a.download = `SHC_Image_to_PDF.pdf`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
 };
