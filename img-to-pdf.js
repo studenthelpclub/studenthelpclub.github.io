@@ -10,7 +10,7 @@ const downloadBtn = document.getElementById('downloadBtn');
 const previewContainer = document.getElementById('previewContainer');
 const orientationSelect = document.getElementById('orientation');
 
-let selectedImages = [];
+let selectedImages = []; 
 let finalPdfBlobUrl = null;
 
 // File change listener
