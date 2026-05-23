@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Hand Image Cropper & Resizer - Student Help Club</title>
-    
-    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -22,138 +9,739 @@
       gtag('config', 'G-WKEZF1XEMF');
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHC Image Resizer & Cropper - Student Help Club</title>
+    
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
+    
     <style>
-        #cropperContainer {
-            max-width: 100%;
-            height: 400px;
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Layout */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #f8f9fa;
-            display: none;
+            transition: var(--transition);
         }
-        #cropperImage {
-            max-width: 100%;
-            display: block;
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
         }
-        /* Mobile Selection Fix */
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        /* Centered Titles Changes */
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Modern Upload Zone */
         .upload-label {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: 2px dashed #007bff;
+            border: 2px dashed var(--primary);
             padding: 40px 20px;
-            border-radius: 15px;
+            border-radius: 16px;
             text-align: center;
-            background: #f8fbff;
-            transition: 0.3s;
+            background: #f0fdf4;
+            transition: var(--transition);
+            margin-bottom: 20px;
         }
-        .upload-label:active { background: #eef5ff; }
+        
+        .upload-label:hover {
+            background: #e6fced;
+            border-color: var(--primary-hover);
+        }
+
         .select-btn-ui {
-            margin-top: 10px; 
-            background: #28a745; 
+            margin-top: 15px; 
+            background: var(--primary); 
             color: white; 
             padding: 12px 30px; 
-            border-radius: 8px; 
-            font-weight: bold; 
+            border-radius: 100px; 
+            font-weight: 700; 
+            font-size: 0.95rem;
             width: 80%; 
-            max-width: 300px;
-            pointer-events: none; /* Click label par transfer hoga */
+            max-width: 250px;
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
+            pointer-events: none;
+        }
+
+        /* Cropper Container Box */
+        #cropperContainer {
+            max-width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fafafa;
+            display: none;
+        }
+
+        #cropperImage {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Inputs Styling */
+        .input-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+            background-color: #fafafa;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .input-group input[type="number"]:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1);
+        }
+
+        .flex-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        /* Centered reCAPTCHA Box Container */
+        .recaptcha-wrapper {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Custom Processing Buttons */
+        .main-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .main-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        /* Upgraded Results Display */
+        .result-box {
+            display: none;
+            margin-top: 35px;
+            padding: 30px;
+            background: #f0fdf4;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 177, 79, 0.2);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        #finalPreview {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .result-main {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0056b3;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
+        }
+
+        /* Informative SEO Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+            .input-row { flex-direction: column; gap: 0; }
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-        <h1>STUDENT HELP CLUB</h1>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="image-resize.html" class="active"><i class="fas fa-expand-arrows-alt"></i> Image Resize</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h2>Free Image Cropper & Resizer</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Adjust Crop Box Freely & Target Specific File Size (KB)</p>
+    <div class="workspace-container">
         
-        <label for="imageInput" class="upload-label" id="dropZone">
-            <i class="fas fa-expand-arrows-alt" style="font-size: 50px; color: #28a745;"></i>
-            <p id="statusText" style="margin-top: 15px; font-weight: 500;">Select or Drag Image to Crop</p>
-            <input type="file" id="imageInput" accept="image/*" style="display: none;">
-            <div class="select-btn-ui">Choose Photo</div>
-        </label>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
-        <div id="settingsArea" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
-            <div id="cropperContainer">
-                <img id="cropperImage" src="">
-            </div>
-            <p style="font-size: 12px; color: #666; margin-bottom: 15px;"><i class="fas fa-info-circle"></i> Drag the corners of the box to resize. Move the box as needed.</p>
+        <div class="tool-card">
+            <h2>SHC Image Resizer & Cropper</h2>
+            <p class="subtitle">Adjust crop dimensions freely and compress images down to specific target KB parameters instantly.</p>
+            
+            <label for="imageInput" class="upload-label" id="dropZone">
+                <i class="fas fa-expand-arrows-alt" style="font-size: 44px; color: var(--primary);"></i>
+                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Image to Crop</p>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <div class="select-btn-ui">Choose Photo</div>
+            </label>
 
-            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                <div style="flex: 1; text-align: left;">
-                    <label style="font-weight: 600; font-size: 13px; display: block; margin-bottom: 5px;">Output Width (px):</label>
-                    <input type="number" id="targetWidth" placeholder="Autosize" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;">
+            <div id="settingsArea" style="display: none; margin-top: 20px;">
+                <div id="cropperContainer">
+                    <img id="cropperImage" src="">
                 </div>
-                <div style="flex: 1; text-align: left;">
-                    <label style="font-weight: 600; font-size: 13px; display: block; margin-bottom: 5px;">Output Height (px):</label>
-                    <input type="number" id="targetHeight" placeholder="Autosize" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box;">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;"><i class="fas fa-info-circle"></i> Drag the corners of the box to resize. Move the box as needed.</p>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="targetWidth">Output Width (px)</label>
+                        <input type="number" id="targetWidth" placeholder="Autosize">
+                    </div>
+                    <div class="input-group">
+                        <label for="targetHeight">Output Height (px)</label>
+                        <input type="number" id="targetHeight" placeholder="Autosize">
+                    </div>
                 </div>
+
+                <div class="input-group">
+                    <div class="flex-group">
+                        <label for="targetKb" style="margin-bottom: 0;">Target Size (Max KB):</label>
+                        <input type="number" id="targetKb" value="50" style="width: 100px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: #007bff; background: #fff;">
+                    </div>
+                </div>
+
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
+                <button id="resizeBtn" class="main-btn">Crop, Resize & Save</button>
             </div>
 
-            <div class="input-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <label style="font-weight: 600;">Target Size (Max KB):</label>
-                <input type="number" id="targetKb" value="50" style="width: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; text-align: center; font-weight: bold; color: #007bff;">
+            <div id="resultArea" class="result-box">
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Successfully Processed!</h3>
+                <img id="finalPreview" src="" alt="Optimized Result Preview">
+                <div id="finalImageSize" class="result-main"></div>
+                <button id="downloadBtn" class="download-btn">Download Final Image</button>
             </div>
-
-            <button id="resizeBtn" class="main-btn" style="background: #28a745; width: 100%; padding: 15px; border: none; border-radius: 10px; color: white; font-weight: bold; font-size: 16px;">Crop, Resize & Save</button>
         </div>
 
-        <div style="margin: 20px 0; text-align: center;">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-3110600191216941"
-                 data-ad-slot="YOUR_AD_SLOT_HERE"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <div id="resultArea" style="display: none; margin-top: 30px; text-align: center;">
-            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
-            <h3 style="color: #28a745;"><i class="fas fa-check-circle"></i> Successfully Processed!</h3>
-            <img id="finalPreview" src="" style="max-width: 100%; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px;">
-            <p id="finalImageSize" style="font-weight: bold; color: #0056b3; font-size: 20px; margin: 15px 0;"></p>
-            <button id="downloadBtn" class="download-btn" style="background: #007bff; width: 100%; padding: 15px; border: none; border-radius: 10px; color: white; font-weight: bold;">Download Final Image</button>
-        </div>
-
-        <div class="how-to-use">
-            <h3 style="color: #333; border-bottom: 2px solid #28a745; display: inline-block; padding-bottom: 5px;">How to Crop?</h3>
-            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
-                <li>Upload the photo (Supports JPG, PNG, HEIC).</li>
-                <li>Drag corners of the box to select part you need.</li>
-                <li>Set Target KB and click Save.</li>
+        <article class="seo-content">
+            <h3>How the Smart Client-Side Image Compression Works</h3>
+            <p>Our online document optimization utility runs entirely inside your client-side browser interface, keeping your files completely private. When you upload an image milestone or passport photograph, the calculation structure interprets raw visual frameworks instantly. Through an integrated optimized dual-engine process, the script alters target dimensional width rules and responsive metrics, scaling properties continuously down to your exact requested file sizes seamlessly without passing any data to external hosting spaces.</p>
+            
+            <h3>Essential Optimization Tool for State and Government Examinations</h3>
+            <p>Prominent recruitment frameworks across India—such as the Staff Selection Commission (SSC), Union Public Service Commission (UPSC), State Public Service Commissions, banking portals, and academic entrance tests—require extremely specific file limitations. Usually, digital student profiles demand candidate photographs and identity documents restricted strictly below 20 KB or 50 KB limits. Standard adjustments often deform original element dimensions. This intelligent responsive cropper eliminates technical errors, ensuring pixel guidelines and structural thresholds remain intact for structural form approvals.</p>
+            
+            <h3>Step-by-Step Document Modification Guide</h3>
+            <ul>
+                <li><strong>Upload Source Material:</strong> Drop your structural files or select standard photo dimensions using our flexible browser interface tracker. (Supports JPEG, PNG, and mobile HEIC frameworks).</li>
+                <li><strong>Establish Visual Boundaries:</strong> Drag the adjustable canvas corners freely to isolate your essential physical facial bounds or signature spaces effortlessly.</li>
+                <li><strong>Specify Metric Boundaries:</strong> Insert custom target resolution width values or directly input the absolute maximum targeted file weight limit into the dedicated KB numeric wrapper field.</li>
+                <li><strong>Isolate and Download:</strong> Trigger the responsive engine to process relative canvas elements instantly. View the updated size calculation variables and acquire your download framework right away.</li>
             </ul>
-        </div>
+        </article>
     </div>
 
     <footer class="footer">
-        <p>Follow Us For Updates:</p>
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <script src="image-resizer-logic.js"></script>
+    <script>
+    (function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const imageInput = document.getElementById('imageInput');
+            const settingsArea = document.getElementById('settingsArea');
+            const resizeBtn = document.getElementById('resizeBtn');
+            const resultArea = document.getElementById('resultArea');
+            const finalImageSize = document.getElementById('finalImageSize');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const targetKbInput = document.getElementById('targetKb');
+            const targetWidthInput = document.getElementById('targetWidth');
+            const targetHeightInput = document.getElementById('targetHeight');
+            const cropperContainer = document.getElementById('cropperContainer');
+            const cropperImage = document.getElementById('cropperImage');
+            const finalPreview = document.getElementById('finalPreview');
+            const statusText = document.getElementById('statusText');
+
+            let globalResizedBlob = null;
+            let cropperInstance = null;
+
+            // --- 1. SELECTION & HEIC STATUS MESSAGE ---
+            if(imageInput) {
+                imageInput.addEventListener('change', async function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        let file = e.target.files[0];
+                        const fileName = file.name.toLowerCase();
+                        
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading: ${file.name}`;
+
+                        // HEIC Conversion Status
+                        if (fileName.endsWith(".heic") || file.type === "image/heic" || file.type === "") {
+                            if (statusText) {
+                                statusText.innerHTML = `<b style="color: #0d6efd;"><i class="fas fa-magic fa-spin"></i> HEIC to JPG Converting... Please wait</b>`;
+                            }
+                            
+                            try {
+                                if (typeof heic2any !== 'undefined') {
+                                    const convertedResult = await heic2any({ 
+                                        blob: file, 
+                                        toType: "image/jpeg",
+                                        quality: 0.7 
+                                    });
+                                    const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
+                                    file = new File([blob], file.name.split('.')[0] + ".jpg", { type: "image/jpeg" });
+                                    if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> HEIC Ready: ${file.name}`;
+                                } else {
+                                    if (statusText) statusText.innerHTML = `<b style="color:orange;">HEIC library loading, try again...</b>`;
+                                    return;
+                                }
+                            } catch (err) {
+                                if (statusText) statusText.innerHTML = `<b style="color:red;">HEIC Conversion Failed!</b>`;
+                                return;
+                            }
+                        } else {
+                            if (statusText) statusText.innerHTML = `<i class="fas fa-image"></i> Selected: ${file.name}`;
+                        }
+
+                        handleFile(file);
+                    }
+                });
+            }
+
+            function handleFile(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (cropperInstance) { cropperInstance.destroy(); }
+                    
+                    cropperImage.src = e.target.result;
+                    settingsArea.style.display = 'block';
+                    cropperContainer.style.display = 'block';
+                    resultArea.style.display = 'none';
+
+                    if(typeof Cropper !== 'undefined') {
+                        cropperInstance = new Cropper(cropperImage, {
+                            aspectRatio: NaN,
+                            viewMode: 1,
+                            autoCropArea: 0.9,
+                            responsive: true,
+                            checkOrientation: true
+                        });
+                    }
+                    
+                    setTimeout(() => {
+                        settingsArea.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // --- 2. RESIZE PROCESSING MESSAGE WITH RECAPTCHA GUARD ---
+            if(resizeBtn) {
+                resizeBtn.addEventListener('click', function() {
+                    if (!cropperInstance) return;
+
+                    // Google reCAPTCHA Validation Guard with safety string check
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        const recaptchaResponse = grecaptcha.getResponse();
+                        if (recaptchaResponse.length === 0) {
+                            alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                            return;
+                        }
+                    } else {
+                        alert("Security check is still initializing, please wait 2 seconds.");
+                        return;
+                    }
+
+                    const targetKb = parseFloat(targetKbInput.value);
+                    if (!targetKb) return alert("Please enter Target KB!");
+
+                    resizeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing... Please wait`;
+                    resizeBtn.disabled = true;
+
+                    setTimeout(async () => {
+                        try {
+                            let sourceCanvas = cropperInstance.getCroppedCanvas();
+                            let w = parseInt(targetWidthInput.value) || sourceCanvas.width;
+                            let h = parseInt(targetHeightInput.value) || sourceCanvas.height;
+
+                            let scale = 1.0;
+                            let bestBlob = null;
+
+                            for (let attempt = 0; attempt < 5; attempt++) {
+                                let tempW = Math.floor(w * scale);
+                                let tempH = Math.floor(h * scale);
+
+                                const canvas = document.createElement('canvas');
+                                canvas.width = tempW;
+                                canvas.height = tempH;
+                                const ctx = canvas.getContext('2d');
+                                ctx.fillStyle = "#FFFFFF";
+                                ctx.fillRect(0, 0, tempW, tempH);
+                                ctx.drawImage(sourceCanvas, 0, 0, tempW, tempH);
+
+                                let low = 0.01, high = 1.0;
+                                for (let j = 0; j < 25; j++) {
+                                    let q = (low + high) / 2;
+                                    const b = await new Promise(r => canvas.toBlob(r, 'image/jpeg', q));
+                                    if (b.size / 1024 <= targetKb) {
+                                        bestBlob = b;
+                                        low = q;
+                                    } else {
+                                        high = q;
+                                    }
+                                }
+
+                                if (low > 0.15 || scale < 0.5) break;
+                                scale -= 0.15;
+                            }
+
+                            globalResizedBlob = bestBlob || await new Promise(r => sourceCanvas.toBlob(r, 'image/jpeg', 0.1));
+
+                            finalPreview.src = URL.createObjectURL(globalResizedBlob);
+                            finalImageSize.innerHTML = `Final Size: <b>${(globalResizedBlob.size / 1024).toFixed(2)} KB</b> <br> <small>Optimized for Mobile</small>`;
+                            
+                            resultArea.style.display = 'block';
+                            resultArea.scrollIntoView({ behavior: 'smooth' });
+
+                        } catch (e) {
+                            alert("Processing Error!");
+                        } finally {
+                            resizeBtn.innerHTML = `Crop, Resize & Save`;
+                            resizeBtn.disabled = false;
+                            
+                            // Resets reCAPTCHA box safely after output is rendered successfully
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                                grecaptcha.reset();
+                            }
+                        }
+                    }, 100);
+                });
+            }
+
+            if(downloadBtn) {
+                downloadBtn.onclick = () => {
+                    if (!globalResizedBlob) return;
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(globalResizedBlob);
+                    a.download = `SHC_${targetKbInput.value}KB.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
