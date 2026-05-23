@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image to PDF - Student Help Club</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -15,48 +8,212 @@
       gtag('js', new Date());
       gtag('config', 'G-WKEZF1XEMF');
     </script>
+
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHC Image to PDF Converter - Student Help Club</title>
+    
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
 
     <style>
-        /* DESIGN RESET AS PER YOUR IMAGE_1 */
-        .upload-container {
-            border: 2px dashed #198754;
-            background: #fff;
-            padding: 40px 20px;
-            border-radius: 15px;
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Layout */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
             text-align: center;
-            cursor: pointer;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Modern Dash Drop Zone */
+        .upload-container {
+            border: 2px dashed var(--primary);
+            background: #f0fdf4;
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
+            margin-bottom: 25px;
+            transition: var(--transition);
         }
 
-        /* Image_1 wala Icon Style */
+        .upload-container:hover {
+            background: #e6fced;
+        }
+
         .upload-container i {
-            font-size: 50px;
-            color: #198754;
-            margin-bottom: 10px;
+            font-size: 44px;
+            color: var(--primary);
+            margin-bottom: 12px;
         }
 
-        /* Image_1 wala "Add Images" Green Button */
         .select-btn-ui {
-            background: #198754;
+            background: var(--primary);
             color: white;
-            padding: 15px 30px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            width: 100%;
-            max-width: 500px;
+            border-radius: 100px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            width: 80%;
+            max-width: 250px;
             margin-top: 15px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
+            pointer-events: none;
         }
 
-        /* Hidden Input but full cover for easy selection */
         #imageInput {
             position: absolute;
             top: 0;
@@ -68,16 +225,216 @@
             z-index: 10;
         }
 
+        /* Settings and Layout Inputs */
+        .flex-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 12px;
+            background: #fafafa;
+            margin-bottom: 20px;
+        }
+
+        .flex-group label {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.92rem;
+        }
+
+        .flex-group select {
+            padding: 10px; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-color);
+            outline: none;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .recaptcha-wrapper {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .main-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        .clear-btn {
+            width: 100%; 
+            background: none; 
+            border: none; 
+            color: var(--text-muted); 
+            margin-top: 12px; 
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .clear-btn:hover {
+            color: red;
+        }
+
+        /* Results & Display Frame */
+        .result-box {
+            display: none;
+            margin-top: 35px;
+            padding: 30px;
+            background: #f0fdf4;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 177, 79, 0.2);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
         #previewContainer iframe {
             width: 100%;
             height: 500px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             margin-top: 15px;
-            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: white;
         }
 
-        @media (max-width: 600px) {
+        .download-btn {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
+        }
+
+        /* Informative SEO Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
             #previewContainer iframe { height: 380px; }
         }
     </style>
@@ -85,50 +442,248 @@
 <body>
 
     <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo">
-        <h1>STUDENT HELP CLUB</h1>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="img-to-pdf.html" class="active"><i class="fas fa-file-pdf"></i> Image to PDF</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h2 style="text-align:center;">Image to PDF Converter</h2>
-        <p style="text-align:center; color: #666; font-size: 14px;">Convert JPG, PNG, WEBP images into a single high-quality PDF</p>
+    <div class="workspace-container">
         
-        <div class="upload-container">
-            <input type="file" id="imageInput" accept="image/*" multiple>
-            <i class="fas fa-images"></i>
-            <p id="statusText" style="margin-top: 5px; font-weight: 500;">Select or Drag Images here</p>
-            <div class="select-btn-ui">Add Images</div>
-        </div>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
-        <div id="imageList" style="margin-top: 20px;"></div>
-
-        <div id="pdfSettings" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <label style="font-weight: 600;">Orientation:</label>
-                <select id="orientation" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
-                    <option value="p">Portrait</option>
-                    <option value="l">Landscape</option>
-                </select>
+        <div class="tool-card">
+            <h2>SHC Image to PDF Converter</h2>
+            <p class="subtitle">Convert multiple JPG, PNG, or WEBP images into a single, structured high-quality PDF document instantly.</p>
+            
+            <div class="upload-container">
+                <input type="file" id="imageInput" accept="image/*" multiple>
+                <i class="fas fa-images"></i>
+                <p id="statusText" style="margin-top: 5px; font-weight: 600; font-size: 0.95rem;">Select or Drag Images here</p>
+                <div class="select-btn-ui">Add Images</div>
             </div>
-            <button id="convertBtn" class="main-btn" style="background: #198754; width:100%; color:white; border:none; padding:16px; border-radius:10px; font-weight:bold; font-size:16px;">Create PDF Now</button>
-            <button id="resetBtn" style="width:100%; background:none; border:none; color:#888; margin-top:10px; cursor:pointer;">Clear All</button>
+
+            <div id="imageList" style="margin-top: 20px;"></div>
+
+            <div id="pdfSettings" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <div class="flex-group">
+                    <label for="orientation">Orientation Framework:</label>
+                    <select id="orientation">
+                        <option value="p">Portrait (Vertical)</option>
+                        <option value="l">Landscape (Horizontal)</option>
+                    </select>
+                </div>
+
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
+                <button id="convertBtn" class="main-btn">Create PDF Now</button>
+                <button id="resetBtn" class="clear-btn">Clear All Files</button>
+            </div>
+
+            <div id="resultArea" class="result-box">
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Generated PDF Ready!</h3>
+                <div id="previewContainer"></div>
+                <button id="downloadBtn" class="download-btn">Download My PDF</button>
+            </div>
         </div>
 
-        <div id="resultArea" style="display: none; margin-top: 30px;">
-            <h3 style="color: #198754; text-align: center;"><i class="fas fa-check-circle"></i> PDF Ready!</h3>
-            <div id="previewContainer"></div>
-            <button id="downloadBtn" class="download-btn" style="background: #0d6efd; width:100%; color:white; border:none; padding:16px; border-radius:10px; font-weight:bold; margin-top:20px;">Download My PDF</button>
-        </div>
+        <article class="seo-content">
+            <h3>How the Local Image-to-PDF Compiling System Operates</h3>
+            <p>Our online structural asset compiler executes programmatic rules entirely within your personal client-side web browser instance, securing total credential privacy. When you drag standard image formats or snapshot files into the execution wrapper, the underlying client script processes relative scaling rules instantly. By reading original bitmap channels, the platform packs images chronologically onto dynamic virtual vector sheets without transferring sensitive data to outside processing clouds.</p>
+            
+            <h3>High Importance Utility for Academic Assignments and Portals</h3>
+            <p>A vast number of distance education models, national boards, and prominent universities—such as IGNOU, state open universities, and central administrative structures—mandate digital deployment of handmade assignment copies. Students often face structural errors when submitting individual physical sheets because portals strict limits only accept one combined single file upload. This tool streamlines your study requirements, enabling you to compile handwritten assignment sheets, receipts, and credential papers into clean structured PDFs rapidly.</p>
+            
+            <h3>Step-by-Step Compilation Protocol</h3>
+            <ul>
+                <li><strong>Acquire Target Files:</strong> Use the dedicated graphical upload interface box to capture single or multiple captured images (Supports JPG, PNG, and responsive WebP systems).</li>
+                <li><strong>Establish Target Orientation:</strong> Fine-tune page layout boundaries using the orientation drop wrapper selection, picking either portrait frameworks or landscape boundaries according to your documents.</li>
+                <li><strong>Pass Verification Guard:</strong> Solve the responsive security check verification badge widget to establish normal server data operations cleanly.</li>
+                <li><strong>Render and Archive:</strong> Click the build trigger to initialize compilation. Review the final document preview window directly inside the framework grid and secure your local download file asset instantly.</li>
+            </ul>
+        </article>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="img-to-pdf.js"></script>
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+    <script>
+    (function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            const imageInput = document.getElementById('imageInput');
+            const statusText = document.getElementById('statusText');
+            const imageList = document.getElementById('imageList');
+            const pdfSettings = document.getElementById('pdfSettings');
+            const convertBtn = document.getElementById('convertBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const resultArea = document.getElementById('resultArea');
+            const previewContainer = document.getElementById('previewContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const orientationSelect = document.getElementById('orientation');
+
+            let selectedImages = [];
+            let finalPdfBlobUrl = null;
+            let finalPdfBlob = null;
+
+            if (imageInput) {
+                imageInput.addEventListener('change', function(e) {
+                    if (e.target.files && e.target.files.length > 0) {
+                        for (let i = 0; i < e.target.files.length; i++) {
+                            selectedImages.push(e.target.files[i]);
+                        }
+                        renderImagePreviews();
+                    }
+                });
+            }
+
+            function renderImagePreviews() {
+                if (selectedImages.length === 0) {
+                    if (statusText) statusText.innerText = "Select or Drag Images here";
+                    if (pdfSettings) pdfSettings.style.display = "none";
+                    if (imageList) imageList.innerHTML = "";
+                    return;
+                }
+
+                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:var(--primary)"></i> Loaded ${selectedImages.length} Image(s)`;
+                if (pdfSettings) pdfSettings.style.display = "block";
+                if (resultArea) resultArea.style.display = "none";
+
+                if (imageList) {
+                    imageList.innerHTML = `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap:10px; padding:15px; background:#fafafa; border:1px solid var(--border-color); border-radius:12px;"></div>`;
+                    const grid = imageList.firstChild;
+
+                    selectedImages.forEach((file, index) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const imgWrapper = document.createElement('div');
+                            imgWrapper.style.position = "relative";
+                            imgWrapper.style.aspectRatio = "1";
+                            imgWrapper.innerHTML = `
+                                <img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border-color);">
+                                <span data-index="${index}" style="position:absolute; top:-5px; right:-5px; background:red; color:white; border-radius:50%; width:20px; height:20px; font-size:11px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:bold;">&times;</span>
+                            `;
+                            grid.appendChild(imgWrapper);
+
+                            imgWrapper.querySelector('span').addEventListener('click', function() {
+                                const idx = parseInt(this.getAttribute('data-index'));
+                                selectedImages.splice(idx, 1);
+                                renderImagePreviews();
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            }
+
+            if (convertBtn) {
+                convertBtn.addEventListener('click', function() {
+                    if (selectedImages.length === 0) return;
+
+                    // Safety Verification reCAPTCHA Guard
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        const captchaRes = grecaptcha.getResponse();
+                        if (captchaRes.length === 0) {
+                            alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                            return;
+                        }
+                    } else {
+                        alert("Security check is still loading, please wait 2 seconds.");
+                        return;
+                    }
+
+                    convertBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Generating PDF... Please wait`;
+                    convertBtn.disabled = true;
+
+                    setTimeout(async () => {
+                        try {
+                            const { jsPDF } = window.jspdf;
+                            const orient = orientationSelect.value;
+                            const pdf = new jsPDF(orient, 'px', 'a4');
+                            
+                            const pageWidth = pdf.internal.pageSize.getWidth();
+                            const pageHeight = pdf.internal.pageSize.getHeight();
+
+                            for (let i = 0; i < selectedImages.length; i++) {
+                                if (i > 0) pdf.addPage(orient, 'px', 'a4');
+                                
+                                const fileData = await new Promise((resolve) => {
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => resolve(e.target.result);
+                                    reader.readAsDataURL(selectedImages[i]);
+                                });
+
+                                pdf.addImage(fileData, 'JPEG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+                            }
+
+                            finalPdfBlob = pdf.output('blob');
+                            if (finalPdfBlobUrl) URL.revokeObjectURL(finalPdfBlobUrl);
+                            finalPdfBlobUrl = URL.createObjectURL(finalPdfBlob);
+
+                            if (previewContainer) {
+                                previewContainer.innerHTML = `<iframe src="${finalPdfBlobUrl}#toolbar=0"></iframe>`;
+                            }
+                            if (resultArea) {
+                                resultArea.style.display = "block";
+                                resultArea.scrollIntoView({ behavior: 'smooth' });
+                            }
+
+                        } catch (err) {
+                            alert("PDF Creation Error!");
+                        } finally {
+                            convertBtn.innerHTML = `Create PDF Now`;
+                            convertBtn.disabled = false;
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                                grecaptcha.reset();
+                            }
+                        }
+                    }, 100);
+                });
+            }
+
+            if (downloadBtn) {
+                downloadBtn.onclick = () => {
+                    if (!finalPdfBlob) return;
+                    const a = document.createElement('a');
+                    a.href = finalPdfBlobUrl;
+                    a.download = `SHC_Document_${Date.now()}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+            }
+
+            if (resetBtn) {
+                resetBtn.onclick = () => {
+                    selectedImages = [];
+                    if (imageInput) imageInput.value = "";
+                    if (finalPdfBlobUrl) URL.revokeObjectURL(finalPdfBlobUrl);
+                    finalPdfBlob = null;
+                    finalPdfBlobUrl = null;
+                    renderImagePreviews();
+                };
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
