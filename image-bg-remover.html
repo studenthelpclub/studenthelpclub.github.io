@@ -11,7 +11,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC Free Image Background Remover - Student Help Club</title>
+    <title>Free Image Background Remover - Student Help Club</title>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -49,7 +49,7 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Unified Premium Header */
+        /* Unified Premium Header Layout */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -67,21 +67,20 @@
         .brand { 
             display: flex; 
             align-items: center; 
-            gap: 14px; 
+            gap: 12px; 
             text-decoration: none; 
         }
         
         .logo { 
-            width: 44px; 
-            height: 44px; 
+            width: 38px; 
+            height: 38px; 
             border-radius: 50%; 
             object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             border: 1px solid var(--border-color);
         }
         
         .brand h1 { 
-            font-size: 1.35rem; 
+            font-size: 1.25rem; 
             color: var(--dark); 
             font-weight: 800;
             letter-spacing: -0.5px; 
@@ -89,14 +88,14 @@
 
         .nav-menu {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             align-items: center;
         }
 
         .nav-link {
             text-decoration: none;
             color: var(--text-main);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
             transition: var(--transition);
         }
@@ -108,22 +107,20 @@
         .btn-join {
             background: var(--primary);
             color: white;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 100px;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
             transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
         }
 
         .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
             background: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
-        /* Workspace Layout */
+        /* Workspace Framework Content */
         .workspace-container {
             max-width: 800px;
             margin: 30px auto 60px;
@@ -172,7 +169,7 @@
             text-align: center;
         }
 
-        /* Modern Safe Click Container Grid */
+        /* Upload Container Framework Click Handler Fix */
         .upload-container-box {
             border: 2px dashed var(--primary);
             padding: 40px 20px;
@@ -206,7 +203,7 @@
             box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
         }
 
-        /* Preview Windows Map Layout */
+        /* Preview Map Boxes */
         .preview-box {
             max-width: 100%;
             border: 1px solid var(--border-color);
@@ -227,7 +224,7 @@
             display: block;
         }
 
-        /* Controls Grid Options */
+        /* Controls Parameters Box */
         .flex-group {
             display: flex;
             justify-content: space-between;
@@ -261,7 +258,7 @@
             justify-content: center;
         }
 
-        /* Custom Buttons Design */
+        /* Call To Action Controls Buttons */
         .main-btn {
             width: 100%;
             background: var(--primary);
@@ -281,7 +278,7 @@
             transform: translateY(-1px);
         }
 
-        /* Upgraded Results Display with Chessboard Grid BG for Transparencies */
+        /* Output Canvas Box Frame Checkerboard Background */
         .result-box {
             display: none;
             margin-top: 35px;
@@ -348,7 +345,7 @@
             transform: translateY(-1px);
         }
 
-        /* Informative SEO Section */
+        /* SEO Informative Core Parameters Sections */
         .seo-content {
             background: #ffffff;
             padding: 45px;
@@ -387,39 +384,38 @@
             font-weight: 500;
         }
 
-        /* Clean Footer */
+        /* Unified Premium Footer Layout */
         .footer { 
             background: #ffffff; 
-            padding: 60px 20px 40px; 
+            padding: 50px 20px 40px; 
             text-align: center; 
             border-top: 1px solid var(--border-color); 
-            margin-top: 80px; 
+            margin-top: 80px;
         }
         
         .social-links { 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
         }
         
         .social-links a { 
-            font-size: 24px; 
-            margin: 0 16px; 
+            font-size: 22px; 
+            margin: 0 14px; 
             transition: var(--transition); 
             display: inline-block; 
             color: var(--text-muted);
         }
         
-        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
-        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
-        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .social-links a.yt:hover { color: #ff0000; }
+        .social-links a.tg:hover { color: #0088cc; }
+        .social-links a.wa:hover { color: #25d366; }
         
         .policy-links { 
-            margin-top: 25px; 
-            font-size: 0.92rem; 
+            font-size: 0.88rem; 
         }
         
         .policy-links a { 
             color: var(--text-muted); 
-            margin: 0 14px; 
+            margin: 0 12px; 
             text-decoration: none; 
             font-weight: 600; 
             transition: var(--transition);
@@ -507,7 +503,7 @@
             <ul>
                 <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
                 <li><strong>Isolate Erasing Parameters:</strong> Choose the target backdrop category framework via the dynamic selector element, picking either absolute white thresholds or off-white adaptive bands.</li>
-                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget widget to activate script operations safely without interface lock constraints.</li>
+                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
                 <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
             </ul>
         </article>
@@ -527,7 +523,7 @@
             <a href="legal.html#terms">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Secure browser processing.</p>
     </footer>
 
     <script>
@@ -543,4 +539,12 @@
             const sourceImagePreview = document.getElementById('sourceImagePreview');
             const finalPreview = document.getElementById('finalPreview');
             const statusText = document.getElementById('statusText');
-            const bgColorSelector = document.getElementById('bgColorSelecto
+            const bgColorSelector = document.getElementById('bgColorSelector');
+
+            let sourceImageObject = new Image();
+            let processedBlobUrl = null;
+
+            // Direct Programmatic Event Dispatch Path Fix
+            if (dropZone && imageInput) {
+                dropZone.onclick = function() {
+      
