@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
-    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -13,110 +11,350 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Help Club - Best Image Resizer & PDF Tools</title>
+    <title>Student Help Club - Free Image Resizer, PDF Tools & Calculators</title>
 
     <link rel="canonical" href="https://studenthelpclub.github.io/" />
-    <meta name="description" content="Free online tools for students. Resize images to 20kb, 50kb, split/merge PDF, Word Counter, Age Calculator and PDF Night Mode for exam forms.">
-    <meta name="keywords" content="image resizer, pdf split, student help club, age calculator, word counter, pdf dark mode, convert image to pdf">
+    <meta name="description" content="Free online utility tools for students. Easily resize images to 20kb or 50kb, split or merge PDFs, convert images, use word counter, age calculator, and PDF night mode for exam forms.">
+    <meta name="keywords" content="image resizer, student help club, pdf compress, age calculator, word counter, pdf dark mode, convert image to pdf, percentage calculator, pdf split, pdf merge">
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico">
 
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #28a745;
-            --dark: #1d3557;
-            --light: #f8f9fa;
-            --accent: #0d6efd;
+            --primary: #00b14f; 
+            --primary-light: #e6f7ee;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--light); color: #333; line-height: 1.6; }
         
-        /* Premium Header */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Upgraded Corporate Navigation with Menu Links */
         .header {
-            background: #fff;
-            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
         }
-        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); }
-        .brand h1 { font-size: 1.2rem; color: var(--dark); text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, #457b9d 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
         }
-        .hero h2 { font-size: 2.2rem; margin: 0; font-weight: 700; }
-        .hero p { opacity: 0.9; font-size: 1.1rem; margin-top: 10px; }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
 
-        /* Tools Grid */
-        .main-container { max-width: 1200px; margin: -40px auto 40px; padding: 0 15px; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: #fff;
-            padding: 35px 20px;
-            border-radius: 15px;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
+        .nav-menu {
             display: flex;
-            flex-direction: column;
+            gap: 20px;
             align-items: center;
         }
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .card i { font-size: 45px; color: var(--primary); margin-bottom: 15px; }
-        .card h3 { margin: 10px 0; font-size: 1.3rem; color: var(--dark); }
-        .card p { font-size: 0.9rem; color: #666; }
 
-        /* SEO Content Area */
-        .seo-content {
-            background: #fff;
-            padding: 40px;
-            margin-top: 50px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
         }
-        .seo-content h2 { color: var(--dark); margin-bottom: 15px; }
-        .seo-content p { margin-bottom: 15px; color: #444; }
 
-        /* Footer */
-        .footer { background: #fff; padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 50px; }
-        .social-links { margin-bottom: 20px; }
-        .social-links a { font-size: 32px; margin: 0 15px; transition: 0.3s; display: inline-block; }
-        .social-links a.yt { color: #ff0000; }
-        .social-links a.tg { color: #0088cc; }
-        .social-links a.wa { color: #25d366; }
-        .social-links a:hover { transform: scale(1.2); }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: #009642;
+        }
         
-        .policy-links { margin-top: 20px; font-size: 14px; }
-        .policy-links a { color: #666; margin: 0 10px; text-decoration: none; font-weight: 500; }
-        .policy-links a:hover { color: var(--accent); }
+        /* Modern Minimalist Hero */
+        .hero {
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--dark);
+            padding: 90px 20px 110px;
+            text-align: center;
+        }
+        
+        .hero h2 { 
+            font-size: 3rem; 
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            line-height: 1.25;
+            color: var(--dark);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h2 span {
+            background: linear-gradient(135deg, #00b14f 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            background-clip: text; /* Compatibility property added to clear VS Code Warning */
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p { 
+            color: var(--text-muted);
+            font-size: 1.25rem; 
+            margin-top: 18px; 
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        /* Container Area to Prevent Shrinking */
+        .main-container { 
+            max-width: 1400px; 
+            margin: -50px auto 60px; 
+            padding: 0 30px; 
+        }
+        
+        /* 4 Column Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        /* Premium Soft-SaaS Cards */
+        .card {
+            background: #ffffff;
+            padding: 32px 26px;
+            border-radius: 20px;
+            text-align: left; 
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02), 0 2px 4px -1px rgba(15, 23, 42, 0.01);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 177, 79, 0.08), 0 10px 10px -5px rgba(0, 177, 79, 0.04);
+        }
+        
+        /* Tool Type Badge */
+        .badge {
+            align-self: flex-start;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.6px;
+            margin-bottom: 18px;
+        }
+        .badge.b-img { background: #eff6ff; color: #1d4ed8; }
+        .badge.b-pdf { background: #fef2f2; color: #dc2626; }
+        .badge.b-util { background: #fdf2f8; color: #db2777; }
+        
+        .card .icon-wrapper {
+            width: 52px;
+            height: 52px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        
+        .card:hover .icon-wrapper {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .card i { 
+            font-size: 20px; 
+            color: var(--dark); 
+            transition: var(--transition);
+        }
+        
+        .card:hover i {
+            color: #ffffff;
+        }
+        
+        .card h3 { 
+            margin-bottom: 8px; 
+            font-size: 1.25rem; 
+            color: var(--dark); 
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        
+        .card p { 
+            font-size: 0.94rem; 
+            color: var(--text-muted); 
+            line-height: 1.55;
+            font-weight: 500;
+        }
+
+        /* Rich Content Section for SEO & AdSense */
+        .seo-content {
+            background: #ffffff;
+            padding: 55px;
+            margin-top: 60px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+        
+        .seo-content h2 { 
+            color: var(--dark); 
+            margin-bottom: 22px; 
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .seo-content h3 {
+            color: var(--dark);
+            margin: 32px 0 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .seo-content p { 
+            margin-bottom: 18px; 
+            color: var(--text-main); 
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: justify;
+        }
+        
+        .seo-content ul {
+            margin-left: 22px;
+            margin-bottom: 26px;
+            color: var(--text-main);
+        }
+        
+        .seo-content ul li {
+            margin-bottom: 12px;
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
+
+        /* Clean Balanced Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        /* Responsive Settings */
+        @media (max-width: 1024px) {
+            .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .main-container { padding: 0 20px; }
+        }
 
         @media (max-width: 768px) {
-            .hero h2 { font-size: 1.7rem; }
-            .grid { grid-template-columns: 1fr; }
-            .main-container { margin-top: -20px; }
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; } 
+            .hero h2 { font-size: 2.1rem; }
+            .hero p { font-size: 1.1rem; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            .main-container { margin-top: -30px; }
+            .seo-content { padding: 35px 25px; }
         }
     </style>
 </head>
@@ -124,90 +362,117 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="SHC Logo" class="logo">
-            <h1>STUDENT HELP CLUB</h1>
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <h1>Student Help Club</h1>
         </a>
+        <nav class="nav-menu">
+            <a href="#tools-section" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
     <section class="hero">
-        <h2>Free Educational PDF & Image Tools</h2>
-        <p>Fast, Secure, and 100% Free Toolkit for Students</p>
+        <h2>Web Utility Tools <span>Designed for Students</span></h2>
+        <p>A safe, rapid, and premium open workspace to optimize your files, manage calculations, and process exam documentation effortlessly.</p>
     </section>
 
-    <div class="main-container">
+    <div class="main-container" id="tools-section">
         <div class="grid">
+            
             <a href="image-resize.html" class="card">
-                <i class="fas fa-file-image"></i>
+                <span class="badge b-img">Image</span>
+                <div class="icon-wrapper"><i class="fas fa-file-image"></i></div>
                 <h3>Image Resizer</h3>
-                <p>Resize and crop images to exact KB for online exam forms.</p>
+                <p>Compress and crop image formats to target KB specifications for academic registrations.</p>
             </a>
             
             <a href="pdf-resize.html" class="card">
-                <i class="fas fa-compress-arrows-alt"></i>
+                <span class="badge b-pdf">PDF</span>
+                <div class="icon-wrapper"><i class="fas fa-compress-arrows-alt"></i></div>
                 <h3>PDF Resizer</h3>
-                <p>Compress PDF files to target size without losing text quality.</p>
+                <p>Reduce PDF file weights cleanly while securing proper content clarity standards.</p>
             </a>
 
             <a href="pdf-invert.html" class="card">
-                <i class="fas fa-circle-half-stroke"></i>
+                <span class="badge b-pdf">PDF</span>
+                <div class="icon-wrapper"><i class="fas fa-circle-half-stroke"></i></div>
                 <h3>PDF Color Inverter</h3>
-                <p>Convert PDF to Night Mode for comfortable long-time reading.</p>
+                <p>Invert document contrast layouts into high-grade night mode templates for study comfort.</p>
             </a>
 
             <a href="word-counter.html" class="card">
-                <i class="fas fa-font"></i>
+                <span class="badge b-util">Utility</span>
+                <div class="icon-wrapper"><i class="fas fa-font"></i></div>
                 <h3>Word Counter</h3>
-                <p>Real-time word and character count with case conversion features.</p>
+                <p>Analyze word frequencies, character lengths, and edit typography setups instantly.</p>
             </a>
 
             <a href="age-calculator.html" class="card">
-                <i class="fas fa-calculator"></i>
+                <span class="badge b-util">Utility</span>
+                <div class="icon-wrapper"><i class="fas fa-calculator"></i></div>
                 <h3>Age Calculator</h3>
-                <p>Calculate exact age in years, months, and days for eligibility.</p>
+                <p>Compute precise structural biological age fields down to dates for recruitment rules.</p>
             </a>
 
             <a href="pdf-merge.html" class="card">
-                <i class="fas fa-layer-group"></i>
+                <span class="badge b-pdf">PDF</span>
+                <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
                 <h3>PDF Merge</h3>
-                <p>Combine multiple PDF documents into a single professional file.</p>
+                <p>Combine multiple loose document streams together into a solid structured PDF file.</p>
             </a>
 
             <a href="img-to-pdf.html" class="card">
-                <i class="fas fa-file-pdf"></i>
+                <span class="badge b-img">Image</span>
+                <div class="icon-wrapper"><i class="fas fa-file-pdf"></i></div>
                 <h3>Image to PDF</h3>
-                <p>Convert JPG, PNG, and photos into high-quality PDF documents.</p>
+                <p>Transform single or grouped graphic assets directly into universally readable PDFs.</p>
             </a>
 
             <a href="pdf-split.html" class="card">
-                <i class="fas fa-scissors"></i>
+                <span class="badge b-pdf">PDF</span>
+                <div class="icon-wrapper"><i class="fas fa-scissors"></i></div>
                 <h3>PDF Split</h3>
-                <p>Extract specific pages or split large PDF files into smaller ones.</p>
+                <p>Extract standalone component blocks or break large PDFs into separate fragments.</p>
             </a>
 
             <a href="pdf-to-img.html" class="card">
-                <i class="fas fa-images"></i>
+                <span class="badge b-pdf">PDF</span>
+                <div class="icon-wrapper"><i class="fas fa-images"></i></div>
                 <h3>PDF to Image</h3>
-                <p>Convert each PDF page into separate high-resolution JPG images.</p>
+                <p>Isolate separate page content fields out into high-definition standalone images.</p>
             </a>
+
             <a href="percentage-calculator.html" class="card">
-                <i class="fas fa-percentage"></i>
+                <span class="badge b-util">Utility</span>
+                <div class="icon-wrapper"><i class="fas fa-percentage"></i></div>
                 <h3>Percentage Calculator</h3>
-                <p>Calculate exam marks percentage and division instantly for admission forms.</p>
+                <p>Process total multi-term marks and grading classes cleanly for admissions pipelines.</p>
             </a>
+            
         </div>
 
-        <div class="seo-content">
-            <h2>Why use Student Help Club?</h2>
-            <p>Welcome to <b>Student Help Club</b>, your all-in-one destination for student-friendly document tools. Whether you are applying for a government job, university admission, or competitive exams, we help you resize images and PDFs to exact specifications like 20KB, 50KB, or 100KB.</p>
-            <p>Our tools, including the <b>Age Calculator, Word Counter, and PDF Color Inverter</b>, are designed to save you time. Everything works locally in your browser, ensuring your private documents never leave your device. No sign-up, no hidden fees—just pure utility.</p>
-        </div>
+        <article class="seo-content">
+            <h2>The All-In-One Web Tool Application Suite for Students</h2>
+            <p>Navigating through competitive portals, government job platforms, or regular university submissions often demands strict file standards. At <strong>Student Help Club</strong>, we bridge that gap by offering custom-tailored automated programs that resolve file processing tasks smoothly. Our tools run locally via your browser window, ensuring data parameters are computed immediately without background server transfers—maximizing individual privacy metrics.</p>
+            
+            <h3>Core Functionalities Engineered for Academic Ease</h3>
+            <ul>
+                <li><strong>Optimal Image and PDF Compressions:</strong> Easily resize image resolutions down to standardized requirements such as 20KB or 50KB setups without losing identity traits or clarity parameters.</li>
+                <li><strong>Smart Document Manipulation Frameworks:</strong> Merge separate reference assets together or isolate complex pages down to custom fragments using our dedicated layout engines.</li>
+                <li><strong>Fast Data Computing:</strong> Calculate parameters like age criteria for dynamic recruitment forms or analyze final grading criteria breakdowns instantly.</li>
+            </ul>
+
+            <h3>Complete Privacy and Performance Integration</h3>
+            <p>Unlike conventional web software, our tools prioritize your data integrity. Because operations run client-side inside the script ecosystem, standard academic materials, image uploads, and legal PDFs never process outside your own browser window. Enjoy high processing speeds entirely for free—no payment blocks, no subscription logs, just clean productivity tools.</p>
+        </article>
     </div>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="tg"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
         
         <div class="policy-links">
@@ -216,7 +481,7 @@
             <a href="legal.html#contact">Contact Us</a> | 
             <a href="legal.html#terms">Terms of Service</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: #888;">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
 </body>
