@@ -1,87 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to Image - Student Help Club</title>
+    <title>SHC PDF to Image Converter - Student Help Club</title>
+    
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-WKEZF1XEMF');
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
 
-<link rel="icon" type="image/jpg" href="shc-logo.jpg">
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Layout */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Modern Dashed Upload Zone */
+        .upload-container {
+            border: 2px dashed var(--primary);
+            background: #f0fdf4;
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+        
+        .upload-container:hover {
+            background: #e6fced;
+        }
+
+        .upload-container i {
+            font-size: 44px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .select-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
+            pointer-events: none;
+        }
+
+        /* Metadata & Settings Area */
+        #pdfNameDisplay {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .recaptcha-wrapper {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Processing Buttons */
+        .main-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .main-btn:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        .main-btn:disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Output Grid Layout Display */
+        .result-box {
+            display: none;
+            margin-top: 35px;
+            padding: 30px;
+            background: #f0fdf4;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 177, 79, 0.2);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        #imageGallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gallery-item-download {
+            padding: 12px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: block;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.15);
+        }
+
+        .gallery-item-download:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        /* Informative SEO Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-        <h1>STUDENT HELP CLUB</h1>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="pdf-to-img.html" class="active"><i class="fas fa-file-image"></i> PDF to Image</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h2>PDF to Image Converter</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Convert every PDF page into a high-quality JPG image</p>
+    <div class="workspace-container">
         
-        <div class="upload-container" id="dropZone" style="border-color: #ffc107; background: #fffcf4;">
-            <i class="fas fa-file-image" style="font-size: 50px; color: #ffc107;"></i>
-            <p id="statusText" style="margin-top: 15px; font-weight: 500;">Select or Drag PDF to Convert</p>
-            <input type="file" id="pdfInput" accept="application/pdf" hidden>
-            <button type="button" class="select-btn" style="margin-top: 10px; background: #ffc107; color: #333; font-weight: bold;">Select PDF File</button>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+        <div class="tool-card">
+            <h2>SHC PDF to Image Converter</h2>
+            <p class="subtitle">Convert every standalone PDF page layer into a high-definition JPEG image file instantly.</p>
+            
+            <div class="upload-container" id="dropZone">
+                <i class="fas fa-file-image"></i>
+                <p id="pdfStatusText">Select or Drag PDF to Convert</p>
+                <input type="file" id="pdfInput" accept="application/pdf" hidden>
+                <button type="button" class="select-btn">Select PDF File</button>
+            </div>
+
+            <div id="convertSettings" style="display: none; margin-top: 20px;">
+                <p id="pdfNameDisplay"></p>
+                
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
+                <button id="convertBtn" class="main-btn">
+                    Convert All Pages to JPG
+                </button>
+            </div>
+
+            <div id="resultArea" class="result-box">
+                <h3><i class="fas fa-images" style="color:var(--primary);"></i> Converted Images Ready!</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Review each independent page card element and acquire your local copy.</p>
+                <div id="imageGallery"></div>
+            </div>
         </div>
 
-        <div id="convertSettings" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;">
-            <p id="pdfNameDisplay" style="font-size: 14px; font-weight: bold; margin-bottom: 15px; color: #333; background: #fdf6e3; padding: 10px; border-radius: 8px;"></p>
-            <button id="convertBtn" class="main-btn" style="background: #ffc107; color: #333;">
-                Convert All Pages to JPG
-            </button>
-        </div>
-
-        <div id="resultArea" style="display: none; margin-top: 30px;">
-            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
-            <h3 style="color: #333;"><i class="fas fa-images"></i> Converted Images</h3>
-            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Review each page and download as needed.</p>
-            <div id="imageGallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; margin-top: 10px;"></div>
-        </div>
-
-        <div class="how-to-use">
-            <h3 style="color: #333; border-bottom: 2px solid #ffc107; display: inline-block; padding-bottom: 5px;">How to Convert?</h3>
-            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
-                <li>Upload the PDF file you wish to turn into images.</li>
-                <li>Click <b>"Convert All Pages to JPG"</b>.</li>
-                <li>Wait a few seconds for the conversion process.</li>
-                <li>Click the <b>Download</b> button under each page image.</li>
+        <article class="seo-content">
+            <h3>How the Localized PDF-to-Image Extraction Engine Runs</h3>
+            <p>Our online document conversion utility operates strictly within your personal client-side browser execution thread, maintaining total file asset privacy. When an application/pdf package is mapped inside the tracker dashboard, the integrated JavaScript modules count individual compilation streams cleanly. By utilizing high-definition bitmap matrices via PDF.js rendering tools, the application turns text lines and object parameters into scalable canvas fields, generating standalone JPEG images securely without relying on third-party server arrays.</p>
+            
+            <h3>High Importance Asset for Academic Submissions and Form Procedures</h3>
+            <p>A broad variety of academic enrollment channels, open university management boards (such as IGNOU), and entrance portals require students to extract separate pages from digital files. For example, submission rules might ask you to submit individual declaration statements, identity receipts, or question papers as standard graphic files (JPG/PNG). Standard screenshooting methods often blur small text fonts. This smart splitter fixes rendering imbalances instantly, transforming continuous pages into independent high-contrast layout images ready for uploading.</p>
+            
+            <h3>Step-by-Step Rasterization Guidelines</h3>
+            <ul>
+                <li><strong>Acquire Document Assets:</strong> Use the graphical dashed select field wrapper to link your desired source document directly inside the workspace window.</li>
+                <li><strong>Verify Page Metadata:</strong> Review the automated data container info text to inspect your loaded file title details and complete sheet metrics comfortably.</li>
+                <li><strong>Solve Security Guard:</strong> Complete the automated verification check badge widget widget to protect processing layers cleanly from bot scripting triggers.</li>
+                <li><strong>Render and Save:</strong> Click the convert script trigger. View your multi-page gallery panels directly on screen, and click download assets underneath separate blocks to save them instantly.</li>
             </ul>
-        </div>
+        </article>
     </div>
 
     <footer class="footer">
-        <p>Follow Us For Updates:</p>
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <script src="pdf-to-img.js"></script>
+    <script>
+    (function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const pdfInput = document.getElementById('pdfInput');
+            const dropZone = document.getElementById('dropZone');
+            const convertSettings = document.getElementById('convertSettings');
+            const pdfNameDisplay = document.getElementById('pdfNameDisplay');
+            const convertBtn = document.getElementById('convertBtn');
+            const resultArea = document.getElementById('resultArea');
+            const imageGallery = document.getElementById('imageGallery');
+            const pdfStatusText = document.getElementById('pdfStatusText');
+
+            let currentPdfDoc = null;
+
+            // File Upload Logic Connections
+            if(dropZone && pdfInput) {
+                dropZone.addEventListener('click', () => pdfInput.click());
+                pdfInput.addEventListener('change', (e) => { 
+                    if (e.target.files && e.target.files[0]) handlePdf(e.target.files[0]); 
+                });
+            }
+
+            async function handlePdf(file) {
+                if (file.type !== "application/pdf") return alert("Please upload a valid PDF file.");
+                
+                try {
+                    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+                    if(!pdfjsLib) {
+                        alert("Core engine loading, please try in 1 second.");
+                        return;
+                    }
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+                    
+                    const arrayBuffer = await file.arrayBuffer();
+                    currentPdfDoc = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+                    
+                    if(pdfNameDisplay) pdfNameDisplay.innerHTML = `<i class="fas fa-file-pdf" style="color:var(--primary);"></i> Selected File: <b>${file.name}</b> <br> <i class="fas fa-layer-group" style="color:var(--primary);"></i> Total Sheets: <b>${currentPdfDoc.numPages} Pages</b>`;
+                    if(pdfStatusText) pdfStatusText.innerText = "Document Ready";
+                    if(convertSettings) convertSettings.style.display = 'block';
+                    if(resultArea) resultArea.style.display = 'none';
+                    if(convertSettings) convertSettings.scrollIntoView({ behavior: 'smooth' });
+                } catch (err) {
+                    alert("Error loading PDF structural parameters.");
+                }
+            }
+
+            // Conversion Process Logic Core
+            if(convertBtn) {
+                convertBtn.addEventListener('click', async () => {
+                    if (!currentPdfDoc) return;
+
+                    // Google reCAPTCHA Validation Guard
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        const captchaRes = grecaptcha.getResponse();
+                        if (captchaRes.length === 0) {
+                            alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                            return;
+                        }
+                    } else {
+                        alert("Security check initialization pending, please wait 2 seconds.");
+                        return;
+                    }
+                    
+                    convertBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Converting Pages...`;
+                    convertBtn.disabled = true;
+                    if(imageGallery) imageGallery.innerHTML = ""; 
+
+                    setTimeout(async () => {
+                        try {
+                            for (let i = 1; i <= currentPdfDoc.numPages; i++) {
+                                const page = await currentPdfDoc.getPage(i);
+                                const viewport = page.getViewport({scale: 2.0}); // HD Scale framework
+                                const canvas = document.createElement('canvas');
+                                const context = canvas.getContext('2d');
+                                canvas.height = viewport.height;
+                                canvas.width = viewport.width;
+
+                                await page.render({canvasContext: context, viewport: viewport}).promise;
+                                const imageUrl = canvas.toDataURL('image/jpeg', 0.9);
+                                
+                                const wrapper = document.createElement('div');
+                                wrapper.style.cssText = "background:#fff; padding:15px; border-radius:16px; border:1px solid var(--border-color); text-align:center; box-shadow: 0 4px 10px rgba(0,0,0,0.03);";
+                                wrapper.innerHTML = `
+                                    <img src="${imageUrl}" style="width:100%; border-radius:8px; margin-bottom:12px; border:1px solid #f0f0f0; max-height:220px; object-fit:contain;">
+                                    <p style="font-size:13px; font-weight:700; margin-bottom:12px; color:var(--dark);">Page ${i}</p>
+                                    <a href="${imageUrl}" download="SHC_Page_${i}.jpg" class="gallery-item-download">
+                                        <i class="fas fa-download"></i> Download JPG
+                                    </a>
+                                `;
+                                if(imageGallery) imageGallery.appendChild(wrapper);
+                            }
+                            if(resultArea) {
+                                resultArea.style.display = 'block';
+                                resultArea.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } catch (err) {
+                            alert("Error during document page conversion arrays.");
+                        } finally {
+                            convertBtn.innerHTML = "Convert All Pages to JPG";
+                            convertBtn.disabled = false;
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                                ggetcaptcha.reset();
+                            }
+                        }
+                    }, 100);
+                });
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
