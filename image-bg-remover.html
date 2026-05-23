@@ -120,7 +120,7 @@
             transform: translateY(-1px);
         }
 
-        /* Workspace Framework Content */
+        /* Workspace Layout */
         .workspace-container {
             max-width: 800px;
             margin: 30px auto 60px;
@@ -169,8 +169,9 @@
             text-align: center;
         }
 
-        /* Upload Container Framework Click Handler Fix */
+        /* 100% Working Native Overlay Upload Framework Box */
         .upload-container-box {
+            position: relative;
             border: 2px dashed var(--primary);
             padding: 40px 20px;
             border-radius: 16px;
@@ -182,12 +183,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
         
         .upload-container-box:hover {
             background: #e6fced;
             border-color: var(--primary-hover);
+        }
+
+        /* Pure Overlay Fix: Pure invisible block covering whole box area */
+        .native-input-file {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
         }
 
         .select-btn-ui {
@@ -203,7 +215,7 @@
             box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
         }
 
-        /* Preview Map Boxes */
+        /* Preview Windows Layout */
         .preview-box {
             max-width: 100%;
             border: 1px solid var(--border-color);
@@ -278,7 +290,7 @@
             transform: translateY(-1px);
         }
 
-        /* Output Canvas Box Frame Checkerboard Background */
+        /* Checkerboard Transparent Result Container */
         .result-box {
             display: none;
             margin-top: 35px;
@@ -455,13 +467,12 @@
             <h2>SHC Background Color Remover</h2>
             <p class="subtitle">Extract signatures or clean passport photos by isolating and making solid backdrops fully transparent inside your browser.</p>
             
-            <div class="upload-container-box" id="dropZone">
+            <div class="upload-container-box">
+                <input type="file" id="imageInput" class="native-input-file" accept="image/*">
                 <i class="fas fa-magic" style="font-size: 44px; color: var(--primary);"></i>
                 <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Image to Clear Background</p>
                 <div class="select-btn-ui" style="text-align: center; display: flex; align-items: center; justify-content: center;">Choose Photo</div>
             </div>
-            
-            <input type="file" id="imageInput" accept="image/*" style="display: none;">
 
             <div id="settingsArea" style="display: none; margin-top: 20px;">
                 <div class="preview-box">
@@ -523,7 +534,7 @@
             <a href="legal.html#terms">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Secure browser processing.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
@@ -531,7 +542,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
-            const dropZone = document.getElementById('dropZone');
             const settingsArea = document.getElementById('settingsArea');
             const processBtn = document.getElementById('processBtn');
             const resultArea = document.getElementById('resultArea');
@@ -541,10 +551,4 @@
             const statusText = document.getElementById('statusText');
             const bgColorSelector = document.getElementById('bgColorSelector');
 
-            let sourceImageObject = new Image();
-            let processedBlobUrl = null;
-
-            // Direct Programmatic Event Dispatch Path Fix
-            if (dropZone && imageInput) {
-                dropZone.onclick = function() {
-      
+            let s
