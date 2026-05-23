@@ -1,136 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Counter & Case Converter - Student Help Club</title>
+    <title>SHC Word Counter & Text Case Converter - Student Help Club</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="shortcut icon" href="/favicon.ico">
     
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
 
-  gtag('config', 'G-WKEZF1XEMF');
-</script>
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
 
-<link rel="icon" type="image/jpg" href="shc-logo.jpg">
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Layout */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Large Editor Workspace */
+        textarea#textInput {
+            width: 100%; 
+            height: 220px; 
+            padding: 16px; 
+            border: 2px solid var(--border-color); 
+            border-radius: 16px; 
+            font-size: 1rem; 
+            margin-bottom: 20px; 
+            outline: none; 
+            background: #fafafa;
+            transition: var(--transition);
+            color: var(--dark);
+            font-weight: 500;
+            resize: vertical;
+        }
+
+        textarea#textInput:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1);
+        }
+
+        /* Analytics Grid Counter Boxes */
+        .counter-grid {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 16px; 
+            margin-bottom: 25px;
+        }
+
+        .counter-box {
+            background: #f0fdf4; 
+            padding: 16px; 
+            border-radius: 14px; 
+            border: 1px solid rgba(0, 177, 79, 0.15);
+            text-align: center;
+        }
+
+        .counter-num {
+            display: block; 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            color: var(--primary-hover);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .counter-lbl {
+            font-size: 0.88rem; 
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Interactive Transformation Controls */
+        .controls-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-slate {
+            background: #1d3557; 
+            color: white;
+            box-shadow: 0 4px 10px rgba(29, 53, 87, 0.15);
+        }
+
+        .btn-slate:hover {
+            background: #11223b;
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .btn-outline:hover {
+            color: red;
+            border-color: red;
+            background: #fff5f5;
+        }
+
+        .recaptcha-wrapper {
+            margin: 20px 0 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Large Action Buttons */
+        .main-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+            margin-top: 15px;
+        }
+
+        .main-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Informative SEO Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+            .counter-grid { gap: 12px; }
+        }
+    </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-        <h1>STUDENT HELP CLUB</h1>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="word-counter.html" class="active"><i class="fas fa-font"></i> Word Counter</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h2>Word Counter & Text Tool</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Count words, characters, and change text case instantly.</p>
+    <div class="workspace-container">
         
-        <textarea id="textInput" placeholder="Paste or type your text here..." style="width: 100%; height: 200px; padding: 15px; border: 2px solid #0d6efd; border-radius: 12px; font-size: 16px; margin-bottom: 20px; outline: none; transition: 0.3s;"></textarea>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
-            <div style="background: #f8fbff; padding: 15px; border-radius: 10px; border: 1px solid #dee2e6;">
-                <span style="display: block; font-size: 24px; font-weight: bold; color: #0d6efd;" id="wordCount">0</span>
-                <span style="font-size: 14px; color: #666;">Words</span>
+        <div class="tool-card">
+            <h2>Word Counter & Text Tool</h2>
+            <p class="subtitle">Analyze character volumes, count aggregate text parameters, and transform character cases instantly inside your thread browser.</p>
+            
+            <textarea id="textInput" placeholder="Paste or type your text here..."></textarea>
+
+            <div class="counter-grid">
+                <div class="counter-box">
+                    <span id="wordCount" class="counter-num">0</span>
+                    <span class="counter-lbl">Words</span>
+                </div>
+                <div class="counter-box">
+                    <span id="charCount" class="counter-num">0</span>
+                    <span class="counter-lbl">Characters</span>
+                </div>
             </div>
-            <div style="background: #f8fbff; padding: 15px; border-radius: 10px; border: 1px solid #dee2e6;">
-                <span style="display: block; font-size: 24px; font-weight: bold; color: #0d6efd;" id="charCount">0</span>
-                <span style="font-size: 14px; color: #666;">Characters</span>
+
+            <div class="controls-grid">
+                <button onclick="changeCase('upper')" class="action-btn btn-slate">UPPERCASE</button>
+                <button onclick="changeCase('lower')" class="action-btn btn-slate">lowercase</button>
+                <button onclick="changeCase('sentence')" class="action-btn btn-slate">Sentence case</button>
+                <button onclick="clearText()" class="action-btn btn-outline">Clear Text</button>
             </div>
+
+            <div class="recaptcha-wrapper">
+                <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+            </div>
+
+            <button onclick="copyText()" class="main-btn" id="copyBtn">
+                <i class="fas fa-copy"></i> Copy To Clipboard
+            </button>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
-            <button onclick="changeCase('upper')" class="select-btn" style="background: #1d3557; color: white;">UPPERCASE</button>
-            <button onclick="changeCase('lower')" class="select-btn" style="background: #1d3557; color: white;">lowercase</button>
-            <button onclick="changeCase('sentence')" class="select-btn" style="background: #1d3557; color: white;">Sentence case</button>
-            <button onclick="clearText()" class="reset-btn">Clear Text</button>
-        </div>
-
-        <button onclick="copyText()" class="download-btn" id="copyBtn" style="margin-top: 20px;">
-            <i class="fas fa-copy"></i> Copy To Clipboard
-        </button>
-
-        <div class="how-to-use">
-            <h3 style="color: #333; border-bottom: 2px solid #0d6efd; display: inline-block; padding-bottom: 5px;">How to Use?</h3>
-            <ul style="margin-top: 15px; color: #555; line-height: 1.8; font-size: 14px; text-align: left; padding-left: 20px;">
-                <li>Paste your content in the text box above.</li>
-                <li>Check the real-time <b>Word</b> and <b>Character</b> count.</li>
-                <li>Click on case buttons to change text style instantly.</li>
-                <li>Click <b>Copy</b> to use the updated text anywhere.</li>
+        <article class="seo-content">
+            <h3>How the Localized Real-Time Text Analysis Engine Operates</h3>
+            <p>Our premium character evaluation framework processes script structures directly inside your client-side browser space, prioritizing complete credential isolation. When strings or text lines are fed into the input editor box, the application executes rapid matching loops using structural regex properties. By filtering out uneven space blocks and tracking separate alphanumeric indexes, the system displays live word counts and absolute character lengths instantly, without relaying contents to outside database pools.</p>
+            
+            <h3>High Importance Utility for Academic Projects and Assignment Formats</h3>
+            <p>A major volume of university boards, assignment submissions (such as IGNOU notes), project portfolios, and online scholarship setups enforce strict layout boundaries. For instance, abstract segments, project descriptions, or response fields might restrict candidate answers strictly within explicit structural rules—such as exactly under 250 words or 500 characters. Writing compositions blindly can easily violate form validation guidelines. This responsive analytics dashboard allows students to cross-examine their document text matrices quickly and match layout specifications with full confidence.</p>
+            
+            <h3>Step-by-Step Character Formatting Guide</h3>
+            <ul>
+                <li><strong>Acquire Core Material:</strong> Type or directly paste your essay contents or text segments into the main rounded workspace editor container.</li>
+                <li><strong>Monitor Performance Ratios:</strong> Track the real-time analytics grid fields to monitor live character lengths and word summaries continuously.</li>
+                <li><strong>Apply Case Transformations:</strong> Click the respective dark action buttons to convert entire blocks into uppercase formats, clean lowercase tracks, or grammatically correct sentence case layouts seamlessly.</li>
+                <li><strong>Clear Security Check & Export:</strong> Solve the automated verification widget, then trigger the copy button to capture your processed string safely and use it across any external registration portal.</li>
             </ul>
-        </div>
+        </article>
     </div>
 
     <footer class="footer">
-        <p>Follow Us For Updates:</p>
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <div class="footer-nav-links" style="margin-top: 15px;">
-            <a href="about.html" style="color: #888; text-decoration: none;">About Us</a> | 
-            <a href="contact.html" style="color: #888; text-decoration: none;">Contact Us</a> | 
-            <a href="privacy-policy.html" style="color: #888; text-decoration: none;">Privacy Policy</a>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
         </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
-        const textInput = document.getElementById('textInput');
-        const wordCount = document.getElementById('wordCount');
-        const charCount = document.getElementById('charCount');
+    (function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            const textInput = document.getElementById('textInput');
+            const wordCount = document.getElementById('wordCount');
+            const charCount = document.getElementById('charCount');
 
-        textInput.addEventListener('input', () => {
-            const text = textInput.value.trim();
-            charCount.innerText = text.length;
-            wordCount.innerText = text === "" ? 0 : text.split(/\s+/).length;
-        });
-
-        function changeCase(type) {
-            let text = textInput.value;
-            if (type === 'upper') text = text.toUpperCase();
-            if (type === 'lower') text = text.toLowerCase();
-            if (type === 'sentence') {
-                text = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+            if(textInput) {
+                textInput.addEventListener('input', () => {
+                    const text = textInput.value.trim();
+                    if(charCount) charCount.innerText = textInput.value.length;
+                    
+                    if (text === "") {
+                        if(wordCount) wordCount.innerText = "0";
+                    } else {
+                        const words = text.split(/\s+/);
+                        if(wordCount) wordCount.innerText = words.length;
+                    }
+                });
             }
-            textInput.value = text;
-        }
+        });
+    })();
 
-        function clearText() {
+    // Global Case Functions Connected to layout buttons
+    function changeCase(type) {
+        const textInput = document.getElementById('textInput');
+        if (!textInput) return;
+        let text = textInput.value;
+        if (!text) return;
+
+        switch(type) {
+            case 'upper':
+                textInput.value = text.toUpperCase();
+                break;
+            case 'lower':
+                textInput.value = text.toLowerCase();
+                break;
+            case 'sentence':
+                textInput.value = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+                break;
+        }
+    }
+
+    function clearText() {
+        const textInput = document.getElementById('textInput');
+        if (!textInput) return;
+        if (confirm("Are you sure you want to clear the text?")) {
             textInput.value = "";
-            wordCount.innerText = "0";
-            charCount.innerText = "0";
+            document.getElementById('wordCount').innerText = "0";
+            document.getElementById('charCount').innerText = "0";
+        }
+    }
+
+    function copyText() {
+        const textInput = document.getElementById('textInput');
+        const copyBtn = document.getElementById('copyBtn');
+        if (!textInput || !textInput.value) {
+            alert("Please enter some text first!");
+            return;
         }
 
-        function copyText() {
-            textInput.select();
-            document.execCommand('copy');
-            const btn = document.getElementById('copyBtn');
-            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-copy"></i> Copy To Clipboard';
-            }, 2000);
+        // Google reCAPTCHA Validation Guard
+        if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+            const captchaRes = grecaptcha.getResponse();
+            if (captchaRes.length === 0) {
+                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                return;
+            }
+        } else {
+            alert("Security widget initializing, please wait 2 seconds.");
+            return;
         }
+
+        textInput.select();
+        textInput.setSelectionRange(0, 99999);
+
+        try {
+            navigator.clipboard.writeText(textInput.value);
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyBtn.style.background = "#009642";
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.style.background = "#00b14f";
+            }, 2000);
+        } catch (err) {
+            alert("Unable to copy. Please copy manually.");
+        } finally {
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                grecaptcha.reset();
+            }
+        }
+    }
     </script>
 </body>
 </html>
