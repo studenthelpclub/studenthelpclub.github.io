@@ -1,51 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Student Help Club</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        .content-page { max-width: 800px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 15px; line-height: 1.6; color: #333; }
-        h1, h2 { color: #1d3557; }
-        .back-btn { display: inline-block; margin-bottom: 20px; color: #28a745; text-decoration: none; font-weight: bold; }
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Container Framework */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        /* Privacy Document Content Page Layout */
+        .content-page {
+            background: #ffffff;
+            padding: 45px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .content-page h2 {
+            color: var(--dark);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .content-page p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        .meta-date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WKEZF1XEMF');
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-
-<link rel="icon" type="image/jpg" href="shc-logo.jpg">
 </head>
-<body style="background: #f4f7f6; font-family: sans-serif;">
+<body>
 
-    <div class="content-page">
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        <h1>Privacy Policy</h1>
-        <p>Last Updated: April 2026</p>
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
+    </header>
+
+    <div class="workspace-container">
         
-        <p>Welcome to <b>Student Help Club</b>. Your privacy is important to us. This policy explains how we handle information on our website.</p>
-        
-        <h2>1. Data Processing</h2>
-        <p>Our tools (Image Resizer, PDF Tools) process files directly in your web browser. We <b>do not</b> upload, store, or share your files on our servers. Your data remains private and secure on your own device.</p>
-        
-        <h2>2. Cookies and Ads</h2>
-        <p>We use Google AdSense to display advertisements. Google may use cookies to serve ads based on your prior visits to our website or other websites.</p>
-        
-        <h2>3. Third-Party Links</h2>
-        <p>Our site may contain links to social media channels (YouTube, Telegram). We are not responsible for the privacy practices of those external sites.</p>
-        
-        <h2>4. Contact Us</h2>
-        <p>If you have questions about this Privacy Policy, you can contact us through our official social media channels.</p>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+        <div class="content-page">
+            <h1 style="color: var(--dark); font-weight: 800; letter-spacing: -1px; font-size: 2.2rem; margin-bottom: 6px;">Privacy Policy</h1>
+            <div class="meta-date">Last Updated: April 2026</div>
+            
+            <p>Welcome to <b>Student Help Club</b>. Your privacy is highly important to us. This policy explains how we handle and process information transparently across our web application platform.</p>
+            
+            <h2>1. Data Processing</h2>
+            <p>Our processing tools (including the Image Resizer, PDF Compilers, and Text Utilities) execute scripts directly inside your client-side web browser thread. We <b>do not</b> upload, host, store, or distribute your private files or images on our servers. Your data remains fully private, encrypted local memory, and secure on your own hardware device at all times.</p>
+            
+            <h2>2. Cookies and Ads</h2>
+            <p>We work with Google AdSense to manage and display promotional layout elements cleanly. Google may utilize localized cookie metrics to serve relevant advertisements based on your customized engagement parameters or prior interaction tracks across various web properties.</p>
+            
+            <h2>3. Third-Party Links</h2>
+            <p>Our ecosystem incorporates direct interface links directing to official social communication networks (such as our YouTube community channels and Telegram update hubs). We do not assume tracking liabilities or maintain authority over the privacy parameters enforced across those external platforms.</p>
+            
+            <h2>4. Contact Us</h2>
+            <p>If you maintain any procedural inquiries regarding this structural Privacy Policy template, you can interface with our development team instantly through our official social support verification lines.</p>
+        </div>
     </div>
 
 </body>
