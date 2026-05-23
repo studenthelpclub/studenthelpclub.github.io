@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Student Help Club</title>
+    
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Header Layout Match with Theme */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 38px; 
+            height: 38px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.25rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        /* Error Center Container */
+        .error-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .error-card {
+            max-width: 500px;
+            background: #ffffff;
+            padding: 50px 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+        }
+
+        .error-code {
+            font-size: 5.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .error-card h2 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
+        }
+
+        .error-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* Action Buttons */
+        .btn-home {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .btn-home:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 177, 79, 0.25);
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            width: 100%;
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 12px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.88rem;
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .error-card { padding: 40px 24px; border-radius: 16px; }
+            .error-code { font-size: 4.5rem; }
+            .error-card h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+    </header>
+
+    <main class="error-container">
+        <div class="error-card">
+            <div class="error-code">404</div>
+            <h2>Page Not Found</h2>
+            <p>Sorry, the page you are looking for does not exist or has been moved. Use the button below to safely navigate back to the main tools dashboard.</p>
+            <a href="index.html" class="btn-home">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 16px; font-size: 12px; color: var(--text-muted);">© 2026 Student Help Club. Secure browser processing.</p>
+    </footer>
+
+</body>
+</html>
