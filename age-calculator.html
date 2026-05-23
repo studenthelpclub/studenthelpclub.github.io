@@ -1,101 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator - Student Help Club</title>
+    <title>Accurate Age Calculator - Student Help Club</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="shortcut icon" href="/favicon.ico">
     
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WKEZF1XEMF');
-</script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941"
-     crossorigin="anonymous"></script>
-
-<link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Tool Workspace Layout */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+
+        .input-group input[type="date"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+            background-color: #fafafa;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .input-group input[type="date"]:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1);
+        }
+
+        /* Centered reCAPTCHA Box Container */
+        .recaptcha-wrapper {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .calc-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .calc-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        /* Upgraded Results Display */
+        .result-box {
+            display: none;
+            margin-top: 35px;
+            padding: 25px;
+            background: #f0fdf4;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 177, 79, 0.2);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box h3 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-main {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .result-days {
+            margin-top: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Informative Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+        }
+    </style>
 </head>
 <body>
 
     <header class="header">
-        <img src="shc-logo.jpg" alt="SHC Logo" class="logo">
-        <h1>STUDENT HELP CLUB</h1>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="age-calculator.html" class="active"><i class="fas fa-calculator"></i> Age Calculator</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <h2>Age Calculator</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Calculate your exact age in years, months, and days.</p>
+    <div class="workspace-container">
         
-        <div style="text-align: left; margin-bottom: 20px;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Date of Birth:</label>
-            <input type="date" id="dob" style="width: 100%; padding: 12px; border: 2px solid #0d6efd; border-radius: 10px; font-size: 16px;">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+        <div class="tool-card">
+            <h2>Age Calculator</h2>
+            <p class="subtitle">Calculate your exact age parameters down to chronological days.</p>
+            
+            <div class="input-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob">
+            </div>
+
+            <div class="input-group">
+                <label for="today">Age at the Date of</label>
+                <input type="date" id="today">
+            </div>
+
+            <div class="recaptcha-wrapper">
+                <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+            </div>
+
+            <button onclick="calculateAge()" class="calc-btn">Calculate Exact Age</button>
+
+            <div id="ageResult" class="result-box">
+                <h3>Calculated Age Result</h3>
+                <div class="result-main" id="resultText"></div>
+                <p id="totalDays" class="result-days"></p>
+            </div>
         </div>
 
-        <div style="text-align: left; margin-bottom: 25px;">
-            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Age at the Date of:</label>
-            <input type="date" id="today" style="width: 100%; padding: 12px; border: 2px solid #ccc; border-radius: 10px; font-size: 16px;">
-        </div>
-
-        <button onclick="calculateAge()" class="main-btn">Calculate Exact Age</button>
-
-        <div id="ageResult" style="display: none; margin-top: 30px; padding: 20px; background: #f8fbff; border-radius: 15px; border: 1px solid #0d6efd;">
-            <h3 style="color: #1d3557; margin-bottom: 10px;">Your Age is:</h3>
-            <div style="font-size: 22px; font-weight: bold; color: #28a745;" id="resultText"></div>
-            <p id="totalDays" style="margin-top: 10px; color: #666; font-size: 14px;"></p>
-        </div>
-
-        <div class="how-to-use">
-            <h3>How to Use?</h3>
-            <ul style="margin-top: 10px; font-size: 14px; color: #555;">
-                <li>Select your <b>Date of Birth</b> from the first box.</li>
-                <li>The second box is set to <b>Today's Date</b> by default.</li>
-                <li>Click <b>Calculate Exact Age</b> to see the result.</li>
-                <li>This is very useful for filling UPSC, SSC, and Bank exam forms.</li>
+        <article class="seo-content">
+            <h3>How the Online Age Calculation Engine Works</h3>
+            <p>Our online calculation system runs entirely inside your client browser thread. When you select a specific birth milestone, the application determines the relative chronological differences between structural calendar frameworks, adjusting variables automatically for variable month metrics and leap year constraints instantly.</p>
+            
+            <h3>Essential Utility for Competitive Job Applications</h3>
+            <p>Many prominent public service commissions and entrance exams—such as UPSC, SSC, banking sectors, or state recruitment pipelines—mandate specific age brackets verified as of a predetermined cutoff date. Manually matching exact eligibility thresholds down to exact days can result in entry structural mistakes. This tool removes tracking issues by evaluating clear parameters, allowing you to fill forms with confidence.</p>
+            
+            <h3>Step-by-Step Operation Guide</h3>
+            <ul>
+                <li><strong>Define Initial Framework:</strong> Choose your calendar timeline input field using the first chronological field wrapper.</li>
+                <li><strong>Set Target Cutoff:</strong> The secondary window captures current server dates automatically but stays dynamic so you can manually insert custom cutoff tracking lines.</li>
+                <li><strong>Compute Framework:</strong> Trigger the verification engine to isolate broken down outputs showing exactly how many years, individual months, and total cumulative days have passed since birth.</li>
             </ul>
-        </div>
+        </article>
     </div>
 
     <footer class="footer">
-        <p>Follow Us For Updates:</p>
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <div class="policy-links" style="margin-top: 15px;">
+        
+        <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a>
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
         </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
-        // Set default "Age at the Date of" to Today
+        // Set default cutoff tracking field value seamlessly
         document.getElementById('today').valueAsDate = new Date();
 
         function calculateAge() {
             const dobInput = document.getElementById('dob').value;
             const todayInput = document.getElementById('today').value;
+
+            // Google reCAPTCHA Validation Guard
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                return;
+            }
 
             if (!dobInput) {
                 alert("Please select your Date of Birth");
@@ -129,10 +480,13 @@
             resultText.innerText = `${years} Years, ${months} Months, ${days} Days`;
             resultDiv.style.display = "block";
             
-            // Total Days Calculation
+            // Comprehensive Days Counting Sequence
             const diffTime = Math.abs(today - dob);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            document.getElementById('totalDays').innerText = `Total days since birth: ${diffDays}`;
+            document.getElementById('totalDays').innerText = `Total days since birth: ${diffDays} Days`;
+            
+            // Optional: Resets reCAPTCHA box after output is rendered successfully
+            grecaptcha.reset();
         }
     </script>
 </body>
