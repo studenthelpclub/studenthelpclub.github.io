@@ -86,7 +86,7 @@
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* Re-extended AdSense Friendly SEO Layout Paragraphs */
+        /* Full AdSense Friendly SEO Layout Paragraphs */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
@@ -223,7 +223,7 @@
                         setTimeout(initAI, 500);
                     }
                 } catch(e) {
-                    console.error("AI Thread retry.");
+                    console.error("AI Thread connection lag.");
                 }
             }
             initAI();
@@ -266,7 +266,7 @@
                     setTimeout(async () => {
                         try {
                             if (!selfieSegmentation) {
-                                alert("AI Engine initializing. Please click again.");
+                                alert("AI Engine initialization pending. Click again in 2 seconds.");
                                 processBtn.innerHTML = "Remove Background";
                                 processBtn.disabled = false;
                                 return;
@@ -276,27 +276,33 @@
                                 const canvas = document.createElement('canvas');
                                 const ctx = canvas.getContext('2d');
                                 
-                                canvas.width = sourceImageObject.naturalWidth || sourceImageObject.width;
-                                canvas.height = sourceImageObject.naturalHeight || sourceImageObject.height;
+                                const w = sourceImageObject.naturalWidth || sourceImageObject.width;
+                                const h = sourceImageObject.naturalHeight || sourceImageObject.height;
+                                canvas.width = w;
+                                canvas.height = h;
 
-                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                // Clean local frame bounds
+                                ctx.clearRect(0, 0, w, h);
                                 
-                                // Direct Matrix Layering Pipeline (Removes messy overlays completely)
-                                ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
+                                // Step 1: Draw blurred smoothing alpha channel to remove rough edge pixels
+                                ctx.filter = 'blur(4px)'; 
+                                ctx.drawImage(results.segmentationMask, 0, 0, w, h);
+                                
+                                // Step 2: Overlay image onto smoothed mask path channel mapping
+                                ctx.filter = 'none';
                                 ctx.globalCompositeOperation = 'source-in';
-                                ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+                                ctx.drawImage(results.image, 0, 0, w, h);
 
-                                // Pixel Isolation Filter Pass (Cleans any stray floating background chunks)
-                                const finalImgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                                const pixels = finalImgData.data;
-                                
-                                for (let i = 0; i < pixels.length; i += 4) {
-                                    // Soft trim: If edge pixel transparency alpha is too weak, erase it fully to ensure clean background removal
-                                    if (pixels[i+3] < 200) { 
-                                        pixels[i+3] = 0;
+                                // Step 3: Hard-alpha clamping loop pass to strip out lingering border noise
+                                const frameData = ctx.getImageData(0, 0, w, h);
+                                const p = frameData.data;
+                                for (let i = 0; i < p.length; i += 4) {
+                                    // Smooth Matting Threshold check: If edge transparency index leaks below threshold, force delete it
+                                    if (p[i+3] < 235) { 
+                                        p[i+3] = 0;
                                     }
                                 }
-                                ctx.putImageData(finalImgData, 0, 0);
+                                ctx.putImageData(frameData, 0, 0);
 
                                 canvas.toBlob(function(blob) {
                                     if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
