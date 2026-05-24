@@ -11,16 +11,15 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image Background Remover - Student Help Club</title>
+    <title>AI Image Background Remover - Student Help Club</title>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
@@ -35,514 +34,133 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        body { 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        /* Unified Premium Header Layout */
+        /* Premium Header */
         .header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 16px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;
         }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand h1 { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 24px; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
+        .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
+
+        /* Main Workspace Container */
+        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            text-decoration: none; 
-        }
-        
-        .logo { 
-            width: 38px; 
-            height: 38px; 
-            border-radius: 50%; 
-            object-fit: cover;
-            border: 1px solid var(--border-color);
-        }
-        
-        .brand h1 { 
-            font-size: 1.25rem; 
-            color: var(--dark); 
-            font-weight: 800;
-            letter-spacing: -0.5px; 
-        }
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        .nav-menu {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.92rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .btn-join {
-            background: var(--primary);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 700;
-            transition: var(--transition);
-        }
-
-        .btn-join:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        /* Workspace Layout */
-        .workspace-container {
-            max-width: 800px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .back-link:hover {
-            color: var(--primary);
-            transform: translateX(-3px);
-        }
-
-        .tool-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
-        }
-
-        .tool-card h2 {
-            font-size: 1.8rem;
-            color: var(--dark);
-            font-weight: 800;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-            text-align: center;
-        }
-
-        .tool-card .subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* 100% Working Native Overlay Upload Framework Box */
+        /* Upload Area */
         .upload-container-box {
-            position: relative;
-            border: 2px dashed var(--primary);
-            padding: 40px 20px;
-            border-radius: 16px;
-            text-align: center;
-            background: #f0fdf4;
-            transition: var(--transition);
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
+            text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        
-        .upload-container-box:hover {
-            background: #e6fced;
-            border-color: var(--primary-hover);
-        }
+        .upload-container-box:hover { background: #e6fced; }
+        .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); }
 
-        /* Pure Overlay Fix: Pure invisible block covering whole box area */
-        .native-input-file {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            z-index: 10;
-        }
+        .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
 
-        .select-btn-ui {
-            margin-top: 15px; 
-            background: var(--primary); 
-            color: white; 
-            padding: 12px 30px; 
-            border-radius: 100px; 
-            font-weight: 700; 
-            font-size: 0.95rem;
-            width: 80%; 
-            max-width: 250px;
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
-        }
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .main-btn:hover { background: var(--primary-hover); }
 
-        /* Preview Windows Layout */
-        .preview-box {
-            max-width: 100%;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            background-color: #fafafa;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        #sourceImagePreview {
-            max-width: 100%;
-            max-height: 350px;
-            border-radius: 8px;
-            display: block;
-        }
-
-        /* Controls Parameters Box */
-        .flex-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            background: #fafafa;
-            margin-bottom: 20px;
-        }
-
-        .flex-group label {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 0.92rem;
-        }
-
-        .flex-group select {
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            outline: none;
-            font-weight: 600;
-            background: #fff;
-            color: var(--dark);
-        }
-
-        .recaptcha-wrapper {
-            margin: 25px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Call To Action Controls Buttons */
-        .main-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
-        }
-
-        .main-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        /* Checkerboard Transparent Result Container */
-        .result-box {
-            display: none;
-            margin-top: 35px;
-            padding: 30px;
-            background: #f0fdf4;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 177, 79, 0.2);
-            text-align: center;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-box h3 {
-            color: var(--dark);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
+        /* Transparent Checkerboard Result Layout */
+        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
-            display: inline-block;
-            max-width: 100%;
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background-color: #fff;
-            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), 
-                              linear-gradient(-45deg, #efefef 25%, transparent 25%), 
-                              linear-gradient(45deg, transparent 75%, #efefef 75%), 
-                              linear-gradient(-45deg, transparent 75%, #efefef 75%);
-            background-size: 16px 16px;
-            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
+            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%);
+            background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
         }
+        #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; }
 
-        #finalPreview {
-            max-width: 100%;
-            max-height: 350px;
-            display: block;
-            border-radius: 6px;
-        }
+        /* SEO Informative */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 24px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; }
 
-        .download-btn {
-            width: 100%;
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
-        }
-
-        .download-btn:hover {
-            background: #0056b3;
-            transform: translateY(-1px);
-        }
-
-        /* SEO Informative Core Parameters Sections */
-        .seo-content {
-            background: #ffffff;
-            padding: 45px;
-            margin-top: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-        }
-
-        .seo-content h3 {
-            color: var(--dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .seo-content h3:not(:first-child) {
-            margin-top: 30px;
-        }
-
-        .seo-content p {
-            font-size: 0.98rem;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            font-weight: 500;
-            text-align: justify;
-        }
-
-        .seo-content ul {
-            margin-left: 20px;
-            color: var(--text-main);
-        }
-
-        .seo-content ul li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Unified Premium Footer Layout */
-        .footer { 
-            background: #ffffff; 
-            padding: 50px 20px 40px; 
-            text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            margin-top: 80px;
-        }
-        
-        .social-links { 
-            margin-bottom: 20px; 
-        }
-        
-        .social-links a { 
-            font-size: 22px; 
-            margin: 0 14px; 
-            transition: var(--transition); 
-            display: inline-block; 
-            color: var(--text-muted);
-        }
-        
-        .social-links a.yt:hover { color: #ff0000; }
-        .social-links a.tg:hover { color: #0088cc; }
-        .social-links a.wa:hover { color: #25d366; }
-        
-        .policy-links { 
-            font-size: 0.88rem; 
-        }
-        
-        .policy-links a { 
-            color: var(--text-muted); 
-            margin: 0 12px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            transition: var(--transition);
-        }
-        
-        .policy-links a:hover { 
-            color: var(--primary); 
-        }
-
-        @media (max-width: 768px) {
-            .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
-            .tool-card { padding: 25px; }
-            .seo-content { padding: 30px 20px; }
-        }
+        .footer { background: #ffffff; padding: 50px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .policy-links a { color: var(--text-muted); margin: 0 12px; text-decoration: none; font-weight: 600; font-size: 0.88rem; }
     </style>
 </head>
 <body>
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <img src="shc-logo.jpg" alt="Logo" class="logo">
             <h1>Student Help Club</h1>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
-            <a href="legal.html#about" class="nav-link">About</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
     </header>
 
     <div class="workspace-container">
-        
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>SHC Background Color Remover</h2>
-            <p class="subtitle">Extract signatures or clean passport photos by isolating and making solid backdrops fully transparent inside your browser.</p>
+            <h2>Free AI Background Remover</h2>
+            <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
             
             <div class="upload-container-box">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*">
-                <i class="fas fa-magic" style="font-size: 44px; color: var(--primary);"></i>
-                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Image to Clear Background</p>
-                <div class="select-btn-ui" style="text-align: center; display: flex; align-items: center; justify-content: center;">Choose Photo</div>
+                <i class="fas fa-robot" style="font-size: 44px; color: var(--primary);"></i>
+                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
+                <div class="select-btn-ui">Choose Photo</div>
             </div>
 
             <div id="settingsArea" style="display: none; margin-top: 20px;">
                 <div class="preview-box">
-                    <img id="sourceImagePreview" src="" alt="Source Upload Preview">
-                </div>
-
-                <div class="flex-group">
-                    <label for="bgColorSelector">Background Color to Erase:</label>
-                    <select id="bgColorSelector">
-                        <option value="white">Pure White Backgrounds</option>
-                        <option value="light">Off-White / Light Backgrounds</option>
-                    </select>
+                    <img id="sourceImagePreview" src="" alt="Source Upload">
                 </div>
 
                 <div class="recaptcha-wrapper">
                     <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
 
-                <button id="processBtn" class="main-btn">Remove Background & Isolate</button>
+                <button id="processBtn" class="main-btn">Remove Background with AI</button>
             </div>
 
             <div id="resultArea" class="result-box">
-                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cleared Successfully!</h3>
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cut Successfully!</h3>
                 <div class="canvas-container-bg">
-                    <img id="finalPreview" src="" alt="Transparent Result Preview">
+                    <img id="finalPreview" src="" alt="AI Result Preview">
                 </div>
                 <button id="downloadBtn" class="download-btn">Download Transparent PNG</button>
             </div>
         </div>
 
         <article class="seo-content">
-            <h3>How the Local Pixel Manipulation Erasing Framework Works</h3>
-            <p>Our online backdrop extraction utility processes graphics data parameters entirely inside your client browser window, securing total credential safety. When a signature layout sheet or profile photo milestone is selected, the canvas pipeline translates the bitmap matrix instantly. Loop tracking rules scan alpha values across the pixel streams, evaluating RGB differences against specified thresholds. By dynamically setting matched bright background indexes to transparent null layers, the script outputs clean isolated document objects without sending data packets onto external host servers.</p>
-            
-            <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
-            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
-            
-            <h3>Step-by-Step Transparency Optimization Guidelines</h3>
-            <ul>
-                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
-                <li><strong>Isolate Erasing Parameters:</strong> Choose the target backdrop category framework via the dynamic selector element, picking either absolute white thresholds or off-white adaptive bands.</li>
-                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
-                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
-            </ul>
+            <h3>How Browser-Based AI Selfie Segmentation Works</h3>
+            <p>Our premium platform integrates Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our automated AI engine relies on neural network matrices trained specifically to differentiate humans from surrounding background clutter. The script maps person geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
         </article>
     </div>
 
     <footer class="footer">
-        <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a> | 
-            <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Local AI Processing.</p>
     </footer>
 
-        <script>
+    <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
-            const dropZone = document.getElementById('dropZone');
             const settingsArea = document.getElementById('settingsArea');
             const processBtn = document.getElementById('processBtn');
             const resultArea = document.getElementById('resultArea');
@@ -550,58 +168,37 @@
             const sourceImagePreview = document.getElementById('sourceImagePreview');
             const finalPreview = document.getElementById('finalPreview');
             const statusText = document.getElementById('statusText');
-            const bgColorSelector = document.getElementById('bgColorSelector');
 
             let sourceImageObject = new Image();
             let processedBlobUrl = null;
+            let selfieSegmentation = null;
 
-            // Direct Click Trigger Sync Fix
-            if (dropZone && imageInput) {
-                dropZone.onclick = function() {
-                    imageInput.click();
-                };
+            // Initialize Google MediaPipe Model
+            try {
+                selfieSegmentation = new SelfieSegmentation({
+                    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+                });
+                selfieSegmentation.setOptions({ modelSelection: 1 }); // 1 = General model for portrait landscapes
+            } catch(e) {
+                console.error("AI Initialization failed");
             }
 
             if(imageInput) {
-                imageInput.addEventListener('change', async function(e) {
+                imageInput.addEventListener('change', function(e) {
                     if (e.target.files && e.target.files[0]) {
                         let file = e.target.files[0];
-                        const fileName = file.name.toLowerCase();
-                        
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Loading file: ${file.name}`;
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Loading image...`;
 
-                        // HEIC Mobile format check adjustment loops
-                        if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
-                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting HEIC format...</b>`;
-                            try {
-                                if (typeof heic2any !== 'undefined') {
-                                    const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.7 });
-                                    const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
-                                    file = new File([blob], file.name.split('.')[0] + ".jpg", { type: "image/jpeg" });
-                                }
-                            } catch (err) {
-                                console.error("HEIC Fallback activated");
-                            }
-                        }
-
-                        // Universal FileReader Stream (Bypasses rigid string checks)
                         const reader = new FileReader();
                         reader.onload = function(event) {
                             sourceImageObject.onload = function() {
-                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Ready: ${file.name}`;
+                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Photo loaded successfully!`;
                                 if (settingsArea) settingsArea.style.display = "block";
                                 if (resultArea) resultArea.style.display = "none";
-                                if (settingsArea) settingsArea.scrollIntoView({ behavior: 'smooth' });
                             };
-                            
-                            sourceImageObject.onerror = function() {
-                                if (statusText) statusText.innerHTML = `<b style="color:red;"><i class="fas fa-exclamation-triangle"></i> Invalid Image File Structure</b>`;
-                            };
-
                             sourceImagePreview.src = event.target.result;
                             sourceImageObject.src = event.target.result;
                         };
-                        
                         reader.readAsDataURL(file);
                     }
                 });
@@ -609,75 +206,56 @@
 
             if(processBtn) {
                 processBtn.addEventListener('click', function() {
-                    if (!sourceImageObject.src || sourceImageObject.src === "") {
-                        alert("Please upload a valid image asset first.");
-                        return;
-                    }
+                    if (!sourceImageObject.src) return;
 
-                    // Google reCAPTCHA Verification Challenge Guard Check
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-                        const captchaRes = grecaptcha.getResponse();
-                        if (captchaRes.length === 0) {
-                            alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                        if (grecaptcha.getResponse().length === 0) {
+                            alert("Please pass the security reCAPTCHA first.");
                             return;
                         }
-                    } else {
-                        alert("Security handshake processing, please re-click in 2 seconds.");
-                        return;
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Matrix...`;
+                    processBtn.innerHTML = `<i class="fas fa-robot fa-spin"></i> AI is isolating person...`;
                     processBtn.disabled = true;
 
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         try {
-                            const canvas = document.createElement('canvas');
-                            const ctx = canvas.getContext('2d');
-                            
-                            canvas.width = sourceImageObject.naturalWidth || sourceImageObject.width;
-                            canvas.height = sourceImageObject.naturalHeight || sourceImageObject.height;
-                            
-                            ctx.drawImage(sourceImageObject, 0, 0);
-                            
-                            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                            const data = imgData.data;
-                            const selection = bgColorSelector.value;
-                            
-                            // High-grade filter threshold maps
-                            const threshold = selection === 'white' ? 215 : 175; 
+                            // Run deep ML segment prediction on image bitmap thread
+                            selfieSegmentation.onResults((results) => {
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+                                canvas.width = sourceImageObject.naturalWidth;
+                                canvas.height = sourceImageObject.naturalHeight;
 
-                            for (let i = 0; i < data.length; i += 4) {
-                                let r = data[i];
-                                let g = data[i+1];
-                                let b = data[i+2];
+                                // Clear frame boundary loops
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
                                 
-                                // Chroma key detection thresholds verification
-                                if (r >= threshold && g >= threshold && b >= threshold) {
-                                    data[i+3] = 0; // Transforms pixels opacity parameter to transparent
-                                }
-                            }
-                            
-                            ctx.putImageData(imgData, 0, 0);
-                            
-                            canvas.toBlob(function(blob) {
-                                if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
-                                processedBlobUrl = URL.createObjectURL(blob);
-                                finalPreview.src = processedBlobUrl;
+                                // Draw Segmentation Mask Layer
+                                ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
                                 
-                                if (resultArea) {
-                                    resultArea.style.display = "block";
+                                // Blend configuration tracking mode rules to keep only isolated inner portrait
+                                ctx.globalCompositeOperation = 'source-in';
+                                ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+
+                                canvas.toBlob(function(blob) {
+                                    if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
+                                    processedBlobUrl = URL.createObjectURL(blob);
+                                    finalPreview.src = processedBlobUrl;
+                                    
+                                    if (resultArea) resultArea.style.display = "block";
+                                    processBtn.innerHTML = "Remove Background with AI";
+                                    processBtn.disabled = false;
                                     resultArea.scrollIntoView({ behavior: 'smooth' });
-                                }
-                            }, 'image/png');
+                                }, 'image/png');
+                            });
+
+                            // Execute engine matrix prediction pipeline loops
+                            await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Error parsing pixel arrays safely inside client window.");
-                        } finally {
-                            processBtn.innerHTML = "Remove Background & Isolate";
+                            alert("AI pipeline error. Please check your image format.");
+                            processBtn.innerHTML = "Remove Background with AI";
                             processBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                grecaptcha.reset();
-                            }
                         }
                     }, 200);
                 });
@@ -688,7 +266,7 @@
                     if (!processedBlobUrl) return;
                     const a = document.createElement('a');
                     a.href = processedBlobUrl;
-                    a.download = `Transparent_SHC_${Date.now()}.png`;
+                    a.download = `AI_Transparent_SHC_${Date.now()}.png`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -697,6 +275,6 @@
 
         });
     })();
-        </script>
+    </script>
 </body>
 </html>
