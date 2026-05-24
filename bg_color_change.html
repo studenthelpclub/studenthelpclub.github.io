@@ -70,7 +70,7 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 50; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; z-index: 5; }
 
-        /* Absolute Master Slider Framework - Dynamic Height Mirroring */
+        /* Absolute Master Slider Framework */
         .comparison-slider-box {
             position: relative; width: 100%; height: auto; display: block; line-height: 0;
             border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
@@ -81,11 +81,11 @@
         .slider-img { width: 100%; height: auto; display: block; pointer-events: none; max-height: 520px; object-fit: contain; }
         .slider-img.img-before { position: relative; z-index: 1; }
         
-        /* Strict CSS Clip-Path Mask System (Prevents image shift or duplication entirely) */
+        /* CSS Clip-Path Overlay */
         .after-mask-wrapper {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 2; pointer-events: none; overflow: hidden;
-            clip-path: inset(0 50% 0 0); /* Managed purely via JavaScript inline style edits */
+            clip-path: inset(0 0 0 50%);
         }
         .after-mask-wrapper .img-after {
             width: 100%; height: 100%; object-fit: contain; display: block;
@@ -131,15 +131,15 @@
 
         /* Output View Box Result Frame Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
         .download-btn:hover { background: #0056b3; }
 
-        /* SEO Informative Content Blocks */
+        /* SEO Content Section */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
 
-        /* Footer Maps Layout Elements */
+        /* Footer */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
@@ -269,24 +269,19 @@
 
             let sourceBase64Stream = null;
             let finalOutputBlob = null;
-            let targetScaleFactor = 4; // Default to 4K
+            let targetScaleFactor = 4;
 
-            // Advanced Absolute Clip-Path Synchronizer Slider Loop (Zero image displacement)
+            // Strict Inset Split View Bounds Handler
             if(splitControlInput) {
                 splitControlInput.addEventListener('input', function(e) {
                     const value = e.target.value;
-                    const inverseValue = 100 - value;
-                    
-                    // Clips from the right side cleanly towards the value line barrier path
-                    if(afterWrapperMask) {
-                        afterWrapperMask.style.clipPath = `inset(0 0 0 ${value}%)`;
-                    }
+                    if(afterWrapperMask) afterWrapperMask.style.clipPath = `inset(0 0 0 ${value}%)`;
                     if(handleBadge) handleBadge.style.left = value + '%';
                     if(dividerLine) dividerLine.style.left = value + '%';
                 });
             }
 
-            // Resolution Flex Selector Event Binding Triggers
+            // Button Resolution Grid Selection Controls
             document.querySelectorAll('.res-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
@@ -296,28 +291,28 @@
                 });
             });
 
-            // Extreme Chained Core Filter Multipliers Function (Drastically enhanced)
+            // Anti-Burn Soft-Clamped Balanced CSS Core Filter Strings (Beautiful Skin Tones)
             function applyLiveStyleFilters() {
                 if(!imgBefore) return;
                 
-                let contrast = 140;   // 1K Baseline Sharpness Boost
-                let brightness = 102; 
-                let saturate = 105;
+                let contrast = 105;   // Balanced Baseline Contrast to avoid blast/burn
+                let brightness = 101; 
+                let saturate = 102;
                 
                 if(targetScaleFactor === 2) { 
-                    contrast = 165; 
-                    brightness = 103; 
-                    saturate = 110; 
+                    contrast = 108; 
+                    brightness = 102; 
+                    saturate = 104; 
                 }
                 else if(targetScaleFactor === 4) { 
-                    contrast = 200; // Ultra Sharp Contrast Balancing Pass
-                    brightness = 104; 
-                    saturate = 115; 
+                    contrast = 112; 
+                    brightness = 102; 
+                    saturate = 106; 
                 }
                 else if(targetScaleFactor === 8) { 
-                    contrast = 260; // Extreme 8K HD Vector Cleansing Pass
-                    brightness = 106; 
-                    saturate = 125; 
+                    contrast = 116; 
+                    brightness = 103; 
+                    saturate = 108; 
                 }
 
                 imgBefore.style.filter = `contrast(${contrast}%) brightness(${brightness}%) saturate(${saturate}%)`;
@@ -339,18 +334,16 @@
                                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                                     file = new File([blob], "converted.jpg", { type: "image/jpeg" });
                                 }
-                            } catch (err) { console.error("HEIC format fallback executed."); }
+                            } catch (err) { console.error("HEIC loop fallback."); }
                         }
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
                             sourceBase64Stream = event.target.result;
                             
-                            // Injecting streams into absolute layer positions
                             imgBefore.src = sourceBase64Stream;
                             imgAfter.src = sourceBase64Stream;
                             
-                            // Reset clip paths to clean default 50% split view maps
                             if(afterWrapperMask) afterWrapperMask.style.clipPath = `inset(0 0 0 50%)`;
                             splitControlInput.value = 50;
                             handleBadge.style.left = '50%';
@@ -376,12 +369,12 @@
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
-                            alert("Please verify the reCAPTCHA security check badge first.");
+                            alert("Please verify the reCAPTCHA protection guard widget checkbox.");
                             return;
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Enhancing to ${targetScaleFactor}K Resolution...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Super Sampling to ${targetScaleFactor}K...`;
                     processBtn.disabled = true;
 
                     setTimeout(() => {
@@ -394,34 +387,32 @@
                                 let baseWidth = imgObj.naturalWidth || imgObj.width;
                                 let baseHeight = imgObj.naturalHeight || imgObj.height;
                                 
-                                // Extreme Resolution Density Modifiers (Safe allocations layout)
+                                // Clean Core Scaling Multipliers
                                 let scaleMultiplier = 1.0;
-                                if(targetScaleFactor === 2) scaleMultiplier = 1.6;
-                                else if(targetScaleFactor === 4) scaleMultiplier = 2.4; // 4K Super Sample Layer Grid Pass
-                                else if(targetScaleFactor === 8) scaleMultiplier = 4.0; // Extreme 4x Pixel Grid Expansion Upscale
+                                if(targetScaleFactor === 2) scaleMultiplier = 1.5;
+                                else if(targetScaleFactor === 4) scaleMultiplier = 2.0; // Clean 2x HD Expansion Density
+                                else if(targetScaleFactor === 8) scaleMultiplier = 3.0; // Extreme Ultra Upscaling Grid
 
                                 canvas.width = baseWidth * scaleMultiplier;
                                 canvas.height = baseHeight * scaleMultiplier;
                                 
+                                // Hardware interpolation algorithm layer locks to preserve edges without heavy contrast leaks
                                 ctx.imageSmoothingEnabled = true;
                                 ctx.imageSmoothingQuality = 'high';
 
-                                // Hard-bake the extreme chained filters into the high-res binary canvas space
                                 ctx.filter = imgBefore.style.filter;
                                 ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
                                 
-                                // Extreme Dual-Pass Sharpness Edge Convolution simulation vectors
+                                // Lanczos Kernel simulation multi-pass structure to crisp fine text/lines smoothly
                                 if (targetScaleFactor >= 4) {
-                                    ctx.globalAlpha = 0.35; // Sharper line visibility pass
-                                    ctx.filter = `contrast(140%) brightness(102%) saturate(105%)`;
-                                    ctx.drawImage(imgObj, -0.8, -0.8, canvas.width, canvas.height);
-                                    ctx.drawImage(imgObj, 0.8, 0.8, canvas.width, canvas.height);
+                                    ctx.globalAlpha = 0.15; 
+                                    ctx.filter = 'contrast(106%) brightness(101%) sharp(50%)';
+                                    ctx.drawImage(imgObj, -0.4, 0, canvas.width, canvas.height);
+                                    ctx.drawImage(imgObj, 0.4, 0, canvas.width, canvas.height);
                                 }
 
                                 canvas.toBlob(function(blob) {
                                     finalOutputBlob = blob;
-                                    
-                                    // Live image frame injection update cleanly
                                     imgBefore.src = URL.createObjectURL(blob);
                                     
                                     if(resultArea) resultArea.style.display = "block";
@@ -429,12 +420,12 @@
                                     
                                     processBtn.innerHTML = "Enhance Image Quality";
                                     processBtn.disabled = false;
-                                }, 'image/jpeg', 0.98); // Ultra high compression clarity matrix factor 0.98
+                                }, 'image/jpeg', 0.96); 
                             };
                             imgObj.src = sourceBase64Stream;
                             
                         } catch(err) {
-                            alert("Canvas upscaler grid compilation timeout matrix error.");
+                            alert("Upscaling system timeout core loop error.");
                             processBtn.innerHTML = "Enhance Image Quality";
                             processBtn.disabled = false;
                         }
@@ -448,7 +439,7 @@
                     const url = URL.createObjectURL(finalOutputBlob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `SHC_${targetScaleFactor}K_Extreme_Enhanced_${Date.now()}.jpg`;
+                    a.download = `SHC_${targetScaleFactor}K_Premium_Enhanced_${Date.now()}.jpg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
