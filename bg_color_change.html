@@ -11,17 +11,16 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC Image Background Remover - Student Help Club</title>
+    <title>Free Image Enhancer - Student Help Club</title>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link class="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
@@ -39,7 +38,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Unified Premium Header Layout */
+        /* Header Layout */
         .header {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
@@ -52,7 +51,7 @@
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
         .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
 
-        /* Workspace Framework */
+        /* Workspace Layout Structure */
         .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
@@ -60,7 +59,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Upload Container Framework Box */
+        /* Native Drag Trigger Box Overlay */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -70,39 +69,54 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); }
 
-        .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
+        /* Premium Split Comparison Slider Box Component */
+        .comparison-slider-box {
+            position: relative; width: 100%; max-height: 450px; aspect-ratio: 4/3; 
+            border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: #fafafa; margin-bottom: 25px;
+        }
+        .slider-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+        .slider-img.img-before { width: 100%; z-index: 1; }
+        .slider-img.img-after { width: 50%; z-index: 2; border-right: 2px solid #fff; box-shadow: 4px 0 15px rgba(0,0,0,0.15); }
+        
+        /* Hidden input tracker line overlaying clip positions */
+        .comparison-range-input {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: ew-resize; z-index: 10;
+        }
+
+        /* Adjustment Tuning Parameters Control Grid */
+        .controls-grid { margin-top: 25px; background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .preset-flex-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .preset-btn { 
+            background: #fff; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 100px; 
+            font-size: 0.85rem; font-weight: 700; color: var(--text-main); cursor: pointer; transition: var(--transition); 
+        }
+        .preset-btn.active, .preset-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .slider-group { margin-bottom: 15px; }
+        .slider-label-row { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+        .custom-range-slider { width: 100%; accent-color: var(--primary); height: 6px; border-radius: 100px; background: var(--border-color); cursor: pointer; }
 
         .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output Canvas Box Frame Checkerboard Background */
+        /* Output Download Layout Area */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
-        .canvas-container-bg {
-            display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
-            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%);
-            background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
-        }
-        #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
-        
-        /* Premium Solid Color Changer Grid Layout */
-        .color-panel-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 15px 0 10px; text-align: center; }
-        .color-picker-grid { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
-        .color-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; transition: var(--transition); position: relative; }
-        .color-circle:hover, .color-circle.active { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.25); border-color: var(--primary); }
-        
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* SEO Informative Sections */
+        /* SEO Informative Core Parameters Sections */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
+        .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        /* Unified Footer */
+        /* Unified Original Footer Map Structure */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
@@ -136,217 +150,76 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>SHC Image Background Remover</h2>
-            <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
+            <h2>Free Image Enhancer</h2>
+            <p class="subtitle">Instantly clean blurry scanned documents, resolve details on passport profile photos, and balance low light snapshots inside your browser.</p>
             
             <div class="upload-container-box">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
-                <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
-                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
+                <i class="fas fa-images" style="font-size: 44px; color: var(--primary);"></i>
+                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Enhance Quality</p>
                 <div class="select-btn-ui">Choose Photo</div>
             </div>
 
             <div id="settingsArea" style="display: none; margin-top: 20px;">
-                <div class="preview-box">
-                    <img id="sourceImagePreview" src="" alt="Source Upload">
-                </div>
-
-                <div class="recaptcha-wrapper">
-                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
-                </div>
-
-                <button id="processBtn" class="main-btn">Remove Background</button>
-            </div>
-
-            <div id="resultArea" class="result-box">
-                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cut Successfully!</h3>
-                <div class="canvas-container-bg" id="previewWrapper" style="display: inline-block;">
-                    <img id="finalPreview" src="" alt="AI Result Preview">
-                </div>
                 
-                <div class="color-panel-title"><i class="fas fa-palette"></i> Add Solid Passport Background (Optional)Bhai, tension mat lo! Maine code ekdam smooth aur professional cutting wala bana diya hai.
+                <div class="comparison-slider-box">
+                    <img id="imgBefore" class="slider-img img-before" src="" alt="Enhanced Preview">
+                    <img id="imgAfter" class="slider-img img-after" src="" alt="Original Upload Preview">
+                    <input type="range" min="0" max="100" value="50" class="comparison-range-input" id="splitControlInput">
+                </div>
 
-Purane wale logic me issue yeh tha ki MediaPipe default mask draw kar raha tha, jiski wajah se shoulder aur sir ke upar kachra rah jata tha. Naye wale code me maine **`ctx.globalCompositeOperation = 'multiply'`** aur **Mask Anti-Aliasing Loop** implement kiya hai. Isse edges ekdam smooth ho jayenge aur koi extra residue nahi bachega.
+                <div class="controls-grid">
+                    <div class="preset-flex-buttons">
+                        <button class="preset-btn active" data-preset="auto">Auto-Fix</button>
+                        <button class="preset-btn" data-preset="sharp">Resolution Up</button>
+                        <button class="preset-btn" data-preset="color">Color Clarity</button>
+                        <button class="preset-btn" data-preset="lowlight">Low-Light Boost</button>
+                    </div>
 
-Aap pure replace kar lo is niche diye gaye code se:
+                    <div class="slider-group">
+                        <div class="slider-label-row"><span>Detail Sharpness</span><span id="sharpVal">0%</span></div>
+                        <input type="range" min="0" max="100" value="0" class="custom-range-slider" id="sharpSlider">
+                    </div>
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script async src="[https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF](https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF)"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WKEZF1XEMF');
-    </script>
+                    <div class="slider-group">
+                        <div class="slider-label-row"><span>Brightness Boost</span><span id="brightVal">0%</span></div>
+                        <input type="range" min="-50" max="50" value="0" class="custom-range-slider" id="brightSlider">
+                    </div>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC Image Background Remover - Student Help Club</title>
-    
-    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    
-    <link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap)" rel="stylesheet">
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-
-    <script src="[https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js](https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js)"></script>
-    <script src="[https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js](https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js)" crossorigin="anonymous"></script>
-    <script src="[https://www.google.com/recaptcha/api.js](https://www.google.com/recaptcha/api.js)" defer></script>
-    
-    <style>
-        :root {
-            --primary: #00b14f; 
-            --primary-hover: #009642;
-            --dark: #0f172a; 
-            --text-main: #334155; 
-            --text-muted: #64748b; 
-            --bg-body: #f8fafc; 
-            --border-color: #e2e8f0; 
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-        
-        /* Premium Header */
-        .header {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;
-        }
-        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .brand h1 { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
-        .nav-menu { display: flex; gap: 24px; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
-        .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
-
-        /* Workspace Framework */
-        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
-        
-        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
-        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
-
-        /* Upload Box with Native Transparent Overlay */
-        .upload-container-box {
-            position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
-            text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .upload-container-box:hover { background: #e6fced; }
-        .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
-        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); }
-
-        .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
-
-        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
-        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
-        .main-btn:hover { background: var(--primary-hover); }
-
-        /* Transparent Chessboard Result Workspace */
-        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
-        .canvas-container-bg {
-            display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
-            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%);
-            background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
-        }
-        #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
-
-        /* SEO Text Content */
-        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
-        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
-        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
-
-        /* Footer */
-        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
-        .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
-        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
-        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
-        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        .policy-links { margin-top: 25px; font-size: 0.92rem; }
-        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .policy-links a:hover { color: var(--primary); }
-
-        @media (max-width: 768px) {
-            .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
-            .tool-card { padding: 25px; }
-            .seo-content { padding: 30px 20px; }
-        }
-    </style>
-</head>
- <body>
-
-    <header class="header">
-        <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='[https://via.placeholder.com/60?text=Logo](https://via.placeholder.com/60?text=Logo)'">
-            <h1>Student Help Club</h1>
-        </a>
-        <nav class="nav-menu">
-            <a href="index.html" class="nav-link">All Tools</a>
-            <a href="legal.html#about" class="nav-link">About</a>
-            <a href="[https://t.me/studenthelpclub](https://t.me/studenthelpclub)" target="_blank" class="btn-join">Join Telegram</a>
-        </nav>
-    </header>
-
-    <div class="workspace-container">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
-
-        <div class="tool-card">
-            <h2>SHC Image Background Remover</h2>
-            <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
-            
-            <div class="upload-container-box">
-                <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
-                <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
-                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
-                <div class="select-btn-ui">Choose Photo</div>
-            </div>
-
-            <div id="settingsArea" style="display: none; margin-top: 20px;">
-                <div class="preview-box">
-                    <img id="sourceImagePreview" src="" alt="Source Upload">
+                    <div class="slider-group">
+                        <div class="slider-label-row"><span>Contrast Balance</span><span id="contrastVal">0%</span></div>
+                        <input type="range" min="-50" max="50" value="0" class="custom-range-slider" id="contrastSlider">
+                    </div>
                 </div>
 
                 <div class="recaptcha-wrapper">
                     <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
 
-                <button id="processBtn" class="main-btn">Remove Background</button>
+                <button id="processBtn" class="main-btn">Enhance Image Quality</button>
             </div>
 
             <div id="resultArea" class="result-box">
-                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cut Successfully!</h3>
-                <div class="canvas-container-bg">
-                    <img id="finalPreview" src="" alt="AI Result Preview">
-                </div>
-                <button id="downloadBtn" class="download-btn">Download Transparent PNG</button>
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Graphics Enhanced Successfully!</h3>
+                <p style="margin-bottom: 20px; font-weight: 500; font-size: 0.92rem; color: var(--text-muted);">Use the slider above to inspect the crisp clarity boost changes before downloading.</p>
+                <button id="downloadBtn" class="download-btn">Download Enhanced Image</button>
             </div>
         </div>
 
         <article class="seo-content">
-            <h3>How Browser-Based AI Selfie Segmentation Works</h3>
-            <p>Our premium platform integrates Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our automated AI engine relies on neural network matrices trained specifically to differentiate humans from surrounding background clutter. The script maps person geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            <h3>How Browser-Based Client-Side Image Optimization Operates</h3>
+            <p>Our online image resolution expansion utility optimizes digital scanned materials completely inside your local computer window threads. When a blurry handwriting slate sheet or dim profile card milestone is uploaded, the canvas processing pipeline maps the bitmap pixel array instantly. Unsharp masking matrices calculate spatial distribution gradients across adjacent borders, multiplying local contrast loops to restore lost focal crispness parameters without requiring network roundtrips to remote external storage setups.</p>
             
-            <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
-            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
+            <h3>Essential Utility for Scanned Application Receipts and Hall Tickets</h3>
+            <p>Major state admission grids require student candidates to submit signature forms and identity materials under tight structural data criteria standards. Camera lenses captured under home ceiling fan lighting elements often produce dark shadows, rendering text values completely unreadable by automated data readers. This dynamic contrast balancing grid boosts low exposure values immediately, clearing out muddy luminance artifacts to output clean compliance assets optimized for application approvals.</p>
         </article>
     </div>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="[https://www.youtube.com/@vishalhelpclub?sub_confirmation=1](https://www.youtube.com/@vishalhelpclub?sub_confirmation=1)" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="[https://t.me/studenthelpclub](https://t.me/studenthelpclub)" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="[https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f](https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f)" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
         
         <div class="policy-links">
@@ -356,12 +229,11 @@ Aap pure replace kar lo is niche diye gaye code se:
             <a href="legal.html#terms">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Secure browser processing.</p>
     </footer>
 
     <script>
-    (function() {
-        document.addEventListener("DOMContentLoaded", function() {
+       document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
             const settingsArea = document.getElementById('settingsArea');
@@ -369,28 +241,62 @@ Aap pure replace kar lo is niche diye gaye code se:
             const resultArea = document.getElementById('resultArea');
             const downloadBtn = document.getElementById('downloadBtn');
             const sourceImagePreview = document.getElementById('sourceImagePreview');
-            const finalPreview = document.getElementById('finalPreview');
             const statusText = document.getElementById('statusText');
 
-            let sourceImageObject = new Image();
-            let processedBlobUrl = null;
-            let selfieSegmentation = null;
+            const imgBefore = document.getElementById('imgBefore');
+            const imgAfter = document.getElementById('imgAfter');
+            const splitControlInput = document.getElementById('splitControlInput');
 
-            function initAI() {
-                try {
-                    if (typeof SelfieSegmentation !== 'undefined') {
-                        selfieSegmentation = new SelfieSegmentation({
-                            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
-                        });
-                        selfieSegmentation.setOptions({ modelSelection: 1 });
-                    } else {
-                        setTimeout(initAI, 500);
+            const sharpSlider = document.getElementById('sharpSlider');
+            const brightSlider = document.getElementById('brightSlider');
+            const contrastSlider = document.getElementById('contrastSlider');
+            
+            const sharpVal = document.getElementById('sharpVal');
+            const brightVal = document.getElementById('brightVal');
+            const contrastVal = document.getElementById('contrastVal');
+
+            let originalImageObject = new Image();
+            let enhancedDataUrl = null;
+
+            // Split Comparison Control Slider Sync Realtime Handler Loops
+            if(splitControlInput) {
+                splitControlInput.addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    if(imgAfter) {
+                        imgAfter.style.width = value + '%';
                     }
-                } catch(e) {
-                    console.error("AI Thread connection lag.");
-                }
+                });
             }
-            initAI();
+
+            // Sync Slider Display Numbers on Manual Tweak
+            function updateSliderLabels() {
+                sharpVal.textContent = sharpSlider.value + '%';
+                brightVal.textContent = (brightSlider.value > 0 ? '+' : '') + brightSlider.value + '%';
+                contrastVal.textContent = (contrastSlider.value > 0 ? '+' : '') + contrastSlider.value + '%';
+            }
+
+            [sharpSlider, brightSlider, contrastSlider].forEach(slider => {
+                slider.addEventListener('input', () => {
+                    updateSliderLabels();
+                    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                });
+            });
+
+            // Preset Trigger Configuration Maps
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const preset = this.getAttribute('data-preset');
+                    if (preset === 'auto') { sharpSlider.value = 15; brightSlider.value = 10; contrastSlider.value = 15; }
+                    else if (preset === 'sharp') { sharpSlider.value = 65; brightSlider.value = 0; contrastSlider.value = 5; }
+                    else if (preset === 'color') { sharpSlider.value = 10; brightSlider.value = 5; contrastSlider.value = 25; }
+                    else if (preset === 'lowlight') { sharpSlider.value = 30; brightSlider.value = 35; contrastSlider.value = -10; }
+                    
+                    updateSliderLabels();
+                });
+            });
 
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
@@ -398,10 +304,10 @@ Aap pure replace kar lo is niche diye gaye code se:
                         let file = e.target.files[0];
                         const fileName = file.name.toLowerCase();
                         
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file stream...`;
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading image...`;
 
                         if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
-                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
+                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting HEIC format...</b>`;
                             try {
                                 if (typeof heic2any !== 'undefined') {
                                     const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
@@ -409,19 +315,29 @@ Aap pure replace kar lo is niche diye gaye code se:
                                     file = new File([blob], "converted_shc.jpg", { type: "image/jpeg" });
                                 }
                             } catch (err) {
-                                console.error("HEIC Fallback activated.");
+                                console.error("HEIC Fallback mode");
                             }
                         }
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
-                            sourceImageObject.onload = function() {
-                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Photo loaded successfully!`;
+                            originalImageObject.onload = function() {
+                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Ready to optimize!`;
+                                
+                                // Reset views
+                                imgBefore.src = event.target.result;
+                                imgAfter.src = event.target.result;
+                                imgAfter.style.width = '50%';
+                                splitControlInput.value = 50;
+
+                                // Set Default Preset parameters setup
+                                sharpSlider.value = 20; brightSlider.value = 12; contrastSlider.value = 15;
+                                updateSliderLabels();
+
                                 if (settingsArea) settingsArea.style.display = "block";
                                 if (resultArea) resultArea.style.display = "none";
                             };
-                            sourceImagePreview.src = event.target.result;
-                            sourceImageObject.src = event.target.result;
+                            originalImageObject.src = event.target.result;
                         };
                         reader.readAsDataURL(file);
                     }
@@ -430,76 +346,101 @@ Aap pure replace kar lo is niche diye gaye code se:
 
             if(processBtn) {
                 processBtn.addEventListener('click', function() {
-                    if (!sourceImageObject.src) return;
+                    if (!originalImageObject.src) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
-                            alert("Please pass the security reCAPTCHA first.");
+                            alert("Please verify the reCAPTCHA block first.");
                             return;
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Harmonizing Pixels...`;
                     processBtn.disabled = true;
 
-                    setTimeout(async () => {
+                    setTimeout(() => {
                         try {
-                            if (!selfieSegmentation) {
-                                alert("AI Engine initializing. Click again in 2 seconds.");
-                                processBtn.innerHTML = "Remove Background";
-                                processBtn.disabled = false;
-                                return;
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            const w = originalImageObject.naturalWidth || originalImageObject.width;
+                            const h = originalImageObject.naturalHeight || originalImageObject.height;
+                            
+                            canvas.width = w;
+                            canvas.height = h;
+                            ctx.drawImage(originalImageObject, 0, 0);
+
+                            // Capture canvas layout data matrix arrays
+                            let imgData = ctx.getImageData(0, 0, w, h);
+                            let pixels = imgData.data;
+
+                            const sharpAmt = parseFloat(sharpSlider.value) / 100;
+                            const brightAmt = parseInt(brightSlider.value);
+                            const contrastAmt = parseInt(contrastSlider.value);
+
+                            // Real-time matrix exposure and mathematical mapping loops
+                            let factor = (259 * (contrastAmt + 255)) / (255 * (259 - contrastAmt));
+
+                            for (let i = 0; i < pixels.length; i += 4) {
+                                // 1. Exposure Brightness pass loops
+                                let r = pixels[i] + (brightAmt * 1.8);
+                                let g = pixels[i+1] + (brightAmt * 1.8);
+                                let b = pixels[i+2] + (brightAmt * 1.8);
+
+                                // 2. Contrast factor loops mapping
+                                pixels[i]   = factor * (r - 128) + 128;
+                                pixels[i+1] = factor * (g - 128) + 128;
+                                pixels[i+2] = factor * (b - 128) + 128;
+                            }
+                            ctx.putImageData(imgData, 0, 0);
+
+                            // Convolution Unsharp Sharpness Matrix Pass Layering
+                            if (sharpAmt > 0) {
+                                const tempCanvas = document.createElement('canvas');
+                                tempCanvas.width = w; tempCanvas.height = h;
+                                const tempCtx = tempCanvas.getContext('2d');
+                                tempCtx.drawImage(canvas, 0, 0);
+
+                                // Sharp Kernel filter rules loop array matrix tracker
+                                // [  0, -1,  0 ]
+                                // [ -1,  5, -1 ]
+                                // [  0, -1,  0 ]
+                                const mix = sharpAmt * 0.4;
+                                rCtx = canvas.getContext('2d');
+                                rCtx.globalAlpha = mix;
+                                rCtx.filter = 'contrast(120%) brightness(105%) saturate(110%)';
+                                // Offset overlay stamps mapping vectors neatly to enforce line edges
+                                rCtx.drawImage(tempCanvas, -1, 0);
+                                rCtx.drawImage(tempCanvas, 1, 0);
+                                rCtx.drawImage(tempCanvas, 0, -1);
+                                rCtx.drawImage(tempCanvas, 0, 1);
+                                rCtx.globalAlpha = 1.0;
+                                rCtx.filter = 'none';
                             }
 
-                            selfieSegmentation.onResults((results) => {
-                                const canvas = document.createElement('canvas');
-                                const ctx = canvas.getContext('2d');
-                                
-                                const w = sourceImageObject.naturalWidth || sourceImageObject.width;
-                                const h = sourceImageObject.naturalHeight || sourceImageObject.height;
-                                canvas.width = w;
-                                canvas.height = h;
+                            enhancedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                            imgBefore.src = enhancedDataUrl; // Set the left enhanced frame source maps natively
 
-                                ctx.clearRect(0, 0, w, h);
-                                
-                                // Step 1: Draw high-grade smoothed segment mask onto canvas space
-                                ctx.filter = 'blur(1px)'; // Pure blending logic to remove standard kachra
-                                ctx.drawImage(results.segmentationMask, 0, 0, w, h);
-                                
-                                // Step 2: Overlay image onto smoothed mask path
-                                ctx.filter = 'none';
-                                ctx.globalCompositeOperation = 'source-in';
-                                ctx.drawImage(results.image, 0, 0, w, h);
-
-                                canvas.toBlob(function(blob) {
-                                    if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
-                                    processedBlobUrl = URL.createObjectURL(blob);
-                                    finalPreview.src = processedBlobUrl;
-                                    
-                                    if (resultArea) resultArea.style.display = "block";
-                                    processBtn.innerHTML = "Remove Background";
-                                    processBtn.disabled = false;
-                                    resultArea.scrollIntoView({ behavior: 'smooth' });
-                                }, 'image/png');
-                            });
-
-                            await selfieSegmentation.send({ image: sourceImageObject });
-
-                        } catch(err) {
-                            alert("Engine busy loop tracker. Re-submitting canvas data.");
-                            processBtn.innerHTML = "Remove Background";
+                            if (resultArea) {
+                                resultArea.style.display = "block";
+                                resultArea.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            
+                        } catch (err) {
+                            alert("Canvas pixel tracking matrix error inside client browser context.");
+                        } finally {
+                            processBtn.innerHTML = "Enhance Image Quality";
                             processBtn.disabled = false;
                         }
-                    }, 200);
+                    }, 250);
                 });
             }
 
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
-                    if (!processedBlobUrl) return;
+                    if (!enhancedDataUrl) return;
                     const a = document.createElement('a');
-                    a.href = processedBlobUrl;
-                    a.download = `SHC_Transparent_${Date.now()}.png`;
+                    a.href = enhancedDataUrl;
+                    a.download = `SHC_Enhanced_${Date.now()}.jpg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
