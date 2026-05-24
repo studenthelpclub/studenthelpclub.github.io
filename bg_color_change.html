@@ -70,28 +70,31 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 50; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; z-index: 5; }
 
-        /* Absolute Fix: Responsive Height Container to Avoid Cropping */
+        /* 100% Fixed Non-Breaking Split Slider Frame System */
         .comparison-slider-box {
-            position: relative; width: 100%; height: auto; min-height: 320px; max-height: 460px;
+            position: relative; width: 100%; height: auto;
             border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: #f1f5f9; margin-bottom: 25px;
-            touch-action: pan-y; display: flex; justify-content: center; align-items: center;
+            touch-action: pan-y; display: block; line-height: 0;
         }
-        .slider-img { width: 100%; height: auto; max-height: 460px; object-fit: contain; display: block; pointer-events: none; }
-        .slider-img.img-before { z-index: 1; position: relative; }
         
-        /* Overlay container clipping width calculation framework wrapper */
+        .slider-img { width: 100%; height: auto; display: block; pointer-events: none; max-height: 500px; object-fit: contain; }
+        .slider-img.img-before { position: relative; z-index: 1; }
+        
+        /* Strict Overlay Clipping Engine Wrapper */
         .after-mask-wrapper {
             position: absolute; top: 0; left: 0; width: 50%; height: 100%;
             z-index: 2; overflow: hidden; border-right: 3px solid #ffffff;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.15);
-        }
-        .after-mask-wrapper .img-after {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain; max-height: 460px; display: block;
+            box-shadow: 4px 0 12px rgba(0,0,0,0.15); pointer-events: none;
         }
         
-        /* Floating Handle Badge */
+        /* Force overlay asset matching dimension parent parameters exactly to kill shift breaks */
+        .after-mask-wrapper .img-after {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            max-height: 500px; object-fit: contain; display: block;
+        }
+        
+        /* Handle Badge badge tracker */
         .slider-handle-badge {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 44px; height: 44px; background: #ffffff; border-radius: 50%; z-index: 3;
@@ -102,7 +105,7 @@
 
         .comparison-range-input {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; cursor: ew-resize; z-index: 10;
+            opacity: 0; cursor: ew-resize; z-index: 10; line-height: normal;
         }
 
         /* Tuning Workstation Parameters Controls Layout */
@@ -122,7 +125,7 @@
         .slider-label-row { display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
         .custom-range-slider { width: 100%; accent-color: #007bff; height: 6px; border-radius: 100px; background: var(--border-color); cursor: pointer; }
 
-        /* Palette Grid Layout */
+        /* Palette Panel UI */
         .palette-grid-panel { display: flex; justify-content: center; gap: 12px; margin: 25px 0 15px; flex-wrap: wrap; }
         .color-circle { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: var(--transition); }
         .color-circle.c-transparent { background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px; }
@@ -131,7 +134,7 @@
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output View Framework Container Box */
+        /* Output View Framework Box Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
 
@@ -140,7 +143,7 @@
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
 
-        /* Footer Elements Map Section */
+        /* Original Tracking Footer Elements */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
@@ -269,7 +272,7 @@
     </footer>
 
     <script>
-        (function() {
+    (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
@@ -284,17 +287,16 @@
             const afterWrapperMask = document.getElementById('afterWrapperMask');
             const splitControlInput = document.getElementById('splitControlInput');
             const handleBadge = document.getElementById('handleBadge');
-            const sliderWrapperContainer = document.getElementById('sliderWrapperContainer');
 
             const sharpSlider = document.getElementById('sharpSlider');
             const noiseSlider = document.getElementById('noiseSlider');
             const sharpVal = document.getElementById('sharpVal');
             const noiseVal = document.getElementById('noiseVal');
 
-            let originalImageObject = new Image();
-            let enhancedDataUrl = null;
+            let sourceBase64Stream = null;
+            let finalOutputBlob = null;
 
-            // Strict Split Slider Layer bounds masking engine
+            // Accurate Live Mask Width sync loop
             if(splitControlInput) {
                 splitControlInput.addEventListener('input', function(e) {
                     const value = e.target.value;
@@ -308,26 +310,44 @@
                 noiseVal.textContent = noiseSlider.value + '%';
             }
 
+            // Real-time slide responsive event attachments
             [sharpSlider, noiseSlider].forEach(slider => {
-                slider.addEventListener('input', () => {
+                slider.addEventListener('input', function() {
                     syncLabelNumbers();
                     document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                    applyLiveStyleFilters();
                 });
             });
 
-            // Preset Trigger configurations
+            // Hardware Accelerated CSS Filter Chaining Map Sync Function
+            function applyLiveStyleFilters() {
+                if(!imgBefore) return;
+                const sharpFactor = parseFloat(sharpSlider.value) / 100;
+                const noiseFactor = parseFloat(noiseSlider.value) / 100;
+
+                let contrastPercent = 100 + (sharpFactor * 45);
+                let brightnessPercent = 100 + (noiseFactor * 15);
+                let saturationPercent = 100 + (sharpFactor * 12);
+                let sharpBlurString = (sharpFactor > 0.6) ? `saturate(${saturationPercent}%) contrast(${contrastPercent}%)` : '';
+
+                // Injecting CSS Filter Strings directly onto DOM node texture target mapping smoothly
+                imgBefore.style.filter = `contrast(${contrastPercent}%) brightness(${brightnessPercent}%) saturate(${saturationPercent}%) ${sharpBlurString}`;
+            }
+
+            // Preset Trigger Mappings
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     
                     const preset = this.getAttribute('data-preset');
-                    if(preset === 'auto') { sharpSlider.value = 40; noiseSlider.value = 25; }
-                    else if(preset === 'sharp') { sharpSlider.value = 95; noiseSlider.value = 65; }
-                    else if(preset === 'color') { sharpSlider.value = 20; noiseSlider.value = 15; }
-                    else if(preset === 'lowlight') { sharpSlider.value = 55; noiseSlider.value = 80; }
+                    if(preset === 'auto') { sharpSlider.value = 35; noiseSlider.value = 20; }
+                    else if(preset === 'sharp') { sharpSlider.value = 90; noiseSlider.value = 60; }
+                    else if(preset === 'color') { sharpSlider.value = 25; noiseSlider.value = 10; }
+                    else if(preset === 'lowlight') { sharpSlider.value = 50; noiseSlider.value = 85; }
                     
                     syncLabelNumbers();
+                    applyLiveStyleFilters();
                 });
             });
 
@@ -352,28 +372,28 @@
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
-                            originalImageObject.onload = function() {
-                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> File Linked Successfully!`;
-                                
-                                // Reset views dynamically ensuring absolute bounds matching width layout properties
-                                imgBefore.src = event.target.result;
-                                imgAfter.src = event.target.result;
-                                
-                                setTimeout(() => {
-                                    const computedHeight = imgBefore.clientHeight;
-                                    if (computedHeight > 50 && sliderWrapperContainer) {
-                                        sliderWrapperContainer.style.height = computedHeight + 'px';
-                                    }
-                                }, 150);
-
-                                if(afterWrapperMask) afterWrapperMask.style.width = '50%';
-                                splitControlInput.value = 50;
-                                handleBadge.style.left = '50%';
-
-                                if (settingsArea) settingsArea.style.display = "block";
-                                if (resultArea) resultArea.style.display = "none";
+                            sourceBase64Stream = event.target.result;
+                            
+                            // Load structural components flawlessly
+                            imgBefore.src = sourceBase64Stream;
+                            imgAfter.src = sourceBase64Stream;
+                            
+                            // Align overlay scale aspect loops natively smoothly
+                            imgBefore.onload = function() {
+                                if (imgAfter) imgAfter.style.width = imgBefore.clientWidth + 'px';
                             };
-                            originalImageObject.src = event.target.result;
+
+                            if(afterWrapperMask) afterWrapperMask.style.width = '50%';
+                            splitControlInput.value = 50;
+                            handleBadge.style.left = '50%';
+
+                            sharpSlider.value = 90; noiseSlider.value = 70;
+                            syncLabelNumbers();
+                            applyLiveStyleFilters();
+
+                            if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> File Linked Successfully!`;
+                            if (settingsArea) settingsArea.style.display = "block";
+                            if (resultArea) resultArea.style.display = "none";
                         };
                         reader.readAsDataURL(file);
                     }
@@ -382,7 +402,7 @@
 
             if(processBtn) {
                 processBtn.addEventListener('click', function() {
-                    if (!originalImageObject.src) return;
+                    if (!sourceBase64Stream) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
@@ -391,72 +411,63 @@
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Upscaling Resolution...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Compiling Asset...`;
                     processBtn.disabled = true;
 
                     setTimeout(() => {
                         try {
                             const canvas = document.createElement('canvas');
                             const ctx = canvas.getContext('2d');
+                            const imgObj = new Image();
                             
-                            const nativeW = originalImageObject.naturalWidth || originalImageObject.width;
-                            const nativeH = originalImageObject.naturalHeight || originalImageObject.height;
+                            imgObj.onload = function() {
+                                canvas.width = imgObj.naturalWidth;
+                                canvas.height = imgObj.naturalHeight;
+                                
+                                // Mirror the high-grade CSS Filter Chaining parameters onto hard-baked canvas space loops securely
+                                ctx.filter = imgBefore.style.filter;
+                                ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
+                                
+                                canvas.toBlob(function(blob) {
+                                    finalOutputBlob = blob;
+                                    if(resultArea) resultArea.style.display = "block";
+                                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                                    
+                                    processBtn.innerHTML = "Enhance Image Quality";
+                                    processBtn.disabled = false;
+                                }, 'image/jpeg', 0.96);
+                            };
+                            imgObj.src = sourceBase64Stream;
                             
-                            // Safe 1.2x upsampling multiplier grid mapping to prevent thread latency crashes
-                            canvas.width = nativeW * 1.2;
-                            canvas.height = nativeH * 1.2;
-                            
-                            ctx.imageSmoothingEnabled = true;
-                            ctx.imageSmoothingQuality = 'high';
-
-                            const sharpFactor = parseFloat(sharpSlider.value) / 100;
-                            const noiseFactor = parseFloat(noiseSlider.value) / 100;
-
-                            let contrastPercent = 100 + (sharpFactor * 40);
-                            let brightnessPercent = 100 + (noiseFactor * 10);
-                            let saturationPercent = 105 + (sharpFactor * 8);
-                            
-                            // Native hardware CSS filters setup execution block
-                            ctx.filter = `contrast(${contrastPercent}%) brightness(${brightnessPercent}%) saturate(${saturationPercent}%)`;
-                            ctx.drawImage(originalImageObject, 0, 0, canvas.width, canvas.height);
-                            
-                            // Unsharp mask overlay displacement pipeline loops
-                            if (sharpFactor > 0.5) {
-                                ctx.globalAlpha = sharpFactor * 0.2;
-                                ctx.filter = 'contrast(125%) sharpness(100%)';
-                                ctx.drawImage(originalImageObject, -0.5, -0.5, canvas.width, canvas.height);
-                                ctx.drawImage(originalImageObject, 0.5, 0.5, canvas.width, canvas.height);
-                            }
-
-                            enhancedDataUrl = canvas.toDataURL('image/jpeg', 0.94);
-                            imgBefore.src = enhancedDataUrl;
-
-                            if (resultArea) {
-                                resultArea.style.display = "block";
-                                resultArea.scrollIntoView({ behavior: 'smooth' });
-                            }
-                            
-                        } catch (err) {
-                            alert("Hardware acceleration rendering layer matrix timeout.");
-                        } finally {
+                        } catch(err) {
+                            alert("Baking context matrix compilation timeout.");
                             processBtn.innerHTML = "Enhance Image Quality";
                             processBtn.disabled = false;
                         }
-                    }, 250);
+                    }, 200);
                 });
             }
 
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
-                    if (!enhancedDataUrl) return;
+                    if (!finalOutputBlob) return;
+                    const url = URL.createObjectURL(finalOutputBlob);
                     const a = document.createElement('a');
-                    a.href = enhancedDataUrl;
+                    a.href = url;
                     a.download = `SHC_Enhanced_${Date.now()}.jpg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
                 };
             }
+
+            // Sync layout view width configurations dynamically on orientation changes
+            window.addEventListener('resize', function() {
+                if(imgBefore && imgAfter && imgBefore.src !== "") {
+                    imgAfter.style.width = imgBefore.clientWidth + 'px';
+                }
+            });
 
         });
     })();
