@@ -59,7 +59,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Fixed File Selection Frame Container Overlay Box */
+        /* Upload Container Framework Box */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -70,23 +70,28 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 50; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; z-index: 5; }
 
-        /* Ultimate Fixed Slider Box Framework Layout */
+        /* Absolute Fix: Responsive Height Container to Avoid Cropping */
         .comparison-slider-box {
-            position: relative; width: 100%; height: 380px; 
+            position: relative; width: 100%; height: auto; min-height: 320px; max-height: 460px;
             border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: #f1f5f9; margin-bottom: 25px;
             touch-action: pan-y; display: flex; justify-content: center; align-items: center;
         }
-        .slider-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
-        .slider-img.img-before { width: 100%; z-index: 1; background: #f1f5f9; }
+        .slider-img { width: 100%; height: auto; max-height: 460px; object-fit: contain; display: block; pointer-events: none; }
+        .slider-img.img-before { z-index: 1; position: relative; }
         
-        /* Strict positioning fix to ensure split clips perfectly without repeating textures */
-        .slider-img.img-after { 
-            width: 50%; z-index: 2; height: 100%; object-fit: contain; object-position: left center;
-            border-right: 3px solid #ffffff; box-shadow: 5px 0 15px rgba(0,0,0,0.12); background: #f1f5f9;
+        /* Overlay container clipping width calculation framework wrapper */
+        .after-mask-wrapper {
+            position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+            z-index: 2; overflow: hidden; border-right: 3px solid #ffffff;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.15);
+        }
+        .after-mask-wrapper .img-after {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; max-height: 460px; display: block;
         }
         
-        /* Handle Badge */
+        /* Floating Handle Badge */
         .slider-handle-badge {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 44px; height: 44px; background: #ffffff; border-radius: 50%; z-index: 3;
@@ -117,27 +122,25 @@
         .slider-label-row { display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
         .custom-range-slider { width: 100%; accent-color: #007bff; height: 6px; border-radius: 100px; background: var(--border-color); cursor: pointer; }
 
-        /* Dynamic Visual Color Grid Panel */
+        /* Palette Grid Layout */
         .palette-grid-panel { display: flex; justify-content: center; gap: 12px; margin: 25px 0 15px; flex-wrap: wrap; }
         .color-circle { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: var(--transition); }
-        .color-circle:hover { transform: scale(1.12); }
         .color-circle.c-transparent { background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px; }
 
         .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output Download Layout Area Container */
+        /* Output View Framework Container Box */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
-        .download-btn:hover { background: #0056b3; }
 
-        /* Core Informative SEO Content Blocks */
+        /* SEO Blocks Content */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
 
-        /* Original Tracking Footer Elements */
+        /* Footer Elements Map Section */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
@@ -152,7 +155,6 @@
             .header { padding: 16px 4%; }
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
-            .comparison-slider-box { height: 280px; }
             .seo-content { padding: 30px 20px; }
         }
     </style>
@@ -187,9 +189,11 @@
 
             <div id="settingsArea" style="display: none; margin-top: 20px;">
                 
-                <div class="comparison-slider-box">
+                <div class="comparison-slider-box" id="sliderWrapperContainer">
                     <img id="imgBefore" class="slider-img img-before" src="" alt="Enhanced Matrix Preview">
-                    <img id="imgAfter" class="slider-img img-after" src="" alt="Original Upload Reference Preview">
+                    <div class="after-mask-wrapper" id="afterWrapperMask">
+                        <img id="imgAfter" class="img-after" src="" alt="Original Upload Reference Preview">
+                    </div>
                     <div class="slider-handle-badge" id="handleBadge">A ></div>
                     <input type="range" min="0" max="100" value="50" class="comparison-range-input" id="splitControlInput">
                 </div>
@@ -237,7 +241,6 @@
 
             <div id="resultArea" class="result-box">
                 <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Graphics Enhanced Successfully!</h3>
-                <p style="margin-bottom: 20px; font-weight: 500; font-size: 0.92rem; color: var(--text-muted);">Use the slider handle split to preview crisp details before execution loop saves.</p>
                 <button id="downloadBtn" class="download-btn">Download Enhanced Image</button>
             </div>
         </div>
@@ -266,7 +269,7 @@
     </footer>
 
     <script>
-    (function() {
+        (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
@@ -278,8 +281,10 @@
 
             const imgBefore = document.getElementById('imgBefore');
             const imgAfter = document.getElementById('imgAfter');
+            const afterWrapperMask = document.getElementById('afterWrapperMask');
             const splitControlInput = document.getElementById('splitControlInput');
             const handleBadge = document.getElementById('handleBadge');
+            const sliderWrapperContainer = document.getElementById('sliderWrapperContainer');
 
             const sharpSlider = document.getElementById('sharpSlider');
             const noiseSlider = document.getElementById('noiseSlider');
@@ -289,17 +294,12 @@
             let originalImageObject = new Image();
             let enhancedDataUrl = null;
 
-            // Split slider bounds handling loop track
+            // Strict Split Slider Layer bounds masking engine
             if(splitControlInput) {
                 splitControlInput.addEventListener('input', function(e) {
                     const value = e.target.value;
-                    // Object position masking configuration layout sync
-                    if(imgAfter) {
-                        imgAfter.style.width = value + '%';
-                    }
-                    if(handleBadge) {
-                        handleBadge.style.left = value + '%';
-                    }
+                    if(afterWrapperMask) afterWrapperMask.style.width = value + '%';
+                    if(handleBadge) handleBadge.style.left = value + '%';
                 });
             }
 
@@ -315,7 +315,7 @@
                 });
             });
 
-            // Preset configurations allocation mapping
+            // Preset Trigger configurations
             document.querySelectorAll('.preset-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
@@ -347,7 +347,7 @@
                                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                                     file = new File([blob], "converted.jpg", { type: "image/jpeg" });
                                 }
-                            } catch (err) { console.error("HEIC fallback stream error"); }
+                            } catch (err) { console.error("HEIC Fallback execution path."); }
                         }
 
                         const reader = new FileReader();
@@ -355,9 +355,18 @@
                             originalImageObject.onload = function() {
                                 if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> File Linked Successfully!`;
                                 
+                                // Reset views dynamically ensuring absolute bounds matching width layout properties
                                 imgBefore.src = event.target.result;
                                 imgAfter.src = event.target.result;
-                                imgAfter.style.width = '50%';
+                                
+                                setTimeout(() => {
+                                    const computedHeight = imgBefore.clientHeight;
+                                    if (computedHeight > 50 && sliderWrapperContainer) {
+                                        sliderWrapperContainer.style.height = computedHeight + 'px';
+                                    }
+                                }, 150);
+
+                                if(afterWrapperMask) afterWrapperMask.style.width = '50%';
                                 splitControlInput.value = 50;
                                 handleBadge.style.left = '50%';
 
@@ -390,13 +399,12 @@
                             const canvas = document.createElement('canvas');
                             const ctx = canvas.getContext('2d');
                             
-                            // High resolution super upscaling mapping calculation loops
                             const nativeW = originalImageObject.naturalWidth || originalImageObject.width;
                             const nativeH = originalImageObject.naturalHeight || originalImageObject.height;
                             
-                            // Double pixel grid density parameters safely to handle proper digital expansion upscale
-                            canvas.width = nativeW * 1.5;
-                            canvas.height = nativeH * 1.5;
+                            // Safe 1.2x upsampling multiplier grid mapping to prevent thread latency crashes
+                            canvas.width = nativeW * 1.2;
+                            canvas.height = nativeH * 1.2;
                             
                             ctx.imageSmoothingEnabled = true;
                             ctx.imageSmoothingQuality = 'high';
@@ -404,25 +412,23 @@
                             const sharpFactor = parseFloat(sharpSlider.value) / 100;
                             const noiseFactor = parseFloat(noiseSlider.value) / 100;
 
-                            // Dynamic hardware accelerated high clarity layer stacking filtering bounds
-                            let contrastPercent = 100 + (sharpFactor * 45);
-                            let brightnessPercent = 100 + (noiseFactor * 15);
-                            let saturationPercent = 105 + (sharpFactor * 10);
+                            let contrastPercent = 100 + (sharpFactor * 40);
+                            let brightnessPercent = 100 + (noiseFactor * 10);
+                            let saturationPercent = 105 + (sharpFactor * 8);
                             
+                            // Native hardware CSS filters setup execution block
                             ctx.filter = `contrast(${contrastPercent}%) brightness(${brightnessPercent}%) saturate(${saturationPercent}%)`;
-                            
-                            // Render super sampled target upscaled canvas layer matrix back
                             ctx.drawImage(originalImageObject, 0, 0, canvas.width, canvas.height);
                             
-                            // Hardware-accelerated Unsharp mask blending offset overlay pathing
-                            if (sharpFactor > 0.4) {
-                                ctx.globalAlpha = sharpFactor * 0.25;
-                                ctx.filter = 'contrast(135%) sharpness(100%)';
-                                ctx.drawImage(originalImageObject, -1, -1, canvas.width, canvas.height);
-                                ctx.drawImage(originalImageObject, 1, 1, canvas.width, canvas.height);
+                            // Unsharp mask overlay displacement pipeline loops
+                            if (sharpFactor > 0.5) {
+                                ctx.globalAlpha = sharpFactor * 0.2;
+                                ctx.filter = 'contrast(125%) sharpness(100%)';
+                                ctx.drawImage(originalImageObject, -0.5, -0.5, canvas.width, canvas.height);
+                                ctx.drawImage(originalImageObject, 0.5, 0.5, canvas.width, canvas.height);
                             }
 
-                            enhancedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                            enhancedDataUrl = canvas.toDataURL('image/jpeg', 0.94);
                             imgBefore.src = enhancedDataUrl;
 
                             if (resultArea) {
