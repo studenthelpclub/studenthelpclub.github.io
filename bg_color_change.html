@@ -134,7 +134,7 @@
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
         .download-btn:hover { background: #0056b3; }
 
-        /* SEO Informative Core Sections Restored Completely */
+        /* SEO Informative Core Sections */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
@@ -385,7 +385,6 @@
                                 let baseWidth = imgObj.naturalWidth || imgObj.width;
                                 let baseHeight = imgObj.naturalHeight || imgObj.height;
                                 
-                                // Precise upsampling multipliers maps targeting memory allocation buffers safely
                                 let scaleMultiplier = 1.0;
                                 if(targetScaleFactor === 2) scaleMultiplier = 1.5;
                                 else if(targetScaleFactor === 4) scaleMultiplier = 2.5; 
@@ -397,11 +396,9 @@
                                 ctx.imageSmoothingEnabled = true;
                                 ctx.imageSmoothingQuality = 'high';
 
-                                // CRITICAL REPAIR: Injecting calculated filter string parameter explicitly inside context loop
                                 ctx.filter = getFilterString(targetScaleFactor);
                                 ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
                                 
-                                // Mathematical Laplacian Sharpen Matrix Loop Engine (Fixes Soft Blurry Texture Bugs)
                                 if (targetScaleFactor >= 4) {
                                     const w = canvas.width;
                                     const h = canvas.height;
