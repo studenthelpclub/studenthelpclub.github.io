@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHC Image Background Remover - Student Help Club</title>
+    
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        /* Premium Header Layout */
+        .header {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand h1 { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 24px; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
+        .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
+
+        /* Workspace Framework */
+        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
+        
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
+
+        /* Upload Box with Native Transparent Overlay */
+        .upload-container-box {
+            position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
+            text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .upload-container-box:hover { background: #e6fced; }
+        .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); }
+
+        .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
+
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
+        .main-btn:hover { background: var(--primary-hover); }
+
+        /* Transparent Chessboard Result Workspace */
+        .result-box { margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; display: none; }
+        .canvas-container-bg {
+            display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
+            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%);
+            background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
+        }
+        #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
+        
+        /* Premium Solid Color Changer Grid Layout */
+        .color-panel-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 15px 0 10px; text-align: center; }
+        .color-picker-grid { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .color-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; transition: var(--transition); position: relative; }
+        .color-circle:hover, .color-circle.active { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.25); border-color: var(--primary); }
+        
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
+
+        /* SEO High-Quality Text Content Block */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
+
+        /* Unified Footer */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
+    </header>
+
+    <div class="workspace-container">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+        <div class="tool-card">
+            <h2>SHC Image Background Remover</h2>
+            <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
+            
+            <div class="upload-container-box">
+                <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
+                <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
+                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
+                <div class="select-btn-ui">Choose Photo</div>
+            </div>
+
+            <div id="settingsArea" style="display: none; margin-top: 20px;">
+                <div class="preview-box">
+                    <img id="sourceImagePreview" src="" alt="Source Upload">
+                </div>
+
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
+                <button id="processBtn" class="main-btn">Remove Background</button>
+            </div>
+
+            <div id="resultArea" class="result-box">
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cut Successfully!</h3>
+                <div class="canvas-container-bg" id="previewWrapper">
+                    <img id="finalPreview" src="" alt="AI Result Preview">
+                </div>
+                
+                <div class="color-panel-title"><i class="fas fa-palette"></i> Add Solid Passport Background (Optional)</div>
+                <div class="color-picker-grid">
+                    <div class="color-circle active" data-color="transparent" title="Transparent" style="background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px;"></div>
+                    <div class="color-circle" data-color="#ffffff" title="Pure White" style="background: #ffffff;"></div>
+                    <div class="color-circle" data-color="#0047ab" title="Passport Blue" style="background: #0047ab;"></div>
+                    <div class="color-circle" data-color="#add8e6" title="Light Blue" style="background: #add8e6;"></div>
+                    <div class="color-circle" data-color="#f5f5f5" title="Light Grey" style="background: #f5f5f5;"></div>
+                    <div class="color-circle" data-color="#ff0000" title="Standard Red" style="background: #ff0000;"></div>
+                </div>
+
+                <button id="downloadBtn" class="download-btn">Download Image</button>
+            </div>
+        </div>
+
+        <article class="seo-content">
+            <h3>How Browser-Based AI Selfie Segmentation Works</h3>
+            <p>Our premium platform integrates Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our automated AI engine relies on neural network matrices trained specifically to differentiate humans from surrounding background clutter. The script maps person geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            
+            <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
+            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
+        </article>
+    </div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+    <script>
+    (function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const imageInput = document.getElementById('imageInput');
+            const settingsArea = document.getElementById('settingsArea');
+            const processBtn = document.getElementById('processBtn');
+            const resultArea = document.getElementById('resultArea');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const sourceImagePreview = document.getElementById('sourceImagePreview');
+            const finalPreview = document.getElementById('finalPreview');
+            const statusText = document.getElementById('statusText');
+            const previewWrapper = document.getElementById('previewWrapper');
+
+            let sourceImageObject = new Image();
+            let isolatedPersonCanvas = null; // Storing the clean isolated persona object in-memory
+            let selectedBgColor = 'transparent';
+
+            let selfieSegmentation = null;
+            function initAI() {
+                try {
+                    if (typeof SelfieSegmentation !== 'undefined') {
+                        selfieSegmentation = new SelfieSegmentation({
+                            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+                        });
+                        selfieSegmentation.setOptions({ modelSelection: 1 });
+                    } else {
+                        setTimeout(initAI, 500);
+                    }
+                } catch(e) {
+                    console.error("AI Thread Connection error.");
+                }
+            }
+            initAI();
+
+            if(imageInput) {
+                imageInput.addEventListener('change', async function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        let file = e.target.files[0];
+                        const fileName = file.name.toLowerCase();
+                        
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file stream...`;
+
+                        if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
+                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
+                            try {
+                                if (typeof heic2any !== 'undefined') {
+                                    const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
+                                    const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
+                                    file = new File([blob], "converted_shc.jpg", { type: "image/jpeg" });
+                                }
+                            } catch (err) {
+                                console.error("HEIC Error fall back triggered.");
+                            }
+                        }
+
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            sourceImageObject.onload = function() {
+                                if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Photo loaded successfully!`;
+                                if (settingsArea) settingsArea.style.display = "block";
+                                if (resultArea) resultArea.style.display = "none";
+                            };
+                            sourceImagePreview.src = event.target.result;
+                            sourceImageObject.src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            if(processBtn) {
+                processBtn.addEventListener('click', function() {
+                    if (!sourceImageObject.src) return;
+
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        if (grecaptcha.getResponse().length === 0) {
+                            alert("Please pass the security reCAPTCHA first.");
+                            return;
+                        }
+                    }
+
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+                    processBtn.disabled = true;
+
+                    setTimeout(async () => {
+                        try {
+                            if (!selfieSegmentation) {
+                                alert("AI Engine initializing. Click again in 2 seconds.");
+                                processBtn.innerHTML = "Remove Background";
+                                processBtn.disabled = false;
+                                return;
+                            }
+
+                            selfieSegmentation.onResults((results) => {
+                                isolatedPersonCanvas = document.createElement('canvas');
+                                const ctx = isolatedPersonCanvas.getContext('2d');
+                                
+                                const w = sourceImageObject.naturalWidth || sourceImageObject.width;
+                                const h = sourceImageObject.naturalHeight || sourceImageObject.height;
+                                isolatedPersonCanvas.width = w;
+                                isolatedPersonCanvas.height = h;
+
+                                ctx.clearRect(0, 0, w, h);
+                                
+                                // Anti-Aliased Feather Mask Smoothing Pass
+                                ctx.filter = 'blur(2px)'; 
+                                ctx.drawImage(results.segmentationMask, 0, 0, w, h);
+                                
+                                ctx.filter = 'none';
+                                ctx.globalCompositeOperation = 'source-in';
+                                ctx.drawImage(results.image, 0, 0, w, h);
+
+                                // Render Default Transparent Frame Map View
+                                renderFinalComposite();
+
+                                if (resultArea) {
+                                    resultArea.style.display = "block";
+                                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                                }
+                                processBtn.innerHTML = "Remove Background";
+                                processBtn.disabled = false;
+                            });
+
+                            await selfieSegmentation.send({ image: sourceImageObject });
+
+                        } catch(err) {
+                            alert("Engine latency timeout. Re-submitting canvas execution loops.");
+                            processBtn.innerHTML = "Remove Background";
+                            processBtn.disabled = false;
+                        }
+                    }, 200);
+                });
+            }
+
+            // Real-time canvas rendering system with dynamic background colors
+            function renderFinalComposite() {
+                if (!isolatedPersonCanvas) return;
+
+                const renderCanvas = document.createElement('canvas');
+                const rCtx = renderCanvas.getContext('2d');
+                
+                renderCanvas.width = isolatedPersonCanvas.width;
+                renderCanvas.height = isolatedPersonCanvas.height;
+
+                rCtx.clearRect(0, 0, renderCanvas.width, renderCanvas.height);
+
+                // Add solid color background color layer behind person if selected
+                if (selectedBgColor !== 'transparent') {
+                    rCtx.fillStyle = selectedBgColor;
+                    rCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
+                }
+
+                // Draw isolated transparent persona asset on top
+                rCtx.drawImage(isolatedPersonCanvas, 0, 0);
+
+                finalPreview.src = renderCanvas.toDataURL('image/png');
+            }
+
+            // Click interaction listener for color selection blocks
+            document.querySelectorAll('.color-circle').forEach(circle => {
+                circle.addEventListener('click', function() {
+                    document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    selectedBgColor = this.getAttribute('data-color');
+                    
+                    // Live UI Preview container sync
+                    if(selectedBgColor === 'transparent') {
+                        previewWrapper.style.backgroundColor = '#fff';
+                        previewWrapper.style.backgroundImage = "linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%)";
+                    } else {
+                        previewWrapper.style.backgroundImage = 'none';
+                        previewWrapper.style.backgroundColor = selectedBgColor;
+                    }
+
+                    renderFinalComposite();
+                });
+            });
+
+            if(downloadBtn) {
+                downloadBtn.onclick = () => {
+                    if (!finalPreview.src) return;
+                    const a = document.createElement('a');
+                    a.href = finalPreview.src;
+                    a.download = `SHC_Backdrop_Remover_${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+            }
+
+        });
+    })();
+    </script>
+</body>
+</html>
