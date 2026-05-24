@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -59,7 +60,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Upload Container Framework Box */
+        /* Upload Box with Native Transparent Overlay */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -76,7 +77,7 @@
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output Canvas Box Frame Checkerboard Background */
+        /* Transparent Chessboard Result Workspace */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -86,14 +87,14 @@
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* Full AdSense Friendly SEO Layout Paragraphs */
+        /* SEO High-Quality Text Content Block */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
         .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
         .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        /* Unified Original Footer Map Structure */
+        /* Unified Footer */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
@@ -134,7 +135,7 @@
             <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
             
             <div class="upload-container-box">
-                <input type="file" id="imageInput" class="native-input-file" accept="image/*">
+                <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
                 <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
                 <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
                 <div class="select-btn-ui">Choose Photo</div>
@@ -167,14 +168,6 @@
             
             <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
             <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
-            
-            <h3>Step-by-Step Transparency Optimization Guidelines</h3>
-            <ul>
-                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
-                <li><strong>Isolate Erasing Parameters:</strong> The deep AI neural networks map user geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
-                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
-                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
-            </ul>
         </article>
     </div>
 
@@ -229,10 +222,26 @@
             initAI();
 
             if(imageInput) {
-                imageInput.addEventListener('change', function(e) {
+                imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
                         let file = e.target.files[0];
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Loading image...`;
+                        const fileName = file.name.toLowerCase();
+                        
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file stream...`;
+
+                        // HEIC Conversion pipeline integrated back seamlessly
+                        if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
+                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
+                            try {
+                                if (typeof heic2any !== 'undefined') {
+                                    const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
+                                    const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
+                                    file = new File([blob], "converted_shc.jpg", { type: "image/jpeg" });
+                                }
+                            } catch (err) {
+                                console.error("HEIC Library execution error, running fallback reader.");
+                            }
+                        }
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
@@ -266,7 +275,7 @@
                     setTimeout(async () => {
                         try {
                             if (!selfieSegmentation) {
-                                alert("AI Engine initialization pending. Click again in 2 seconds.");
+                                alert("AI Engine initializing. Click again in 2 seconds.");
                                 processBtn.innerHTML = "Remove Background";
                                 processBtn.disabled = false;
                                 return;
@@ -281,28 +290,16 @@
                                 canvas.width = w;
                                 canvas.height = h;
 
-                                // Clean local frame bounds
                                 ctx.clearRect(0, 0, w, h);
                                 
-                                // Step 1: Draw blurred smoothing alpha channel to remove rough edge pixels
-                                ctx.filter = 'blur(4px)'; 
+                                // Step 1: Draw high-grade smoothed segment mask onto canvas space
+                                ctx.filter = 'blur(2px)'; // Soft blend feathering radius (avoids harsh pixels cuts)
                                 ctx.drawImage(results.segmentationMask, 0, 0, w, h);
                                 
-                                // Step 2: Overlay image onto smoothed mask path channel mapping
+                                // Step 2: Extract portrait using composition masking framework
                                 ctx.filter = 'none';
                                 ctx.globalCompositeOperation = 'source-in';
                                 ctx.drawImage(results.image, 0, 0, w, h);
-
-                                // Step 3: Hard-alpha clamping loop pass to strip out lingering border noise
-                                const frameData = ctx.getImageData(0, 0, w, h);
-                                const p = frameData.data;
-                                for (let i = 0; i < p.length; i += 4) {
-                                    // Smooth Matting Threshold check: If edge transparency index leaks below threshold, force delete it
-                                    if (p[i+3] < 235) { 
-                                        p[i+3] = 0;
-                                    }
-                                }
-                                ctx.putImageData(frameData, 0, 0);
 
                                 canvas.toBlob(function(blob) {
                                     if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
@@ -319,7 +316,7 @@
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Engine busy. Retrying optimization steps.");
+                            alert("Engine busy loop tracker. Re-submitting canvas data.");
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
