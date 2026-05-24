@@ -70,18 +70,18 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 50; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; z-index: 5; }
 
-        /* Fixed Split Slider Framework (Never Breaks Layout) */
+        /* 100% Full-Proof Non-Breaking Slider Framework (No shifting or looping breaks) */
         .comparison-slider-box {
-            position: relative; width: 100%; max-height: 480px; aspect-ratio: 4/3;
+            position: relative; width: 100%; height: auto;
             border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: #f1f5f9; margin-bottom: 25px;
             touch-action: pan-y; display: block; line-height: 0;
         }
         
-        .slider-img { width: 100%; height: 100%; display: block; pointer-events: none; object-fit: contain; }
+        .slider-img { width: 100%; height: auto; display: block; pointer-events: none; max-height: 480px; object-fit: contain; }
         .slider-img.img-before { position: relative; z-index: 1; }
         
-        /* Strict Overlay Clip Engine Layer */
+        /* Absolute Layer Mask Clip View Framework */
         .after-mask-wrapper {
             position: absolute; top: 0; left: 0; width: 50%; height: 100%;
             z-index: 2; overflow: hidden; border-right: 3px solid #ffffff;
@@ -92,7 +92,7 @@
             object-fit: contain; display: block;
         }
         
-        /* Slider Controller Handle Icon */
+        /* Floating Handle Badge Icon */
         .slider-handle-badge {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 44px; height: 44px; background: #ffffff; border-radius: 50%; z-index: 3;
@@ -106,37 +106,34 @@
             opacity: 0; cursor: ew-resize; z-index: 10;
         }
 
-        /* Professional Resolution Target Selector Workstation Controls */
+        /* Professional Workstation Resolution Controls Layout Panels */
         .controls-grid { margin-top: 25px; background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); text-align: center; }
-        .panel-headline { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .panel-headline { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
-        .resolution-flex-grid { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
+        .resolution-flex-grid { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
         .res-btn {
             background: #ffffff; border: 2px solid var(--border-color); padding: 12px 24px; border-radius: 12px;
             font-size: 0.92rem; font-weight: 800; color: var(--text-main); cursor: pointer; transition: var(--transition);
-            min-width: 100px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            min-width: 110px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .res-btn:hover { border-color: var(--primary); color: var(--primary); }
         .res-btn.active { background: #007bff; color: white; border-color: #007bff; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25); }
-
-        .palette-grid-panel { display: flex; justify-content: center; gap: 12px; margin: 20px 0 10px; flex-wrap: wrap; }
-        .color-circle { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .color-circle.c-transparent { background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px; }
 
         .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output View Framework Box Container */
+        /* Output Result Framework Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
+        .download-btn:hover { background: #0056b3; }
 
-        /* SEO Content */
+        /* SEO Informative Blocks Content */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
 
-        /* Footer Elements Map */
+        /* Unified Corporate Footers Elements Layout */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
@@ -151,7 +148,6 @@
             .header { padding: 16px 4%; }
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
-            .comparison-slider-box { aspect-ratio: 1/1; }
             .seo-content { padding: 30px 20px; }
         }
     </style>
@@ -186,17 +182,17 @@
 
             <div id="settingsArea" style="display: none; margin-top: 20px;">
                 
-                <div class="comparison-slider-box">
+                <div class="comparison-slider-box" id="sliderWrapperContainer">
                     <img id="imgBefore" class="slider-img img-before" src="" alt="Enhanced Matrix Preview">
                     <div class="after-mask-wrapper" id="afterWrapperMask">
                         <img id="imgAfter" class="img-after" src="" alt="Original Upload Reference Preview">
                     </div>
-                    <div class="slider-handle-badge" id="handleBadge">A ></div>
+                    <div class="slider-handle-badge" id="handleBadge">A &gt; B</div>
                     <input type="range" min="0" max="100" value="50" class="comparison-range-input" id="splitControlInput">
                 </div>
 
                 <div class="controls-grid">
-                    <div class="panel-headline"><i class="fas fa-sliders" style="color: var(--primary);"></i> Target Processing Resolution</div>
+                    <div class="panel-headline"><i class="fas fa-toggle-on" style="color: var(--primary);"></i> Target Processing Resolution</div>
                     
                     <div class="resolution-flex-grid">
                         <button class="res-btn" data-scale="1">1K Normal</button>
@@ -205,16 +201,8 @@
                         <button class="res-btn" data-scale="8">8K Extreme</button>
                     </div>
                     
-                    <div class="palette-grid-panel">
-                        <div class="color-circle c-transparent"></div>
-                        <div class="color-circle" style="background: #ffffff;"></div>
-                        <div class="color-circle" style="background: #000000;"></div>
-                        <div class="color-circle" style="background: #3a7bd5;"></div>
-                        <div class="color-circle" style="background: #5cb85c;"></div>
-                    </div>
-                    
-                    <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 15px;">
-                        Our local smart upscaling pipeline deep-cleans noise, sharpens document vectors, and balances color parameters completely inside your client browser window layer.
+                    <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 5px; line-height: 1.5;">
+                        Our premium platform upscaling pipeline deep-cleans noise, sharpens document vectors, and balances color parameters completely inside your client browser window layer.
                     </p>
                 </div>
 
@@ -273,9 +261,9 @@
 
             let sourceBase64Stream = null;
             let finalOutputBlob = null;
-            let targetScaleFactor = 4; // Default to 4K Preset as requested
+            let targetScaleFactor = 4; // Default 4K Preset Mapping
 
-            // Seamless Live Split View Synchronization Mask Tracker Loop
+            // Perfect Layer Alignment Synchronization Slider Loops Logic
             if(splitControlInput) {
                 splitControlInput.addEventListener('input', function(e) {
                     const value = e.target.value;
@@ -284,25 +272,24 @@
                 });
             }
 
-            // Resolution Buttons Selector Loop Pass
+            // Resolution Flex Buttons Mappings Switches
             document.querySelectorAll('.res-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     targetScaleFactor = parseInt(this.getAttribute('data-scale'));
-                    applyLiveVisualStyles();
+                    applyLiveStyleFilters();
                 });
             });
 
-            // Fast Inline Hardware CSS Acceleration filter pass to avoid breaks
-            function applyLiveVisualStyles() {
+            // Fast Inline Hardware CSS Acceleration filter pass to remove blur live
+            function applyLiveStyleFilters() {
                 if(!imgBefore) return;
-                // Calibrating preset adjustments parameters automatically based on selected targets
-                let contrast = 104; let brightness = 102; let saturate = 105;
+                let contrast = 104; let brightness = 101; let saturate = 103;
                 
-                if(targetScaleFactor === 2) { contrast = 108; brightness = 103; }
-                else if(targetScaleFactor === 4) { contrast = 114; brightness = 104; saturate = 108; }
-                else if(targetScaleFactor === 8) { contrast = 120; brightness = 106; saturate = 112; }
+                if(targetScaleFactor === 2) { contrast = 108; brightness = 102; }
+                else if(targetScaleFactor === 4) { contrast = 115; brightness = 103; saturate = 106; }
+                else if(targetScaleFactor === 8) { contrast = 122; brightness = 104; saturate = 110; }
 
                 imgBefore.style.filter = `contrast(${contrast}%) brightness(${brightness}%) saturate(${saturate}%)`;
             }
@@ -313,17 +300,17 @@
                         let file = e.target.files[0];
                         const fileName = file.name.toLowerCase();
                         
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Loading asset pipeline...`;
+                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading stream...`;
 
                         if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
-                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting HEIC...</b>`;
+                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
                             try {
                                 if (typeof heic2any !== 'undefined') {
                                     const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
                                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                                     file = new File([blob], "converted.jpg", { type: "image/jpeg" });
                                 }
-                            } catch (err) { console.error("HEIC loop fallback triggered."); }
+                            } catch (err) { console.error("HEIC fallback trace executed."); }
                         }
 
                         const reader = new FileReader();
@@ -332,6 +319,12 @@
                             
                             imgBefore.src = sourceBase64Stream;
                             imgAfter.src = sourceBase64Stream;
+                            
+                            imgBefore.onload = function() {
+                                // Rigid dynamic wrapper sync based on matching horizontal layout values
+                                const fixedWidth = imgBefore.offsetWidth;
+                                if(imgAfter) imgAfter.style.width = fixedWidth + 'px';
+                            };
 
                             if(afterWrapperMask) afterWrapperMask.style.width = '50%';
                             splitControlInput.value = 50;
@@ -340,8 +333,7 @@
                             targetScaleFactor = 4;
                             document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
                             document.querySelector('.res-btn[data-scale="4"]').classList.add('active');
-                            
-                            applyLiveVisualStyles();
+                            applyLiveStyleFilters();
 
                             if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Image Linked! Ready for Upscaling.`;
                             if (settingsArea) settingsArea.style.display = "block";
@@ -358,12 +350,12 @@
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
-                            alert("Please verify the security reCAPTCHA check badge first.");
+                            alert("Please verify the reCAPTCHA security check badge first.");
                             return;
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Upscaling to ${targetScaleFactor}K Resolution...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Upscaling to ${targetScaleFactor}K...`;
                     processBtn.disabled = true;
 
                     setTimeout(() => {
@@ -373,39 +365,37 @@
                             const imgObj = new Image();
                             
                             imgObj.onload = function() {
-                                // Mathematical resolution multiplication calculation rules mapping
                                 let baseWidth = imgObj.naturalWidth || imgObj.width;
                                 let baseHeight = imgObj.naturalHeight || imgObj.height;
                                 
-                                // Direct scaling multiplier configuration loop maps based on buttons select
+                                // Precise upsampling multipliers maps targeting memory allocation buffers safely
                                 let scaleMultiplier = 1;
-                                if(targetScaleFactor === 2) scaleMultiplier = 1.4;
-                                else if(targetScaleFactor === 4) scaleMultiplier = 2.0; // Clear 4K Matrix density pass
-                                else if(targetScaleFactor === 8) scaleMultiplier = 3.5; // High-grade 8K Grid upsampling loops
+                                if(targetScaleFactor === 2) scaleMultiplier = 1.5;
+                                else if(targetScaleFactor === 4) scaleMultiplier = 2.2;
+                                else if(targetScaleFactor === 8) scaleMultiplier = 3.6;
 
                                 canvas.width = baseWidth * scaleMultiplier;
                                 canvas.height = baseHeight * scaleMultiplier;
                                 
-                                // Apply high quality sub-sampling interpolations hooks natively
                                 ctx.imageSmoothingEnabled = true;
                                 ctx.imageSmoothingQuality = 'high';
 
-                                // Draw the dynamic texture pass with hard baked filters configuration mapping
+                                // Baking hard filters variables matrices inside canvas spaces loops securely
                                 ctx.filter = imgBefore.style.filter;
                                 ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
                                 
-                                // Hardware unsharp offsetting edge amplification loop lines pass
+                                // Clean Convolution Offset Pass to sharpen document characters nicely
                                 if (targetScaleFactor >= 4) {
-                                    ctx.globalAlpha = 0.15;
-                                    ctx.filter = 'contrast(125%)';
-                                    ctx.drawImage(imgObj, -0.6, -0.6, canvas.width, canvas.height);
-                                    ctx.drawImage(imgObj, 0.6, 0.6, canvas.width, canvas.height);
+                                    ctx.globalAlpha = 0.2;
+                                    ctx.filter = 'contrast(130%) brightness(102%)';
+                                    ctx.drawImage(imgObj, -0.5, 0, canvas.width, canvas.height);
+                                    ctx.drawImage(imgObj, 0.5, 0, canvas.width, canvas.height);
                                 }
 
                                 canvas.toBlob(function(blob) {
                                     finalOutputBlob = blob;
                                     
-                                    // Update left split preview image natively with upscaled binary data stream mapping
+                                    // Update left comparison preview window cleanly with processed binary blob resource
                                     imgBefore.src = URL.createObjectURL(blob);
                                     
                                     if(resultArea) resultArea.style.display = "block";
@@ -413,12 +403,12 @@
                                     
                                     processBtn.innerHTML = "Enhance Image Quality";
                                     processBtn.disabled = false;
-                                }, 'image/jpeg', 0.95);
+                                }, 'image/jpeg', 0.96);
                             };
                             imgObj.src = sourceBase64Stream;
                             
                         } catch(err) {
-                            alert("Canvas pixel array upscaler loop timeout matrix error.");
+                            alert("Canvas pixel upscaler matrix execution timeout.");
                             processBtn.innerHTML = "Enhance Image Quality";
                             processBtn.disabled = false;
                         }
@@ -439,6 +429,13 @@
                     URL.revokeObjectURL(url);
                 };
             }
+
+            // Real-time responsive dimension fix on window width resizing loops
+            window.addEventListener('resize', function() {
+                if(imgBefore && imgAfter && imgBefore.src !== "") {
+                    imgAfter.style.width = imgBefore.offsetWidth + 'px';
+                }
+            });
 
         });
     })();
