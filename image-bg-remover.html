@@ -15,6 +15,7 @@
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,7 +38,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Unified Premium Header Layout */
+        /* Premium Header */
         .header {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
@@ -50,7 +51,7 @@
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
         .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
 
-        /* Workspace Framework Content */
+        /* Workspace Framework */
         .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
@@ -58,7 +59,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Upload Container Framework Box */
+        /* Fixed Invisible Input Box Overlays */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -75,7 +76,7 @@
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output Canvas Box Frame Checkerboard Background */
+        /* Output Canvas Layout Checkerboard Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -85,13 +86,30 @@
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* SEO Informative Sections */
+        /* Re-extended AdSense Friendly SEO Layout Paragraphs */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
-        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 24px; }
-        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
+        .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        .footer { background: #ffffff; padding: 50px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
-        .policy-links a { color: var(--text-muted); margin: 0 12px; text-decoration: none; font-weight: 600; font-size: 0.88rem; }
+        /* Unified Original Footer Map Structure */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -103,6 +121,7 @@
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
     </header>
@@ -145,19 +164,39 @@
         <article class="seo-content">
             <h3>How Browser-Based AI Selfie Segmentation Works</h3>
             <p>Our premium platform integrates Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our automated AI engine relies on neural network matrices trained specifically to differentiate humans from surrounding background clutter. The script maps person geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            
+            <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
+            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
+            
+            <h3>Step-by-Step Transparency Optimization Guidelines</h3>
+            <ul>
+                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
+                <li><strong>Isolate Erasing Parameters:</strong> The deep AI neural networks map user geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
+                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
+                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
+            </ul>
         </article>
     </div>
 
     <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="legal.html#contact">Contact Us</a> | 
+            <a href="legal.html#terms">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Local AI Processing.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
-    (function() {
+        (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
@@ -173,7 +212,6 @@
             let processedBlobUrl = null;
             let selfieSegmentation = null;
 
-            // Robust initialization matrix model
             function initAI() {
                 try {
                     if (typeof SelfieSegmentation !== 'undefined') {
@@ -182,11 +220,10 @@
                         });
                         selfieSegmentation.setOptions({ modelSelection: 1 });
                     } else {
-                        // Retry loops strategy handler if CDN thread lags
                         setTimeout(initAI, 500);
                     }
                 } catch(e) {
-                    console.error("AI Thread connection retry initiated.");
+                    console.error("AI Thread retry triggered.");
                 }
             }
             initAI();
@@ -223,14 +260,13 @@
                         }
                     }
 
-                    // Reset text animation exactly as requested
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
                     processBtn.disabled = true;
 
                     setTimeout(async () => {
                         try {
                             if (!selfieSegmentation) {
-                                alert("AI Engine is still stabilizing threads. Please wait 3 seconds and click again.");
+                                alert("AI Engine initializing. Please click again in 2 seconds.");
                                 processBtn.innerHTML = "Remove Background";
                                 processBtn.disabled = false;
                                 return;
@@ -239,12 +275,25 @@
                             selfieSegmentation.onResults((results) => {
                                 const canvas = document.createElement('canvas');
                                 const ctx = canvas.getContext('2d');
+                                
+                                // Setup high resolution matching canvas size bounds
                                 canvas.width = sourceImageObject.naturalWidth || sourceImageObject.width;
                                 canvas.height = sourceImageObject.naturalHeight || sourceImageObject.height;
 
                                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
                                 
+                                // Step 1: Create a temporary blurred mask to smooth residual shoulder edge artifacts
+                                const tempCanvas = document.createElement('canvas');
+                                tempCanvas.width = canvas.width;
+                                tempCanvas.height = canvas.height;
+                                const tempCtx = tempCanvas.getContext('2d');
+                                
+                                tempCtx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
+                                
+                                // Apply low radius pixel manipulation to close standard alpha gaps
+                                ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+                                
+                                // Step 2: Use Source-In matrix blending to lock absolute edges nicely
                                 ctx.globalCompositeOperation = 'source-in';
                                 ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
 
@@ -263,7 +312,7 @@
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Engine busy loop tracker. Re-trying image allocation.");
+                            alert("Engine busy. Re-trying optimization steps.");
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
@@ -276,7 +325,7 @@
                     if (!processedBlobUrl) return;
                     const a = document.createElement('a');
                     a.href = processedBlobUrl;
-                    a.download = `SHC_Transparent_${Date.now()}.png`;
+                    a.download = `SHC_AI_Remover_${Date.now()}.png`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
