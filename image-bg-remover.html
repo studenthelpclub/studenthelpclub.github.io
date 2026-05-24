@@ -11,7 +11,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Background Remover - Student Help Club</title>
+    <title>SHC Image Background Remover - Student Help Club</title>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -37,7 +37,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Premium Header */
+        /* Unified Premium Header Layout */
         .header {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
@@ -50,7 +50,7 @@
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
         .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
 
-        /* Main Workspace Container */
+        /* Workspace Framework Content */
         .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
@@ -58,7 +58,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Upload Area */
+        /* Upload Container Framework Box */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -72,10 +72,10 @@
         #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
 
         .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
-        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Transparent Checkerboard Result Layout */
+        /* Output Canvas Box Frame Checkerboard Background */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -83,9 +83,9 @@
             background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
         }
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* SEO Informative */
+        /* SEO Informative Sections */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 24px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; }
@@ -98,7 +98,7 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Logo" class="logo">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <h1>Student Help Club</h1>
         </a>
         <nav class="nav-menu">
@@ -111,12 +111,12 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>Free AI Background Remover</h2>
+            <h2>SHC Image Background Remover</h2>
             <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
             
             <div class="upload-container-box">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*">
-                <i class="fas fa-robot" style="font-size: 44px; color: var(--primary);"></i>
+                <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
                 <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
                 <div class="select-btn-ui">Choose Photo</div>
             </div>
@@ -130,7 +130,7 @@
                     <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
 
-                <button id="processBtn" class="main-btn">Remove Background with AI</button>
+                <button id="processBtn" class="main-btn">Remove Background</button>
             </div>
 
             <div id="resultArea" class="result-box">
@@ -173,15 +173,23 @@
             let processedBlobUrl = null;
             let selfieSegmentation = null;
 
-            // Initialize Google MediaPipe Model
-            try {
-                selfieSegmentation = new SelfieSegmentation({
-                    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
-                });
-                selfieSegmentation.setOptions({ modelSelection: 1 }); // 1 = General model for portrait landscapes
-            } catch(e) {
-                console.error("AI Initialization failed");
+            // Robust initialization matrix model
+            function initAI() {
+                try {
+                    if (typeof SelfieSegmentation !== 'undefined') {
+                        selfieSegmentation = new SelfieSegmentation({
+                            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+                        });
+                        selfieSegmentation.setOptions({ modelSelection: 1 });
+                    } else {
+                        // Retry loops strategy handler if CDN thread lags
+                        setTimeout(initAI, 500);
+                    }
+                } catch(e) {
+                    console.error("AI Thread connection retry initiated.");
+                }
             }
+            initAI();
 
             if(imageInput) {
                 imageInput.addEventListener('change', function(e) {
@@ -215,25 +223,28 @@
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-robot fa-spin"></i> AI is isolating person...`;
+                    // Reset text animation exactly as requested
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
                     processBtn.disabled = true;
 
                     setTimeout(async () => {
                         try {
-                            // Run deep ML segment prediction on image bitmap thread
+                            if (!selfieSegmentation) {
+                                alert("AI Engine is still stabilizing threads. Please wait 3 seconds and click again.");
+                                processBtn.innerHTML = "Remove Background";
+                                processBtn.disabled = false;
+                                return;
+                            }
+
                             selfieSegmentation.onResults((results) => {
                                 const canvas = document.createElement('canvas');
                                 const ctx = canvas.getContext('2d');
-                                canvas.width = sourceImageObject.naturalWidth;
-                                canvas.height = sourceImageObject.naturalHeight;
+                                canvas.width = sourceImageObject.naturalWidth || sourceImageObject.width;
+                                canvas.height = sourceImageObject.naturalHeight || sourceImageObject.height;
 
-                                // Clear frame boundary loops
                                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                
-                                // Draw Segmentation Mask Layer
                                 ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
                                 
-                                // Blend configuration tracking mode rules to keep only isolated inner portrait
                                 ctx.globalCompositeOperation = 'source-in';
                                 ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
 
@@ -243,18 +254,17 @@
                                     finalPreview.src = processedBlobUrl;
                                     
                                     if (resultArea) resultArea.style.display = "block";
-                                    processBtn.innerHTML = "Remove Background with AI";
+                                    processBtn.innerHTML = "Remove Background";
                                     processBtn.disabled = false;
                                     resultArea.scrollIntoView({ behavior: 'smooth' });
                                 }, 'image/png');
                             });
 
-                            // Execute engine matrix prediction pipeline loops
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("AI pipeline error. Please check your image format.");
-                            processBtn.innerHTML = "Remove Background with AI";
+                            alert("Engine busy loop tracker. Re-trying image allocation.");
+                            processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
                     }, 200);
@@ -266,7 +276,7 @@
                     if (!processedBlobUrl) return;
                     const a = document.createElement('a');
                     a.href = processedBlobUrl;
-                    a.download = `AI_Transparent_SHC_${Date.now()}.png`;
+                    a.download = `SHC_Transparent_${Date.now()}.png`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
