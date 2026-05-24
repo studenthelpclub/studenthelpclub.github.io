@@ -52,7 +52,7 @@
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
         .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
 
-        /* Workspace Framework */
+        /* Workspace Layout Structure */
         .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
@@ -60,7 +60,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Upload Box with Native Transparent Overlay */
+        /* Transparent Drop File Trigger Box */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -77,7 +77,7 @@
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Transparent Chessboard Result Workspace */
+        /* Output Canvas Layout Checkerboard Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -85,19 +85,26 @@
             background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; margin-bottom: 15px;
         }
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
+        
+        /* Premium Passport Solid Backdrop Color Selector Widget */
+        .color-panel-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 20px 0 12px; text-align: center; }
+        .color-picker-grid { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .color-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; transition: var(--transition); }
+        .color-circle:hover, .color-circle.active { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.2); border-color: var(--primary); }
+        
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
 
-        /* SEO High-Quality Text Content Block */
+        /* Full Rich Content SEO Section */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
         .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
         .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        /* Unified Footer */
+        /* Unified Original Footer */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
@@ -155,10 +162,21 @@
 
             <div id="resultArea" class="result-box">
                 <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Background Cut Successfully!</h3>
-                <div class="canvas-container-bg">
+                <div class="canvas-container-bg" id="previewWrapper">
                     <img id="finalPreview" src="" alt="AI Result Preview">
                 </div>
-                <button id="downloadBtn" class="download-btn">Download Transparent PNG</button>
+                
+                <div class="color-panel-title"><i class="fas fa-palette"></i> Add Solid Passport Background (Optional)</div>
+                <div class="color-picker-grid">
+                    <div class="color-circle active" data-color="transparent" title="Transparent Image" style="background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px;"></div>
+                    <div class="color-circle" data-color="#ffffff" title="White Backdrop" style="background: #ffffff;"></div>
+                    <div class="color-circle" data-color="#0047ab" title="Official Blue" style="background: #0047ab;"></div>
+                    <div class="color-circle" data-color="#add8e6" title="Light Blue Preset" style="background: #add8e6;"></div>
+                    <div class="color-circle" data-color="#f5f5f5" title="Light Grey Preset" style="background: #f5f5f5;"></div>
+                    <div class="color-circle" data-color="#ff0000" title="Red Preset" style="background: #ff0000;"></div>
+                </div>
+
+                <button id="downloadBtn" class="download-btn">Download Image Asset</button>
             </div>
         </div>
 
@@ -168,6 +186,14 @@
             
             <h3>Essential Utility for Scanning Digital Signatures and Student Profiles</h3>
             <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium transparent PNG assets optimized for application compliance.</p>
+            
+            <h3>Step-by-Step Transparency Optimization Guidelines</h3>
+            <ul>
+                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
+                <li><strong>Isolate Erasing Parameters:</strong> The deep AI neural networks map user geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
+                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
+                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
+            </ul>
         </article>
     </div>
 
@@ -200,9 +226,11 @@
             const sourceImagePreview = document.getElementById('sourceImagePreview');
             const finalPreview = document.getElementById('finalPreview');
             const statusText = document.getElementById('statusText');
+            const previewWrapper = document.getElementById('previewWrapper');
 
             let sourceImageObject = new Image();
-            let processedBlobUrl = null;
+            let isolatedPersonCanvas = null; 
+            let selectedBgColor = 'transparent';
             let selfieSegmentation = null;
 
             function initAI() {
@@ -216,7 +244,7 @@
                         setTimeout(initAI, 500);
                     }
                 } catch(e) {
-                    console.error("AI Thread connection lag.");
+                    console.error("AI Matrix initialization loop pending.");
                 }
             }
             initAI();
@@ -229,7 +257,6 @@
                         
                         if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file stream...`;
 
-                        // HEIC Conversion pipeline integrated back seamlessly
                         if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
                             if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
                             try {
@@ -239,7 +266,7 @@
                                     file = new File([blob], "converted_shc.jpg", { type: "image/jpeg" });
                                 }
                             } catch (err) {
-                                console.error("HEIC Library execution error, running fallback reader.");
+                                console.error("HEIC Fallback pipeline executed.");
                             }
                         }
 
@@ -282,41 +309,51 @@
                             }
 
                             selfieSegmentation.onResults((results) => {
-                                const canvas = document.createElement('canvas');
-                                const ctx = canvas.getContext('2d');
+                                isolatedPersonCanvas = document.createElement('canvas');
+                                const ctx = isolatedPersonCanvas.getContext('2d');
                                 
                                 const w = sourceImageObject.naturalWidth || sourceImageObject.width;
                                 const h = sourceImageObject.naturalHeight || sourceImageObject.height;
-                                canvas.width = w;
-                                canvas.height = h;
+                                isolatedPersonCanvas.width = w;
+                                isolatedPersonCanvas.height = h;
 
                                 ctx.clearRect(0, 0, w, h);
                                 
-                                // Step 1: Draw high-grade smoothed segment mask onto canvas space
-                                ctx.filter = 'blur(2px)'; // Soft blend feathering radius (avoids harsh pixels cuts)
+                                // Step 1: Smooth mask edges using 1px Anti-Aliasing Blur filter
+                                ctx.filter = 'blur(1px)'; 
                                 ctx.drawImage(results.segmentationMask, 0, 0, w, h);
                                 
-                                // Step 2: Extract portrait using composition masking framework
+                                // Step 2: Composite image cleanly onto the mask
                                 ctx.filter = 'none';
                                 ctx.globalCompositeOperation = 'source-in';
                                 ctx.drawImage(results.image, 0, 0, w, h);
 
-                                canvas.toBlob(function(blob) {
-                                    if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
-                                    processedBlobUrl = URL.createObjectURL(blob);
-                                    finalPreview.src = processedBlobUrl;
-                                    
-                                    if (resultArea) resultArea.style.display = "block";
-                                    processBtn.innerHTML = "Remove Background";
-                                    processBtn.disabled = false;
+                                // Step 3: Matte Multiply Pass to eliminate fuzzy noise loops completely
+                                const finalImgData = ctx.getImageData(0, 0, w, h);
+                                const pixels = finalImgData.data;
+                                for (let i = 0; i < pixels.length; i += 4) {
+                                    // Soft-clamp threshold: if edge transparency is hazy, clear it out safely
+                                    if (pixels[i+3] < 210) { 
+                                        pixels[i+3] = 0;
+                                    }
+                                }
+                                ctx.putImageData(finalImgData, 0, 0);
+
+                                // Compile results live
+                                renderFinalComposite();
+
+                                if (resultArea) {
+                                    resultArea.style.display = "block";
                                     resultArea.scrollIntoView({ behavior: 'smooth' });
-                                }, 'image/png');
+                                }
+                                processBtn.innerHTML = "Remove Background";
+                                processBtn.disabled = false;
                             });
 
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Engine busy loop tracker. Re-submitting canvas data.");
+                            alert("Engine busy loop tracker. Re-submitting data to threads.");
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
@@ -324,12 +361,57 @@
                 });
             }
 
+            // Real-time canvas matrix rendering function
+            function renderFinalComposite() {
+                if (!isolatedPersonCanvas) return;
+
+                const renderCanvas = document.createElement('canvas');
+                const rCtx = renderCanvas.getContext('2d');
+                
+                renderCanvas.width = isolatedPersonCanvas.width;
+                renderCanvas.height = isolatedPersonCanvas.height;
+
+                rCtx.clearRect(0, 0, renderCanvas.width, renderCanvas.height);
+
+                // Add solid passport color behind person layer if chosen
+                if (selectedBgColor !== 'transparent') {
+                    rCtx.fillStyle = selectedBgColor;
+                    rCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
+                }
+
+                // Render clean alpha-isolated person on top layer
+                rCtx.drawImage(isolatedPersonCanvas, 0, 0);
+
+                finalPreview.src = renderCanvas.toDataURL('image/png');
+            }
+
+            // Color circle switcher activation grid loops
+            document.querySelectorAll('.color-circle').forEach(circle => {
+                circle.addEventListener('click', function() {
+                    document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    selectedBgColor = this.getAttribute('data-color');
+                    
+                    // Real-time UI preview boundary wrapper change sync
+                    if(selectedBgColor === 'transparent') {
+                        previewWrapper.style.backgroundColor = '#fff';
+                        previewWrapper.style.backgroundImage = "linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%)";
+                    } else {
+                        previewWrapper.style.backgroundImage = 'none';
+                        previewWrapper.style.backgroundColor = selectedBgColor;
+                    }
+
+                    renderFinalComposite();
+                });
+            });
+
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
-                    if (!processedBlobUrl) return;
+                    if (!finalPreview.src || finalPreview.src === "") return;
                     const a = document.createElement('a');
-                    a.href = processedBlobUrl;
-                    a.download = `SHC_AI_Remover_${Date.now()}.png`;
+                    a.href = finalPreview.src;
+                    a.download = `SHC_Remover_${Date.now()}.png`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
