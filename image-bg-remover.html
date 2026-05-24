@@ -38,7 +38,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Premium Header */
+        /* Premium Header Layout */
         .header {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
@@ -59,7 +59,7 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Fixed Invisible Input Box Overlays */
+        /* Upload Container Framework Box */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -76,7 +76,7 @@
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
         .main-btn:hover { background: var(--primary-hover); }
 
-        /* Output Canvas Layout Checkerboard Container */
+        /* Output Canvas Box Frame Checkerboard Background */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -196,7 +196,7 @@
     </footer>
 
     <script>
-        (function() {
+    (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
@@ -223,7 +223,7 @@
                         setTimeout(initAI, 500);
                     }
                 } catch(e) {
-                    console.error("AI Thread retry triggered.");
+                    console.error("AI Thread retry.");
                 }
             }
             initAI();
@@ -266,7 +266,7 @@
                     setTimeout(async () => {
                         try {
                             if (!selfieSegmentation) {
-                                alert("AI Engine initializing. Please click again in 2 seconds.");
+                                alert("AI Engine initializing. Please click again.");
                                 processBtn.innerHTML = "Remove Background";
                                 processBtn.disabled = false;
                                 return;
@@ -276,26 +276,27 @@
                                 const canvas = document.createElement('canvas');
                                 const ctx = canvas.getContext('2d');
                                 
-                                // Setup high resolution matching canvas size bounds
                                 canvas.width = sourceImageObject.naturalWidth || sourceImageObject.width;
                                 canvas.height = sourceImageObject.naturalHeight || sourceImageObject.height;
 
                                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                                 
-                                // Step 1: Create a temporary blurred mask to smooth residual shoulder edge artifacts
-                                const tempCanvas = document.createElement('canvas');
-                                tempCanvas.width = canvas.width;
-                                tempCanvas.height = canvas.height;
-                                const tempCtx = tempCanvas.getContext('2d');
-                                
-                                tempCtx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
-                                
-                                // Apply low radius pixel manipulation to close standard alpha gaps
-                                ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
-                                
-                                // Step 2: Use Source-In matrix blending to lock absolute edges nicely
+                                // Direct Matrix Layering Pipeline (Removes messy overlays completely)
+                                ctx.drawImage(results.segmentationMask, 0, 0, canvas.width, canvas.height);
                                 ctx.globalCompositeOperation = 'source-in';
                                 ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+
+                                // Pixel Isolation Filter Pass (Cleans any stray floating background chunks)
+                                const finalImgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const pixels = finalImgData.data;
+                                
+                                for (let i = 0; i < pixels.length; i += 4) {
+                                    // Soft trim: If edge pixel transparency alpha is too weak, erase it fully to ensure clean background removal
+                                    if (pixels[i+3] < 200) { 
+                                        pixels[i+3] = 0;
+                                    }
+                                }
+                                ctx.putImageData(finalImgData, 0, 0);
 
                                 canvas.toBlob(function(blob) {
                                     if (processedBlobUrl) URL.revokeObjectURL(processedBlobUrl);
@@ -312,7 +313,7 @@
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Engine busy. Re-trying optimization steps.");
+                            alert("Engine busy. Retrying optimization steps.");
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
