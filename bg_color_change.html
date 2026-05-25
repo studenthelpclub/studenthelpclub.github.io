@@ -220,13 +220,39 @@
             padding: 20px;
             min-height: 380px;
             border: 1px solid var(--border-color);
+            position: relative;
         }
 
         .preview-container canvas {
             max-width: 100%;
             max-height: 480px;
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 16 rgba(15, 23, 42, 0.08);
+        }
+
+        /* Change Image Link Style */
+        .change-img-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(4px);
+        }
+
+        .change-img-btn:hover {
+            background: var(--dark);
+            transform: translateY(-1px);
         }
 
         .controls-container {
@@ -245,7 +271,7 @@
         .button-group-panel label {
             font-weight: 700;
             color: var(--dark);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             margin-bottom: 2px;
         }
 
@@ -254,69 +280,53 @@
             font-weight: 700;
         }
 
-        /* Custom Interactive Options Layout Grid */
-        .option-grid-layout {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* Integrated Enhancement Grid Buttons */
+        .resolution-btn-grid {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .opt-btn {
+        .res-btn {
             background: #f8fafc;
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            padding: 14px 10px;
+            padding: 14px 16px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             cursor: pointer;
             transition: var(--transition);
-            text-align: center;
+            text-align: left;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
-        .opt-btn:hover {
+        .res-btn:hover {
             background: #f1f5f9;
             border-color: var(--text-muted);
         }
 
-        .opt-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
-        }
-
-        .resolution-btn-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-        }
-
-        .res-btn {
+        .res-btn .btn-badge {
+            font-size: 0.76rem;
             background: #e2e8f0;
-            color: var(--dark);
-            border: none;
-            padding: 12px 4px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .res-btn:hover {
-            background: #cbd5e1;
+            color: var(--text-main);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
         }
 
         .res-btn.active {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 8px rgba(0, 177, 79, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .res-btn.active .btn-badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
         }
 
         .action-buttons {
@@ -450,8 +460,6 @@
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
             .editor-workspace { grid-template-columns: 1fr; }
-            .option-grid-layout { grid-template-columns: 1fr; }
-            .resolution-btn-grid { grid-template-columns: repeat(3, 1fr); }
             .seo-content { padding: 30px 20px; }
         }
     </style>
@@ -478,41 +486,50 @@
             <h2>Instant Image Enhancer</h2>
             <p class="subtitle">Optimize, upscale, and convert your document scans or photos to high-definition 4K/8K tracks instantly.</p>
             
+            <input type="file" id="imageInput" accept="image/*">
+
             <div class="upload-section" id="uploadBox" onclick="document.getElementById('imageInput').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click or Drag to Upload Image</p>
                 <span style="font-size: 0.82rem; color: var(--text-muted);">Supports PNG, JPG, JPEG, WEBP</span>
-                <input type="file" id="imageInput" accept="image/*">
             </div>
 
             <div class="editor-workspace" id="editorWorkspace">
                 <div class="preview-container">
+                    <button class="change-img-btn" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-sync-alt"></i> Change Image
+                    </button>
                     <canvas id="imageCanvas"></canvas>
                 </div>
 
                 <div class="controls-container">
                     
                     <div class="button-group-panel">
-                        <label>Select Enhancement Mode</label>
-                        <div class="option-grid-layout">
-                            <button type="button" id="mod-none" class="opt-btn active" onclick="setEnhancementMode('none', this)"><i class="fas fa-image"></i> Normal Photo</button>
-                            <button type="button" class="opt-btn" onclick="setEnhancementMode('ultra', this)"><i class="fas fa-magic"></i> Ultra HD Clarity</button>
-                            <button type="button" class="opt-btn" onclick="setEnhancementMode('doc', this)"><i class="fas fa-file-alt"></i> HD Doc Scan</button>
-                            <button type="button" class="opt-btn" onclick="setEnhancementMode('passport', this)"><i class="fas fa-id-card"></i> Passport Photo</button>
-                        </div>
-                    </div>
-
-                    <div class="button-group-panel">
-                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem;">
-                            <label>Target Export Dimension</label>
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem; margin-bottom: 4px;">
+                            <label>Select Enhancement Target</label>
                             <span id="v-resolution">Original</span>
                         </div>
                         <div class="resolution-btn-grid">
-                            <button type="button" id="btn-orig" class="res-btn active" onclick="setTargetResolution('original', this)">Original</button>
-                            <button type="button" class="res-btn" onclick="setTargetResolution(1080, this)">1K (HD)</button>
-                            <button type="button" class="res-btn" onclick="setTargetResolution(2160, this)">2K (QHD)</button>
-                            <button type="button" class="res-btn" onclick="setTargetResolution(3840, this)">4K (UHD)</button>
-                            <button type="button" class="res-btn" onclick="setTargetResolution(7680, this)">8K (FUHD)</button>
+                            <button type="button" id="btn-orig" class="res-btn active" onclick="setTargetMode('original', this)">
+                                <span><i class="fas fa-image" style="margin-right: 6px;"></i> Original Image</span>
+                                <span class="btn-badge" id="badge-orig">Native</span>
+                            </button>
+                            <button type="button" class="res-btn" onclick="setTargetMode(1080, this)">
+                                <span><i class="fas fa-bolt" style="margin-right: 6px;"></i> 1K Clear HD</span>
+                                <span class="btn-badge">Balanced</span>
+                            </button>
+                            <button type="button" class="res-btn" onclick="setTargetMode(2160, this)">
+                                <span><i class="fas fa-compress-arrows-alt" style="margin-right: 6px;"></i> 2K Smart QHD</span>
+                                <span class="btn-badge">Sharp Text</span>
+                            </button>
+                            <button type="button" class="res-btn" onclick="setTargetMode(3840, this)">
+                                <span><i class="fas fa-magic" style="margin-right: 6px;"></i> 4K Ultra Clarity</span>
+                                <span class="btn-badge">High Detail</span>
+                            </button>
+                            <button type="button" class="res-btn" onclick="setTargetMode(7680, this)">
+                                <span><i class="fas fa-expand-alt" style="margin-right: 6px;"></i> 8K Extreme Enhance</span>
+                                <span class="btn-badge">Max Texture</span>
+                            </button>
                         </div>
                     </div>
 
@@ -539,8 +556,8 @@
             <h3>Operation Walkthrough Guide</h3>
             <ul>
                 <li><strong>Load Document Canvas:</strong> Inject your selected source graphic record into the application system using the dash container portal safely.</li>
-                <li><strong>Select Enhancement Mode:</strong> Pick preset profiles optimized for forms, face structures, or aggressive high-pass text contrast nodes instantly.</li>
-                <li><strong>Select Upscale Factor:</strong> Choose between native parameters or expand files up into 1K, 2K, 4K, or 8K matrices safely depending on individual portal size demands.</li>
+                <li><strong>Select Enhancement Target:</strong> Pick a combined upscale mode. The engine automatically resizes pixels and runs pixel interpolation logic to clean blur artifacts in one go.</li>
+                <li><strong>Manage Live Changes:</strong> Swap input photos directly using the embedded change frame trigger link seamlessly without refreshing scripts.</li>
                 <li><strong>Execute Secure Download:</strong> Solve the standard Google system safety puzzle block to activate the direct localized download thread, storing enhanced files down onto your device instantly.</li>
             </ul>
         </article>
@@ -570,13 +587,10 @@
         const ctx = canvas.getContext('2d');
         
         let originalImage = new Image();
-        let currentResolutionMode = 'original'; 
-        let currentEnhancePreset = 'none';
-        
+        let currentTargetMode = 'original'; 
         let activeResButtonElement = document.getElementById('btn-orig');
-        let activePresetButtonElement = document.getElementById('mod-none');
 
-        // Image Selection Handle
+        // Image Selection Handle Pipeline
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -589,104 +603,98 @@
         });
 
         originalImage.onload = function() {
-            // FIX: Hide the upload block box seamlessly once a file is processed
             uploadBox.style.display = 'none';
             workspace.style.display = 'grid';
             
-            resetAll();
+            // Re-initialize active configuration states seamlessly
+            const origResBtn = document.getElementById('btn-orig');
+            if(origResBtn) setTargetMode('original', origResBtn);
         }
 
-        // Enhancement Mode Selection Handler
-        function setEnhancementMode(mode, buttonElement) {
+        // Integrated Enhancement Target Routine Engine
+        function setTargetMode(targetMode, buttonElement) {
             if (!originalImage.src) return;
-            currentEnhancePreset = mode;
-
-            if (activePresetButtonElement) activePresetButtonElement.classList.remove('active');
-            buttonElement.classList.add('active');
-            activePresetButtonElement = buttonElement;
-
-            processAndRenderPipeline();
-        }
-
-        // Resolution Configuration Handler
-        function setTargetResolution(resolution, buttonElement) {
-            if (!originalImage.src) return;
-            currentResolutionMode = resolution;
+            currentTargetMode = targetMode;
             
             if (activeResButtonElement) activeResButtonElement.classList.remove('active');
             buttonElement.classList.add('active');
             activeResButtonElement = buttonElement;
 
-            // Compute Boundaries
-            if (resolution === 'original') {
+            // Dimension Processing Layer Configuration
+            if (targetMode === 'original') {
                 canvas.width = originalImage.naturalWidth;
                 canvas.height = originalImage.naturalHeight;
                 document.getElementById('v-resolution').innerText = `Original (${canvas.width}x${canvas.height})`;
+                document.getElementById('badge-orig').innerText = `${canvas.width}x${canvas.height}`;
             } else {
                 const aspect = originalImage.naturalHeight / originalImage.naturalWidth;
-                canvas.width = resolution;
-                canvas.height = Math.round(resolution * aspect);
+                canvas.width = targetMode;
+                canvas.height = Math.round(targetMode * aspect);
                 
-                let modeText = "1K HD";
-                if(resolution === 2160) modeText = "2K QHD";
-                if(resolution === 3840) modeText = "4K Ultra HD";
-                if(resolution === 7680) modeText = "8K Ultra HD";
+                let modeLabel = "1K HD";
+                if(targetMode === 2160) modeLabel = "2K QHD";
+                if(targetMode === 3840) modeLabel = "4K Ultra HD";
+                if(targetMode === 7680) modeLabel = "8K Extreme";
                 
-                document.getElementById('v-resolution').innerText = `${modeText} (${canvas.width}x${canvas.height})`;
+                document.getElementById('v-resolution').innerText = `${modeLabel} (${canvas.width}x${canvas.height})`;
             }
 
-            processAndRenderPipeline();
+            processImageEngine();
         }
 
-        // Core Mathematical Processing Core Pipeline Engine
-        function processAndRenderPipeline() {
+        // Combined Multi-Pass Image Processing Core Engine
+        function processImageEngine() {
             if (!originalImage.src) return;
 
-            // Step 1: Assign mathematical constants based on the clicked preset button
+            // Automated dynamic value assignment based on combined mode buttons
             let brightness = 0;
             let contrast = 0;
             let saturation = 0;
-            let sharpenFactor = 0;
+            let sharpenStrength = 0;
 
-            if (currentEnhancePreset === 'ultra') {
-                brightness = 8;
-                contrast = 18;
-                saturation = 12;
-                sharpenFactor = 45; // Aggressive crisp filter strength
-            } else if (currentEnhancePreset === 'doc') {
-                brightness = 15; // Clean dim lighting backgrounds
-                contrast = 35;   // Force background white and text dark black
-                saturation = -10; 
-                sharpenFactor = 65; // Massive edge sharpening for text fonts readability
-            } else if (currentEnhancePreset === 'passport') {
-                brightness = 10;
-                contrast = 12;
+            if (currentTargetMode === 1080) {
+                // 1K Balanced Configuration
+                brightness = 4;
+                contrast = 10;
                 saturation = 5;
-                sharpenFactor = 25; // Gentle balance pass over faces
+                sharpenStrength = 30;
+            } else if (currentTargetMode === 2160) {
+                // 2K Sharp Contrast Configuration (Optimized for Doc Text legibility)
+                brightness = 8;
+                contrast = 24;
+                saturation = -4;
+                sharpenStrength = 55;
+            } else if (currentTargetMode === 3840) {
+                // 4K Ultra Contrast Clarity Profile
+                brightness = 10;
+                contrast = 28;
+                saturation = 12;
+                sharpenStrength = 75;
+            } else if (currentTargetMode === 7680) {
+                // 8K Extreme Texture High-Pass Profile
+                brightness = 12;
+                contrast = 35;
+                saturation = 15;
+                sharpenStrength = 95;
             }
 
-            // Step 2: Auto resolution stretch compensation injection
-            if (currentResolutionMode !== 'original' && currentResolutionMode >= 3840 && sharpenFactor === 0) {
-                sharpenFactor = 30; // Inject auto boost padding on high scales (4K/8K)
-            }
-
-            // Wipe Frames
+            // Wipe Canvas Frames
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Sub-Pixel Smoothing configurations
+            // High Quality Advanced Resampling Filters Activation
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
 
-            // Native Matrix filters compilation injection
+            // Phase 1: Apply baseline illumination matrices properties mapping
             ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%) saturate(${100 + saturation}%)`;
             ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
 
-            // Step 3: Aggressive 8-Point Laplacian Space Convolution Pass
-            if (sharpenFactor > 0) {
+            // Phase 2: Execution of Aggressive 8-Point Laplacian Spatial Convolution pass
+            if (sharpenStrength > 0) {
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 
-                // Scale factor logic calculation multiplier
-                const weight = (sharpenFactor / 100) * 3.5; 
+                // 3.5x Multiplier amplification factor to lock texture edges strongly
+                const weight = (sharpenStrength / 100) * 3.5; 
                 const edgeWeights = -weight;
                 const centerWeight = 1 + (8 * weight);
 
@@ -704,7 +712,7 @@
                         for (let c = 0; c < 3; c++) {
                             const currentChannelIdx = idx + c;
                             
-                            // Matrix spatial formula checking center vs all 8 surround neighbors
+                            // Convolution Matrix checking cross points & borders
                             const val = src[currentChannelIdx] * centerWeight +
                                         (src[currentChannelIdx - 4] +                 
                                          src[currentChannelIdx + 4] +                 
@@ -718,7 +726,7 @@
                             
                             dst[currentChannelIdx] = Math.min(255, Math.max(0, val));
                         }
-                        dst[idx + 3] = src[idx + 3]; // Maintain absolute transparency mappings
+                        dst[idx + 3] = src[idx + 3]; // Static alpha channel layer lock
                     }
                 }
                 ctx.putImageData(sharpenedData, 0, 0);
@@ -726,27 +734,8 @@
         }
 
         function resetAll() {
-            currentEnhancePreset = 'none';
-            currentResolutionMode = 'original';
-
-            // Track Element States back to origin nodes
             const origResBtn = document.getElementById('btn-orig');
-            const origModeBtn = document.getElementById('mod-none');
-
-            if (activeResButtonElement) activeResButtonElement.classList.remove('active');
-            if (activePresetButtonElement) activePresetButtonElement.classList.remove('active');
-
-            origResBtn.classList.add('active');
-            origModeBtn.classList.add('active');
-
-            activeResButtonElement = origResBtn;
-            activePresetButtonElement = origModeBtn;
-
-            canvas.width = originalImage.naturalWidth;
-            canvas.height = originalImage.naturalHeight;
-            document.getElementById('v-resolution').innerText = `Original (${canvas.width}x${canvas.height})`;
-
-            processAndRenderPipeline();
+            if(origResBtn) setTargetMode('original', origResBtn);
         }
 
         function triggerDownload() {
