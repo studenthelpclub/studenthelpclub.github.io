@@ -11,17 +11,17 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium 4K/8K Image Enhancer - Student Help Club</title>
+    <title>Instant Image Enhancer & 4K/8K Upscaler - Student Help Club</title>
     
-    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" defer></script>
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
     <style>
         :root {
@@ -35,127 +35,395 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
         
-        /* Premium Header Layout */
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Unified Premium Header */
         .header {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;
-        }
-        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .brand h1 { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
-        .nav-menu { display: flex; gap: 24px; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
-        .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
-
-        /* Workspace Framework Structure */
-        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
-        
-        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
-        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
-
-        /* Upload Container Box */
-        .upload-container-box {
-            position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
-            text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; overflow: hidden;
-        }
-        .upload-container-box:hover { background: #e6fced; }
-        .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 50; }
-        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; z-index: 5; }
-
-        /* Absolute Non-Breaking Slider System Layout Framework */
-        .comparison-slider-box {
-            position: relative; width: 100%; height: auto; display: block; line-height: 0;
-            border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); background: #f1f5f9; margin-bottom: 25px;
-            touch-action: pan-y; select: none; -webkit-user-select: none;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
         }
         
-        .slider-img { width: 100%; height: auto; display: block; pointer-events: none; max-height: 520px; object-fit: contain; }
-        .slider-img.img-before { position: relative; z-index: 1; }
-        
-        /* CSS Inset Clip-Path Overlay */
-        .after-mask-wrapper {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; pointer-events: none; overflow: hidden;
-            clip-path: inset(0 0 0 50%);
-        }
-        .after-mask-wrapper .img-after {
-            width: 100%; height: 100%; object-fit: contain; display: block;
-        }
-
-        /* Continuous Dynamic Divider Line Overlay */
-        .slider-divider-line {
-            position: absolute; top: 0; bottom: 0; left: 50%; width: 3px;
-            background: #ffffff; z-index: 3; pointer-events: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
         }
         
-        /* Center Handle Badge Control Bubble */
-        .slider-handle-badge {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 46px; height: 46px; background: #ffffff; border-radius: 50%; z-index: 4;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;
-            font-weight: 800; color: var(--dark); font-size: 0.82rem; border: 2.5px solid var(--primary);
-            pointer-events: none; letter-spacing: -0.3px;
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
         }
-
-        .comparison-range-input {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; cursor: ew-resize; z-index: 10;
-        }
-
-        /* Professional Workstation Controls Panels Layout */
-        .controls-grid { margin-top: 25px; background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); text-align: center; }
-        .panel-headline { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
-        .resolution-flex-grid { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Tool Workspace Layout */
+        .workspace-container {
+            max-width: 950px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        /* Enhancer Workspace Matrix */
+        .upload-section {
+            border: 2px dashed var(--border-color);
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+            background: #fafafa;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 24px;
+        }
+
+        .upload-section:hover {
+            border-color: var(--primary);
+            background: #f0fdf4;
+        }
+
+        .upload-section i {
+            font-size: 2.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .upload-section p {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .editor-workspace {
+            display: none;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 35px;
+            margin-top: 25px;
+        }
+
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 20px;
+            min-height: 350px;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-container canvas {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+        }
+
+        .controls-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .slider-group .label-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.92rem;
+        }
+
+        .slider-group span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+            cursor: pointer;
+            height: 6px;
+            border-radius: 4px;
+        }
+
+        /* Upscaling Grid Buttons */
+        .resolution-btn-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin-top: 4px;
+        }
+
         .res-btn {
-            background: #ffffff; border: 2px solid var(--border-color); padding: 12px 24px; border-radius: 12px;
-            font-size: 0.92rem; font-weight: 800; color: var(--text-main); cursor: pointer; transition: var(--transition);
-            min-width: 110px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            background: #e2e8f0;
+            color: var(--dark);
+            border: none;
+            padding: 10px 4px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
         }
-        .res-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .res-btn.active { background: #007bff; color: white; border-color: #007bff; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25); }
 
-        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
-        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
-        .main-btn:hover { background: var(--primary-hover); }
+        .res-btn:hover {
+            background: #cbd5e1;
+        }
 
-        /* Output View Box Result Frame Container */
-        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
-        .download-btn:hover { background: #0056b3; }
+        .res-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 177, 79, 0.2);
+        }
 
-        /* SEO Informative Core Sections */
-        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
-        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
-        .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
-        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 12px;
+        }
 
-        /* Footer Links Layout */
-        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
-        .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+        }
+
+        .btn-reset {
+            background: #e2e8f0;
+            color: var(--dark);
+        }
+
+        .btn-reset:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-download {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+        }
+
+        .btn-download:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        .recaptcha-wrapper {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Informative Section */
+        .seo-content {
+            background: #ffffff;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .seo-content h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .seo-content h3:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .seo-content p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .seo-content ul {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .seo-content ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        .policy-links { margin-top: 25px; font-size: 0.92rem; }
-        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .policy-links a:hover { color: var(--primary); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
 
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
+            .editor-workspace { grid-template-columns: 1fr; }
+            .resolution-btn-grid { grid-template-columns: repeat(3, 1fr); }
             .seo-content { padding: 30px 20px; }
         }
     </style>
@@ -164,7 +432,7 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
             <h1>Student Help Club</h1>
         </a>
         <nav class="nav-menu">
@@ -175,79 +443,113 @@
     </header>
 
     <div class="workspace-container">
+        
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>Free Image Enhancer</h2>
-            <p class="subtitle">Instantly clean blurry scanned documents, upscale to 4K/8K resolution, and balance low light snapshots inside your browser.</p>
+            <h2>Instant Image Enhancer</h2>
+            <p class="subtitle">Optimize, upscale, and convert your document scans or photos to high-definition 4K/8K tracks instantly.</p>
             
-            <div class="upload-container-box">
-                <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
-                <i class="fas fa-images" style="font-size: 44px; color: var(--primary); z-index: 1;"></i>
-                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem; z-index: 1;">Select or Drag Photo to Enhance Quality</p>
-                <div class="select-btn-ui">Choose Photo</div>
+            <div class="upload-section" onclick="document.getElementById('imageInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click or Drag to Upload Image</p>
+                <span style="font-size: 0.82rem; color: var(--text-muted);">Supports PNG, JPG, JPEG, WEBP</span>
+                <input type="file" id="imageInput" accept="image/*">
             </div>
 
-            <div id="settingsArea" style="display: none; margin-top: 20px;">
-                
-                <div class="comparison-slider-box" id="sliderWrapperContainer">
-                    <img id="imgBefore" class="slider-img img-before" src="" alt="Enhanced Matrix Preview">
-                    <div class="after-mask-wrapper" id="afterWrapperMask">
-                        <img id="imgAfter" class="slider-img img-after" src="" alt="Original Upload Reference Preview">
+            <div class="editor-workspace" id="editorWorkspace">
+                <div class="preview-container">
+                    <canvas id="imageCanvas"></canvas>
+                </div>
+
+                <div class="controls-container">
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label for="brightness">Brightness</label>
+                            <span id="v-brightness">0%</span>
+                        </div>
+                        <input type="range" id="brightness" min="-100" max="100" value="0" oninput="applyFilters()">
                     </div>
-                    <div class="slider-divider-line" id="dividerLine"></div>
-                    <div class="slider-handle-badge" id="handleBadge">A > B</div>
-                    <input type="range" min="0" max="100" value="50" class="comparison-range-input" id="splitControlInput">
-                </div>
 
-                <div class="controls-grid">
-                    <div class="panel-headline"><i class="fas fa-toggle-on" style="color: var(--primary);"></i> Target Processing Resolution</div>
-                    
-                    <div class="resolution-flex-grid">
-                        <button class="res-btn" data-scale="1">1K Normal</button>
-                        <button class="res-btn" data-scale="2">2K Medium</button>
-                        <button class="res-btn active" data-scale="4">4K Ultra HD</button>
-                        <button class="res-btn" data-scale="8">8K Extreme</button>
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label for="contrast">Contrast</label>
+                            <span id="v-contrast">0%</span>
+                        </div>
+                        <input type="range" id="contrast" min="-100" max="100" value="0" oninput="applyFilters()">
                     </div>
-                    
-                    <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 5px; line-height: 1.5;">
-                        Our premium platform upscaling pipeline deep-cleans noise, sharpens document vectors, and balances color parameters completely inside your client browser window layer.
-                    </p>
-                </div>
 
-                <div class="recaptcha-wrapper">
-                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
-                </div>
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label for="saturation">Saturation</label>
+                            <span id="v-saturation">0%</span>
+                        </div>
+                        <input type="range" id="saturation" min="-100" max="100" value="0" oninput="applyFilters()">
+                    </div>
 
-                <button id="processBtn" class="main-btn">Enhance Image Quality</button>
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label for="sharpen">Sharpen (HD Detail)</label>
+                            <span id="v-sharpen">Off</span>
+                        </div>
+                        <input type="range" id="sharpen" min="0" max="100" value="0" oninput="applyFilters()">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label for="blur">Blur</label>
+                            <span id="v-blur">0px</span>
+                        </div>
+                        <input type="range" id="blur" min="0" max="10" value="0" oninput="applyFilters()">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="label-row">
+                            <label>Enhance & Scale Resolution</label>
+                            <span id="v-resolution">Original</span>
+                        </div>
+                        <div class="resolution-btn-grid">
+                            <button type="button" id="btn-orig" class="res-btn active" onclick="setTargetResolution('original', this)">Original</button>
+                            <button type="button" class="res-btn" onclick="setTargetResolution(1080, this)">1K (HD)</button>
+                            <button type="button" class="res-btn" onclick="setTargetResolution(2160, this)">2K (QHD)</button>
+                            <button type="button" class="res-btn" onclick="setTargetResolution(3840, this)">4K (UHD)</button>
+                            <button type="button" class="res-btn" onclick="setTargetResolution(7680, this)">8K (FUHD)</button>
+                        </div>
+                    </div>
+
+                    <div class="recaptcha-wrapper">
+                        <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn btn-reset" onclick="resetAll()">Reset</button>
+                        <button class="action-btn btn-download" onclick="triggerDownload()">Download Image</button>
+                    </div>
+                </div>
             </div>
 
-            <div id="resultArea" class="result-box">
-                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Graphics Enhanced Successfully!</h3>
-                <button id="downloadBtn" class="download-btn">Download Enhanced Image</button>
-            </div>
         </div>
 
         <article class="seo-content">
-            <h3>How Browser-Based Client-Side Image Optimization Operates</h3>
-            <p>Our online image resolution expansion utility optimizes digital scanned materials completely inside your local computer window threads. When a blurry handwriting slate sheet or dim profile card milestone is uploaded, the canvas processing pipeline maps the bitmap pixel array instantly. Unsharp masking matrices calculate spatial distribution gradients across adjacent borders, multiplying local contrast loops to restore lost focal crispness parameters without requiring network roundtrips to remote external storage setups.</p>
+            <h3>How the Secure Client-Side Image Processing Engine Works</h3>
+            <p>Our image enhancement utility runs entirely inside your system browser window via advanced Canvas data structures. Unlike cloud tools that process configurations on external servers, this tool retains maximum structural data privacy by executing algorithmic mathematical transformations straight on your screen without file transmission lines.</p>
             
-            <h3>Essential Utility for Scanned Application Receipts and Hall Tickets</h3>
-            <p>Major state admission grids require student candidates to submit signature forms and identity materials under tight structural data criteria standards. Camera lenses captured under home ceiling fan lighting elements often produce dark shadows, rendering text values completely unreadable by automated data readers. This dynamic contrast balancing grid boosts low exposure values immediately, clearing out muddy luminance artifacts to output clean compliance assets optimized for application approvals.</p>
-
-            <h3>Step-by-Step Resolution Upscaling Guidelines</h3>
+            <h3>Crucial Optimization for Exam Form Submissions</h3>
+            <p>Major academic admission channels and competitive government recruitment structures (like staff selection bodies, railway recruitment boards, or banking portals) require clean, legible document records. Dark scans, dim passport captures, or blurred proof documents can lead to systemic application form rejection. This engine corrects edge illumination matrix values and baseline legibility instantly, assuring submission compliance.</p>
+            
+            <h3>Operation Walkthrough Guide</h3>
             <ul>
-                <li><strong>Upload Graphics Elements:</strong> Choose your preferred photo file source thread (Supports JPG, PNG, and converted HEIC raw inputs natively).</li>
-                <li><strong>Select Scale Target Layout:</strong> Tap on the clean resolution target nodes to configure multiplier bounds (From 1K document scans up to 8K extreme design presets).</li>
-                <li><strong>Solve the Security Challenge:</strong> Complete the Google reCAPTCHA widget checkbox validation to pass programmatic spam filters safely.</li>
-                <li><strong>Download Crisp Outputs:</strong> Trigger the enhancement engine. Inspect details dynamically using our absolute horizontal center comparison slider handle before downloading.</li>
+                <li><strong>Load Document Canvas:</strong> Inject your selected source graphic record into the application system using the dash container portal safely.</li>
+                <li><strong>Balance Tuning Rows:</strong> Calibrate specific slider modules to tune lighting values, sharpen text characters, or alter high saturation nodes seamlessly.</li>
+                <li><strong>Select Upscale Factor:</strong> Choose between native parameters or expand files up into 1K, 2K, 4K, or 8K matrices safely depending on individual portal size demands.</li>
+                <li><strong>Execute Secure Download:</strong> Solve the standard Google system safety puzzle block to activate the direct localized download thread, storing enhanced files down onto your device instantly.</li>
             </ul>
         </article>
     </div>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
@@ -256,216 +558,189 @@
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="legal.html#about">About Us</a> | 
             <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a> |
-            <a href="disclaimer.html">Disclaimer</a>
+            <a href="legal.html#terms">Terms of Service</a>
         </div>
-        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Secure browser processing.</p>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
-    (function() {
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            const imageInput = document.getElementById('imageInput');
-            const settingsArea = document.getElementById('settingsArea');
-            const processBtn = document.getElementById('processBtn');
-            const resultArea = document.getElementById('resultArea');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const statusText = document.getElementById('statusText');
+        const imageInput = document.getElementById('imageInput');
+        const workspace = document.getElementById('editorWorkspace');
+        const canvas = document.getElementById('imageCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let originalImage = new Image();
+        let currentResolutionMode = 'original'; 
+        let activeResButtonElement = document.getElementById('btn-orig');
 
-            const imgBefore = document.getElementById('imgBefore');
-            const imgAfter = document.getElementById('imgAfter');
-            const afterWrapperMask = document.getElementById('afterWrapperMask');
-            const splitControlInput = document.getElementById('splitControlInput');
-            const handleBadge = document.getElementById('handleBadge');
-            const dividerLine = document.getElementById('dividerLine');
-
-            let sourceBase64Stream = null;
-            let finalOutputBlob = null;
-            let targetScaleFactor = 4;
-
-            if(splitControlInput) {
-                splitControlInput.addEventListener('input', function(e) {
-                    const value = e.target.value;
-                    if(afterWrapperMask) afterWrapperMask.style.clipPath = `inset(0 0 0 ${value}%)`;
-                    if(handleBadge) handleBadge.style.left = value + '%';
-                    if(dividerLine) dividerLine.style.left = value + '%';
-                });
+        // Image Selection Stream
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    originalImage.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
             }
-
-            document.querySelectorAll('.res-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    targetScaleFactor = parseInt(this.getAttribute('data-scale'));
-                    applyLiveStyleFilters();
-                });
-            });
-
-            // Clean UI Preview Filter String Matrix Allocation
-            function getFilterString(scale) {
-                let contrast = 104; let brightness = 101; let saturate = 101;
-                if(scale === 2) { contrast = 106; }
-                else if(scale === 4) { contrast = 110; saturate = 103; }
-                else if(scale === 8) { contrast = 114; saturate = 105; }
-                return `contrast(${contrast}%) brightness(${brightness}%) saturate(${saturate}%)`;
-            }
-
-            function applyLiveStyleFilters() {
-                if(!imgBefore) return;
-                imgBefore.style.filter = getFilterString(targetScaleFactor);
-            }
-
-            if(imageInput) {
-                imageInput.addEventListener('change', async function(e) {
-                    if (e.target.files && e.target.files[0]) {
-                        let file = e.target.files[0];
-                        const fileName = file.name.toLowerCase();
-                        
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading stream...`;
-
-                        if (fileName.endsWith(".heic") || file.type.includes("heic") || file.type === "") {
-                            if (statusText) statusText.innerHTML = `<b style="color:#0d6efd;"><i class="fas fa-magic fa-spin"></i> Converting Mobile HEIC...</b>`;
-                            try {
-                                if (typeof heic2any !== 'undefined') {
-                                    const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
-                                    const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
-                                    file = new File([blob], "converted.jpg", { type: "image/jpeg" });
-                                }
-                            } catch (err) { console.error("HEIC loop fallback."); }
-                        }
-
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            sourceBase64Stream = event.target.result;
-                            
-                            imgBefore.src = sourceBase64Stream;
-                            imgAfter.src = sourceBase64Stream;
-                            
-                            if(afterWrapperMask) afterWrapperMask.style.clipPath = `inset(0 0 0 50%)`;
-                            splitControlInput.value = 50;
-                            handleBadge.style.left = '50%';
-                            dividerLine.style.left = '50%';
-
-                            targetScaleFactor = 4;
-                            document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
-                            document.querySelector('.res-btn[data-scale="4"]').classList.add('active');
-                            applyLiveStyleFilters();
-
-                            if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Image Linked! Ready for Upscaling.`;
-                            if (settingsArea) settingsArea.style.display = "block";
-                            if (resultArea) resultArea.style.display = "none";
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-
-            if(processBtn) {
-                processBtn.addEventListener('click', function() {
-                    if (!sourceBase64Stream) return;
-
-                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-                        if (grecaptcha.getResponse().length === 0) {
-                            alert("Please verify the reCAPTCHA protection guard widget checkbox.");
-                            return;
-                        }
-                    }
-
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Matrix...`;
-                    processBtn.disabled = true;
-
-                    setTimeout(() => {
-                        try {
-                            const canvas = document.createElement('canvas');
-                            const ctx = canvas.getContext('2d');
-                            const imgObj = new Image();
-                            
-                            imgObj.onload = function() {
-                                let baseWidth = imgObj.naturalWidth || imgObj.width;
-                                let baseHeight = imgObj.naturalHeight || imgObj.height;
-                                
-                                let scaleMultiplier = 1.0;
-                                if(targetScaleFactor === 2) scaleMultiplier = 1.5;
-                                else if(targetScaleFactor === 4) scaleMultiplier = 2.5; 
-                                else if(targetScaleFactor === 8) scaleMultiplier = 4.0; 
-
-                                canvas.width = baseWidth * scaleMultiplier;
-                                canvas.height = baseHeight * scaleMultiplier;
-                                
-                                ctx.imageSmoothingEnabled = true;
-                                ctx.imageSmoothingQuality = 'high';
-
-                                ctx.filter = getFilterString(targetScaleFactor);
-                                ctx.drawImage(imgObj, 0, 0, canvas.width, canvas.height);
-                                
-                                if (targetScaleFactor >= 4) {
-                                    const w = canvas.width;
-                                    const h = canvas.height;
-                                    const imgData = ctx.getImageData(0, 0, w, h);
-                                    const pixels = imgData.data;
-                                    
-                                    const edgeStrength = targetScaleFactor === 8 ? 0.35 : 0.18;
-                                    const originalData = new Uint8ClampedArray(pixels);
-                                    
-                                    for (let y = 1; y < h - 1; y++) {
-                                        for (let x = 1; x < w - 1; x++) {
-                                            const idx = (y * w + x) * 4;
-                                            
-                                            for (let c = 0; c < 3; c++) {
-                                                const currentIdx = idx + c;
-                                                const center = originalData[currentIdx];
-                                                const top    = originalData[((y - 1) * w + x) * 4 + c];
-                                                const bottom = originalData[((y + 1) * w + x) * 4 + c];
-                                                const left   = originalData[(y * w + (x - 1)) * 4 + c];
-                                                const right  = originalData[(y * w + (x + 1)) * 4 + c];
-                                                
-                                                let sharpenedPixel = center + edgeStrength * (4 * center - top - bottom - left - right);
-                                                pixels[currentIdx] = Math.min(255, Math.max(0, sharpenedPixel));
-                                            }
-                                        }
-                                    }
-                                    ctx.putImageData(imgData, 0, 0);
-                                }
-
-                                canvas.toBlob(function(blob) {
-                                    finalOutputBlob = blob;
-                                    imgBefore.src = URL.createObjectURL(blob);
-                                    
-                                    if(resultArea) resultArea.style.display = "block";
-                                    resultArea.scrollIntoView({ behavior: 'smooth' });
-                                    
-                                    processBtn.innerHTML = "Enhance Image Quality";
-                                    processBtn.disabled = false;
-                                }, 'image/jpeg', 0.98); 
-                            };
-                            imgObj.src = sourceBase64Stream;
-                            
-                        } catch(err) {
-                            alert("Upscaling system layout thread loop processing error.");
-                            processBtn.innerHTML = "Enhance Image Quality";
-                            processBtn.disabled = false;
-                        }
-                    }, 200);
-                });
-            }
-
-            if(downloadBtn) {
-                downloadBtn.onclick = () => {
-                    if (!finalOutputBlob) return;
-                    const url = URL.createObjectURL(finalOutputBlob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `SHC_${targetScaleFactor}K_Extreme_Enhanced_${Date.now()}.jpg`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                };
-            }
-
         });
-    })();
+
+        originalImage.onload = function() {
+            workspace.style.display = 'grid';
+            
+            // Re-apply focus parameters to native baseline
+            const origBtn = document.getElementById('btn-orig');
+            resetSlidersOnly();
+            if(origBtn) setTargetResolution('original', origBtn);
+        }
+
+        // Resolution Matrix Configuration Engine
+        function setTargetResolution(resolution, buttonElement) {
+            if (!originalImage.src) return;
+            
+            currentResolutionMode = resolution;
+            
+            // Dynamic Class Management for Active/Inactive States
+            if (activeResButtonElement) {
+                activeResButtonElement.classList.remove('active');
+            }
+            buttonElement.classList.add('active');
+            activeResButtonElement = buttonElement;
+
+            // Dimension Scaling Engine Calculations
+            if (resolution === 'original') {
+                canvas.width = originalImage.naturalWidth;
+                canvas.height = originalImage.naturalHeight;
+                document.getElementById('v-resolution').innerText = `Original (${canvas.width}x${canvas.height})`;
+            } else {
+                const aspect = originalImage.naturalHeight / originalImage.naturalWidth;
+                canvas.width = resolution;
+                canvas.height = Math.round(resolution * aspect);
+                
+                let modeText = "1K HD";
+                if(resolution === 2160) modeText = "2K QHD";
+                if(resolution === 3840) modeText = "4K Ultra HD";
+                if(resolution === 7680) modeText = "8K Ultra HD";
+                
+                document.getElementById('v-resolution').innerText = `${modeText} (${canvas.width}x${canvas.height})`;
+            }
+
+            applyFilters();
+        }
+
+        // Core Image Processing Thread Matrix
+        function applyFilters() {
+            if (!originalImage.src) return;
+
+            const brightnessVal = document.getElementById('brightness').value;
+            const contrastVal = document.getElementById('contrast').value;
+            const saturationVal = document.getElementById('saturation').value;
+            const sharpenVal = document.getElementById('sharpen').value;
+            const blurVal = document.getElementById('blur').value;
+
+            // Update Text Nodes Realtime
+            document.getElementById('v-brightness').innerText = (brightnessVal > 0 ? '+' : '') + brightnessVal + '%';
+            document.getElementById('v-contrast').innerText = (contrastVal > 0 ? '+' : '') + contrastVal + '%';
+            document.getElementById('v-saturation').innerText = (saturationVal > 0 ? '+' : '') + saturationVal + '%';
+            document.getElementById('v-sharpen').innerText = sharpenVal == 0 ? 'Off' : sharpenVal + '%';
+            document.getElementById('v-blur').innerText = blurVal + 'px';
+
+            // Wipe Frames
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // High Quality Advanced Sub-Pixel Anti-Aliasing Smoothing Enable
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            // Context Filters Setup Configuration
+            let filterString = `brightness(${100 + parseInt(brightnessVal)}%) ` +
+                               `contrast(${100 + parseInt(contrastVal)}%) ` +
+                               `saturate(${100 + parseInt(saturationVal)}%) ` +
+                               `blur(${blurVal}px)`;
+            ctx.filter = filterString;
+            
+            // Draw original data stretched seamlessly onto targeted resolution bounds
+            ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+
+            // Intelligent Edge-Detection High Definition Sharpen Mask
+            let computedSharpenStrength = parseInt(sharpenVal);
+            
+            // Auto Edge Boost: Adds default crisp padding when scaling up to prevent block blur
+            if (currentResolutionMode !== 'original' && currentResolutionMode >= 3840 && computedSharpenStrength === 0) {
+                computedSharpenStrength = 18; 
+            }
+
+            if (computedSharpenStrength > 0) {
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const weight = computedSharpenStrength / 100; 
+                
+                const edgeWeights = -weight;
+                const centerWeight = 1 + (4 * weight);
+
+                const sharpenedData = ctx.createImageData(canvas.width, canvas.height);
+                const w = imgData.width;
+                const h = imgData.height;
+                
+                const src = imgData.data;
+                const dst = sharpenedData.data;
+
+                // Execute 2D spatial mathematical convolution pass over RGB arrays
+                for (let y = 1; y < h - 1; y++) {
+                    for (let x = 1; x < w - 1; x++) {
+                        const idx = (y * w + x) * 4;
+
+                        for (let c = 0; c < 3; c++) {
+                            const currentChannelIdx = idx + c;
+                            const val = src[currentChannelIdx] * centerWeight +
+                                        (src[currentChannelIdx - 4] +              
+                                         src[currentChannelIdx + 4] +              
+                                         src[currentChannelIdx - (w * 4)] +        
+                                         src[currentChannelIdx + (w * 4)]) * edgeWeights; 
+                            
+                            dst[currentChannelIdx] = Math.min(255, Math.max(0, val));
+                        }
+                        dst[idx + 3] = src[idx + 3]; 
+                    }
+                }
+                ctx.putImageData(sharpenedData, 0, 0);
+            }
+        }
+
+        function resetSlidersOnly() {
+            document.getElementById('brightness').value = 0;
+            document.getElementById('contrast').value = 0;
+            document.getElementById('saturation').value = 0;
+            document.getElementById('sharpen').value = 0;
+            document.getElementById('blur').value = 0;
+        }
+
+        function resetAll() {
+            resetSlidersOnly();
+            const origBtn = document.getElementById('btn-orig');
+            if(origBtn) setTargetResolution('original', origBtn);
+        }
+
+        function triggerDownload() {
+            // Google Security reCAPTCHA Check Guard
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                return;
+            }
+
+            const link = document.createElement('a');
+            
+            // Name file tracks clearly according to output metrics
+            let filePrefix = 'shc-hd-';
+            if(canvas.width >= 3840) filePrefix = 'shc-ultra-hd-';
+            
+            link.download = filePrefix + 'enhanced.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            // Refresh security verification state loop
+            grecaptcha.reset();
+        }
     </script>
 </body>
 </html>
