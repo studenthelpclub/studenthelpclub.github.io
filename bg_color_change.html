@@ -227,7 +227,7 @@
             max-width: 100%;
             max-height: 480px;
             border-radius: 12px;
-            box-shadow: 0 4px 16 rgba(15, 23, 42, 0.08);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
         }
 
         /* Change Image Link Style */
@@ -248,6 +248,7 @@
             align-items: center;
             gap: 6px;
             backdrop-filter: blur(4px);
+            z-index: 10;
         }
 
         .change-img-btn:hover {
@@ -301,6 +302,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            outline: none;
         }
 
         .res-btn:hover {
@@ -590,7 +592,7 @@
         let currentTargetMode = 'original'; 
         let activeResButtonElement = document.getElementById('btn-orig');
 
-        // Image Selection Handle Pipeline
+        // Image Selection Stream
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -606,7 +608,6 @@
             uploadBox.style.display = 'none';
             workspace.style.display = 'grid';
             
-            // Re-initialize active configuration states seamlessly
             const origResBtn = document.getElementById('btn-orig');
             if(origResBtn) setTargetMode('original', origResBtn);
         }
@@ -620,7 +621,7 @@
             buttonElement.classList.add('active');
             activeResButtonElement = buttonElement;
 
-            // Dimension Processing Layer Configuration
+            // Dimension Scaling Calculations Pass
             if (targetMode === 'original') {
                 canvas.width = originalImage.naturalWidth;
                 canvas.height = originalImage.naturalHeight;
@@ -642,94 +643,120 @@
             processImageEngine();
         }
 
-        // Combined Multi-Pass Image Processing Core Engine
+        // UPGRADED MULTI-STAGE CLIENT IMAGE ENHANCEMENT ENGINE
         function processImageEngine() {
             if (!originalImage.src) return;
 
-            // Automated dynamic value assignment based on combined mode buttons
+            // Step 1: Assign strict parameter tables mapped to selected buttons
             let brightness = 0;
             let contrast = 0;
             let saturation = 0;
             let sharpenStrength = 0;
 
             if (currentTargetMode === 1080) {
-                // 1K Balanced Configuration
-                brightness = 4;
-                contrast = 10;
-                saturation = 5;
-                sharpenStrength = 30;
+                brightness = 5;
+                contrast = 15;
+                saturation = 8;
+                sharpenStrength = 35;
             } else if (currentTargetMode === 2160) {
-                // 2K Sharp Contrast Configuration (Optimized for Doc Text legibility)
                 brightness = 8;
-                contrast = 24;
-                saturation = -4;
-                sharpenStrength = 55;
+                contrast = 25;
+                saturation = 10;
+                sharpenStrength = 60;
             } else if (currentTargetMode === 3840) {
-                // 4K Ultra Contrast Clarity Profile
-                brightness = 10;
-                contrast = 28;
-                saturation = 12;
-                sharpenStrength = 75;
-            } else if (currentTargetMode === 7680) {
-                // 8K Extreme Texture High-Pass Profile
                 brightness = 12;
                 contrast = 35;
                 saturation = 15;
-                sharpenStrength = 95;
+                sharpenStrength = 85;
+            } else if (currentTargetMode === 7680) {
+                brightness = 15;
+                contrast = 45;
+                saturation = 20;
+                sharpenStrength = 110; // Extra aggressive pass for high pixels maps
             }
 
-            // Wipe Canvas Frames
+            // Wipe Frame Memory Block
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // High Quality Advanced Resampling Filters Activation
+            // Step 2: Double-Pass Hardware Anti-Aliasing Setup
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
 
-            // Phase 1: Apply baseline illumination matrices properties mapping
-            ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%) saturate(${100 + saturation}%)`;
-            ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+            // Create temporary in-memory canvas loop to process stretching cleanly before kernel filtering
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            tempCtx.imageSmoothingEnabled = true;
+            tempCtx.imageSmoothingQuality = 'high';
+            
+            // Render baseline color attributes properties inside memory stack
+            tempCtx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%) saturate(${100 + saturation}%)`;
+            tempCtx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
 
-            // Phase 2: Execution of Aggressive 8-Point Laplacian Spatial Convolution pass
+            // Fetch clean stretched image raw data stream
+            const imgData = tempCtx.getImageData(0, 0, canvas.width, canvas.height);
+            const w = imgData.width;
+            const h = imgData.height;
+            
+            const src = imgData.data;
+
+            // Step 3: Sharp High-Pass Spatial Convolution Optimization
             if (sharpenStrength > 0) {
-                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                
-                // 3.5x Multiplier amplification factor to lock texture edges strongly
-                const weight = (sharpenStrength / 100) * 3.5; 
+                const sharpenedData = ctx.createImageData(w, h);
+                const dst = sharpenedData.data;
+
+                // Adaptive scale multiplier handling resolution constraints to prevent blurry distortion paths
+                const weight = (sharpenStrength / 100) * 4.2; 
                 const edgeWeights = -weight;
                 const centerWeight = 1 + (8 * weight);
 
-                const sharpenedData = ctx.createImageData(canvas.width, canvas.height);
-                const w = imgData.width;
-                const h = imgData.height;
-                
-                const src = imgData.data;
-                const dst = sharpenedData.data;
-
+                // Multi-threaded pixel mapping replication simulation loop
                 for (let y = 1; y < h - 1; y++) {
-                    for (let x = 1; x < w - 1; x++) {
-                        const idx = (y * w + x) * 4;
+                    const rowOffset = y * w;
+                    const prevRowOffset = (y - 1) * w;
+                    const nextRowOffset = (y + 1) * w;
 
-                        for (let c = 0; c < 3; c++) {
-                            const currentChannelIdx = idx + c;
-                            
-                            // Convolution Matrix checking cross points & borders
-                            const val = src[currentChannelIdx] * centerWeight +
-                                        (src[currentChannelIdx - 4] +                 
-                                         src[currentChannelIdx + 4] +                 
-                                         src[currentChannelIdx - (w * 4)] +           
-                                         src[currentChannelIdx + (w * 4)] +           
-                                         src[currentChannelIdx - (w * 4) - 4] +       
-                                         src[currentChannelIdx - (w * 4) + 4] +       
-                                         src[currentChannelIdx + (w * 4) - 4] +       
-                                         src[currentChannelIdx + (w * 4) + 4]         
-                                        ) * edgeWeights;
-                            
-                            dst[currentChannelIdx] = Math.min(255, Math.max(0, val));
-                        }
-                        dst[idx + 3] = src[idx + 3]; // Static alpha channel layer lock
+                    for (let x = 1; x < w - 1; x++) {
+                        const idx = (rowOffset + x) * 4;
+
+                        // Unroll red, green, blue color bands data blocks 
+                        // Channel 0 (Red)
+                        let valR = src[idx] * centerWeight + (
+                            src[idx - 4] + src[idx + 4] + 
+                            src[prevRowOffset + x * 4] + src[nextRowOffset + x * 4] +
+                            src[(prevRowOffset + x - 1) * 4] + src[(prevRowOffset + x + 1) * 4] +
+                            src[(nextRowOffset + x - 1) * 4] + src[(nextRowOffset + x + 1) * 4]
+                        ) * edgeWeights;
+                        dst[idx] = valR > 255 ? 255 : (valR < 0 ? 0 : valR);
+
+                        // Channel 1 (Green)
+                        let valG = src[idx + 1] * centerWeight + (
+                            src[idx - 3] + src[idx + 5] + 
+                            src[prevRowOffset + x * 4 + 1] + src[nextRowOffset + x * 4 + 1] +
+                            src[(prevRowOffset + x - 1) * 4 + 1] + src[(prevRowOffset + x + 1) * 4 + 1] +
+                            src[(nextRowOffset + x - 1) * 4 + 1] + src[(nextRowOffset + x + 1) * 4 + 1]
+                        ) * edgeWeights;
+                        dst[idx + 1] = valG > 255 ? 255 : (valG < 0 ? 0 : valG);
+
+                        // Channel 2 (Blue)
+                        let valB = src[idx + 2] * centerWeight + (
+                            src[idx - 2] + src[idx + 6] + 
+                            src[prevRowOffset + x * 4 + 2] + src[nextRowOffset + x * 4 + 2] +
+                            src[(prevRowOffset + x - 1) * 4 + 2] + src[(prevRowOffset + x + 1) * 4 + 2] +
+                            src[(nextRowOffset + x - 1) * 4 + 2] + src[(nextRowOffset + x + 1) * 4 + 2]
+                        ) * edgeWeights;
+                        dst[idx + 2] = valB > 255 ? 255 : (valB < 0 ? 0 : valB);
+
+                        // Alpha layer visibility synchronization
+                        dst[idx + 3] = src[idx + 3];
                     }
                 }
                 ctx.putImageData(sharpenedData, 0, 0);
+            } else {
+                // Fallback for native execution stream bounds
+                ctx.putImageData(imgData, 0, 0);
             }
         }
 
