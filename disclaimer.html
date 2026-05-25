@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - Student Help Club</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.7; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand h1 { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Content Container */
+        .legal-container {
+            max-width: 850px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .legal-card {
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .legal-card h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
+        }
+
+        .legal-card .update-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 35px;
+            display: block;
+        }
+
+        .legal-card h3 {
+            color: var(--dark);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .legal-card p {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        .legal-card ul {
+            margin-left: 24px;
+            margin-bottom: 18px;
+            color: var(--text-main);
+        }
+
+        .legal-card ul li {
+            margin-bottom: 8px;
+            font-size: 0.98rem;
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .legal-card { padding: 30px 20px; }
+            .legal-card h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
+    </header>
+
+    <div class="legal-container">
+        
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+        <div class="legal-card">
+            <h2>Disclaimer</h2>
+            <span class="update-date">Last Updated: May 25, 2026</span>
+            
+            <p>Welcome to <strong>Student Help Club</strong> (accessible via tools.studenthelpclub.in). The information, tools, and services provided on this website are for general educational, informational, and utility purposes only.</p>
+
+            <h3>1. Accuracy of Tools and Calculators</h3>
+            <p>All online utilities provided on this platform, including the Age Calculator, Instant Image Enhancer, and other prospective tool scripts, process data client-side or mathematically via optimized algorithms. While we strive to ensure extreme accuracy, mathematical rounding or browser script deviations may occur. We do not guarantee 100% error-free outputs, and calculations should be double-checked for critical official submissions.</p>
+
+            <h3>2. Document Enhancement and Verification</h3>
+            <p>The Instant Image Enhancer and other document formatting tools are designed to maximize document legibility for educational or online application convenience (such as exam forms or registration portals). Student Help Club does not claim that utilizing enhanced files will guarantee mandatory approval by third-party academic bodies or recruitment portals. Users remain solely responsible for uploading compliant records matching specific official board guidelines.</p>
+
+            <h3>3. External Links Disclaimer</h3>
+            <p>Our website may contain links to external third-party channels, platforms, or resources (such as Telegram channels, WhatsApp groups, or academic notification servers) that are not operated or controlled by us. We possess no control over the content, reliability, or security matrices of these external networks and assume no liability for interactions conducted therein.</p>
+
+            <h3>4. No Professional Advice</h3>
+            <p>The operational features or study guides structural elements displayed across this platform do not constitute professional legal, academic, or institutional admission consultancy advice. The tools are deployed exclusively as supportive web applications to aid student workflows.</p>
+
+            <h3>5. Consent and Acceptance</h3>
+            <p>By interacting with our system tools and browsing the digital web properties of Student Help Club, you hereby acknowledge and consent to our localized client-side processing structures, terms of use, and this disclaimer model completely.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="disclaimer.html" style="color: var(--primary);">Disclaimer</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+</body>
+</html>
