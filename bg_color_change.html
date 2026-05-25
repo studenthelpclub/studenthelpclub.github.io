@@ -170,10 +170,10 @@
             margin-bottom: 30px;
         }
 
-        /* Enhancer Workspace Matrix */
+        /* Upload Area */
         .upload-section {
             border: 2px dashed var(--border-color);
-            padding: 40px 20px;
+            padding: 50px 20px;
             border-radius: 16px;
             text-align: center;
             background: #fafafa;
@@ -188,7 +188,7 @@
         }
 
         .upload-section i {
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--text-muted);
             margin-bottom: 12px;
         }
@@ -202,11 +202,12 @@
             display: none;
         }
 
+        /* Editor Grid Workspace */
         .editor-workspace {
             display: none;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 35px;
-            margin-top: 25px;
+            margin-top: 10px;
         }
 
         .preview-container {
@@ -217,13 +218,13 @@
             background: #f1f5f9;
             border-radius: 16px;
             padding: 20px;
-            min-height: 350px;
+            min-height: 380px;
             border: 1px solid var(--border-color);
         }
 
         .preview-container canvas {
             max-width: 100%;
-            max-height: 450px;
+            max-height: 480px;
             border-radius: 12px;
             box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
         }
@@ -231,49 +232,75 @@
         .controls-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 22px;
+            justify-content: center;
         }
 
-        .slider-group {
+        .button-group-panel {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .slider-group .label-row {
-            display: flex;
-            justify-content: space-between;
+        .button-group-panel label {
             font-weight: 700;
             color: var(--dark);
-            font-size: 0.92rem;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
         }
 
-        .slider-group span {
+        .button-group-panel span {
             color: var(--primary);
             font-weight: 700;
         }
 
-        .slider-group input[type="range"] {
-            width: 100%;
-            accent-color: var(--primary);
-            cursor: pointer;
-            height: 6px;
-            border-radius: 4px;
+        /* Custom Interactive Options Layout Grid */
+        .option-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
 
-        /* Upscaling Grid Buttons */
+        .opt-btn {
+            background: #f8fafc;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 14px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .opt-btn:hover {
+            background: #f1f5f9;
+            border-color: var(--text-muted);
+        }
+
+        .opt-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
+        }
+
         .resolution-btn-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 6px;
-            margin-top: 4px;
         }
 
         .res-btn {
             background: #e2e8f0;
             color: var(--dark);
             border: none;
-            padding: 10px 4px;
+            padding: 12px 4px;
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.8rem;
@@ -300,7 +327,7 @@
 
         .action-btn {
             flex: 1;
-            padding: 14px;
+            padding: 15px;
             border-radius: 12px;
             font-weight: 700;
             font-size: 0.95rem;
@@ -332,7 +359,7 @@
         }
 
         .recaptcha-wrapper {
-            margin: 15px 0;
+            margin: 5px 0;
             display: flex;
             justify-content: center;
         }
@@ -423,6 +450,7 @@
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
             .editor-workspace { grid-template-columns: 1fr; }
+            .option-grid-layout { grid-template-columns: 1fr; }
             .resolution-btn-grid { grid-template-columns: repeat(3, 1fr); }
             .seo-content { padding: 30px 20px; }
         }
@@ -450,7 +478,7 @@
             <h2>Instant Image Enhancer</h2>
             <p class="subtitle">Optimize, upscale, and convert your document scans or photos to high-definition 4K/8K tracks instantly.</p>
             
-            <div class="upload-section" onclick="document.getElementById('imageInput').click()">
+            <div class="upload-section" id="uploadBox" onclick="document.getElementById('imageInput').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click or Drag to Upload Image</p>
                 <span style="font-size: 0.82rem; color: var(--text-muted);">Supports PNG, JPG, JPEG, WEBP</span>
@@ -463,49 +491,20 @@
                 </div>
 
                 <div class="controls-container">
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label for="brightness">Brightness</label>
-                            <span id="v-brightness">0%</span>
+                    
+                    <div class="button-group-panel">
+                        <label>Select Enhancement Mode</label>
+                        <div class="option-grid-layout">
+                            <button type="button" id="mod-none" class="opt-btn active" onclick="setEnhancementMode('none', this)"><i class="fas fa-image"></i> Normal Photo</button>
+                            <button type="button" class="opt-btn" onclick="setEnhancementMode('ultra', this)"><i class="fas fa-magic"></i> Ultra HD Clarity</button>
+                            <button type="button" class="opt-btn" onclick="setEnhancementMode('doc', this)"><i class="fas fa-file-alt"></i> HD Doc Scan</button>
+                            <button type="button" class="opt-btn" onclick="setEnhancementMode('passport', this)"><i class="fas fa-id-card"></i> Passport Photo</button>
                         </div>
-                        <input type="range" id="brightness" min="-100" max="100" value="0" oninput="applyFilters()">
                     </div>
 
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label for="contrast">Contrast</label>
-                            <span id="v-contrast">0%</span>
-                        </div>
-                        <input type="range" id="contrast" min="-100" max="100" value="0" oninput="applyFilters()">
-                    </div>
-
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label for="saturation">Saturation</label>
-                            <span id="v-saturation">0%</span>
-                        </div>
-                        <input type="range" id="saturation" min="-100" max="100" value="0" oninput="applyFilters()">
-                    </div>
-
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label for="sharpen">Sharpen (Aggressive HD Details)</label>
-                            <span id="v-sharpen">Off</span>
-                        </div>
-                        <input type="range" id="sharpen" min="0" max="100" value="0" oninput="applyFilters()">
-                    </div>
-
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label for="blur">Blur</label>
-                            <span id="v-blur">0px</span>
-                        </div>
-                        <input type="range" id="blur" min="0" max="10" value="0" oninput="applyFilters()">
-                    </div>
-
-                    <div class="slider-group">
-                        <div class="label-row">
-                            <label>Enhance & Scale Resolution</label>
+                    <div class="button-group-panel">
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem;">
+                            <label>Target Export Dimension</label>
                             <span id="v-resolution">Original</span>
                         </div>
                         <div class="resolution-btn-grid">
@@ -540,7 +539,7 @@
             <h3>Operation Walkthrough Guide</h3>
             <ul>
                 <li><strong>Load Document Canvas:</strong> Inject your selected source graphic record into the application system using the dash container portal safely.</li>
-                <li><strong>Balance Tuning Rows:</strong> Calibrate specific slider modules to tune lighting values, sharpen text characters, or alter high saturation nodes seamlessly.</li>
+                <li><strong>Select Enhancement Mode:</strong> Pick preset profiles optimized for forms, face structures, or aggressive high-pass text contrast nodes instantly.</li>
                 <li><strong>Select Upscale Factor:</strong> Choose between native parameters or expand files up into 1K, 2K, 4K, or 8K matrices safely depending on individual portal size demands.</li>
                 <li><strong>Execute Secure Download:</strong> Solve the standard Google system safety puzzle block to activate the direct localized download thread, storing enhanced files down onto your device instantly.</li>
             </ul>
@@ -565,15 +564,19 @@
 
     <script>
         const imageInput = document.getElementById('imageInput');
+        const uploadBox = document.getElementById('uploadBox');
         const workspace = document.getElementById('editorWorkspace');
         const canvas = document.getElementById('imageCanvas');
         const ctx = canvas.getContext('2d');
         
         let originalImage = new Image();
         let currentResolutionMode = 'original'; 
+        let currentEnhancePreset = 'none';
+        
         let activeResButtonElement = document.getElementById('btn-orig');
+        let activePresetButtonElement = document.getElementById('mod-none');
 
-        // Image Selection Stream
+        // Image Selection Handle
         imageInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -586,28 +589,35 @@
         });
 
         originalImage.onload = function() {
+            // FIX: Hide the upload block box seamlessly once a file is processed
+            uploadBox.style.display = 'none';
             workspace.style.display = 'grid';
             
-            // Re-apply focus parameters to native baseline
-            const origBtn = document.getElementById('btn-orig');
-            resetSlidersOnly();
-            if(origBtn) setTargetResolution('original', origBtn);
+            resetAll();
         }
 
-        // Resolution Matrix Configuration Engine
+        // Enhancement Mode Selection Handler
+        function setEnhancementMode(mode, buttonElement) {
+            if (!originalImage.src) return;
+            currentEnhancePreset = mode;
+
+            if (activePresetButtonElement) activePresetButtonElement.classList.remove('active');
+            buttonElement.classList.add('active');
+            activePresetButtonElement = buttonElement;
+
+            processAndRenderPipeline();
+        }
+
+        // Resolution Configuration Handler
         function setTargetResolution(resolution, buttonElement) {
             if (!originalImage.src) return;
-            
             currentResolutionMode = resolution;
             
-            // Dynamic Class Management for Active/Inactive States
-            if (activeResButtonElement) {
-                activeResButtonElement.classList.remove('active');
-            }
+            if (activeResButtonElement) activeResButtonElement.classList.remove('active');
             buttonElement.classList.add('active');
             activeResButtonElement = buttonElement;
 
-            // Dimension Scaling Engine Calculations
+            // Compute Boundaries
             if (resolution === 'original') {
                 canvas.width = originalImage.naturalWidth;
                 canvas.height = originalImage.naturalHeight;
@@ -625,58 +635,58 @@
                 document.getElementById('v-resolution').innerText = `${modeText} (${canvas.width}x${canvas.height})`;
             }
 
-            applyFilters();
+            processAndRenderPipeline();
         }
 
-        // Core Image Processing Thread Matrix - UPGRADED FOR ULTRA HIGH ENHANCEMENT
-        function applyFilters() {
+        // Core Mathematical Processing Core Pipeline Engine
+        function processAndRenderPipeline() {
             if (!originalImage.src) return;
 
-            const brightnessVal = document.getElementById('brightness').value;
-            const contrastVal = document.getElementById('contrast').value;
-            const saturationVal = document.getElementById('saturation').value;
-            const sharpenVal = document.getElementById('sharpen').value;
-            const blurVal = document.getElementById('blur').value;
+            // Step 1: Assign mathematical constants based on the clicked preset button
+            let brightness = 0;
+            let contrast = 0;
+            let saturation = 0;
+            let sharpenFactor = 0;
 
-            // Update Text Nodes Realtime
-            document.getElementById('v-brightness').innerText = (brightnessVal > 0 ? '+' : '') + brightnessVal + '%';
-            document.getElementById('v-contrast').innerText = (contrastVal > 0 ? '+' : '') + contrastVal + '%';
-            document.getElementById('v-saturation').innerText = (saturationVal > 0 ? '+' : '') + saturationVal + '%';
-            document.getElementById('v-sharpen').innerText = sharpenVal == 0 ? 'Off' : sharpenVal + '%';
-            document.getElementById('v-blur').innerText = blurVal + 'px';
+            if (currentEnhancePreset === 'ultra') {
+                brightness = 8;
+                contrast = 18;
+                saturation = 12;
+                sharpenFactor = 45; // Aggressive crisp filter strength
+            } else if (currentEnhancePreset === 'doc') {
+                brightness = 15; // Clean dim lighting backgrounds
+                contrast = 35;   // Force background white and text dark black
+                saturation = -10; 
+                sharpenFactor = 65; // Massive edge sharpening for text fonts readability
+            } else if (currentEnhancePreset === 'passport') {
+                brightness = 10;
+                contrast = 12;
+                saturation = 5;
+                sharpenFactor = 25; // Gentle balance pass over faces
+            }
+
+            // Step 2: Auto resolution stretch compensation injection
+            if (currentResolutionMode !== 'original' && currentResolutionMode >= 3840 && sharpenFactor === 0) {
+                sharpenFactor = 30; // Inject auto boost padding on high scales (4K/8K)
+            }
 
             // Wipe Frames
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // High Quality Advanced Sub-Pixel Anti-Aliasing Smoothing Enable
+            // Sub-Pixel Smoothing configurations
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
 
-            // Step 1: Base Matrix Filters (Contrast and Saturation layer mapping)
-            let filterString = `brightness(${100 + parseInt(brightnessVal)}%) ` +
-                               `contrast(${100 + parseInt(contrastVal)}%) ` +
-                               `saturate(${100 + parseInt(saturationVal)}%) ` +
-                               `blur(${blurVal}px)`;
-            ctx.filter = filterString;
-            
-            // Draw original data stretched seamlessly onto targeted resolution bounds
+            // Native Matrix filters compilation injection
+            ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%) saturate(${100 + saturation}%)`;
             ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
 
-            // Step 2: Aggressive Edge-Detection & High-Pass Hard Sharpen Pass
-            let computedSharpenStrength = parseInt(sharpenVal);
-            
-            // Auto Boost Factor: Apply a massive default boost if 4K/8K is picked to handle scaling stretch
-            if (currentResolutionMode !== 'original' && currentResolutionMode >= 3840 && computedSharpenStrength === 0) {
-                computedSharpenStrength = 35; 
-            }
-
-            if (computedSharpenStrength > 0) {
+            // Step 3: Aggressive 8-Point Laplacian Space Convolution Pass
+            if (sharpenFactor > 0) {
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 
-                // Aggressive Multiplier: Amplified by 3.2x to make adjustments visibly striking
-                const weight = (computedSharpenStrength / 100) * 3.2; 
-                
-                // Super Hard Laplacian Kernel Matrix for High-Contrast Sharpness (8-point grid checking)
+                // Scale factor logic calculation multiplier
+                const weight = (sharpenFactor / 100) * 3.5; 
                 const edgeWeights = -weight;
                 const centerWeight = 1 + (8 * weight);
 
@@ -687,53 +697,59 @@
                 const src = imgData.data;
                 const dst = sharpenedData.data;
 
-                // 2D Spatial Convolution Filter Pass over full spatial canvas matrix
                 for (let y = 1; y < h - 1; y++) {
                     for (let x = 1; x < w - 1; x++) {
                         const idx = (y * w + x) * 4;
 
-                        // RGB Channels Processing Loop
                         for (let c = 0; c < 3; c++) {
                             const currentChannelIdx = idx + c;
                             
-                            // Advanced 8-point neighbor evaluation array logic
+                            // Matrix spatial formula checking center vs all 8 surround neighbors
                             const val = src[currentChannelIdx] * centerWeight +
-                                        (src[currentChannelIdx - 4] +                  // Left
-                                         src[currentChannelIdx + 4] +                  // Right
-                                         src[currentChannelIdx - (w * 4)] +            // Top
-                                         src[currentChannelIdx + (w * 4)] +            // Bottom
-                                         src[currentChannelIdx - (w * 4) - 4] +        // Top-Left
-                                         src[currentChannelIdx - (w * 4) + 4] +        // Top-Right
-                                         src[currentChannelIdx + (w * 4) - 4] +        // Bottom-Left
-                                         src[currentChannelIdx + (w * 4) + 4]          // Bottom-Right
+                                        (src[currentChannelIdx - 4] +                 
+                                         src[currentChannelIdx + 4] +                 
+                                         src[currentChannelIdx - (w * 4)] +           
+                                         src[currentChannelIdx + (w * 4)] +           
+                                         src[currentChannelIdx - (w * 4) - 4] +       
+                                         src[currentChannelIdx - (w * 4) + 4] +       
+                                         src[currentChannelIdx + (w * 4) - 4] +       
+                                         src[currentChannelIdx + (w * 4) + 4]         
                                         ) * edgeWeights;
                             
-                            // 0-255 RGB clipping boundary layer logic to lock dynamic ranges
                             dst[currentChannelIdx] = Math.min(255, Math.max(0, val));
                         }
-                        dst[idx + 3] = src[idx + 3]; // Preserve absolute alpha track channel
+                        dst[idx + 3] = src[idx + 3]; // Maintain absolute transparency mappings
                     }
                 }
                 ctx.putImageData(sharpenedData, 0, 0);
             }
         }
 
-        function resetSlidersOnly() {
-            document.getElementById('brightness').value = 0;
-            document.getElementById('contrast').value = 0;
-            document.getElementById('saturation').value = 0;
-            document.getElementById('sharpen').value = 0;
-            document.getElementById('blur').value = 0;
-        }
-
         function resetAll() {
-            resetSlidersOnly();
-            const origBtn = document.getElementById('btn-orig');
-            if(origBtn) setTargetResolution('original', origBtn);
+            currentEnhancePreset = 'none';
+            currentResolutionMode = 'original';
+
+            // Track Element States back to origin nodes
+            const origResBtn = document.getElementById('btn-orig');
+            const origModeBtn = document.getElementById('mod-none');
+
+            if (activeResButtonElement) activeResButtonElement.classList.remove('active');
+            if (activePresetButtonElement) activePresetButtonElement.classList.remove('active');
+
+            origResBtn.classList.add('active');
+            origModeBtn.classList.add('active');
+
+            activeResButtonElement = origResBtn;
+            activePresetButtonElement = origModeBtn;
+
+            canvas.width = originalImage.naturalWidth;
+            canvas.height = originalImage.naturalHeight;
+            document.getElementById('v-resolution').innerText = `Original (${canvas.width}x${canvas.height})`;
+
+            processAndRenderPipeline();
         }
 
         function triggerDownload() {
-            // Google Security reCAPTCHA Check Guard
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
                 alert("Please complete the 'I'm not a robot' Google verification challenge.");
@@ -741,8 +757,6 @@
             }
 
             const link = document.createElement('a');
-            
-            // Name file tracks clearly according to output metrics
             let filePrefix = 'shc-hd-';
             if(canvas.width >= 3840) filePrefix = 'shc-ultra-hd-';
             
@@ -750,7 +764,6 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
 
-            // Refresh security verification state loop
             grecaptcha.reset();
         }
     </script>
