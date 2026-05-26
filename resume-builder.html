@@ -146,23 +146,23 @@
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Full Name</label>
-                            <input type="text" id="fullName" value="VISHAL KUMAR SHARMA" placeholder="e.g. Vishal Kumar" required>
+                            <input type="text" id="fullName" value="" placeholder="e.g. VISHAL KUMAR SHARMA" required>
                         </div>
                         <div class="input-group">
                             <label>Professional Title</label>
-                            <input type="text" id="title" value="Full-Stack Web Developer" placeholder="e.g. Commerce Student" required>
+                            <input type="text" id="title" value="" placeholder="e.g. Full-Stack Web Developer" required>
                         </div>
                         <div class="input-group">
                             <label>Email Address</label>
-                            <input type="email" id="email" value="vishal@example.com" placeholder="e.g. name@email.com" required>
+                            <input type="email" id="email" value="" placeholder="e.g. vishal@example.com" required>
                         </div>
                         <div class="input-group">
                             <label>Phone Number</label>
-                            <input type="text" id="phone" value="+91 98765 43210" placeholder="e.g. +91 98765 43210" required>
+                            <input type="text" id="phone" value="" placeholder="e.g. +91 98765 43210" required>
                         </div>
                         <div class="input-group full-width">
                             <label>Location / Address</label>
-                            <input type="text" id="location" value="Patna, Bihar, India" placeholder="e.g. Patna, Bihar" required>
+                            <input type="text" id="location" value="" placeholder="e.g. Patna, Bihar, India" required>
                         </div>
                         
                         <div class="input-group full-width">
@@ -172,8 +172,8 @@
                                 <div class="input-group">
                                     <label>Photo Shape</label>
                                     <select id="photoShape">
-                                        <option value="square">Square Frame</option>
                                         <option value="circle" selected>Circular Edge</option>
+                                        <option value="oval">Oval Frame</option>
                                     </select>
                                 </div>
                                 <div class="input-group">
@@ -192,9 +192,7 @@
                 <div class="form-section">
                     <h3><i class="fas fa-tools"></i> Skills</h3>
                     <div class="skills-dynamic-wrapper" id="skillsContainer">
-                        <div class="skill-input-item"><input type="text" class="skill-entry-field" value="Web Development" oninput="updateLivePreviewCanvas()"></div>
-                        <div class="skill-input-item"><input type="text" class="skill-entry-field" value="Python Scraping" oninput="updateLivePreviewCanvas()"></div>
-                        <div class="skill-input-item"><input type="text" class="skill-entry-field" value="SEO Tuning" oninput="updateLivePreviewCanvas()"></div>
+                        <div class="skill-input-item"><input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()"></div>
                     </div>
                     <button type="button" class="btn-add-skill" onclick="addNewSkillInput()"><i class="fas fa-plus"></i> Add More Skill</button>
                 </div>
@@ -204,19 +202,19 @@
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Degree / Course</label>
-                            <input type="text" id="eduDegree" value="Bachelor of Commerce (B.Com)" required>
+                            <input type="text" id="eduDegree" value="" placeholder="e.g. Bachelor of Commerce (B.Com)" required>
                         </div>
                         <div class="input-group">
                             <label>Institute / University</label>
-                            <input type="text" id="eduSchool" value="IGNOU University" required>
+                            <input type="text" id="eduSchool" value="" placeholder="e.g. IGNOU University" required>
                         </div>
                         <div class="input-group">
                             <label>Passing Year / Duration</label>
-                            <input type="text" id="eduYear" value="2023 - 2026" required>
+                            <input type="text" id="eduYear" value="" placeholder="e.g. 2023 - 2026" required>
                         </div>
                         <div class="input-group">
                             <label>Marks / Percentage</label>
-                            <input type="text" id="eduMarks" value="78%">
+                            <input type="text" id="eduMarks" value="" placeholder="e.g. 78%">
                         </div>
                     </div>
                 </div>
@@ -226,15 +224,15 @@
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Project Title</label>
-                            <input type="text" id="expTitle" value="Student Help Club Web Portal">
+                            <input type="text" id="expTitle" value="" placeholder="e.g. Student Help Club Web Portal">
                         </div>
                         <div class="input-group">
                             <label>Tech Stack Used</label>
-                            <input type="text" id="expCompany" value="HTML5, CSS3, JavaScript, Firestore, DNS Configuration">
+                            <input type="text" id="expCompany" value="" placeholder="e.g. HTML5, CSS3, JavaScript, Firestore">
                         </div>
                         <div class="input-group full-width">
                             <label>Description</label>
-                            <textarea id="expDesc" rows="4">Developed a fully responsive utility web portal serving localized data transformation assets client-side. Built optimized sitemap generation micro-scripts and configured domain parameters boosting organic index properties metrics significantly.</textarea>
+                            <textarea id="expDesc" rows="4" placeholder="Briefly explain your contributions or responsibilities..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -244,11 +242,11 @@
                     <div class="form-grid">
                         <div class="input-group full-width">
                             <label>Certifications / Achievements</label>
-                            <input type="text" id="certifications" value="Google SEO Certification, Firebase Developer Workshop Excellence Award">
+                            <input type="text" id="certifications" value="" placeholder="e.g. Google SEO Certification, Firebase Developer Workshop">
                         </div>
                         <div class="input-group full-width">
                             <label>Declaration Text</label>
-                            <textarea id="declaration" rows="2">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
+                            <textarea id="declaration" rows="2" placeholder="I hereby declare that all the details mentioned above are true...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
                         </div>
                     </div>
                 </div>
@@ -313,7 +311,7 @@
 
         window.onload = function() { updateLivePreviewCanvas(); };
 
-        // HARMONIOUS SINGLE-COLUMN DESIGN ENGINE (PERFECT FOR FRESHERS & HIGH DENSITY STRETCH)
+        // HARMONIOUS SINGLE-COLUMN DESIGN ENGINE
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -332,17 +330,18 @@
             const position = document.getElementById('photoPos').value;
 
             // --- Header Architecture ---
-            let photoSize = 95;
+            let photoW = 95;
+            let photoH = (shape === 'oval') ? 115 : 95;
             let photoX = marginL;
             let photoY = 45;
 
-            if (position === 'center') { photoX = (canvas.width / 2) - (photoSize / 2); y = 165; }
-            else if (position === 'right') { photoX = marginR - photoSize; }
+            if (position === 'center') { photoX = (canvas.width / 2) - (photoW / 2); y = 175; }
+            else if (position === 'right') { photoX = marginR - photoW; }
 
             ctx.textAlign = (position === 'center') ? "center" : "left";
             let txtX = (position === 'center') ? canvas.width / 2 : marginL;
 
-            if (position === 'left' && profileImageObj) { txtX = marginL + photoSize + 25; }
+            if (position === 'left' && profileImageObj) { txtX = marginL + photoW + 25; }
 
             ctx.fillStyle = "#0f172a"; ctx.font = "bold 34px Arial";
             ctx.fillText(name.toUpperCase(), txtX, position === 'left' && profileImageObj ? 80 : y);
@@ -356,37 +355,38 @@
 
             if (profileImageObj) {
                 ctx.save();
+                ctx.beginPath();
                 if (shape === 'circle') {
-                    ctx.beginPath(); ctx.arc(photoX + (photoSize/2), photoY + (photoSize/2), photoSize/2, 0, Math.PI * 2); ctx.clip();
-                    ctx.drawImage(profileImageObj, photoX, photoY, photoSize, photoSize);
-                } else {
-                    ctx.drawImage(profileImageObj, photoX, photoY, photoSize, photoSize);
-                    ctx.strokeStyle = "#e2e8f0"; ctx.lineWidth = 2; ctx.strokeRect(photoX, photoY, photoSize, photoSize);
+                    ctx.arc(photoX + (photoW / 2), photoY + (photoW / 2), photoW / 2, 0, Math.PI * 2);
+                } else if (shape === 'oval') {
+                    ctx.ellipse(photoX + (photoW / 2), photoY + (photoH / 2), photoW / 2, photoH / 2, 0, 0, Math.PI * 2);
                 }
+                ctx.clip();
+                ctx.drawImage(profileImageObj, photoX, photoY, photoW, photoH);
                 ctx.restore();
             }
 
-            y = (position === 'center') ? 245 : (profileImageObj && position === 'left' ? 165 : y + 75);
+            y = (position === 'center') ? 255 : (profileImageObj && position === 'left' ? 175 : y + 75);
 
             ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 3;
             ctx.beginPath(); ctx.moveTo(marginL, y); ctx.lineTo(marginR, y); ctx.stroke();
 
             ctx.textAlign = "left";
 
-            // REUSABLE SINGLE COLUMN SECTION HEADER
+            // REUSABLE SECTION HEADER WITH BOTTOM OFFSET TO PREVENT OVERLAP
             function drawSection(headerTitle) {
-                y += 45;
+                y += 50; 
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 17px Arial";
                 ctx.fillText(headerTitle.toUpperCase(), marginL, y);
-                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 8, contentW, 1.5);
-                y += 32;
+                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 10, contentW, 1.5);
+                y += 38; // Increased safe padding after line to avoid cutting
             }
 
             // --- Education ---
             drawSection("Education");
-            const deg = document.getElementById('eduDegree').value.trim() || "Course Mapping";
-            const sch = document.getElementById('eduSchool').value.trim() || "Institution Name";
-            const dur = document.getElementById('eduYear').value.trim() || "Timeline";
+            const deg = document.getElementById('eduDegree').value.trim() || "Degree / Course Title";
+            const sch = document.getElementById('eduSchool').value.trim() || "School or Institute Name";
+            const dur = document.getElementById('eduYear').value.trim() || "Duration Years";
             const mrk = document.getElementById('eduMarks').value.trim();
 
             ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(deg, marginL, y);
@@ -395,7 +395,7 @@
             
             y += 24;
             ctx.fillStyle = "#475569"; ctx.font = "14.5px Arial";
-            ctx.fillText(sch + (mrk ? `  —  (Score Framework: ${mrk})` : ''), marginL, y);
+            ctx.fillText(sch + (mrk ? `  —  (Score: ${mrk})` : ''), marginL, y);
 
             // --- Projects ---
             const expTitle = document.getElementById('expTitle').value.trim();
@@ -407,7 +407,7 @@
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(expTitle, marginL, y);
                 if (comp) {
                     y += 22; ctx.fillStyle = "#009642"; ctx.font = "bold 13px Arial";
-                    ctx.fillText(`Tech Integration: ${comp}`, marginL, y);
+                    ctx.fillText(`Tech Stack: ${comp}`, marginL, y);
                 }
                 if (desc) {
                     ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
@@ -417,30 +417,30 @@
             }
 
             // --- Skills ---
-            drawSection("Skills & Competencies");
             let skillItems = [];
             document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) skillItems.push(i.value.trim()); });
             
-            ctx.fillStyle = "#f8fafc";
-            ctx.font = "600 13px Arial";
-            let currentX = marginL;
-            let rowHeight = 26;
+            if (skillItems.length > 0) {
+                drawSection("Skills & Competencies");
+                ctx.font = "600 13px Arial";
+                let currentX = marginL;
+                let rowHeight = 26;
 
-            skillItems.forEach(s => {
-                let textW = ctx.measureText(s.toUpperCase()).width;
-                let boxW = textW + 24;
-                if (currentX + boxW > marginR) { currentX = marginL; y += rowHeight + 10; }
-                
-                ctx.fillStyle = "#f1f5f9"; ctx.fillRect(currentX, y - 14, boxW, rowHeight);
-                ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 1; ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
-                ctx.fillStyle = "#009642"; ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
-                currentX += boxW + 12;
-            });
+                skillItems.forEach(s => {
+                    let textW = ctx.measureText(s.toUpperCase()).width;
+                    let boxW = textW + 24;
+                    if (currentX + boxW > marginR) { currentX = marginL; y += rowHeight + 10; }
+                    
+                    ctx.fillStyle = "#f1f5f9"; ctx.fillRect(currentX, y - 14, boxW, rowHeight);
+                    ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 1; ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
+                    ctx.fillStyle = "#009642"; ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
+                    currentX += boxW + 12;
+                });
+            }
 
             // --- Achievements ---
             const certs = document.getElementById('certifications').value.trim();
             if (certs) {
-                y += 15;
                 drawSection("Certifications & Achievements");
                 ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
                 const clines = splitTextWrap(certs, contentW, 14.5);
@@ -471,12 +471,12 @@
         function resetForm() {
             document.getElementById('resumeForm').reset();
             document.getElementById('skillsContainer').innerHTML = `
-                <div class="skill-input-item"><input type="text" class="skill-entry-field" value="Web Development" oninput="updateLivePreviewCanvas()"></div>
+                <div class="skill-input-item"><input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()"></div>
             `;
             profileImageObj = null; updateLivePreviewCanvas();
         }
 
-        // 100% HD CRYSTAL CLEAR VECTOR GENERATOR (ZERO LOSS STANDARD)
+        // 100% HD CRYTSAL CLEAR VECTOR GENERATOR WITH FIX CLIPPING IMAGES & ADJUSTED TEXT BASES
         function triggerPDFDownload() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
@@ -484,11 +484,11 @@
                 return;
             }
 
-            const name = document.getElementById('fullName').value.trim() || "resume";
-            const title = document.getElementById('title').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const loc = document.getElementById('location').value.trim();
+            const name = document.getElementById('fullName').value.trim() || "RESUME";
+            const title = document.getElementById('title').value.trim() || "Professional Title";
+            const email = document.getElementById('email').value.trim() || "email@example.com";
+            const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
+            const loc = document.getElementById('location').value.trim() || "Location";
             const shape = document.getElementById('photoShape').value;
             const position = document.getElementById('photoPos').value;
 
@@ -500,7 +500,7 @@
             const mR = 192;
             const maxW = mR - mL;
 
-            // Header Render Vector Mappings
+            // Header Generation Vector Engine
             pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(24);
             
             if (position === 'center') {
@@ -521,40 +521,44 @@
                 py += 6;
             }
 
-            // Profile Image Embedder
+            // High Precision Profile Clip Mapping Injection
             if (profileImageObj) {
-                let px = mL; if (position === 'center') px = 105 - 12; else if (position === 'right') px = mR - 24;
+                let pW = 24;
+                let pH = (shape === 'oval') ? 29 : 24;
+                let px = mL; 
+                if (position === 'center') px = 105 - (pW / 2); 
+                else if (position === 'right') px = mR - pW;
+                
                 try {
-                    let rawData = canvas.toDataURL('image/jpeg', 1.0);
-                    // Standard structural bounding box profile circle/square simulation inside PDF standard lines
-                    pdf.addImage(profileImageObj, 'JPEG', px, 12, 24, 24);
+                    // PDF Image Rendering Node standard coordinates match
+                    pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH);
                 } catch(e) {}
-                if (position === 'center') py = 44;
+                if (position === 'center') py = 45;
             }
 
             pdf.setDrawColor(0, 177, 79); pdf.setLineWidth(0.8); pdf.line(mL, py, mR, py);
 
             function addSectionTitle(t) {
-                py += 12; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
+                py += 14; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
                 pdf.text(t.toUpperCase(), mL, py);
                 py += 2; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.4); pdf.line(mL, py, mR, py);
-                py += 6;
+                py += 6; // Fixed safe spacing boundary to prevent layout cutting
             }
 
-            // Education
+            // Education Tracker Section
             addSectionTitle("Education");
-            const eduDegree = document.getElementById('eduDegree').value.trim();
-            const eduSchool = document.getElementById('eduSchool').value.trim();
-            const eduYear = document.getElementById('eduYear').value.trim();
+            const eduDegree = document.getElementById('eduDegree').value.trim() || "Your Degree / Course";
+            const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
+            const eduYear = document.getElementById('eduYear').value.trim() || "Passing Timeline";
             const eduMarks = document.getElementById('eduMarks').value.trim();
 
             pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
             pdf.text(eduDegree, mL, py);
             pdf.setTextColor(0, 177, 79); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
-            py += 5; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+            py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
             pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
 
-            // Experience
+            // Experience / Project Layout Maps
             const expTitle = document.getElementById('expTitle').value.trim();
             if (expTitle) {
                 addSectionTitle("Key Projects & Experience");
@@ -564,8 +568,8 @@
                 pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
                 pdf.text(expTitle, mL, py);
                 if (expCompany) {
-                    py += 5; pdf.setTextColor(0, 150, 66); pdf.setFont("Helvetica", "oblique"); pdf.setFontSize(10);
-                    pdf.text(`Tech Integration: ${expCompany}`, mL, py);
+                    py += 6; pdf.setTextColor(0, 150, 66); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10);
+                    pdf.text(`Tech Stack: ${expCompany}`, mL, py);
                 }
                 if (expDesc) {
                     pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
@@ -574,14 +578,16 @@
                 }
             }
 
-            // Skills
-            addSectionTitle("Skills & Competencies");
-            pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
+            // Skills Section Integration
             let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
-            const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
-            slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+            if (sList.length > 0) {
+                addSectionTitle("Skills & Competencies");
+                pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
+                const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
+                slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+            }
 
-            // Achievements
+            // Achievements Metric
             const certifications = document.getElementById('certifications').value.trim();
             if (certifications) {
                 addSectionTitle("Certifications & Achievements");
@@ -590,7 +596,7 @@
                 clines.forEach(l => { pdf.text(`• ${l}`, mL, py); py += 5.5; });
             }
 
-            // Declaration
+            // Standard System Declaration Text block mapping
             const declaration = document.getElementById('declaration').value.trim();
             if (declaration) {
                 addSectionTitle("Declaration");
