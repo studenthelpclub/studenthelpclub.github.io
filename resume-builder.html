@@ -84,11 +84,13 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .full-width { grid-column: span 2; }
         
-        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; position: relative; }
         .input-group label { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
         .input-group input, .input-group textarea, .input-group select { width: 100%; padding: 11px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; transition: var(--transition); outline: none; background: #f8fafc; }
         .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.08); }
         
+        .word-counter { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-align: right; margin-top: 2px; }
+
         .photo-settings { background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .skills-dynamic-wrapper { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
@@ -99,7 +101,7 @@
         .btn-add-skill:hover { background: #1e293b; }
 
         .preview-sticky-box { position: sticky; top: 90px; height: max-content; display: flex; flex-direction: column; gap: 20px; }
-        .preview-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 6px; }
+        .preview-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; justify-content: space-between; }
         .preview-title span { color: var(--primary); }
         
         .canvas-shadow-wrap { background: #e2e8f0; padding: 15px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 550px; }
@@ -141,6 +143,21 @@
             <p class="subtitle">Design an elegant, full-page ATS-optimized resume tailored beautifully for freshers and students.</p>
             
             <form id="resumeForm" onsubmit="event.preventDefault();">
+                <div class="form-section">
+                    <h3><i class="fas fa-palette"></i> Resume Theme Customization</h3>
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label>Choose Accent Primary Color</label>
+                            <select id="themeColor">
+                                <option value="#00b14f" selected>Student Help Club Green (#00b14f)</option>
+                                <option value="#1e40af">Corporate Navy Blue (#1e40af)</option>
+                                <option value="#0f172a">Minimalist Charcoal Black (#0f172a)</option>
+                                <option value="#991b1b">Classic Executive Maroon (#991b1b)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-section">
                     <h3><i class="fas fa-user"></i> Personal Details</h3>
                     <div class="form-grid">
@@ -235,7 +252,8 @@
                         </div>
                         <div class="input-group full-width">
                             <label>Description</label>
-                            <textarea id="expDesc" rows="4" placeholder="Briefly explain your contributions or responsibilities..."></textarea>
+                            <textarea id="expDesc" rows="4" maxlength="400" placeholder="Briefly explain your contributions or responsibilities..." oninput="countCharacters()"></textarea>
+                            <div class="word-counter" id="charCount">0 / 400 characters (Recommended limit)</div>
                         </div>
                     </div>
                 </div>
@@ -266,7 +284,9 @@
         </div>
 
         <div class="preview-sticky-box">
-            <div class="preview-title"><i class="fas fa-eye"></i> Live <span>A4 Balanced Preview</span></div>
+            <div class="preview-title">
+                <div><i class="fas fa-eye"></i> Live <span>A4 Balanced Preview</span></div>
+            </div>
             <div class="canvas-shadow-wrap">
                 <canvas id="resumeCanvas" width="800" height="1131"></canvas>
             </div>
@@ -278,11 +298,17 @@
         const ctx = canvas.getContext('2d');
         let profileImageObj = null;
 
-        const formIds = ['fullName', 'title', 'email', 'phone', 'location', 'eduDegree', 'eduSchool', 'eduYear', 'eduMarks', 'expTitle', 'expCompany', 'expDesc', 'certifications', 'declaration', 'photoShape', 'photoPos'];
+        const formIds = ['fullName', 'title', 'email', 'phone', 'location', 'eduDegree', 'eduSchool', 'eduYear', 'eduMarks', 'expTitle', 'expCompany', 'expDesc', 'certifications', 'declaration', 'photoShape', 'photoPos', 'themeColor'];
         formIds.forEach(id => {
             document.getElementById(id).addEventListener('input', updateLivePreviewCanvas);
             document.getElementById(id).addEventListener('change', updateLivePreviewCanvas);
         });
+
+        function countCharacters() {
+            const text = document.getElementById('expDesc').value;
+            document.getElementById('charCount').innerText = `${text.length} / 400 characters (Recommended limit)`;
+            updateLivePreviewCanvas();
+        }
 
         function addNewSkillInput() {
             const container = document.getElementById('skillsContainer');
@@ -315,7 +341,7 @@
 
         window.onload = function() { updateLivePreviewCanvas(); };
 
-        // HARMONIOUS SINGLE-COLUMN PREVIEW ENGINE
+        // HARMONIOUS SINGLE-COLUMN PREVIEW ENGINE (WITH ENHANCED THEME COLOR SUPPORT)
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -332,7 +358,9 @@
             const loc = document.getElementById('location').value.trim() || "City, State";
             const shape = document.getElementById('photoShape').value;
             const position = document.getElementById('photoPos').value;
+            const activeThemeColor = document.getElementById('themeColor').value;
 
+            // --- Header Architecture ---
             let photoW = 95;
             let photoH = (shape === 'oval') ? 115 : 95;
             let photoX = marginL;
@@ -349,7 +377,7 @@
             ctx.fillStyle = "#0f172a"; ctx.font = "bold 34px Arial";
             ctx.fillText(name.toUpperCase(), txtX, position === 'left' && profileImageObj ? 80 : y);
             
-            ctx.fillStyle = "#00b14f"; ctx.font = "600 17px Arial";
+            ctx.fillStyle = activeThemeColor; ctx.font = "600 17px Arial";
             ctx.fillText(title, txtX, position === 'left' && profileImageObj ? 110 : y + 26);
             
             ctx.fillStyle = "#475569"; ctx.font = "14px Arial";
@@ -371,8 +399,7 @@
 
             y = (position === 'center') ? 265 : (profileImageObj && position === 'left' ? 180 : y + 80);
 
-            // Green header dividing stroke line
-            ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 3.5;
+            ctx.strokeStyle = activeThemeColor; ctx.lineWidth = 3.5;
             ctx.beginPath(); ctx.moveTo(marginL, y); ctx.lineTo(marginR, y); ctx.stroke();
 
             ctx.textAlign = "left";
@@ -382,7 +409,7 @@
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 17px Arial";
                 ctx.fillText(headerTitle.toUpperCase(), marginL, y);
                 ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 12, contentW, 1.5);
-                y += 42; // Prevent baseline borders collisions parameters
+                y += 42; 
             }
 
             // --- Education ---
@@ -393,7 +420,7 @@
             const mrk = document.getElementById('eduMarks').value.trim();
 
             ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(deg, marginL, y);
-            ctx.fillStyle = "#00b14f"; ctx.font = "bold 14px Arial"; 
+            ctx.fillStyle = activeThemeColor; ctx.font = "bold 14px Arial"; 
             ctx.fillText(dur, marginR - ctx.measureText(dur).width, y);
             
             y += 24;
@@ -409,7 +436,7 @@
 
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(expTitle, marginL, y);
                 if (comp) {
-                    y += 22; ctx.fillStyle = "#009642"; ctx.font = "bold 13px Arial";
+                    y += 22; ctx.fillStyle = activeThemeColor; ctx.font = "bold 13px Arial";
                     ctx.fillText(`Tech Stack: ${comp}`, marginL, y);
                 }
                 if (desc) {
@@ -434,9 +461,9 @@
                     let boxW = textW + 24;
                     if (currentX + boxW > marginR) { currentX = marginL; y += rowHeight + 10; }
                     
-                    ctx.fillStyle = "#f1f5f9"; ctx.fillRect(currentX, y - 14, boxW, rowHeight);
-                    ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 1; ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
-                    ctx.fillStyle = "#009642"; ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
+                    ctx.fillStyle = "#f8fafc"; ctx.fillRect(currentX, y - 14, boxW, rowHeight);
+                    ctx.strokeStyle = activeThemeColor; ctx.lineWidth = 1; ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
+                    ctx.fillStyle = activeThemeColor; ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
                     currentX += boxW + 12;
                 });
             }
@@ -479,10 +506,11 @@
                     <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
                 </div>
             `;
+            document.getElementById('charCount').innerText = "0 / 400 characters (Recommended limit)";
             profileImageObj = null; updateLivePreviewCanvas();
         }
 
-        // PERFECTED HIGH-DENSITY VECTOR GENERATION LOGIC WITH NATIVE CLIPPING MASK FOR OVAL & CIRCLES
+        // PERFECTED HIGH-DENSITY VECTOR GENERATION LOGIC WITH THEMATIC COLORS
         function triggerPDFDownload() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
@@ -502,6 +530,14 @@
                 const loc = document.getElementById('location').value.trim() || "Location";
                 const shape = document.getElementById('photoShape').value;
                 const position = document.getElementById('photoPos').value;
+                const activeThemeColor = document.getElementById('themeColor').value;
+
+                // Color hex mapping for jsPDF array constraints
+                function hexToRgb(hex) {
+                    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                    return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 0, g: 177, b: 79 };
+                }
+                const rgb = hexToRgb(activeThemeColor);
 
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
@@ -515,7 +551,7 @@
                 
                 if (position === 'center') {
                     pdf.text(name.toUpperCase(), 105, py, { align: 'center' });
-                    py += 8; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    py += 8; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
                     pdf.text(title, 105, py, { align: 'center' });
                     py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
                     pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, 105, py, { align: 'center' });
@@ -524,14 +560,13 @@
                     let tx = mL;
                     if (position === 'left' && profileImageObj) tx = mL + 32;
                     pdf.text(name.toUpperCase(), tx, py);
-                    py += 7; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    py += 7; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
                     pdf.text(title, tx, py);
                     py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
                     pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, tx, py);
                     py += 6;
                 }
 
-                // FIXED SYSTEM: HIGH PRECISION native clipping mask vector routines inside PDF stream bounds
                 if (profileImageObj) {
                     let pW = 24;
                     let pH = (shape === 'oval') ? 30 : 24;
@@ -540,51 +575,43 @@
                     else if (position === 'right') px = mR - pW;
                     
                     pdf.saveGraphicsState();
-                    
-                    // Native mask clip engine allocation pass
                     if (shape === 'circle') {
                         pdf.clipPath(new pdf.path().circle(px + (pW / 2), 12 + (pW / 2), pW / 2));
                     } else if (shape === 'oval') {
-                        // jsPDF custom quadratic curves approximation loops for clean oval frames bounds tracking maps
                         pdf.clipPath(new pdf.path()
                             .moveTo(px + (pW / 2), 12)
                             .curveTo(px + pW, 12, px + pW, 12 + pH, px + (pW / 2), 12 + pH)
                             .curveTo(px, 12 + pH, px, 12, px + (pW / 2), 12));
                     }
-                    
-                    try {
-                        pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH);
-                    } catch(e) {}
-                    
+                    try { pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH); } catch(e) {}
                     pdf.restoreGraphicsState();
                     if (position === 'center') py = 46;
                 }
 
-                // Push divider line down slightly to prevent image edges overlapping artifacts
                 py += 2;
-                pdf.setDrawColor(0, 177, 79); pdf.setLineWidth(0.8); pdf.line(mL, py, mR, py);
+                pdf.setDrawColor(rgb.r, rgb.g, rgb.b); pdf.setLineWidth(0.8); pdf.line(mL, py, mR, py);
 
                 function addSectionTitle(t) {
                     py += 15; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
                     pdf.text(t.toUpperCase(), mL, py);
                     py += 2.5; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.4); pdf.line(mL, py, mR, py);
-                    py += 7; // Fixed safe spacing boundary to prevent text cutting
+                    py += 7; 
                 }
 
                 // Education
                 addSectionTitle("Education");
-                const eduDegree = document.getElementById('eduDegree').value.trim() || "Degree / Course Title";
+                const eduDegree = document.getElementById('eduDegree').value.trim() || "Your Degree / Course";
                 const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
-                const eduYear = document.getElementById('eduYear').value.trim() || "Duration Years";
+                const eduYear = document.getElementById('eduYear').value.trim() || "Passing Timeline";
                 const eduMarks = document.getElementById('eduMarks').value.trim();
 
                 pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
                 pdf.text(eduDegree, mL, py);
-                pdf.setTextColor(0, 177, 79); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
+                pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
                 py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
                 pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
 
-                // Experience / Projects
+                // Experience
                 const expTitle = document.getElementById('expTitle').value.trim();
                 if (expTitle) {
                     addSectionTitle("Key Projects & Experience");
@@ -594,7 +621,7 @@
                     pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
                     pdf.text(expTitle, mL, py);
                     if (expCompany) {
-                        py += 6; pdf.setTextColor(0, 150, 66); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10);
+                        py += 6; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(10);
                         pdf.text(`Tech Stack: ${expCompany}`, mL, py);
                     }
                     if (expDesc) {
@@ -608,7 +635,7 @@
                 let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
                 if (sList.length > 0) {
                     addSectionTitle("Skills & Competencies");
-                    pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
+                    pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
                     const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
                     slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
                 }
