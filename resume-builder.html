@@ -9,10 +9,22 @@
       gtag('config', 'G-WKEZF1XEMF');
     </script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Resume Builder - Student Help Club</title>
     
+    <title>Professional Resume Builder - Student Help Club</title>
+    <meta name="description" content="Build an industry-standard, ATS-friendly single-page professional resume online for free. Custom designed with live A4 preview for students and freshers.">
+    <meta name="keywords" content="Resume Builder, Free CV Maker, ATS Friendly Resume, Student Help Club Tools, Professional CV Design, Fresher Resume Layout">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools.studenthelpclub.in/resume-builder.html">
+    
+    <meta property="og:title" content="Professional Resume Builder - Student Help Club">
+    <meta property="og:description" content="Create your print-ready HD resume instantly with our smart interactive single-page layout tracker.">
+    <meta property="og:url" content="https://tools.studenthelpclub.in/resume-builder.html">
+    <meta property="og:type" content="website">
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,6 +51,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
+        /* Premium Header */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -77,6 +90,9 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
 
+        /* AdSense Responsive Wrap Unit */
+        .adsense-placeholder { margin: 20px 0; background: #f8fafc; border: 1px dashed var(--border-color); padding: 10px; display: flex; justify-content: center; border-radius: 12px; min-height: 90px; }
+
         .form-section { margin-bottom: 24px; border-bottom: 1px dashed var(--border-color); padding-bottom: 18px; }
         .form-section h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
         .form-section h3 i { color: var(--primary); }
@@ -114,8 +130,24 @@
         .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
         .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
+        /* Premium SEO Content Block */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
+        .seo-content h3:first-child { margin-top: 0; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+
+        /* Standard Matching Footer Layout */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; width: 100%; }
-        @media (max-width: 991px) { .workspace-grid { grid-template-columns: 1fr; } .back-link-wrapper { grid-column: span 1; } .preview-sticky-box { position: static; } #resumeCanvas { max-width: 100%; } }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 991px) { .workspace-grid { grid-template-columns: 1fr; } .back-link-wrapper { grid-column: span 1; } .seo-content { grid-column: span 1; } .preview-sticky-box { position: static; } #resumeCanvas { max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -141,6 +173,16 @@
             <h2>Professional Resume Builder</h2>
             <p class="subtitle">Design an elegant, full-page ATS-optimized resume tailored beautifully for freshers and students.</p>
             
+            <div class="adsense-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="YYYYYYYYYYYY"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+            </div>
+
             <form id="resumeForm" onsubmit="event.preventDefault();">
                 <div class="form-section">
                     <h3><i class="fas fa-palette"></i> Resume Theme Customization</h3>
@@ -290,7 +332,30 @@
                 <canvas id="resumeCanvas" width="800" height="1131"></canvas>
             </div>
         </div>
+
+        <article class="seo-content">
+            <h3>Why an ATS-Friendly Single-Page Resume is Crucial for Students</h3>
+            <p>Most modern recruiters and corporate recruitment management boards utilize Applicant Tracking Systems (ATS) to filter out resume profiles automatedly before a manual human screening loop occurs. Complicated layouts, multi-column designs, or heavy embedded graphic tracks often crash ATS readers, leading to instant candidate rejection. This clean, single-page matrix formatting engine builds an industry-standard structural profile optimized for compliance logs.</p>
+            
+            <h3>How This Localized Client-Side Engine Secures Data Privacy</h3>
+            <p>Unlike cloud resume networks that save your structural credentials and contact metrics down onto data brokers' external servers, the Student Help Club processing infrastructure operates 100% inside your current active client browser viewport. Using modern data buffer arrays, text elements transform straight into vectorized PDF lines locally, assuring absolute information privacy.</p>
+        </article>
     </div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="disclaimer.html">Disclaimer</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
 
     <script>
         const canvas = document.getElementById('resumeCanvas');
@@ -309,7 +374,6 @@
             updateLivePreviewCanvas();
         }
 
-        // Fixed Missing Dynamic Updates Listener link elements
         function addNewSkillInput() {
             const container = document.getElementById('skillsContainer');
             const div = document.createElement('div');
@@ -341,7 +405,6 @@
 
         window.onload = function() { updateLivePreviewCanvas(); };
 
-        // HARMONIOUS SINGLE-COLUMN FULL PAGE FILLER PREVIEW ENGINE
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -497,7 +560,6 @@
             lines.push(cur); return lines;
         }
 
-        // FIXED SYSTEM: Core nodes clean-wipe parameters
         function resetForm() {
             document.getElementById('resumeForm').reset();
             document.getElementById('skillsContainer').innerHTML = `
@@ -510,7 +572,7 @@
             profileImageObj = null; updateLivePreviewCanvas();
         }
 
-        // ULTRA HIGH-DENSITY VECTOR EXPORTER WITH COMPLETE NATIVE THEMATIC RGB CLIPPING MASKS
+        // ULTRA HIGH-DENSITY VECTOR EXPORTER WITH FIX OVERLAPPING ISSUES
         function triggerPDFDownload() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
@@ -532,7 +594,6 @@
                 const position = document.getElementById('photoPos').value;
                 const activeThemeColor = document.getElementById('themeColor').value;
 
-                // Color hex mapping converter logic verified (Enhancement 2 - Fixed)
                 function hexToRgb(hex) {
                     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
                     return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 0, g: 177, b: 79 };
@@ -540,7 +601,6 @@
                 const rgb = hexToRgb(activeThemeColor);
 
                 const { jsPDF } = window.jspdf;
-                // High precision options injected to maximize native fonts anti-aliasing pixels maps
                 const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: false });
 
                 let py = 20;
@@ -568,7 +628,6 @@
                     py += 6;
                 }
 
-                // FIXED PRECISE IMAGE MASK CLIPPING (No edge cutoff loop parameters)
                 if (profileImageObj) {
                     let pW = 24;
                     let pH = (shape === 'oval') ? 30 : 24;
@@ -587,23 +646,20 @@
                     }
                     try { pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH); } catch(e) {}
                     pdf.restoreGraphicsState();
-                    
-                    // Safe buffer re-allocation to protect border intersection nodes
                     if (position === 'center' || position === 'right') py = 46;
                 }
 
-                // Safe bottom offset spacer prevents elements colliding anomalies
                 py += 4;
                 pdf.setDrawColor(rgb.r, rgb.g, rgb.b); pdf.setLineWidth(1.0); pdf.line(mL, py, mR, py);
 
                 function addSectionTitle(t) {
                     py += 16; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
                     pdf.text(t.toUpperCase(), mL, py);
-                    py += 3; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.5); pdf.line(mL, py, mR, py);
+                    py += 2.5; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.5); pdf.line(mL, py, mR, py);
                     py += 8; 
                 }
 
-                // Education Section
+                // Education
                 addSectionTitle("Education");
                 const eduDegree = document.getElementById('eduDegree').value.trim() || "Your Degree / Course";
                 const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
@@ -616,7 +672,7 @@
                 py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
                 pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
 
-                // Experience / Projects Section
+                // Experience / Projects
                 const expTitle = document.getElementById('expTitle').value.trim();
                 if (expTitle) {
                     addSectionTitle("Key Projects & Experience");
@@ -636,7 +692,7 @@
                     }
                 }
 
-                // Skills Section Layout Maps
+                // Skills
                 let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
                 if (sList.length > 0) {
                     addSectionTitle("Skills & Competencies");
@@ -645,7 +701,7 @@
                     slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
                 }
 
-                // Achievements Metric
+                // Achievements
                 const certifications = document.getElementById('certifications').value.trim();
                 if (certifications) {
                     addSectionTitle("Certifications & Achievements");
@@ -654,7 +710,7 @@
                     clines.forEach(l => { pdf.text(`• ${l}`, mL, py); py += 5.5; });
                 }
 
-                // System Declaration Text Element Tracking nodes
+                // Declaration
                 const declaration = document.getElementById('declaration').value.trim();
                 if (declaration) {
                     addSectionTitle("Declaration");
