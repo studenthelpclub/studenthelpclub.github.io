@@ -14,14 +14,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Professional Resume Builder - Student Help Club</title>
-    <meta name="description" content="Build an industry-standard, ATS-friendly single-page professional resume online for free. Custom designed with live A4 preview for students and freshers.">
-    <meta name="keywords" content="Resume Builder, Free CV Maker, ATS Friendly Resume, Student Help Club Tools, Professional CV Design, Fresher Resume Layout">
+    <title>Free Online Resume Builder - Student Help Club</title>
+    <meta name="description" content="Build a professional single-page resume online for free. Clean and simple layout for students, freshers, and cyber cafe users.">
+    <meta name="keywords" content="Resume Builder, Free CV Maker, Student Help Club Tools, Simple Resume Layout, Fresher CV Maker">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tools.studenthelpclub.in/resume-builder.html">
     
-    <meta property="og:title" content="Professional Resume Builder - Student Help Club">
-    <meta property="og:description" content="Create your print-ready HD resume instantly with our smart interactive single-page layout tracker.">
+    <meta property="og:title" content="Free Online Resume Builder - Student Help Club">
+    <meta property="og:description" content="Create your print-ready HD resume instantly with our simple single-page cv maker.">
     <meta property="og:url" content="https://tools.studenthelpclub.in/resume-builder.html">
     <meta property="og:type" content="website">
 
@@ -51,7 +51,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Premium Header */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -90,7 +89,6 @@
         .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
 
-        /* AdSense Responsive Wrap Unit */
         .adsense-placeholder { margin: 20px 0; background: #f8fafc; border: 1px dashed var(--border-color); padding: 10px; display: flex; justify-content: center; border-radius: 12px; min-height: 90px; }
 
         .form-section { margin-bottom: 24px; border-bottom: 1px dashed var(--border-color); padding-bottom: 18px; }
@@ -130,13 +128,11 @@
         .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
         .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-        /* Premium SEO Content Block */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content h3:first-child { margin-top: 0; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
 
-        /* Standard Matching Footer Layout */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; width: 100%; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
@@ -171,7 +167,7 @@
 
         <div class="tool-card">
             <h2>Professional Resume Builder</h2>
-            <p class="subtitle">Design an elegant, full-page ATS-optimized resume tailored beautifully for freshers and students.</p>
+            <p class="subtitle">Design a clean, single-page professional resume instantly. Perfect for job applications and college forms.</p>
             
             <div class="adsense-placeholder">
                 <ins class="adsbygoogle"
@@ -185,30 +181,30 @@
 
             <form id="resumeForm" onsubmit="event.preventDefault();">
                 <div class="form-section">
-                    <h3><i class="fas fa-palette"></i> Resume Theme Customization</h3>
+                    <h3><i class="fas fa-palette"></i> 1. Choose Resume Color</h3>
                     <div class="form-grid">
                         <div class="input-group full-width">
-                            <label>Choose Accent Primary Color</label>
+                            <label>Select Template Color</label>
                             <select id="themeColor">
-                                <option value="#00b14f" selected>Student Help Club Green (#00b14f)</option>
-                                <option value="#1e40af">Corporate Navy Blue (#1e40af)</option>
-                                <option value="#0f172a">Minimalist Charcoal Black (#0f172a)</option>
-                                <option value="#991b1b">Classic Executive Maroon (#991b1b)</option>
+                                <option value="#00b14f" selected>Standard Green</option>
+                                <option value="#1e40af">Professional Blue</option>
+                                <option value="#0f172a">Classic Black</option>
+                                <option value="#991b1b">Premium Maroon</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="fas fa-user"></i> Personal Details</h3>
+                    <h3><i class="fas fa-user"></i> 2. Personal Information</h3>
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Full Name</label>
                             <input type="text" id="fullName" value="" placeholder="e.g. VISHAL KUMAR SHARMA" required>
                         </div>
                         <div class="input-group">
-                            <label>Professional Title</label>
-                            <input type="text" id="title" value="" placeholder="e.g. Full-Stack Web Developer" required>
+                            <label>Job Title / Profession</label>
+                            <input type="text" id="title" value="" placeholder="e.g. Web Developer / Student" required>
                         </div>
                         <div class="input-group">
                             <label>Email Address</label>
@@ -219,19 +215,19 @@
                             <input type="text" id="phone" value="" placeholder="e.g. +91 98765 43210" required>
                         </div>
                         <div class="input-group full-width">
-                            <label>Location / Address</label>
+                            <label>Full Address</label>
                             <input type="text" id="location" value="" placeholder="e.g. Patna, Bihar, India" required>
                         </div>
                         
                         <div class="input-group full-width">
-                            <label><i class="fas fa-camera" style="color: var(--primary);"></i> Upload Profile Photo (Optional)</label>
+                            <label><i class="fas fa-camera" style="color: var(--primary);"></i> Upload Photo (Optional)</label>
                             <input type="file" id="photoInput" accept="image/*">
                             <div class="photo-settings">
                                 <div class="input-group">
                                     <label>Photo Shape</label>
                                     <select id="photoShape">
-                                        <option value="circle" selected>Circular Edge</option>
-                                        <option value="oval">Oval Frame</option>
+                                        <option value="circle" selected>Circle (Gol)</option>
+                                        <option value="oval">Oval (Andakar)</option>
                                     </select>
                                 </div>
                                 <div class="input-group">
@@ -248,10 +244,10 @@
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="fas fa-tools"></i> Skills</h3>
+                    <h3><i class="fas fa-tools"></i> 3. Key Skills</h3>
                     <div class="skills-dynamic-wrapper" id="skillsContainer">
                         <div class="skill-input-item">
-                            <input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()">
+                            <input type="text" class="skill-entry-field" placeholder="e.g. Tally / Web Development" oninput="updateLivePreviewCanvas()">
                             <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
@@ -259,56 +255,56 @@
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <h3><i class="fas fa-graduation-cap"></i> 4. Education</h3>
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Degree / Course</label>
                             <input type="text" id="eduDegree" value="" placeholder="e.g. Bachelor of Commerce (B.Com)" required>
                         </div>
                         <div class="input-group">
-                            <label>Institute / University</label>
+                            <label>School / University Board</label>
                             <input type="text" id="eduSchool" value="" placeholder="e.g. IGNOU University" required>
                         </div>
                         <div class="input-group">
-                            <label>Passing Year / Duration</label>
+                            <label>Year / Duration</label>
                             <input type="text" id="eduYear" value="" placeholder="e.g. 2023 - 2026" required>
                         </div>
                         <div class="input-group">
-                            <label>Marks / Percentage</label>
+                            <label>Marks / Percentage / CGPA</label>
                             <input type="text" id="eduMarks" value="" placeholder="e.g. 78%">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="fas fa-briefcase"></i> Experience / Key Projects</h3>
+                    <h3><i class="fas fa-briefcase"></i> 5. Work Experience / Projects</h3>
                     <div class="form-grid">
                         <div class="input-group">
-                            <label>Project Title</label>
-                            <input type="text" id="expTitle" value="" placeholder="e.g. Student Help Club Web Portal">
+                            <label>Job Profile</label>
+                            <input type="text" id="expTitle" value="" placeholder="e.g. Student Help Club Website">
                         </div>
                         <div class="input-group">
-                            <label>Tech Stack Used</label>
-                            <input type="text" id="expCompany" value="" placeholder="e.g. HTML5, CSS3, JavaScript, Firestore">
+                            <label>Role</label>
+                            <input type="text" id="expCompany" value="" placeholder="e.g. HTML, CSS, JavaScript, Excel">
                         </div>
                         <div class="input-group full-width">
-                            <label>Description</label>
-                            <textarea id="expDesc" rows="4" maxlength="400" placeholder="Briefly explain your contributions or responsibilities..." oninput="countCharacters()"></textarea>
-                            <div class="word-counter" id="charCount">0 / 400 characters (Recommended limit)</div>
+                            <label>Short Description (What you did)</label>
+                            <textarea id="expDesc" rows="4" maxlength="400" placeholder="Briefly explain your work or role..." oninput="countCharacters()"></textarea>
+                            <div class="word-counter" id="charCount">0 / 400 characters</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="fas fa-award"></i> Achievements & Declaration</h3>
+                    <h3><i class="fas fa-award"></i> 6. Certifications & Declaration</h3>
                     <div class="form-grid">
                         <div class="input-group full-width">
-                            <label>Certifications / Achievements</label>
-                            <input type="text" id="certifications" value="" placeholder="e.g. Google SEO Certification, Firebase Developer Workshop">
+                            <label>Certificates / Extra Achievements</label>
+                            <input type="text" id="certifications" value="" placeholder="e.g. CCC Computer Course Certified, SEO Workshop Certificate">
                         </div>
                         <div class="input-group full-width">
-                            <label>Declaration Text</label>
-                            <textarea id="declaration" rows="2" placeholder="I hereby declare that all the details mentioned above are true...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
+                            <label>Self Declaration Text</label>
+                            <textarea id="declaration" rows="2" placeholder="Declaration statement...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
                         </div>
                     </div>
                 </div>
@@ -318,7 +314,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset</button>
+                    <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset Form</button>
                     <button type="button" class="action-btn btn-download" id="downloadBtn" onclick="triggerPDFDownload()">Download Resume PDF</button>
                 </div>
             </form>
@@ -326,7 +322,7 @@
 
         <div class="preview-sticky-box">
             <div class="preview-title">
-                <div><i class="fas fa-eye"></i> Live <span>A4 Balanced Preview</span></div>
+                <div><i class="fas fa-eye"></i> Live <span>A4 Preview Screen</span></div>
             </div>
             <div class="canvas-shadow-wrap">
                 <canvas id="resumeCanvas" width="800" height="1131"></canvas>
@@ -336,9 +332,6 @@
         <article class="seo-content">
             <h3>Why an ATS-Friendly Single-Page Resume is Crucial for Students</h3>
             <p>Most modern recruiters and corporate recruitment management boards utilize Applicant Tracking Systems (ATS) to filter out resume profiles automatedly before a manual human screening loop occurs. Complicated layouts, multi-column designs, or heavy embedded graphic tracks often crash ATS readers, leading to instant candidate rejection. This clean, single-page matrix formatting engine builds an industry-standard structural profile optimized for compliance logs.</p>
-            
-            <h3>How This Localized Client-Side Engine Secures Data Privacy</h3>
-            <p>Unlike cloud resume networks that save your structural credentials and contact metrics down onto data brokers' external servers, the Student Help Club processing infrastructure operates 100% inside your current active client browser viewport. Using modern data buffer arrays, text elements transform straight into vectorized PDF lines locally, assuring absolute information privacy.</p>
         </article>
     </div>
 
@@ -368,9 +361,17 @@
             document.getElementById(id).addEventListener('change', updateLivePreviewCanvas);
         });
 
+        function navigatorColorLabel(hex) {
+            if(hex === "#00b14f") return "STANDARD GREEN";
+            if(hex === "#1e40af") return "PROFESSIONAL BLUE";
+            if(hex === "#0f172a") return "CLASSIC BLACK";
+            if(hex === "#991b1b") return "PREMIUM MAROON";
+            return "RESUME";
+        }
+
         function countCharacters() {
             const text = document.getElementById('expDesc').value;
-            document.getElementById('charCount').innerText = `${text.length} / 400 characters (Recommended limit)`;
+            document.getElementById('charCount').innerText = `${text.length} / 400 characters`;
             updateLivePreviewCanvas();
         }
 
@@ -379,7 +380,7 @@
             const div = document.createElement('div');
             div.className = 'skill-input-item';
             div.innerHTML = `
-                <input type="text" class="skill-entry-field" placeholder="e.g. Python Automation">
+                <input type="text" class="skill-entry-field" placeholder="e.g. Microsoft Excel">
                 <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
             `;
             container.appendChild(div);
@@ -492,14 +493,14 @@
             // --- Projects ---
             const expTitle = document.getElementById('expTitle').value.trim();
             if (expTitle) {
-                drawSection("Key Projects & Experience");
+                drawSection("Work Experience / Projects");
                 const comp = document.getElementById('expCompany').value.trim();
                 const desc = document.getElementById('expDesc').value.trim();
 
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(expTitle, marginL, y);
                 if (comp) {
                     y += 22; ctx.fillStyle = activeThemeColor; ctx.font = "bold 13px Arial";
-                    ctx.fillText(`Tech Stack: ${comp}`, marginL, y);
+                    ctx.fillText(`Tools Used: ${comp}`, marginL, y);
                 }
                 if (desc) {
                     ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
@@ -513,7 +514,7 @@
             document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) skillItems.push(i.value.trim()); });
             
             if (skillItems.length > 0) {
-                drawSection("Skills & Competencies");
+                drawSection("Key Skills");
                 ctx.font = "600 13px Arial";
                 let currentX = marginL;
                 let rowHeight = 26;
@@ -568,11 +569,10 @@
                     <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
                 </div>
             `;
-            document.getElementById('charCount').innerText = "0 / 400 characters (Recommended limit)";
+            document.getElementById('charCount').innerText = "0 / 400 characters";
             profileImageObj = null; updateLivePreviewCanvas();
         }
 
-        // ULTRA HIGH-DENSITY VECTOR EXPORTER WITH FIX OVERLAPPING ISSUES
         function triggerPDFDownload() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
@@ -581,7 +581,7 @@
             }
 
             const downloadBtn = document.getElementById('downloadBtn');
-            downloadBtn.innerText = "Generating HD PDF...";
+            downloadBtn.innerText = "Generating PDF...";
             downloadBtn.style.opacity = "0.7";
 
             setTimeout(() => {
@@ -675,7 +675,7 @@
                 // Experience / Projects
                 const expTitle = document.getElementById('expTitle').value.trim();
                 if (expTitle) {
-                    addSectionTitle("Key Projects & Experience");
+                    addSectionTitle("Work Experience / Projects");
                     const expCompany = document.getElementById('expCompany').value.trim();
                     const expDesc = document.getElementById('expDesc').value.trim();
 
@@ -683,7 +683,7 @@
                     pdf.text(expTitle, mL, py);
                     if (expCompany) {
                         py += 6; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(10);
-                        pdf.text(`Tech Stack: ${expCompany}`, mL, py);
+                        pdf.text(`Tools Used: ${expCompany}`, mL, py);
                     }
                     if (expDesc) {
                         pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
@@ -695,7 +695,7 @@
                 // Skills
                 let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
                 if (sList.length > 0) {
-                    addSectionTitle("Skills & Competencies");
+                    addSectionTitle("Key Skills");
                     pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
                     const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
                     slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
