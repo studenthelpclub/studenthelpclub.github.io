@@ -192,7 +192,10 @@
                 <div class="form-section">
                     <h3><i class="fas fa-tools"></i> Skills</h3>
                     <div class="skills-dynamic-wrapper" id="skillsContainer">
-                        <div class="skill-input-item"><input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()"></div>
+                        <div class="skill-input-item">
+                            <input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()">
+                            <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
+                        </div>
                     </div>
                     <button type="button" class="btn-add-skill" onclick="addNewSkillInput()"><i class="fas fa-plus"></i> Add More Skill</button>
                 </div>
@@ -257,7 +260,7 @@
 
                 <div class="action-buttons">
                     <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset</button>
-                    <button type="button" class="action-btn btn-download" onclick="triggerPDFDownload()">Download Resume PDF</button>
+                    <button type="button" class="action-btn btn-download" id="downloadBtn" onclick="triggerPDFDownload()">Download Resume PDF</button>
                 </div>
             </form>
         </div>
@@ -286,10 +289,11 @@
             const div = document.createElement('div');
             div.className = 'skill-input-item';
             div.innerHTML = `
-                <input type="text" class="skill-entry-field" placeholder="e.g. Python Automation" oninput="updateLivePreviewCanvas()">
+                <input type="text" class="skill-entry-field" placeholder="e.g. Python Automation">
                 <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
             `;
             container.appendChild(div);
+            div.querySelector('input').addEventListener('input', updateLivePreviewCanvas);
             updateLivePreviewCanvas();
         }
 
@@ -311,7 +315,7 @@
 
         window.onload = function() { updateLivePreviewCanvas(); };
 
-        // HARMONIOUS SINGLE-COLUMN DESIGN ENGINE
+        // HARMONIOUS SINGLE-COLUMN PREVIEW ENGINE
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -319,23 +323,22 @@
             const marginL = 65;
             const marginR = 735;
             const contentW = marginR - marginL;
-            let y = 60;
+            let y = 65;
 
             const name = document.getElementById('fullName').value.trim() || "YOUR FULL NAME";
             const title = document.getElementById('title').value.trim() || "Professional Heading Title";
-            const email = document.getElementById('email').value.trim() || "name@email.com";
+            const email = document.getElementById('email').value.trim() || "name@example.com";
             const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
             const loc = document.getElementById('location').value.trim() || "City, State";
             const shape = document.getElementById('photoShape').value;
             const position = document.getElementById('photoPos').value;
 
-            // --- Header Architecture ---
             let photoW = 95;
             let photoH = (shape === 'oval') ? 115 : 95;
             let photoX = marginL;
             let photoY = 45;
 
-            if (position === 'center') { photoX = (canvas.width / 2) - (photoW / 2); y = 175; }
+            if (position === 'center') { photoX = (canvas.width / 2) - (photoW / 2); y = 185; }
             else if (position === 'right') { photoX = marginR - photoW; }
 
             ctx.textAlign = (position === 'center') ? "center" : "left";
@@ -366,20 +369,20 @@
                 ctx.restore();
             }
 
-            y = (position === 'center') ? 255 : (profileImageObj && position === 'left' ? 175 : y + 75);
+            y = (position === 'center') ? 265 : (profileImageObj && position === 'left' ? 180 : y + 80);
 
-            ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 3;
+            // Green header dividing stroke line
+            ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 3.5;
             ctx.beginPath(); ctx.moveTo(marginL, y); ctx.lineTo(marginR, y); ctx.stroke();
 
             ctx.textAlign = "left";
 
-            // REUSABLE SECTION HEADER WITH BOTTOM OFFSET TO PREVENT OVERLAP
             function drawSection(headerTitle) {
-                y += 50; 
+                y += 52; 
                 ctx.fillStyle = "#0f172a"; ctx.font = "bold 17px Arial";
                 ctx.fillText(headerTitle.toUpperCase(), marginL, y);
-                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 10, contentW, 1.5);
-                y += 38; // Increased safe padding after line to avoid cutting
+                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 12, contentW, 1.5);
+                y += 42; // Prevent baseline borders collisions parameters
             }
 
             // --- Education ---
@@ -471,12 +474,15 @@
         function resetForm() {
             document.getElementById('resumeForm').reset();
             document.getElementById('skillsContainer').innerHTML = `
-                <div class="skill-input-item"><input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()"></div>
+                <div class="skill-input-item">
+                    <input type="text" class="skill-entry-field" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()">
+                    <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
+                </div>
             `;
             profileImageObj = null; updateLivePreviewCanvas();
         }
 
-        // 100% HD CRYTSAL CLEAR VECTOR GENERATOR WITH FIX CLIPPING IMAGES & ADJUSTED TEXT BASES
+        // PERFECTED HIGH-DENSITY VECTOR GENERATION LOGIC WITH NATIVE CLIPPING MASK FOR OVAL & CIRCLES
         function triggerPDFDownload() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (recaptchaResponse.length === 0) {
@@ -484,130 +490,154 @@
                 return;
             }
 
-            const name = document.getElementById('fullName').value.trim() || "RESUME";
-            const title = document.getElementById('title').value.trim() || "Professional Title";
-            const email = document.getElementById('email').value.trim() || "email@example.com";
-            const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
-            const loc = document.getElementById('location').value.trim() || "Location";
-            const shape = document.getElementById('photoShape').value;
-            const position = document.getElementById('photoPos').value;
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.innerText = "Generating PDF...";
+            downloadBtn.style.opacity = "0.7";
 
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+            setTimeout(() => {
+                const name = document.getElementById('fullName').value.trim() || "RESUME";
+                const title = document.getElementById('title').value.trim() || "Professional Title";
+                const email = document.getElementById('email').value.trim() || "email@example.com";
+                const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
+                const loc = document.getElementById('location').value.trim() || "Location";
+                const shape = document.getElementById('photoShape').value;
+                const position = document.getElementById('photoPos').value;
 
-            let py = 20;
-            const mL = 18;
-            const mR = 192;
-            const maxW = mR - mL;
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
 
-            // Header Generation Vector Engine
-            pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(24);
-            
-            if (position === 'center') {
-                pdf.text(name.toUpperCase(), 105, py, { align: 'center' });
-                py += 8; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
-                pdf.text(title, 105, py, { align: 'center' });
-                py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
-                pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, 105, py, { align: 'center' });
-                py += 6;
-            } else {
-                let tx = mL;
-                if (position === 'left' && profileImageObj) tx = mL + 32;
-                pdf.text(name.toUpperCase(), tx, py);
-                py += 7; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
-                pdf.text(title, tx, py);
-                py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
-                pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, tx, py);
-                py += 6;
-            }
+                let py = 20;
+                const mL = 18;
+                const mR = 192;
+                const maxW = mR - mL;
 
-            // High Precision Profile Clip Mapping Injection
-            if (profileImageObj) {
-                let pW = 24;
-                let pH = (shape === 'oval') ? 29 : 24;
-                let px = mL; 
-                if (position === 'center') px = 105 - (pW / 2); 
-                else if (position === 'right') px = mR - pW;
+                pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(24);
                 
-                try {
-                    // PDF Image Rendering Node standard coordinates match
-                    pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH);
-                } catch(e) {}
-                if (position === 'center') py = 45;
-            }
+                if (position === 'center') {
+                    pdf.text(name.toUpperCase(), 105, py, { align: 'center' });
+                    py += 8; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    pdf.text(title, 105, py, { align: 'center' });
+                    py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
+                    pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, 105, py, { align: 'center' });
+                    py += 6;
+                } else {
+                    let tx = mL;
+                    if (position === 'left' && profileImageObj) tx = mL + 32;
+                    pdf.text(name.toUpperCase(), tx, py);
+                    py += 7; pdf.setTextColor(0, 177, 79); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    pdf.text(title, tx, py);
+                    py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
+                    pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, tx, py);
+                    py += 6;
+                }
 
-            pdf.setDrawColor(0, 177, 79); pdf.setLineWidth(0.8); pdf.line(mL, py, mR, py);
+                // FIXED SYSTEM: HIGH PRECISION native clipping mask vector routines inside PDF stream bounds
+                if (profileImageObj) {
+                    let pW = 24;
+                    let pH = (shape === 'oval') ? 30 : 24;
+                    let px = mL; 
+                    if (position === 'center') px = 105 - (pW / 2); 
+                    else if (position === 'right') px = mR - pW;
+                    
+                    pdf.saveGraphicsState();
+                    
+                    // Native mask clip engine allocation pass
+                    if (shape === 'circle') {
+                        pdf.clipPath(new pdf.path().circle(px + (pW / 2), 12 + (pW / 2), pW / 2));
+                    } else if (shape === 'oval') {
+                        // jsPDF custom quadratic curves approximation loops for clean oval frames bounds tracking maps
+                        pdf.clipPath(new pdf.path()
+                            .moveTo(px + (pW / 2), 12)
+                            .curveTo(px + pW, 12, px + pW, 12 + pH, px + (pW / 2), 12 + pH)
+                            .curveTo(px, 12 + pH, px, 12, px + (pW / 2), 12));
+                    }
+                    
+                    try {
+                        pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH);
+                    } catch(e) {}
+                    
+                    pdf.restoreGraphicsState();
+                    if (position === 'center') py = 46;
+                }
 
-            function addSectionTitle(t) {
-                py += 14; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
-                pdf.text(t.toUpperCase(), mL, py);
-                py += 2; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.4); pdf.line(mL, py, mR, py);
-                py += 6; // Fixed safe spacing boundary to prevent layout cutting
-            }
+                // Push divider line down slightly to prevent image edges overlapping artifacts
+                py += 2;
+                pdf.setDrawColor(0, 177, 79); pdf.setLineWidth(0.8); pdf.line(mL, py, mR, py);
 
-            // Education Tracker Section
-            addSectionTitle("Education");
-            const eduDegree = document.getElementById('eduDegree').value.trim() || "Your Degree / Course";
-            const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
-            const eduYear = document.getElementById('eduYear').value.trim() || "Passing Timeline";
-            const eduMarks = document.getElementById('eduMarks').value.trim();
+                function addSectionTitle(t) {
+                    py += 15; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
+                    pdf.text(t.toUpperCase(), mL, py);
+                    py += 2.5; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.4); pdf.line(mL, py, mR, py);
+                    py += 7; // Fixed safe spacing boundary to prevent text cutting
+                }
 
-            pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
-            pdf.text(eduDegree, mL, py);
-            pdf.setTextColor(0, 177, 79); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
-            py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
-            pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
-
-            // Experience / Project Layout Maps
-            const expTitle = document.getElementById('expTitle').value.trim();
-            if (expTitle) {
-                addSectionTitle("Key Projects & Experience");
-                const expCompany = document.getElementById('expCompany').value.trim();
-                const expDesc = document.getElementById('expDesc').value.trim();
+                // Education
+                addSectionTitle("Education");
+                const eduDegree = document.getElementById('eduDegree').value.trim() || "Degree / Course Title";
+                const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
+                const eduYear = document.getElementById('eduYear').value.trim() || "Duration Years";
+                const eduMarks = document.getElementById('eduMarks').value.trim();
 
                 pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
-                pdf.text(expTitle, mL, py);
-                if (expCompany) {
-                    py += 6; pdf.setTextColor(0, 150, 66); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10);
-                    pdf.text(`Tech Stack: ${expCompany}`, mL, py);
+                pdf.text(eduDegree, mL, py);
+                pdf.setTextColor(0, 177, 79); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
+                py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+                pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
+
+                // Experience / Projects
+                const expTitle = document.getElementById('expTitle').value.trim();
+                if (expTitle) {
+                    addSectionTitle("Key Projects & Experience");
+                    const expCompany = document.getElementById('expCompany').value.trim();
+                    const expDesc = document.getElementById('expDesc').value.trim();
+
+                    pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
+                    pdf.text(expTitle, mL, py);
+                    if (expCompany) {
+                        py += 6; pdf.setTextColor(0, 150, 66); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10);
+                        pdf.text(`Tech Stack: ${expCompany}`, mL, py);
+                    }
+                    if (expDesc) {
+                        pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+                        const dlines = pdf.splitTextToSize(expDesc, maxW);
+                        dlines.forEach(l => { py += 5.5; pdf.text(l, mL, py); });
+                    }
                 }
-                if (expDesc) {
+
+                // Skills
+                let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
+                if (sList.length > 0) {
+                    addSectionTitle("Skills & Competencies");
+                    pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
+                    const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
+                    slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+                }
+
+                // Achievements
+                const certifications = document.getElementById('certifications').value.trim();
+                if (certifications) {
+                    addSectionTitle("Certifications & Achievements");
                     pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
-                    const dlines = pdf.splitTextToSize(expDesc, maxW);
-                    dlines.forEach(l => { py += 5.5; pdf.text(l, mL, py); });
+                    const clines = pdf.splitTextToSize(certifications, maxW);
+                    clines.forEach(l => { pdf.text(`• ${l}`, mL, py); py += 5.5; });
                 }
-            }
 
-            // Skills Section Integration
-            let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
-            if (sList.length > 0) {
-                addSectionTitle("Skills & Competencies");
-                pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
-                const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
-                slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
-            }
+                // Declaration
+                const declaration = document.getElementById('declaration').value.trim();
+                if (declaration) {
+                    addSectionTitle("Declaration");
+                    pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "oblique"); pdf.setFontSize(10);
+                    const dlines = pdf.splitTextToSize(declaration, maxW);
+                    dlines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+                }
 
-            // Achievements Metric
-            const certifications = document.getElementById('certifications').value.trim();
-            if (certifications) {
-                addSectionTitle("Certifications & Achievements");
-                pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
-                const clines = pdf.splitTextToSize(certifications, maxW);
-                clines.forEach(l => { pdf.text(`• ${l}`, mL, py); py += 5.5; });
-            }
-
-            // Standard System Declaration Text block mapping
-            const declaration = document.getElementById('declaration').value.trim();
-            if (declaration) {
-                addSectionTitle("Declaration");
-                pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "oblique"); pdf.setFontSize(10);
-                const dlines = pdf.splitTextToSize(declaration, maxW);
-                dlines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
-            }
-
-            const fileStringName = name.toLowerCase().replace(/\s+/g, '-') + '-resume.pdf';
-            pdf.save(fileStringName);
-            grecaptcha.reset();
+                const fileStringName = name.toLowerCase().replace(/\s+/g, '-') + '-resume.pdf';
+                pdf.save(fileStringName);
+                grecaptcha.reset();
+                
+                downloadBtn.innerText = "Download Resume PDF";
+                downloadBtn.style.opacity = "1";
+            }, 300);
         }
     </script>
 </body>
