@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder - Student Help Club</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand h1 { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); }
+        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+            max-width: 1300px;
+            margin: 25px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link-wrapper { grid-column: span 2; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
+
+        .tool-card { background: #ffffff; padding: 35px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); height: max-content; }
+        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
+
+        .form-section { margin-bottom: 24px; border-bottom: 1px dashed var(--border-color); padding-bottom: 18px; }
+        .form-section h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+        .form-section h3 i { color: var(--primary); }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .full-width { grid-column: span 2; }
+        
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group label { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+        .input-group input, .input-group textarea, .input-group select { width: 100%; padding: 11px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; transition: var(--transition); outline: none; background: #f8fafc; }
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.08); }
+        
+        .photo-settings { background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        /* Dynamic Skill Buttons Wrap */
+        .skills-dynamic-wrapper { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+        .skill-input-item { display: flex; gap: 10px; align-items: center; }
+        .btn-remove-skill { background: #ef4444; color: white; border: none; padding: 11px 14px; border-radius: 8px; cursor: pointer; transition: var(--transition); }
+        .btn-remove-skill:hover { background: #b91c1c; }
+        .btn-add-skill { background: var(--dark); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: var(--transition); margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-add-skill:hover { background: #1e293b; }
+
+        .preview-sticky-box { position: sticky; top: 90px; height: max-content; display: flex; flex-direction: column; gap: 20px; }
+        .preview-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 6px; }
+        .preview-title span { color: var(--primary); }
+        
+        .canvas-shadow-wrap { background: #e2e8f0; padding: 15px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 550px; }
+        #resumeCanvas { max-width: 100%; height: auto; background: white; border-radius: 4px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15); }
+
+        .recaptcha-wrapper { margin: 15px 0; display: flex; justify-content: center; }
+        .action-buttons { display: flex; gap: 12px; }
+        .action-btn { flex: 1; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: var(--transition); border: none; text-align: center; }
+        .btn-reset { background: #e2e8f0; color: var(--dark); }
+        .btn-reset:hover { background: #cbd5e1; }
+        .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
+        .seo-content h3:first-child { margin-top: 0; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; width: 100%; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 991px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+            .back-link-wrapper { grid-column: span 1; }
+            .seo-content { grid-column: span 1; }
+            .preview-sticky-box { position: static; }
+        }
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .photo-settings { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <h1>Student Help Club</h1>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
+    </header>
+
+    <div class="workspace-grid">
+        <div class="back-link-wrapper">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+        </div>
+
+        <div class="tool-card">
+            <h2>Professional Resume Builder</h2>
+            <p class="subtitle">Design a full-page, rich ATS-compliant resume equipped with micro-managed interactive layouts.</p>
+            
+            <form id="resumeForm" onsubmit="event.preventDefault();">
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Personal Details</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName" value="VISHAL KUMAR SHARMA" placeholder="e.g. Vishal Kumar" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Professional Title</label>
+                            <input type="text" id="title" value="Full-Stack Web Developer" placeholder="e.g. Web Developer / Commerce Student" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" value="vishal@example.com" placeholder="e.g. name@email.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Phone Number</label>
+                            <input type="text" id="phone" value="+91 98765 43210" placeholder="e.g. +91 98765 43210" required>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Location / Address</label>
+                            <input type="text" id="location" value="Patna, Bihar, India" placeholder="e.g. Patna, Bihar, India" required>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label><i class="fas fa-camera" style="color: var(--primary);"></i> Upload Profile Photo (Optional)</label>
+                            <input type="file" id="photoInput" accept="image/*">
+                            <div class="photo-settings">
+                                <div class="input-group">
+                                    <label>Photo Shape</label>
+                                    <select id="photoShape">
+                                        <option value="square">Square Frame</option>
+                                        <option value="circle" selected>Circular Edge</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Photo Position</label>
+                                    <select id="photoPos">
+                                        <option value="left">Top Left</option>
+                                        <option value="center">Top Center</option>
+                                        <option value="right" selected>Top Right</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-tools"></i> Core Skills Management</h3>
+                    <div class="skills-dynamic-wrapper" id="skillsContainer">
+                        <div class="skill-input-item">
+                            <input type="text" class="skill-entry-field" value="Web Development" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()">
+                        </div>
+                        <div class="skill-input-item">
+                            <input type="text" class="skill-entry-field" value="Python Scraping" placeholder="e.g. Python Scraping" oninput="updateLivePreviewCanvas()">
+                        </div>
+                        <div class="skill-input-item">
+                            <input type="text" class="skill-entry-field" value="SEO Tuning" placeholder="e.g. SEO Optimization" oninput="updateLivePreviewCanvas()">
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add-skill" onclick="addNewSkillInput()"><i class="fas fa-plus"></i> Add New Skill Field</button>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Degree / Course</label>
+                            <input type="text" id="eduDegree" value="Bachelor of Commerce (B.Com)" placeholder="e.g. Bachelor of Commerce (B.Com)" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Institute / University</label>
+                            <input type="text" id="eduSchool" value="IGNOU University" placeholder="e.g. IGNOU" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Passing Year / Duration</label>
+                            <input type="text" id="eduYear" value="2023 - 2026" placeholder="e.g. 2023 - 2026" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Marks / CGPA / Percentage</label>
+                            <input type="text" id="eduMarks" value="78%" placeholder="e.g. 75% or 8.2 CGPA">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-briefcase"></i> Experience / Key Projects</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Project / Job Title</label>
+                            <input type="text" id="expTitle" value="Student Help Club Web Portal" placeholder="e.g. Student Help Club Web Portal">
+                        </div>
+                        <div class="input-group">
+                            <label>Organization / Tech Used</label>
+                            <input type="text" id="expCompany" value="HTML5, CSS3, JavaScript, Firestore, DNS Configuration" placeholder="e.g. Tech Stack Used">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Description (Key Responsibilities)</label>
+                            <textarea id="expDesc" rows="4" placeholder="Responsibilities...">Developed a fully responsive utility web portal serving localized data transformation assets client-side. Built optimized sitemap generation micro-scripts and configured domain parameters boosting organic index properties metrics significantly.</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-award"></i> Achievements & Declaration</h3>
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label>Certifications / Achievements</label>
+                            <input type="text" id="certifications" value="Google SEO Certification, Firebase Developer Workshop Excellence Award" placeholder="e.g. Certified Web Professional, Event Coordinator Tracker">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>Professional Declaration Text</label>
+                            <textarea id="declaration" rows="2" placeholder="Declaration...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset</button>
+                    <button type="button" class="action-btn btn-download" onclick="triggerPDFDownload()">Download Resume PDF</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="preview-sticky-box">
+            <div class="preview-title"><i class="fas fa-eye"></i> Live <span>A4 Preview Matrix</span></div>
+            <div class="canvas-shadow-wrap">
+                <canvas id="resumeCanvas" width="800" height="1131"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="legal.html#about">About Us</a> | 
+            <a href="disclaimer.html">Disclaimer</a> | 
+            <a href="legal.html#terms">Terms of Service</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('resumeCanvas');
+        const ctx = canvas.getContext('2d');
+        let profileImageObj = null;
+
+        // Form native tracking keys
+        const coreIds = ['fullName', 'title', 'email', 'phone', 'location', 'eduDegree', 'eduSchool', 'eduYear', 'eduMarks', 'expTitle', 'expCompany', 'expDesc', 'certifications', 'declaration', 'photoShape', 'photoPos'];
+        
+        coreIds.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateLivePreviewCanvas);
+            document.getElementById(id).addEventListener('change', updateLivePreviewCanvas);
+        });
+
+        // Dynamic skills DOM input generation routines
+        function addNewSkillInput() {
+            const container = document.getElementById('skillsContainer');
+            const div = document.createElement('div');
+            div.className = 'skill-input-item';
+            div.innerHTML = `
+                <input type="text" class="skill-entry-field" placeholder="e.g. Python / Accountancy" oninput="updateLivePreviewCanvas()">
+                <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
+            `;
+            container.appendChild(div);
+            updateLivePreviewCanvas();
+        }
+
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    profileImageObj = new Image();
+                    profileImageObj.onload = function() { updateLivePreviewCanvas(); };
+                    profileImageObj.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                profileImageObj = null;
+                updateLivePreviewCanvas();
+            }
+        });
+
+        window.onload = function() { updateLivePreviewCanvas(); };
+
+        // DYNAMIC HIGH-DENSITY ATS TWO-COLUMN FULL PAGE FILLER ENGINE
+        function updateLivePreviewCanvas() {
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const leftMargin = 50;
+            const rightMargin = 750;
+            
+            const name = document.getElementById('fullName').value.trim() || "YOUR FULL NAME";
+            const title = document.getElementById('title').value.trim() || "Professional Heading Title";
+            const email = document.getElementById('email').value.trim() || "yourname@email.com";
+            const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
+            const loc = document.getElementById('location').value.trim() || "City, State, India";
+            
+            const shape = document.getElementById('photoShape').value;
+            const position = document.getElementById('photoPos').value;
+
+            let headerHeight = 160;
+            let photoW = 100; 
+            let photoH = 100;
+            let photoX = leftMargin;
+            let photoY = 45;
+
+            if (position === 'center') {
+                photoX = (canvas.width / 2) - (photoW / 2);
+                headerHeight = 245;
+            } else if (position === 'right') {
+                photoX = rightMargin - photoW;
+            }
+
+            // --- Header Composition Pass (Large Scale) ---
+            if (position === 'left' && profileImageObj) {
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 36px Arial"; ctx.textAlign = "left";
+                ctx.fillText(name.toUpperCase(), leftMargin + photoW + 25, 85);
+                ctx.fillStyle = "#00b14f"; ctx.font = "600 18px Arial";
+                ctx.fillText(title, leftMargin + photoW + 25, 115);
+                ctx.fillStyle = "#475569"; ctx.font = "14px Arial";
+                ctx.fillText(`📞 ${phone}  |  ✉️ ${email}  |  📍 ${loc}`, leftMargin + photoW + 25, 140);
+            } else if (position === 'center') {
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 36px Arial"; ctx.textAlign = "center";
+                ctx.fillText(name.toUpperCase(), canvas.width / 2, 175);
+                ctx.fillStyle = "#00b14f"; ctx.font = "600 18px Arial";
+                ctx.fillText(title, canvas.width / 2, 205);
+                ctx.fillStyle = "#475569"; ctx.font = "14px Arial";
+                ctx.fillText(`📞 ${phone}  |  ✉️ ${email}  |  📍 ${loc}`, canvas.width / 2, 225);
+            } else {
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 38px Arial"; ctx.textAlign = "left";
+                ctx.fillText(name.toUpperCase(), leftMargin, 90);
+                ctx.fillStyle = "#00b14f"; ctx.font = "600 18px Arial";
+                ctx.fillText(title, leftMargin, 120);
+                ctx.fillStyle = "#475569"; ctx.font = "14px Arial";
+                ctx.fillText(`📞 ${phone}  |  ✉️ ${email}  |  📍 ${loc}`, leftMargin, 145);
+            }
+
+            if (profileImageObj) {
+                ctx.save();
+                if (shape === 'circle') {
+                    ctx.beginPath(); ctx.arc(photoX + (photoW / 2), photoY + (photoH / 2), photoW / 2, 0, Math.PI * 2); ctx.clip();
+                    ctx.drawImage(profileImageObj, photoX, photoY, photoW, photoH);
+                } else {
+                    ctx.drawImage(profileImageObj, photoX, photoY, photoW, photoH);
+                    ctx.strokeStyle = "#e2e8f0"; ctx.lineWidth = 2; ctx.strokeRect(photoX, photoY, photoW, photoH);
+                }
+                ctx.restore();
+            }
+
+            ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 3.5;
+            ctx.beginPath(); ctx.moveTo(leftMargin, headerHeight); ctx.lineTo(rightMargin, headerHeight); ctx.stroke();
+
+            // --- Two Column Geometry Parameters ---
+            let colDividerX = 280; 
+            let sidebarWidth = colDividerX - leftMargin - 20;
+            let mainColWidth = rightMargin - colDividerX - 20;
+            
+            let leftY = headerHeight + 35;
+            let rightY = headerHeight + 35;
+
+            ctx.textAlign = "left";
+
+            // --- LEFT COLUMN PANEL: DYNAMIC FIELDS ---
+            ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial";
+            ctx.fillText("CONTACT META", leftMargin, leftY);
+            ctx.fillStyle = "#e2e8f0"; ctx.fillRect(leftMargin, leftY + 8, sidebarWidth, 1.5);
+            
+            leftY += 30;
+            ctx.fillStyle = "#334155"; ctx.font = "13.5px Arial"; ctx.fillText(`📞 Phone:`, leftMargin, leftY);
+            leftY += 18; ctx.fillStyle = "#64748b"; ctx.fillText(phone, leftMargin, leftY);
+            
+            leftY += 24;
+            ctx.fillStyle = "#334155"; ctx.font = "13.5px Arial"; ctx.fillText(`✉️ Email:`, leftMargin, leftY);
+            leftY += 18; ctx.fillStyle = "#64748b"; ctx.fillText(email, leftMargin, leftY);
+            
+            leftY += 24;
+            ctx.fillStyle = "#334155"; ctx.font = "13.5px Arial"; ctx.fillText(`📍 Address:`, leftMargin, leftY);
+            const locLines = splitStringIntoLines(loc, sidebarWidth, 13.5);
+            locLines.forEach(l => { leftY += 18; ctx.fillStyle = "#64748b"; ctx.fillText(l, leftMargin, leftY); });
+
+            // Core Skills Processing from inputs loop arrays
+            leftY += 40;
+            ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial";
+            ctx.fillText("CORE COMPETENCIES", leftMargin, leftY);
+            ctx.fillStyle = "#e2e8f0"; ctx.fillRect(leftMargin, leftY + 8, sidebarWidth, 1.5);
+            
+            leftY += 32;
+            const skillInputs = document.querySelectorAll('.skill-entry-field');
+            skillInputs.forEach(input => {
+                let skill = input.value.trim();
+                if (skill !== "") {
+                    ctx.fillStyle = "#f8fafc"; ctx.fillRect(leftMargin, leftY - 14, sidebarWidth, 22);
+                    ctx.strokeStyle = "#00b14f"; ctx.lineWidth = 1; ctx.strokeRect(leftMargin, leftY - 14, sidebarWidth, 22);
+                    ctx.fillStyle = "#009642"; ctx.font = "bold 11px Arial";
+                    ctx.fillText(skill.toUpperCase(), leftMargin + 10, leftY + 1);
+                    leftY += 30;
+                }
+            });
+
+
+            // --- RIGHT MAIN COLUMN PANEL: SUBSTANTIAL PORTFOLIO ---
+            // Education History Section
+            ctx.fillStyle = "#0f172a"; ctx.font = "bold 18px Arial";
+            ctx.fillText("EDUCATION HISTORY", colDividerX + 15, rightY);
+            ctx.fillStyle = "#e2e8f0"; ctx.fillRect(colDividerX + 15, rightY + 8, mainColWidth, 1.5);
+            
+            rightY += 32;
+            const degree = document.getElementById('eduDegree').value.trim() || "Course Field";
+            const school = document.getElementById('eduSchool').value.trim() || "Institution Name";
+            const eduYear = document.getElementById('eduYear').value.trim() || "Duration";
+            const eduMarks = document.getElementById('eduMarks').value.trim();
+
+            ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(degree, colDividerX + 15, rightY);
+            ctx.fillStyle = "#00b14f"; ctx.font = "bold 14px Arial";
+            let yearW = ctx.measureText(eduYear).width; ctx.fillText(eduYear, rightMargin - yearW, rightY);
+            
+            rightY += 22;
+            ctx.fillStyle = "#475569"; ctx.font = "14.5px Arial";
+            ctx.fillText(school + (eduMarks ? `  —  [ Score: ${eduMarks} ]` : ''), colDividerX + 15, rightY);
+
+            // Experience / Project Layout Blocks
+            const expTitle = document.getElementById('expTitle').value.trim();
+            if (expTitle) {
+                rightY += 45;
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 18px Arial";
+                ctx.fillText("PROJECTS & EXPERIENCE", colDividerX + 15, rightY);
+                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(colDividerX + 15, rightY + 8, mainColWidth, 1.5);
+                
+                rightY += 32;
+                const expCompany = document.getElementById('expCompany').value.trim();
+                const expDesc = document.getElementById('expDesc').value.trim();
+
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(expTitle, colDividerX + 15, rightY);
+                if (expCompany) {
+                    rightY += 20; ctx.fillStyle = "#009642"; ctx.font = "italic bold 12.5px Arial";
+                    ctx.fillText(`Tech Stack: ${expCompany}`, colDividerX + 15, rightY);
+                }
+                if (expDesc) {
+                    rightY += 6; ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
+                    const descLines = splitStringIntoLines(expDesc, mainColWidth, 14.5);
+                    descLines.forEach(line => { rightY += 22; ctx.fillText(line, colDividerX + 15, rightY); });
+                }
+            }
+
+            // --- Phase 3: Extra Dynamic Space Fillers (Achievements & Declaration) ---
+            const certs = document.getElementById('certifications').value.trim();
+            if (certs) {
+                rightY += 45;
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 18px Arial";
+                ctx.fillText("CERTIFICATIONS & MILESTONES", colDividerX + 15, rightY);
+                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(colDividerX + 15, rightY + 8, mainColWidth, 1.5);
+                
+                rightY += 32;
+                ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
+                const certLines = splitStringIntoLines(certs, mainColWidth, 14.5);
+                certLines.forEach(line => { ctx.fillText(`🏆 ${line}`, colDividerX + 15, rightY); rightY += 22; });
+            }
+
+            const dec = document.getElementById('declaration').value.trim();
+            if (dec) {
+                rightY += 25;
+                ctx.fillStyle = "#0f172a"; ctx.font = "bold 16px Arial";
+                ctx.fillText("DECLARATION", colDividerX + 15, rightY);
+                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(colDividerX + 15, rightY + 8, mainColWidth, 1.5);
+                
+                rightY += 32;
+                ctx.fillStyle = "#475569"; ctx.font = "italic 13.5px Arial";
+                const decLines = splitStringIntoLines(dec, mainColWidth, 13.5);
+                decLines.forEach(line => { ctx.fillText(line, colDividerX + 15, rightY); rightY += 20; });
+            }
+        }
+
+        function splitStringIntoLines(text, maxWidth, fontSize) {
+            ctx.font = `${fontSize}px Arial`;
+            const words = text.split(' ');
+            let lines = []; let currentLine = words[0] || "";
+            for (let i = 1; i < words.length; i++) {
+                let word = words[i];
+                let width = ctx.measureText(currentLine + " " + word).width;
+                if (width < maxWidth) { currentLine += " " + word; } 
+                else { lines.push(currentLine); currentLine = word; }
+            }
+            lines.push(currentLine); return lines;
+        }
+
+        function resetForm() {
+            document.getElementById('resumeForm').reset();
+            document.getElementById('skillsContainer').innerHTML = `
+                <div class="skill-input-item"><input type="text" class="skill-entry-field" value="Web Development" placeholder="e.g. Web Development" oninput="updateLivePreviewCanvas()"></div>
+            `;
+            profileImageObj = null; document.getElementById('photoInput').value = ''; updateLivePreviewCanvas();
+        }
+
+        function triggerPDFDownload() {
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                return;
+            }
+            const name = document.getElementById('fullName').value.trim() || "resume";
+            const { jsPDF } = window.jspdf;
+            const pdfDoc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+            const imgDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+            pdfDoc.addImage(imgDataUrl, 'JPEG', 0, 0, 210, 297);
+            const fileStringName = name.toLowerCase().replace(/\s+/g, '-') + '-resume.pdf';
+            pdfDoc.save(fileStringName); grecaptcha.reset();
+        }
+    </script>
+</body>
+</html>
