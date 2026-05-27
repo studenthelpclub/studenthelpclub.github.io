@@ -3,104 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Handwriting Converter - Student Help Club</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Indie+Flower&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Indie+Flower&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00b14f; --dark: #0f172a; }
-        body { background: #f8fafc; padding: 20px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; padding: 20px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: auto; }
         .tool-card { background: #fff; padding: 30px; border-radius: 20px; border: 1px solid #e2e8f0; }
-        textarea { width: 100%; height: 150px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 10px; margin-bottom: 15px; }
-        .control-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 700; margin-bottom: 5px; }
-        .btn-main { background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; }
-        #canvasWrapper { position: sticky; top: 20px; text-align: center; }
-        canvas { width: 100%; max-width: 500px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        textarea { width: 100%; height: 200px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 10px; margin-bottom: 15px; }
+        .btn { background: #00b14f; color: white; padding: 15px; border: none; border-radius: 10px; width: 100%; cursor: pointer; font-weight: 700; }
+        #canvasContainer { overflow-y: auto; max-height: 80vh; text-align: center; }
+        canvas { background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
     <div class="grid">
         <div class="tool-card">
-            <h2>Convert Text to Handwriting</h2>
-            <div class="control-group">
-                <label>Assignment Text</label>
-                <textarea id="textInput" placeholder="Type or paste your text here..." oninput="draw()"></textarea>
-            </div>
-            
-            <div class="form-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="control-group">
-                    <label>Color</label>
-                    <select id="inkColor" onchange="draw()">
-                        <option value="#00008b">Blue Pen</option>
-                        <option value="#000000">Black Pen</option>
-                        <option value="#b91c1c">Red (Highlight)</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>Handwriting Style</label>
-                    <select id="fontStyle" onchange="draw()">
-                        <option value="'Dancing Script', cursive">Cursive Flow</option>
-                        <option value="'Indie Flower', cursive">Student Simple</option>
-                    </select>
-                </div>
-            </div>
-            <button class="btn-main" onclick="downloadImage()">Download Assignment Image</button>
+            <h2>Handwriting Converter</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom:10px;">Use #blue# or #red# before text to change color.</p>
+            <textarea id="textInput" oninput="generate()" placeholder="Type here... #red#Question: What is AI? #blue#Answer: AI is..."></textarea>
+            <button class="btn" onclick="downloadImage()">Download Assignment</button>
         </div>
-
-        <div id="canvasWrapper">
-            <canvas id="handwritingCanvas" width="800" height="1000"></canvas>
+        <div id="canvasContainer">
+            <canvas id="handwritingCanvas"></canvas>
         </div>
     </div>
 
     <script>
-        function draw() {
+        function generate() {
             const canvas = document.getElementById('handwritingCanvas');
             const ctx = canvas.getContext('2d');
             const text = document.getElementById('textInput').value;
-            const color = document.getElementById('inkColor').value;
-            const font = document.getElementById('fontStyle').value;
-
-            // Page Render
-            ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Draw lines
+            // Auto-resize canvas height based on text length
+            const lines = Math.max(10, Math.ceil(text.length / 40) + 5);
+            canvas.width = 800;
+            canvas.height = lines * 50;
+
+            // Draw Ruled Paper
+            ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = "#a3c1da"; ctx.lineWidth = 1;
-            for(let i=80; i<1000; i+=45) { ctx.beginPath(); ctx.moveTo(40, i); ctx.lineTo(760, i); ctx.stroke(); }
+            for(let i=50; i<canvas.height; i+=50) { ctx.beginPath(); ctx.moveTo(40, i); ctx.lineTo(760, i); ctx.stroke(); }
 
             // Draw Text
-            ctx.fillStyle = color;
-            ctx.font = `28px ${font}`;
-            
-            const lines = wrapText(ctx, text, 60, 700);
-            lines.forEach((line, i) => {
-                ctx.fillText(line, 50, 115 + (i * 45));
-            });
-        }
+            ctx.font = "32px 'Indie Flower', cursive";
+            let x = 50, y = 90;
+            let currentColor = "#000000";
 
-        function wrapText(ctx, text, x, maxWidth) {
-            const words = text.split(' ');
-            let line = '';
-            let lines = [];
-            for(let n = 0; n < words.length; n++) {
-                let testLine = line + words[n] + ' ';
-                if (ctx.measureText(testLine).width > maxWidth) {
-                    lines.push(line);
-                    line = words[n] + ' ';
-                } else { line = testLine; }
-            }
-            lines.push(line);
-            return lines;
+            const words = text.split(/(\#.*\#)/); // Split by color tags
+            words.forEach(part => {
+                if(part === "#blue#") currentColor = "#00008b";
+                else if(part === "#red#") currentColor = "#b91c1c";
+                else if(part === "#black#") currentColor = "#000000";
+                else {
+                    ctx.fillStyle = currentColor;
+                    let pWords = part.split(' ');
+                    pWords.forEach(word => {
+                        if(x + ctx.measureText(word).width > 750) { x = 50; y += 50; }
+                        ctx.fillText(word, x, y);
+                        x += ctx.measureText(word + " ").width;
+                    });
+                }
+            });
         }
 
         function downloadImage() {
             const link = document.createElement('a');
-            link.download = 'handwriting-assignment.png';
+            link.download = 'assignment.png';
             link.href = document.getElementById('handwritingCanvas').toDataURL();
             link.click();
         }
-
-        window.onload = draw;
+        
+        window.onload = generate;
     </script>
 </body>
 </html>
