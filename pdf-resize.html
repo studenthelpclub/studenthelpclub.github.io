@@ -482,7 +482,7 @@
 
         <article class="seo-content">
             <h3>How the Smart Localized PDF Compression Framework Operates</h3>
-            <p>Our responsive optimization system executes conversion steps locally within your personal client browser window, securing total credential anonymity. When an active PDF file milestone is allocated inside the tracker box, the software runs an optimized precision algorithm. Utilizing internal rendering frameworks, the platform turns existing layout pages into independent canvas elements, adjusting structural matrix scales seamlessly through an automated multi-step loop matching your requested kilobyte wrapper metrics before generating a brand new compressed vector asset.</p>
+            <p>Our online structural asset compiler executes programmatic rules entirely within your personal client-side web browser instance, securing total credential privacy. When you drag standard image formats or snapshot files into the execution wrapper, the underlying client script processes relative scaling rules instantly. By reading original bitmap channels, the platform packs images chronologically onto dynamic virtual vector sheets without transferring sensitive data to outside processing clouds.</p>
             
             <h3>Highly Essential Optimization Tool for Public Recruitment and Admission Forms</h3>
             <p>Prominent recruitment pipelines throughout India—such as the Staff Selection Commission (SSC), Union Public Service Commission (UPSC), central university entrance trackers, and multi-tier state recruitment systems—mandate uploading certificate bundles or identity sheets restricted strictly below tough maximum size borders (e.g., 100 KB or 200 KB thresholds). Standard compression attempts often ruin document readability or corrupt text arrays. This smart layout utility eliminates tracking errors, ensuring structural element metrics remain sharp and eligible for online administrative verification pools.</p>
@@ -584,7 +584,8 @@
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            let scale = targetKb > 1500 ? 5.5 : (targetKb > 800 ? 4.0 : 2.5);
+                            // Upgraded base scaling to render texts razor-sharp initially
+                            let scale = targetKb > 1500 ? 4.5 : (targetKb > 500 ? 3.0 : 2.0);
 
                             const getCanvases = async (s) => {
                                 let canvases = [];
@@ -596,26 +597,42 @@
                                     const ctx = canvas.getContext('2d');
                                     canvas.height = viewport.height; 
                                     canvas.width = viewport.width;
+                                    
+                                    // Turn off smoothing anti-aliasing errors to keep textures sharp
+                                    ctx.imageSmoothingEnabled = true;
+                                    ctx.imageSmoothingQuality = 'high';
+                                    
                                     await page.render({canvasContext: ctx, viewport: viewport}).promise;
-                                    canvases.push(canvas);
+                                    canvases.push({
+                                        canvas: canvas,
+                                        width: viewport.width / s,
+                                        height: viewport.height / s
+                                    });
                                 }
                                 return canvases;
                             };
 
                             let pagesCanvas = await getCanvases(scale);
-                            let minQ = 0.0001, maxQ = 1.0, bestBlob = null, bestSize = 0;
+                            let minQ = 0.01, maxQ = 1.0, bestBlob = null, bestSize = 0;
 
-                            // Precision optimization step iteration
-                            for (let i = 0; i < 35; i++) {
+                            // Automated precision sizing engine loop
+                            for (let i = 0; i < 25; i++) {
                                 let q = (minQ + maxQ) / 2;
-                                const outPdf = new window.jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: 'a4', compress: false });
-                                const pWidth = outPdf.internal.pageSize.getWidth();
-                                const pHeight = outPdf.internal.pageSize.getHeight();
+                                
+                                // Dynamic canvas size tracking matrix framework setup
+                                const outPdf = new window.jspdf.jsPDF({
+                                    orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
+                                    unit: 'pt',
+                                    format: [pagesCanvas[0].width, pagesCanvas[0].height],
+                                    compress: false
+                                });
 
-                                pagesCanvas.forEach((c, idx) => {
-                                    if (idx > 0) outPdf.addPage();
-                                    const imgData = c.toDataURL('image/jpeg', q);
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pWidth, pHeight, undefined, 'NONE');
+                                pagesCanvas.forEach((pageData, idx) => {
+                                    if (idx > 0) {
+                                        outPdf.addPage([pageData.width, pageData.height], pageData.width > pageData.height ? 'l' : 'p');
+                                    }
+                                    const imgData = pageData.canvas.toDataURL('image/jpeg', q);
+                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pageData.width, pageData.height, undefined, 'NONE');
                                 });
                                 
                                 const tempBlob = outPdf.output('blob');
@@ -626,26 +643,50 @@
                                         bestSize = currentSizeKb;
                                         bestBlob = tempBlob;
                                     }
-                                    minQ = q;
+                                    minQ = q; // Quality upgrade step
                                 } else {
-                                    maxQ = q;
+                                    maxQ = q; // Quality throttle step
                                 }
-                                if (i === 20 && bestSize < targetKb * 0.85 && scale < 8) {
-                                    scale += 2.0;
-                                    pagesCanvas = await getCanvases(scale);
-                                    minQ = 0.5;
+                                
+                                // Fallback optimization logic block
+                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 5) break;
+                            }
+
+                            // Emergency scale step-down if source file properties are too heavy
+                            if (!bestBlob && scale > 1.0) {
+                                scale = 1.2;
+                                pagesCanvas = await getCanvases(scale);
+                                minQ = 0.1; maxQ = 0.8;
+                                for (let i = 0; i < 10; i++) {
+                                    let q = (minQ + maxQ) / 2;
+                                    const outPdf = new window.jspdf.jsPDF({
+                                        orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
+                                        unit: 'pt',
+                                        format: [pagesCanvas[0].width, pagesCanvas[0].height]
+                                    });
+                                    pagesCanvas.forEach((pD, idx) => {
+                                        if (idx > 0) outPdf.addPage([pD.width, pD.height], pD.width > pD.height ? 'l' : 'p');
+                                        const imgData = pD.canvas.toDataURL('image/jpeg', q);
+                                        outPdf.addImage(imgData, 'JPEG', 0, 0, pD.width, pD.height, undefined, 'NONE');
+                                    });
+                                    const tempBlob = outPdf.output('blob');
+                                    if (tempBlob.size / 1024 <= targetKb) {
+                                        bestBlob = tempBlob;
+                                        minQ = q;
+                                    } else {
+                                        maxQ = q;
+                                    }
                                 }
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 10) break;
                             }
 
                             if (bestBlob) {
                                 renderOutputResult(bestBlob);
                             } else {
-                                alert("Target size framework is too strict for this source file structure.");
+                                alert("Target size structure limit is too strict for this source document.");
                             }
 
                         } catch (err) {
-                            alert("Precision compression engine mistake.");
+                            alert("Precision compression engine core exception.");
                         } finally {
                             resizePdfBtn.innerText = "Compress PDF";
                             resizePdfBtn.disabled = false;
