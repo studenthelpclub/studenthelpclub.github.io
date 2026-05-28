@@ -311,6 +311,8 @@
 
         #previewContainer canvas {
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            image-rendering: -webkit-optimize-contrast; /* Keeps text crisp */
+            image-rendering: crisp-edges;
         }
 
         .result-size-text {
@@ -584,8 +586,8 @@
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            // Upgraded internal structural rendering matrix scale
-                            let scale = targetKb > 1500 ? 5.0 : (targetKb > 500 ? 3.5 : 2.5);
+                            // Base rendering scale configuration
+                            let scale = targetKb > 1000 ? 4.0 : (targetKb > 400 ? 2.5 : 1.5);
 
                             const getCanvases = async (s) => {
                                 let canvases = [];
@@ -613,10 +615,10 @@
 
                             let pagesCanvas = await getCanvases(scale);
                             
-                            // Important Quality Guard Fix: minQ raised from 0.01 to 0.45 to prevent face block corruption
-                            let minQ = 0.45, maxQ = 1.0, bestBlob = null, bestSize = 0;
+                            // FIXED: minQ is now set to 0.01 to allow full absolute compression down to exact target KB limits
+                            let minQ = 0.01, maxQ = 1.0, bestBlob = null, bestSize = 0;
 
-                            for (let i = 0; i < 20; i++) {
+                            for (let i = 0; i < 25; i++) {
                                 let q = (minQ + maxQ) / 2;
                                 
                                 const outPdf = new window.jspdf.jsPDF({
@@ -642,20 +644,20 @@
                                         bestSize = currentSizeKb;
                                         bestBlob = tempBlob;
                                     }
-                                    minQ = q; 
+                                    minQ = q; // Quality upgrade step
                                 } else {
-                                    maxQ = q; 
+                                    maxQ = q; // Quality reduce step
                                 }
                                 
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 8) break;
+                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 5) break;
                             }
 
-                            // Emergency Dynamic Down-scale Fallback if files are heavy but quality barrier is guarded
+                            // Emergency scale down fallback to enforce strict user target limit constraints
                             if (!bestBlob) {
-                                scale = targetKb > 300 ? 1.8 : 1.2;
+                                scale = targetKb > 300 ? 1.2 : 0.8;
                                 pagesCanvas = await getCanvases(scale);
-                                minQ = 0.40; maxQ = 0.95;
-                                for (let i = 0; i < 10; i++) {
+                                minQ = 0.01; maxQ = 0.90;
+                                for (let i = 0; i < 15; i++) {
                                     let q = (minQ + maxQ) / 2;
                                     const outPdf = new window.jspdf.jsPDF({
                                         orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
@@ -669,30 +671,15 @@
                                         outPdf.addImage(imgData, 'JPEG', 0, 0, pD.width, pD.height, undefined, 'NONE');
                                     });
                                     const tempBlob = outPdf.output('blob');
-                                    if (tempBlob.size / 1024 <= targetKb) {
+                                    const currentSizeKb = tempBlob.size / 1024;
+                                    
+                                    if (currentSizeKb <= targetKb) {
                                         bestBlob = tempBlob;
                                         minQ = q;
                                     } else {
                                         maxQ = q;
                                     }
                                 }
-                            }
-
-                            // Safe Core Fallback: If target KB is literally impossible with image profiles, return best possible output
-                            if (!bestBlob) {
-                                minQ = 0.35;
-                                const outPdf = new window.jspdf.jsPDF({
-                                    orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
-                                    unit: 'pt',
-                                    format: [pagesCanvas[0].width, pagesCanvas[0].height],
-                                    compress: false
-                                });
-                                pagesCanvas.forEach((pD, idx) => {
-                                    if (idx > 0) outPdf.addPage([pD.width, pD.height], pD.width > pD.height ? 'l' : 'p');
-                                    const imgData = pD.canvas.toDataURL('image/jpeg', minQ);
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pD.width, pD.height, undefined, 'NONE');
-                                });
-                                bestBlob = outPdf.output('blob');
                             }
 
                             if (bestBlob) {
