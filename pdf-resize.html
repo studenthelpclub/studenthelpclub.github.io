@@ -584,8 +584,8 @@
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            // Upgraded base scaling to render texts razor-sharp initially
-                            let scale = targetKb > 1500 ? 4.5 : (targetKb > 500 ? 3.0 : 2.0);
+                            // Upgraded internal structural rendering matrix scale
+                            let scale = targetKb > 1500 ? 5.0 : (targetKb > 500 ? 3.5 : 2.5);
 
                             const getCanvases = async (s) => {
                                 let canvases = [];
@@ -598,7 +598,6 @@
                                     canvas.height = viewport.height; 
                                     canvas.width = viewport.width;
                                     
-                                    // Turn off smoothing anti-aliasing errors to keep textures sharp
                                     ctx.imageSmoothingEnabled = true;
                                     ctx.imageSmoothingQuality = 'high';
                                     
@@ -613,13 +612,13 @@
                             };
 
                             let pagesCanvas = await getCanvases(scale);
-                            let minQ = 0.01, maxQ = 1.0, bestBlob = null, bestSize = 0;
+                            
+                            // Important Quality Guard Fix: minQ raised from 0.01 to 0.45 to prevent face block corruption
+                            let minQ = 0.45, maxQ = 1.0, bestBlob = null, bestSize = 0;
 
-                            // Automated precision sizing engine loop
-                            for (let i = 0; i < 25; i++) {
+                            for (let i = 0; i < 20; i++) {
                                 let q = (minQ + maxQ) / 2;
                                 
-                                // Dynamic canvas size tracking matrix framework setup
                                 const outPdf = new window.jspdf.jsPDF({
                                     orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
                                     unit: 'pt',
@@ -643,26 +642,26 @@
                                         bestSize = currentSizeKb;
                                         bestBlob = tempBlob;
                                     }
-                                    minQ = q; // Quality upgrade step
+                                    minQ = q; 
                                 } else {
-                                    maxQ = q; // Quality throttle step
+                                    maxQ = q; 
                                 }
                                 
-                                // Fallback optimization logic block
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 5) break;
+                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 8) break;
                             }
 
-                            // Emergency scale step-down if source file properties are too heavy
-                            if (!bestBlob && scale > 1.0) {
-                                scale = 1.2;
+                            // Emergency Dynamic Down-scale Fallback if files are heavy but quality barrier is guarded
+                            if (!bestBlob) {
+                                scale = targetKb > 300 ? 1.8 : 1.2;
                                 pagesCanvas = await getCanvases(scale);
-                                minQ = 0.1; maxQ = 0.8;
+                                minQ = 0.40; maxQ = 0.95;
                                 for (let i = 0; i < 10; i++) {
                                     let q = (minQ + maxQ) / 2;
                                     const outPdf = new window.jspdf.jsPDF({
                                         orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
                                         unit: 'pt',
-                                        format: [pagesCanvas[0].width, pagesCanvas[0].height]
+                                        format: [pagesCanvas[0].width, pagesCanvas[0].height],
+                                        compress: false
                                     });
                                     pagesCanvas.forEach((pD, idx) => {
                                         if (idx > 0) outPdf.addPage([pD.width, pD.height], pD.width > pD.height ? 'l' : 'p');
@@ -677,6 +676,23 @@
                                         maxQ = q;
                                     }
                                 }
+                            }
+
+                            // Safe Core Fallback: If target KB is literally impossible with image profiles, return best possible output
+                            if (!bestBlob) {
+                                minQ = 0.35;
+                                const outPdf = new window.jspdf.jsPDF({
+                                    orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p',
+                                    unit: 'pt',
+                                    format: [pagesCanvas[0].width, pagesCanvas[0].height],
+                                    compress: false
+                                });
+                                pagesCanvas.forEach((pD, idx) => {
+                                    if (idx > 0) outPdf.addPage([pD.width, pD.height], pD.width > pD.height ? 'l' : 'p');
+                                    const imgData = pD.canvas.toDataURL('image/jpeg', minQ);
+                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pD.width, pD.height, undefined, 'NONE');
+                                });
+                                bestBlob = outPdf.output('blob');
                             }
 
                             if (bestBlob) {
