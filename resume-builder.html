@@ -65,7 +65,10 @@
         
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .brand h1 { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        
+        /* Fixed Missing Styling for Brand Name Span */
+        .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        
         .nav-menu { display: flex; gap: 20px; align-items: center; }
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
         .nav-link:hover { color: var(--primary); }
@@ -86,7 +89,7 @@
         .back-link:hover { color: var(--primary); transform: translateX(-3px); }
 
         .tool-card { background: #ffffff; padding: 35px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); height: max-content; }
-        .tool-card h2 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
 
         .adsense-placeholder { margin: 20px 0; background: #f8fafc; border: 1px dashed var(--border-color); padding: 10px; display: flex; justify-content: center; border-radius: 12px; min-height: 90px; }
@@ -151,7 +154,7 @@
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
-            <h1>Student Help Club</h1>
+            <span class="brand-name">Student Help Club</span>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
@@ -166,7 +169,7 @@
         </div>
 
         <div class="tool-card">
-            <h2>Professional Resume Builder</h2>
+            <h1>Professional Resume Builder</h1>
             <p class="subtitle">Design a clean, single-page professional resume instantly. Perfect for job applications and college forms.</p>
             
             <div class="adsense-placeholder">
@@ -384,6 +387,7 @@
                 <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
             `;
             container.appendChild(div);
+            // Fixed live event binding for dynamically added skill slots
             div.querySelector('input').addEventListener('input', updateLivePreviewCanvas);
             updateLivePreviewCanvas();
         }
@@ -585,7 +589,7 @@
             downloadBtn.style.opacity = "0.7";
 
             setTimeout(() => {
-                const name = document.getElementById('fullName').value.trim() || "RESUME";
+                const name = document.getElementById('fullName').value.trim() || "YOUR NAME";
                 const title = document.getElementById('title').value.trim() || "Professional Title";
                 const email = document.getElementById('email').value.trim() || "email@example.com";
                 const phone = document.getElementById('phone').value.trim() || "+91 00000 00000";
