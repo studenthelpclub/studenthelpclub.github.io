@@ -13,6 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instant Image Enhancer & 4K/8K Upscaler - Student Help Club</title>
     
+    <meta name="description" content="Optimize, upscale, and convert your document scans or photos to high-definition 4K/8K resolution instantly. Free secure client-side image enhancement tool by Student Help Club.">
+    <meta name="keywords" content="image enhancer, photo upscaler, 4k image converter, unsharp mask tool, student help club image tool, passport photo clearer">
+    <meta name="robots" content="index, follow">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
+    
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -80,7 +86,8 @@
             border: 1px solid var(--border-color);
         }
         
-        .brand h1 { 
+        /* FIXED: Changed brand heading to div style to fix 'More than one h1 tag' Webmaster error */
+        .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
             font-weight: 800;
@@ -155,7 +162,7 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        .tool-card h2 {
+        .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
             font-weight: 800;
@@ -472,8 +479,8 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
-            <h1>Student Help Club</h1>
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
@@ -487,7 +494,7 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>Instant Image Enhancer</h2>
+            <h1>Instant Image Enhancer</h1>
             <p class="subtitle">Optimize, upscale, and convert your document scans or photos to high-definition 4K/8K tracks instantly.</p>
             
             <input type="file" id="imageInput" accept="image/*">
@@ -564,6 +571,18 @@
                 <li><strong>Manage Live Changes:</strong> Swap input photos directly using the embedded change frame trigger link seamlessly without refreshing scripts.</li>
                 <li><strong>Execute Secure Download:</strong> Solve the standard Google system safety puzzle block to activate the direct localized download thread, storing enhanced files down onto your device instantly.</li>
             </ul>
+
+            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            <h3>Frequently Asked Questions (FAQs)</h3>
+            
+            <h3>Q1: Is it safe to enhance my private documents or passport photos here?</h3>
+            <p>Yes, absolutely. The underlying matrix logic handles all image scaling transformations entirely client-side inside your personal web browser cache memory stack. No image arrays, credential bitmap details, or binary file channels are ever uploaded or transmitted to external servers.</p>
+            
+            <h3>Q2: Why does an unsharp mask pipeline improve document scan legibility?</h3>
+            <p>The system separates the upscaled image data stream against a hidden hardware-accelerated blur layer framework. By subtracting relative soft contrasts directly inside the Uint8ClampedArray data buffers, it isolates fine pixel edges and sharpens text characters safely.</p>
+            
+            <h3>Q3: Does upscaling an image to 4K or 8K increase the raw disk file size?</h3>
+            <p>Yes. When upscaling to 4K or 8K, the core script multiplies the width and height specifications of the canvas grid structure. Since the total cumulative count of pixels increases to match max texture parameters, the final downloaded PNG asset size increases proportionately.</p>
         </article>
     </div>
 
@@ -741,9 +760,15 @@
         }
 
         function triggerDownload() {
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (recaptchaResponse.length === 0) {
-                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+            // Google reCAPTCHA Validation Guard Logic
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (recaptchaResponse.length === 0) {
+                    alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                    return;
+                }
+            } else {
+                alert("Security check widget is initializing, please wait 2 seconds.");
                 return;
             }
 
@@ -755,7 +780,9 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
 
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                grecaptcha.reset();
+            }
         }
     </script>
 </body>
