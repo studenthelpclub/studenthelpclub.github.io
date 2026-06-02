@@ -13,6 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHC PDF Merge & Smart Resizer - Student Help Club</title>
     
+    <meta name="description" content="Combine multiple PDF files into a single master document and compress target KB limits effortlessly. Free secure client-side PDF tool by Student Help Club.">
+    <meta name="keywords" content="pdf merge, merge pdf online, combine pdf files, pdf compressor, pdf size reducer, student help club pdf tools">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://www.studenthelpclub.in/pdf-merge.html">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
+    
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -82,7 +90,8 @@
             border: 1px solid var(--border-color);
         }
         
-        .brand h1 { 
+        /* FIXED: Switched to safe brand title div component layout to prevent double h1 node assignment */
+        .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
             font-weight: 800;
@@ -157,7 +166,8 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        .tool-card h2 {
+        /* FIXED: Set tool identity marked as absolute unique h1 master scope tracking */
+        .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
             font-weight: 800;
@@ -380,8 +390,14 @@
             margin-bottom: 20px;
         }
 
-        #previewContainer canvas {
+        #previewContainer iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: white;
         }
 
         .result-size-text {
@@ -403,11 +419,13 @@
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+            margin-top: 20px;
         }
 
         .download-btn:hover {
             background: #0056b3;
             transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
         }
 
         /* Informative SEO Section */
@@ -496,6 +514,7 @@
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
+            #previewContainer iframe { height: 380px; }
         }
     </style>
 </head>
@@ -504,7 +523,7 @@
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            <h1>Student Help Club</h1>
+            <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
@@ -518,7 +537,7 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>SHC PDF Merge & Smart Resizer</h2>
+            <h1>SHC PDF Merge & Smart Resizer</h1>
             <p class="subtitle">Combine multiple PDF files into a single master document and compress target KB limits effortlessly.</p>
             
             <div class="upload-container" id="pdfDropZone">
@@ -573,11 +592,23 @@
             
             <h3>Step-by-Step Multi-Document Management Protocol</h3>
             <ul>
-                <li><strong>Acquire Document Assets:</strong> Use the dedicated cloud selection button wrapper to group various application/pdf materials instantly from your storage.</li>
+                <li><strong>Acquire Document Assets:</strong> Use the dedicated graphical upload interface box to capture single or multiple captured images (Supports JPG, PNG, and responsive WebP systems).</li>
                 <li><strong>Adjust Sheet Sequences:</strong> Move file segments upward or clear structural items using the intuitive directional arrows inside the list grid structure dynamically.</li>
                 <li><strong>Define Target Size Constraints:</strong> For standard high-definition archiving, select Fast Merge options. For form submissions with strict limits, input your desired maximum numeric KB target threshold wrapper value.</li>
-                <li><strong>Solve the Security Badge & Generate:</strong> Trigger the responsive reCAPTCHA checker to finalize structural scripts safely, render multi-page previews right on screen, and download your consolidated file asset immediately.</li>
+                <li><strong>Solve the Security Badge & Generate:</strong> Trigger the responsive reCAPTCHA checker to finalize structural scripts safely, render multi-page previews right on screen, and secure your consolidated file asset immediately.</li>
             </ul>
+
+            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            <h3>Frequently Asked Questions (FAQs)</h3>
+            
+            <h3>Q1: Will my uploaded images be saved on your servers during the PDF conversion?</h3>
+            <p>No, absolutely not. The entire computational pipeline runs 100% locally inside your client-side browser thread stack. Your private transcripts, assignments, or signature captures are processed completely locally and are never stored or logged externally.</p>
+            
+            <h3>Q2: Can I combine images of different dimensions into a single PDF document?</h3>
+            <p>Yes. The underlying array compilation logic scans the original structural layout parameters of each image independently. It allocates custom canvas sheets inside the virtual document framework on a page-by-page pass, preventing visual cropping or aspect ratio distortion error-free.</p>
+            
+            <h3>Q3: Is there a maximum limit on the number of images I can compile at once?</h3>
+            <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of ultra-high-definition 4K image records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets of up to 50 sheets for clean performance loops.</p>
         </article>
     </div>
 
@@ -592,7 +623,7 @@
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="legal.html#about">About Us</a> | 
             <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a> |
+            <a href="legal.html#terms">Terms of Service</a>|
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
@@ -601,8 +632,6 @@
     <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
-            
-            // Elements Mapping
             const pdfInput = document.getElementById('pdfInput');
             const pdfDropZone = document.getElementById('pdfDropZone');
             const fileList = document.getElementById('fileList');
@@ -705,7 +734,9 @@
                         } finally {
                             fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge`;
                             fastMergeBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                                grecaptcha.reset();
+                            }
                         }
                     }, 100);
                 });
@@ -795,7 +826,9 @@
                         } finally {
                             mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize`;
                             mergeBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                                grecaptcha.reset();
+                            }
                         }
                     }, 100);
                 });
