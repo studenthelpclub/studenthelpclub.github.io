@@ -11,7 +11,19 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC PDF to Image Converter - Student Help Club</title>
+    <!-- FIXED: Optimized short title framework to pass search engine indexing validation borders -->
+    <title>PDF to Image Converter Online - Student Help Club</title>
+    
+    <!-- FIX: Premium SEO Meta Tags Added to resolve Webmaster Description Errors & AdSense Bot Compliance -->
+    <meta name="description" content="Convert every standalone PDF page layer into a high-definition JPEG image file instantly. Free secure client-side PDF to Image tool by Student Help Club.">
+    <meta name="keywords" content="pdf to image, convert pdf to jpg, pdf to image converter, extract pdf pages as images, student help club tools">
+    <meta name="robots" content="index, follow">
+
+    <!-- FIXED: Resolved duplicate indices warning by adding the unique absolute master canonical link -->
+    <link rel="canonical" href="https://www.studenthelpclub.in/pdf-to-img.html">
+
+    <!-- FIXED: Added missing Google AdSense Client Script for automated ad delivery and crawler validation -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -80,7 +92,8 @@
             border: 1px solid var(--border-color);
         }
         
-        .brand h1 { 
+        /* FIXED: Switched to safe brand title div component layout to prevent double h1 node assignment */
+        .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
             font-weight: 800;
@@ -155,7 +168,8 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        .tool-card h2 {
+        /* FIXED: Set tool identity marked as absolute unique h1 master scope tracking */
+        .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
             font-weight: 800;
@@ -400,7 +414,8 @@
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            <h1>Student Help Club</h1>
+            <!-- FIXED: Switched to safe brand title div component layout to prevent double h1 node assignment -->
+            <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
@@ -414,7 +429,8 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>SHC PDF to Image Converter</h2>
+            <!-- FIXED: Unified operational page title marked as absolute single h1 node scope -->
+            <h1>SHC PDF to Image Converter</h1>
             <p class="subtitle">Convert every standalone PDF page layer into a high-definition JPEG image file instantly.</p>
             
             <div class="upload-container" id="dropZone">
@@ -454,9 +470,22 @@
             <ul>
                 <li><strong>Acquire Document Assets:</strong> Use the graphical dashed select field wrapper to link your desired source document directly inside the workspace window.</li>
                 <li><strong>Verify Page Metadata:</strong> Review the automated data container info text to inspect your loaded file title details and complete sheet metrics comfortably.</li>
-                <li><strong>Solve Security Guard:</strong> Complete the automated verification check badge widget widget to protect processing layers cleanly from bot scripting triggers.</li>
+                <li><strong>Solve Security Guard:</strong> Complete the automated verification check badge widget to protect processing layers cleanly from bot scripting triggers.</li>
                 <li><strong>Render and Save:</strong> Click the convert script trigger. View your multi-page gallery panels directly on screen, and click download assets underneath separate blocks to save them instantly.</li>
             </ul>
+
+            <!-- FIX: Added dynamic contextual FAQ module to pass Google AdSense editorial quality thresholds -->
+            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            <h3>Frequently Asked Questions (FAQs)</h3>
+            
+            <h3>Q1: Is my document converted on your servers?</h3>
+            <p>No. Our tool processes the PDF conversion entirely within your own browser's memory using local Client-Side rendering. We never touch, upload, or log your files to any external remote server storage systems.</p>
+            
+            <h3>Q2: Can I download individual pages instead of the whole file?</h3>
+            <p>Yes. After the conversion process finishes, the system renders each page as a separate interactive JPEG card element. You can download every page individually at your convenience.</p>
+            
+            <h3>Q3: What resolution does this tool provide for the output images?</h3>
+            <p>The system generates images using a high-density viewport scale (2.0x base resolution) to ensure that even small text characters and thin structural lines in academic document scans remain sharp and professional.</p>
         </article>
     </div>
 
@@ -469,9 +498,9 @@
         
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a> | 
-            <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a> |
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
@@ -579,7 +608,7 @@
                             convertBtn.innerHTML = "Convert All Pages to JPG";
                             convertBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                ggetcaptcha.reset();
+                                grecaptcha.reset();
                             }
                         }
                     }, 100);
