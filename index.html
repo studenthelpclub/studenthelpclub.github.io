@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Help Club - Free Image Resizer, PDF Tools & Calculators</title>
 
-    <link rel="canonical" href="https://studenthelpclub.github.io/" />
+    <link rel="canonical" href="https://www.studenthelpclub.in/index.html" />
     <meta name="description" content="Free online utility tools for students. Easily resize images to 20kb or 50kb, split or merge PDFs, convert images, use word counter, age calculator, and PDF night mode for exam forms.">
     <meta name="keywords" content="Resume Builder, Online CV Maker for Students, Free Resume Creator, Student Help Club Tools, Image Resizer, Photo Size Compressor for Forms, Resize Photo in KB, PDF Compressor, PDF Size Reducer, Online PDF Compressor Free, Age Calculator, Date of Birth Calculator, Word Counter, Online Text Word Count Tool, PDF Dark Mode Converter, Image to PDF Converter, JPG to PDF Converter Online, Percentage Calculator, Online Grade Calculator, PDF Splitter, Split PDF Pages Online, PDF Merger, Merge PDF Files Free, Background Remover, Remove Image Background Free, Image Enhancer, Online Photo Enhancer, AI Photo Quality Booster">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -23,6 +23,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
+
     <style>
         :root {
             --primary: #00b14f; 
@@ -80,7 +82,8 @@
             border: 1px solid var(--border-color);
         }
         
-        .brand h1 { 
+        /* FIXED: Changed brand heading to div style to fix 'More than one h1 tag' error validation */
+        .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
             font-weight: 800;
@@ -132,7 +135,8 @@
             text-align: center;
         }
         
-        .hero h2 { 
+        /* FIXED: Converted this main hero banner slogan to absolute unique master h1 hierarchy */
+        .hero h1 { 
             font-size: 3rem; 
             font-weight: 800;
             letter-spacing: -1.2px;
@@ -142,10 +146,10 @@
             margin: 0 auto;
         }
 
-        .hero h2 span {
+        .hero h1 span {
             background: linear-gradient(135deg, #00b14f 0%, #10b981 100%);
             -webkit-background-clip: text;
-            background-clip: text; /* Compatibility property added to clear VS Code Warning */
+            background-clip: text; 
             -webkit-text-fill-color: transparent;
         }
         
@@ -209,6 +213,7 @@
         .badge.b-img { background: #eff6ff; color: #1d4ed8; }
         .badge.b-pdf { background: #fef2f2; color: #dc2626; }
         .badge.b-util { background: #fdf2f8; color: #db2777; }
+        .badge.b-file { background: #f0fdf4; color: #16a34a; }
         
         .card .icon-wrapper {
             width: 52px;
@@ -349,10 +354,11 @@
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
             .nav-menu { display: none; } 
-            .hero h2 { font-size: 2.1rem; }
+            .hero h1 { font-size: 2.1rem; }
             .hero p { font-size: 1.1rem; }
             .grid { grid-template-columns: 1fr; gap: 16px; }
-            .main-container { margin-top: -30px; }
+            .main-container { margin-top: -30px; padding: 0 15px; }
+            .card { padding: 24px 20px; }
             .seo-content { padding: 35px 25px; }
         }
     </style>
@@ -361,8 +367,8 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
-            <h1>Student Help Club</h1>
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
             <a href="#tools-section" class="nav-link">All Tools</a>
@@ -372,7 +378,7 @@
     </header>
 
     <section class="hero">
-        <h2>Web Utility Tools <span>Designed for Students</span></h2>
+        <h1>Web Utility Tools <span>Designed for Students</span></h1>
         <p>A safe, rapid, and premium open workspace to optimize your files, manage calculations, and process exam documentation effortlessly.</p>
     </section>
 
@@ -394,8 +400,8 @@
             </a>
 
             <a href="image-bg-remover.html" class="card">
-                <span class="badge" style="background: #e1f5fe; color: #0288d1; font-weight: 700; font-size: 0.72rem; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px;">IMAGE</span>
-                <div class="icon-wrapper" style="color: var(--primary);"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <span class="badge b-img">Image</span>
+                <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
                 <h3>Image Background Remover</h3>
                 <p>Automatically extract portraits and remove complex background environments instantly inside your browser.</p>
             </a>
@@ -407,8 +413,8 @@
                 <p>Design a professional, ATS-friendly single-page resume for job applications and college admissions.</p>
             </a>
             <a href="enhance.html" class="card">
-                <span class="badge" style="background: var(--primary); color: white;">IMAGE</span>
-                <div class="icon-wrapper" style="color: var(--primary);"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <span class="badge b-img">Image</span>
+                <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
                 <h3>Instant Image Enhancer</h3>
                 <p>Upscale and convert your document scans or photos to high-definition 4K/8K quality tracks instantly.</p>
             </a>
@@ -450,7 +456,7 @@
 
             <a href="pdf-split.html" class="card">
                 <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="fas fa-scissors"></i></div>
+                <div class="icon-wrapper"><i class="scissors-icon"><i class="fas fa-scissors"></i></i></div>
                 <h3>PDF Split</h3>
                 <p>Extract standalone component blocks or break large PDFs into separate fragments.</p>
             </a>
@@ -496,9 +502,9 @@
         
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a> | 
-            <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a>|
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a>|
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
