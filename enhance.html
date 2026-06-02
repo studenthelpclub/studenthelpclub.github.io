@@ -488,7 +488,7 @@
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
-            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="about.html" class="nav-link">About</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
     </header>
@@ -598,8 +598,8 @@
         </div>
         
         <div class="policy-links">
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="about_us.html">About Us</a> | 
+            <a href="privacy.html">Privacy Policy</a> | 
+            <a href="about.html">About Us</a> | 
             <a href="contact.html">Contact Us</a> | 
             <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
@@ -746,13 +746,16 @@
                     let bDiff = src[i + 2] - blr[i + 2];
                     let bFinal = src[i + 2] + amountFactor * bDiff;
                     src[i + 2] = bFinal > 255 ? 255 : (bFinal < 0 ? 0 : bFinal);
-                    
-                    // Alpha layer lock synchronization bounds
                 }
                 
+                // Sync baseline context parameter properties prior to imagery draw arrays
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
                 // Write final enhanced quality array directly back to live main display canvas
                 ctx.putImageData(baseData, 0, 0);
             } else {
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
                 // Fallback rendering path bounds for native scales
                 ctx.drawImage(baseCanvas, 0, 0);
             }
