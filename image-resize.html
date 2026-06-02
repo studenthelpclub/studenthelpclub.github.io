@@ -473,12 +473,11 @@
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            <!-- FIXED: Main header brand label switched to div token to protect unique h1 tracking layout[cite: 9] -->
             <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
-            <a href="legal.html#about" class="nav-link">About</a>
+            <a href="about.html" class="nav-link">About</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
     </header>
@@ -553,7 +552,6 @@
                 <li><strong>Isolate and Download:</strong> Trigger the responsive engine to process relative canvas elements instantly. View the updated size calculation variables and acquire your download framework right away.[cite: 9]</li>
             </ul>
 
-            <!-- FIX: Added dynamic contextual FAQ block to pass Google AdSense editorial quality thresholds -->
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
             <h3>Frequently Asked Questions (FAQs)</h3>
             
@@ -576,10 +574,10 @@
         </div>
         
         <div class="policy-links">
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="about_us.html">About Us</a> | 
+            <a href="privacy.html">Privacy Policy</a> | 
+            <a href="about.html">About Us</a> | 
             <a href="contact.html">Contact Us</a> | 
-            <a href="terms.html">Terms of Service</a>|
+            <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.[cite: 9]</p>
@@ -618,7 +616,7 @@
                         // HEIC Conversion Status
                         if (fileName.endsWith(".heic") || file.type === "image/heic" || file.type === "") {
                             if (statusText) {
-                                statusText.innerHTML = `<img src="" onerror="this.style.display='none'"> <b style="color: #0d6efd;"><i class="fas fa-magic fa-spin"></i> HEIC to JPG Converting... Please wait</b>`;
+                                statusText.innerHTML = `<b style="color: #0d6efd;"><i class="fas fa-magic fa-spin"></i> HEIC to JPG Converting... Please wait</b>`;
                             }
                             
                             try {
