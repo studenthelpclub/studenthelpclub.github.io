@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WKEZF1XEMF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Student Help Club</title>
+    <meta name="description" content="Learn more about Student Help Club (SHC), our mission, and how we empower the global student community with free, client-side digital tools.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tools.studenthelpclub.in/about.html">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        /* Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); }
+        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Workspace Container */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
+
+        /* Content Card Structure */
+        .legal-card {
+            background: #ffffff;
+            padding: 45px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        }
+
+        .legal-card h1 { font-size: 1.9rem; color: var(--dark); font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .legal-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; border-bottom: 1px dashed var(--border-color); padding-bottom: 15px; }
+
+        .legal-card h2 { font-size: 1.3rem; color: var(--dark); font-weight: 700; margin-top: 30px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .legal-card h2 i { color: var(--primary); font-size: 1.1rem; }
+        
+        .legal-card p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; line-height: 1.7; }
+        
+        /* Highlight Feature Box */
+        .feature-box-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 25px 0; }
+        .feature-item { background: #f0fdf4; border: 1px solid rgba(0, 177, 79, 0.15); padding: 20px; border-radius: 16px; }
+        .feature-item h3 { color: var(--dark); font-weight: 700; margin-bottom: 6px; font-size: 1rem; display: flex; align-items: center; gap: 8px; margin-top: 0; }
+        .feature-item h3 i { color: var(--primary); }
+        .feature-item p { margin-bottom: 0; font-size: 0.92rem; color: var(--text-main); }
+
+        /* Footer */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .legal-card { padding: 30px 20px; }
+            .feature-box-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <span class="brand-name">Student Help Club</span>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
+    </header>
+
+    <div class="workspace-container">
+        
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+        <article class="legal-card">
+            <h1>About Student Help Club</h1>
+            <p class="subtitle">Empowering the global student community with fast, accessible, and clean digital resources.</p>
+            
+            <p>Welcome to <strong>Student Help Club (SHC)</strong>. We are a dedicated educational resource platform built to support the student community, competitive exam aspirants, and learners looking for simplified tools and smart guidance panels.</p>
+            
+            <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+            <p>Our core framework targets a common obstacle: online utility access should not be gated behind complex log registration tracks or premium server cost blockades. Whether you are generating an ATS-friendly single-page CV layout, formatting structural copy streams inside text modules, or rasterizing high-density bitmap blocks from academic assignments, our ecosystem runs securely on client-side threads natively.</p>
+
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h3><i class="fas fa-shield-alt"></i> 100% Privacy Lock</h3>
+                    <p>All tool engines process data locally in your browser workspace. Document matrices are never tracked or saved into secondary cloud servers.</p>
+                </div>
+                <div class="feature-item">
+                    <h3><i class="fas fa-bolt"></i> Optimized Frameworks</h3>
+                    <p>Lightweight script rendering guarantees clean loading cycles and immediate export actions across low-end mobile configurations easily.</p>
+                </div>
+            </div>
+
+            <h2><i class="fas fa-graduation-cap"></i> Academic & Career Support</h2>
+            <p>Beyond modern functional browser assets, Student Help Club serves as a dedicated digital roadmap node. We continuously assist the student community and regional learners in navigating university enrollment procedures, sorting evaluation guidelines (such as IGNOU formatting models), preparing for competitive examinations, and securing career growth paths after intermediate frameworks.</p>
+        </article>
+
+    </div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about.html">About Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+</body>
+</html>
