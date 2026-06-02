@@ -80,7 +80,8 @@
             border: 1px solid var(--border-color);
         }
         
-        .brand h1 { 
+        /* Fixed Multiple H1 Tag - Added Brand Name Class Styling */
+        .brand .brand-name { 
             font-size: 1.35rem; 
             color: var(--dark); 
             font-weight: 800;
@@ -155,7 +156,8 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        .tool-card h2 {
+        /* Promoted to H1 for single optimized page core indicator */
+        .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
             font-weight: 800;
@@ -386,7 +388,7 @@
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            <h1>Student Help Club</h1>
+            <span class="brand-name">Student Help Club</span>
         </a>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
@@ -400,7 +402,7 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h2>Word Counter & Text Tool</h2>
+            <h1>Word Counter & Text Tool</h1>
             <p class="subtitle">Analyze character volumes, count aggregate text parameters, and transform character cases instantly inside your thread browser.</p>
             
             <textarea id="textInput" placeholder="Paste or type your text here..."></textarea>
@@ -458,9 +460,9 @@
         
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="legal.html#about">About Us</a> | 
-            <a href="legal.html#contact">Contact Us</a> | 
-            <a href="legal.html#terms">Terms of Service</a> |
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
@@ -470,24 +472,31 @@
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
             const textInput = document.getElementById('textInput');
-            const wordCount = document.getElementById('wordCount');
-            const charCount = document.getElementById('charCount');
-
             if(textInput) {
-                textInput.addEventListener('input', () => {
-                    const text = textInput.value.trim();
-                    if(charCount) charCount.innerText = textInput.value.length;
-                    
-                    if (text === "") {
-                        if(wordCount) wordCount.innerText = "0";
-                    } else {
-                        const words = text.split(/\s+/);
-                        if(wordCount) wordCount.innerText = words.length;
-                    }
-                });
+                textInput.addEventListener('input', runLiveCounters);
             }
         });
     })();
+
+    // Unified Counter Function for both inputs and modifications
+    function runLiveCounters() {
+        const textInput = document.getElementById('textInput');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        if(!textInput) return;
+
+        const rawText = textInput.value;
+        const trimmedText = rawText.trim();
+        
+        if(charCount) charCount.innerText = rawText.length;
+        
+        if (trimmedText === "") {
+            if(wordCount) wordCount.innerText = "0";
+        } else {
+            const words = trimmedText.split(/\s+/);
+            if(wordCount) wordCount.innerText = words.length;
+        }
+    }
 
     // Global Case Functions Connected to layout buttons
     function changeCase(type) {
@@ -507,6 +516,7 @@
                 textInput.value = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
                 break;
         }
+        runLiveCounters(); // Fixed: Instantly updates numbers upon conversion click
     }
 
     function clearText() {
@@ -514,8 +524,7 @@
         if (!textInput) return;
         if (confirm("Are you sure you want to clear the text?")) {
             textInput.value = "";
-            document.getElementById('wordCount').innerText = "0";
-            document.getElementById('charCount').innerText = "0";
+            runLiveCounters(); // Fixed: Clean reset via single state management channel
         }
     }
 
