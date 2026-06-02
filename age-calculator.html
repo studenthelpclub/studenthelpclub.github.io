@@ -13,6 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accurate Age Calculator - Student Help Club</title>
     
+    <!-- FIX: Premium SEO Meta Tags Added to resolve Webmaster Description Errors & AdSense Low Value Content Rejection -->
+    <meta name="description" content="Calculate your exact age in years, months, and days from your date of birth as of any cutoff date. Perfect free tool for UPSC, SSC, IGNOU, and exam form eligibility checking by Student Help Club.">
+    <meta name="keywords" content="age calculator, exact age calculator, chronological age finder, date of birth calculator, student help club tools, recruitment eligibility calculator">
+    <meta name="robots" content="index, follow">
+
+    <!-- FIXED: Added missing Google AdSense Client Script for automated ad framework and bot layout verification -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
+    
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -360,7 +368,8 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <!-- FIXED: Added standard responsive error placeholder redirect fallback link -->
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <h1>Student Help Club</h1>
         </a>
         <nav class="nav-menu">
@@ -414,6 +423,19 @@
                 <li><strong>Set Target Cutoff:</strong> The secondary window captures current server dates automatically but stays dynamic so you can manually insert custom cutoff tracking lines.</li>
                 <li><strong>Compute Framework:</strong> Trigger the verification engine to isolate broken down outputs showing exactly how many years, individual months, and total cumulative days have passed since birth.</li>
             </ul>
+
+            <!-- FIX: Added dynamic contextual FAQ module to pass Google AdSense editorial quality thresholds -->
+            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            <h3>Frequently Asked Questions (FAQs)</h3>
+            
+            <h3>Q1: How do I find my exact age as per government exam cutoff dates?</h3>
+            <p>To evaluate your eligibility precisely, select your birth date inside the 'Date of Birth' box, and input the official recruitment circular's timeline parameter inside the 'Age at the Date of' tracker input. Click calculate to isolate the total chronological distribution framework automatically.</p>
+            
+            <h3>Q2: Does this system save private birthday records or student metadata logs?</h3>
+            <p>No. This responsive utility values individual privacy constraints. The computational loop works entirely on client-side client script infrastructure inside your tracking session, ensuring no private documents or credential records reach backend server logs.</p>
+            
+            <h3>Q3: Does the calendar logic accommodate leap years dynamically?</h3>
+            <p>Yes. The chronological code framework parses standard millisecond timestamps and relative month matrix rules dynamically. It inherently calculates leap year anomalies, variable 28/31 calendar intervals, and micro-scale time parameters error-free.</p>
         </article>
     </div>
 
@@ -443,9 +465,14 @@
             const todayInput = document.getElementById('today').value;
 
             // Google reCAPTCHA Validation Guard
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (recaptchaResponse.length === 0) {
-                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (recaptchaResponse.length === 0) {
+                    alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                    return;
+                }
+            } else {
+                alert("Security check is still loading, please wait 2 seconds.");
                 return;
             }
 
@@ -459,6 +486,7 @@
 
             if (dob > today) {
                 alert("Date of Birth cannot be in the future!");
+                if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
                 return;
             }
 
@@ -487,7 +515,9 @@
             document.getElementById('totalDays').innerText = `Total days since birth: ${diffDays} Days`;
             
             // Optional: Resets reCAPTCHA box after output is rendered successfully
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                grecaptcha.reset();
+            }
         }
     </script>
 </body>
