@@ -43,402 +43,74 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        body { 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        /* Unified Premium Header */
         .header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 16px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;
         }
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); }
+        .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); background: var(--primary-hover); }
+
+        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
         
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            gap: 14px; 
-            text-decoration: none; 
-        }
-        
-        .logo { 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-color);
-        }
-        
-        /* FIXED: Brand heading converted to safe div tag style to resolve multiple h1 validation issues */
-        .brand .brand-title { 
-            font-size: 1.35rem; 
-            color: var(--dark); 
-            font-weight: 800;
-            letter-spacing: -0.5px; 
-        }
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        .nav-menu {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .btn-join {
-            background: var(--primary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
-        }
-
-        .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
-            background: var(--primary-hover);
-        }
-
-        /* Workspace Layout */
-        .workspace-container {
-            max-width: 800px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .back-link:hover {
-            color: var(--primary);
-            transform: translateX(-3px);
-        }
-
-        .tool-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
-        }
-
-        /* FIXED: Set tool identity marked as absolute unique h1 master scope tracking */
-        .tool-card h1 {
-            font-size: 1.8rem;
-            color: var(--dark);
-            font-weight: 800;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-            text-align: center;
-        }
-
-        .tool-card .subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* Modern Dash Drop Zone */
         .upload-container {
-            border: 2px dashed var(--primary);
-            background: #f0fdf4;
-            padding: 40px 20px;
-            border-radius: 16px;
-            text-align: center;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            transition: var(--transition);
+            border: 2px dashed var(--primary); background: #f0fdf4; padding: 40px 20px; border-radius: 16px;
+            text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 25px; transition: var(--transition);
         }
+        .upload-container.dragover { background: #dcfce7; border-color: #059669; }
+        .upload-container:hover { background: #e6fced; }
+        .upload-container i { font-size: 44px; color: var(--primary); margin-bottom: 12px; }
+        .select-btn-ui { background: var(--primary); color: white; padding: 12px 30px; border: none; border-radius: 100px; font-size: 0.95rem; font-weight: 700; width: 80%; max-width: 250px; margin-top: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; }
+        #imageInput { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
-        .upload-container:hover {
-            background: #e6fced;
-        }
+        .flex-group { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; background: #fafafa; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .flex-group label { font-weight: 700; color: var(--dark); font-size: 0.92rem; }
+        .flex-group select, .flex-group input[type="number"] { padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); outline: none; font-weight: 600; color: var(--dark); flex: 1; min-width: 200px; }
 
-        .upload-container i {
-            font-size: 44px;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .main-btn:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25); }
+        .clear-btn { width: 100%; background: none; border: none; color: var(--text-muted); margin-top: 12px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+        .clear-btn:hover { color: red; }
 
-        .select-btn-ui {
-            background: var(--primary);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 100px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            width: 80%;
-            max-width: 250px;
-            margin-top: 15px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
-            pointer-events: none;
-        }
+        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box h3 { color: var(--dark); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+        #previewContainer iframe { width: 100%; height: 500px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); margin-top: 20px; }
+        .download-btn:hover { background: #0056b3; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25); }
 
-        #imageInput {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            z-index: 10;
-        }
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .seo-content h3:not(:first-child) { margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 20px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        /* Settings and Layout Inputs */
-        .flex-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            background: #fafafa;
-            margin-bottom: 20px;
-        }
-
-        .flex-group label {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 0.92rem;
-        }
-
-        .flex-group select {
-            padding: 10px; 
-            border-radius: 8px; 
-            border: 1px solid var(--border-color);
-            outline: none;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .recaptcha-wrapper {
-            margin: 25px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .main-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
-        }
-
-        .main-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
-        }
-
-        .clear-btn {
-            width: 100%; 
-            background: none; 
-            border: none; 
-            color: var(--text-muted); 
-            margin-top: 12px; 
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .clear-btn:hover {
-            color: red;
-        }
-
-        /* Results & Display Frame */
-        .result-box {
-            display: none;
-            margin-top: 35px;
-            padding: 30px;
-            background: #f0fdf4;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 177, 79, 0.2);
-            text-align: center;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-box h3 {
-            color: var(--dark);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        #previewContainer iframe {
-            width: 100%;
-            height: 500px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            background: white;
-        }
-
-        .download-btn {
-            width: 100%;
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
-            margin-top: 20px;
-        }
-
-        .download-btn:hover {
-            background: #0056b3;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
-        }
-
-        /* Informative SEO Section */
-        .seo-content {
-            background: #ffffff;
-            padding: 45px;
-            margin-top: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-        }
-
-        .seo-content h3 {
-            color: var(--dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .seo-content h3:not(:first-child) {
-            margin-top: 30px;
-        }
-
-        .seo-content p {
-            font-size: 0.98rem;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            font-weight: 500;
-            text-align: justify;
-        }
-
-        .seo-content ul {
-            margin-left: 20px;
-            color: var(--text-main);
-        }
-
-        .seo-content ul li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Clean Footer */
-        .footer { 
-            background: #ffffff; 
-            padding: 60px 20px 40px; 
-            text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            margin-top: 80px; 
-        }
-        
-        .social-links { 
-            margin-bottom: 25px; 
-        }
-        
-        .social-links a { 
-            font-size: 24px; 
-            margin: 0 16px; 
-            transition: var(--transition); 
-            display: inline-block; 
-            color: var(--text-muted);
-        }
-        
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        
-        .policy-links { 
-            margin-top: 25px; 
-            font-size: 0.92rem; 
-        }
-        
-        .policy-links a { 
-            color: var(--text-muted); 
-            margin: 0 14px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            transition: var(--transition);
-        }
-        
-        .policy-links a:hover { 
-            color: var(--primary); 
-        }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
 
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
@@ -446,6 +118,7 @@
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
             #previewContainer iframe { height: 380px; }
+            .flex-group select, .flex-group input[type="number"] { min-width: 100%; }
         }
     </style>
 </head>
@@ -471,7 +144,7 @@
             <h1>SHC Image to PDF Converter</h1>
             <p class="subtitle">Convert multiple JPG, PNG, or WEBP images into a single, structured high-quality PDF document instantly.</p>
             
-            <div class="upload-container">
+            <div class="upload-container" id="dropZone">
                 <input type="file" id="imageInput" accept="image/*" multiple>
                 <i class="fas fa-images"></i>
                 <p id="statusText" style="margin-top: 5px; font-weight: 600; font-size: 0.95rem;">Select or Drag Images here</p>
@@ -481,8 +154,14 @@
             <div id="imageList" style="margin-top: 20px;"></div>
 
             <div id="pdfSettings" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                
                 <div class="flex-group">
-                    <label for="orientation">Orientation Framework:</label>
+                    <label for="imagesPerPage">Images Per Page:</label>
+                    <input type="number" id="imagesPerPage" min="1" max="20" value="1" placeholder="Type number of images (e.g. 1, 2, 4)">
+                </div>
+
+                <div class="flex-group">
+                    <label for="orientation">Page Orientation:</label>
                     <select id="orientation">
                         <option value="p">Portrait (Vertical)</option>
                         <option value="l">Landscape (Horizontal)</option>
@@ -514,7 +193,8 @@
             <h3>Step-by-Step Compilation Protocol</h3>
             <ul>
                 <li><strong>Acquire Target Files:</strong> Use the dedicated graphical upload interface box to capture single or multiple captured images (Supports JPG, PNG, and responsive WebP systems).</li>
-                <li><strong>Establish Target Orientation:</strong> Fine-tune page layout boundaries using the orientation drop wrapper selection, picking either portrait frameworks or landscape boundaries according to your documents.</li>
+                <li><strong>Type Layout Amount:</strong> Enter exactly how many images you want compiled onto a single A4 page. The AI grid calculator will arrange them properly.</li>
+                <li><strong>Establish Target Orientation:</strong> Fine-tune page layout boundaries using the orientation drop wrapper selection.</li>
                 <li><strong>Pass Verification Guard:</strong> Solve the responsive security check verification badge widget to establish normal server data operations cleanly.</li>
                 <li><strong>Render and Archive:</strong> Click the build trigger to initialize compilation. Review the final document preview window directly inside the framework grid and secure your local download file asset instantly.</li>
             </ul>
@@ -525,11 +205,11 @@
             <h3>Q1: Will my uploaded images be saved on your servers during the PDF conversion?</h3>
             <p>No, absolutely not. The entire computational pipeline runs 100% locally inside your client-side browser thread stack. Your private transcripts, assignments, or signature captures are processed completely locally and are never stored or logged externally.</p>
             
-            <h3>Q2: Can I combine images of different dimensions into a single PDF document?</h3>
-            <p>Yes. The underlying array compilation logic scans the original structural layout parameters of each image independently. It allocates custom canvas sheets inside the virtual document framework on a page-by-page pass, preventing visual cropping or aspect ratio distortion error-free.</p>
+            <h3>Q2: Can I combine Aadhar Card Front and Back on one page?</h3>
+            <p>Yes. Simply upload both photos and type "2" in the Images Per Page input box. The tool will automatically align your ID documents perfectly on a single A4 page without cutting edges.</p>
             
             <h3>Q3: Is there a maximum limit on the number of images I can compile at once?</h3>
-            <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of ultra-high-definition 4K image records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets of up to 50 sheets for clean performance loops.</p>
+            <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of ultra-high-definition image records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets of up to 50 sheets for clean performance loops.</p>
         </article>
     </div>
 
@@ -554,6 +234,7 @@
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
             const imageInput = document.getElementById('imageInput');
+            const dropZone = document.getElementById('dropZone');
             const statusText = document.getElementById('statusText');
             const imageList = document.getElementById('imageList');
             const pdfSettings = document.getElementById('pdfSettings');
@@ -563,10 +244,33 @@
             const previewContainer = document.getElementById('previewContainer');
             const downloadBtn = document.getElementById('downloadBtn');
             const orientationSelect = document.getElementById('orientation');
+            const imagesPerPageInput = document.getElementById('imagesPerPage');
 
             let selectedImages = [];
             let finalPdfBlobUrl = null;
             let finalPdfBlob = null;
+
+            // DRAG AND DROP LOGIC
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                    for (let i = 0; i < e.dataTransfer.files.length; i++) {
+                        if (e.dataTransfer.files[i].type.startsWith('image/')) {
+                            selectedImages.push(e.dataTransfer.files[i]);
+                        }
+                    }
+                    renderImagePreviews();
+                }
+            });
 
             if (imageInput) {
                 imageInput.addEventListener('change', function(e) {
@@ -622,7 +326,6 @@
                 convertBtn.addEventListener('click', function() {
                     if (selectedImages.length === 0) return;
 
-                    // Safety Verification reCAPTCHA Guard
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         const captchaRes = grecaptcha.getResponse();
                         if (captchaRes.length === 0) {
@@ -641,54 +344,80 @@
                         try {
                             const { jsPDF } = window.jspdf;
                             const orient = orientationSelect.value;
+                            const imagesPerPage = parseInt(imagesPerPageInput.value) || 1;
                             
-                            let pdf = null;
+                            let pdf = new jsPDF(orient, 'mm', 'a4');
+                            const pageWidth = pdf.internal.pageSize.getWidth();
+                            const pageHeight = pdf.internal.pageSize.getHeight();
+                            
+                            // Smart Layout Grid Calculation
+                            let cols, rows;
+                            if (imagesPerPage === 1) {
+                                cols = 1; rows = 1;
+                            } else if (imagesPerPage === 2) {
+                                cols = orient === 'p' ? 1 : 2;
+                                rows = orient === 'p' ? 2 : 1;
+                            } else {
+                                cols = Math.ceil(Math.sqrt(imagesPerPage));
+                                rows = Math.ceil(imagesPerPage / cols);
+                                // Adjust so portrait pages stack more rows vertically
+                                if (orient === 'p' && cols > rows) {
+                                    let temp = cols;
+                                    cols = rows;
+                                    rows = temp;
+                                }
+                            }
 
+                            const margin = 10; // 10mm margins
+                            const cellWidth = (pageWidth - (margin * (cols + 1))) / cols;
+                            const cellHeight = (pageHeight - (margin * (rows + 1))) / rows;
+
+                            // Pre-load all image arrays
+                            let imageObjects = [];
                             for (let i = 0; i < selectedImages.length; i++) {
                                 const fileData = await new Promise((resolve) => {
                                     const reader = new FileReader();
                                     reader.onload = (e) => resolve(e.target.result);
                                     reader.readAsDataURL(selectedImages[i]);
                                 });
-
-                                // Image ke original specifications read karne ka logic
                                 const imgProps = await new Promise((resolve) => {
                                     const img = new Image();
-                                    img.onload = () => resolve({ width: img.width, height: img.height });
+                                    img.onload = () => resolve({ width: img.width, height: img.height, data: fileData });
                                     img.src = fileData;
                                 });
+                                imageObjects.push(imgProps);
+                            }
 
-                                // Standard A4 PDF canvas setup (Zoom issue fixed here)
-                                if (i === 0) {
-                                    pdf = new jsPDF(orient, 'mm', 'a4');
-                                } else {
-                                    pdf.addPage('a4', orient);
-                                }
+                            // Chunk processing loop based on user input
+                            for (let i = 0; i < imageObjects.length; i += imagesPerPage) {
+                                if (i > 0) pdf.addPage('a4', orient);
+                                
+                                const chunk = imageObjects.slice(i, i + imagesPerPage);
+                                
+                                chunk.forEach((imgProps, index) => {
+                                    const col = index % cols;
+                                    const row = Math.floor(index / cols);
 
-                                const pageWidth = pdf.internal.pageSize.getWidth();
-                                const pageHeight = pdf.internal.pageSize.getHeight();
+                                    const cellX = margin + col * (cellWidth + margin);
+                                    const cellY = margin + row * (cellHeight + margin);
 
-                                const imgRatio = imgProps.width / imgProps.height;
-                                const pageRatio = pageWidth / pageHeight;
+                                    const imgRatio = imgProps.width / imgProps.height;
+                                    const cellRatio = cellWidth / cellHeight;
 
-                                let finalWidth = pageWidth;
-                                let finalHeight = pageHeight;
+                                    let finalWidth = cellWidth;
+                                    let finalHeight = cellHeight;
 
-                                // Aspect ratio calculation: fits image inside A4 without stretching
-                                if (imgRatio > pageRatio) {
-                                    finalWidth = pageWidth;
-                                    finalHeight = pageWidth / imgRatio;
-                                } else {
-                                    finalHeight = pageHeight;
-                                    finalWidth = pageHeight * imgRatio;
-                                }
+                                    if (imgRatio > cellRatio) {
+                                        finalHeight = cellWidth / imgRatio;
+                                    } else {
+                                        finalWidth = cellHeight * imgRatio;
+                                    }
 
-                                // Center alignment logic
-                                const xOffset = (pageWidth - finalWidth) / 2;
-                                const yOffset = (pageHeight - finalHeight) / 2;
+                                    const xOffset = cellX + (cellWidth - finalWidth) / 2;
+                                    const yOffset = cellY + (cellHeight - finalHeight) / 2;
 
-                                // Rendering image exactly inside the boundaries
-                                pdf.addImage(fileData, 'JPEG', xOffset, yOffset, finalWidth, finalHeight, undefined, 'NONE');
+                                    pdf.addImage(imgProps.data, 'JPEG', xOffset, yOffset, finalWidth, finalHeight, undefined, 'NONE');
+                                });
                             }
 
                             finalPdfBlob = pdf.output('blob');
@@ -705,6 +434,7 @@
 
                         } catch (err) {
                             alert("PDF Creation Error!");
+                            console.error(err);
                         } finally {
                             convertBtn.innerHTML = `Create PDF Now`;
                             convertBtn.disabled = false;
