@@ -342,31 +342,61 @@
                                 isolatedPersonCanvas.height = h;
 
                                 ctx.clearRect(0, 0, w, h);
-                                
-                                // FIXED: Multi-Pass Multi-Scale Smooth Filter Blur mapping instead of 1px lock to soften alpha boundaries
-                                let edgeSmoothRadius = Math.max(1, Math.min(4, Math.round(w / 800)));
-                                ctx.filter = `blur(${edgeSmoothRadius}px)`; 
-                                ctx.drawImage(results.segmentationMask, 0, 0, w, h);
-                                
-                                // Step 2: Composite image cleanly onto the mask
-                                ctx.filter = 'none';
-                                ctx.globalCompositeOperation = 'source-in';
-                                ctx.drawImage(results.image, 0, 0, w, h);
 
-                                // FIXED: Advanced Alpha Feathering Blend Matrix Loop to optimize edge smoothing arrays seamlessly
-                                const finalImgData = ctx.getImageData(0, 0, w, h);
-                                const pixels = finalImgData.data;
+                                // Step 1: Detect if it's a person or a signature mask
+                                const tempMaskCanvas = document.createElement('canvas');
+                                tempMaskCanvas.width = w; tempMaskCanvas.height = h;
+                                const maskCtx = tempMaskCanvas.getContext('2d');
+                                maskCtx.drawImage(results.segmentationMask, 0, 0, w, h);
+                                const maskData = maskCtx.getImageData(0, 0, w, h).data;
                                 
-                                for (let i = 0; i < pixels.length; i += 4) {
-                                    let alphaValue = pixels[i+3];
-                                    if (alphaValue < 50) { 
-                                        pixels[i+3] = 0; // Absolute transparent cut
-                                    } else if (alphaValue < 225) {
-                                        // FIXED: Anti-aliasing alpha interpolator to smooth jagged fringes gracefully
-                                        pixels[i+3] = Math.round(((alphaValue - 50) / 175) * 255 * 0.95);
-                                    }
+                                let humanPixels = 0;
+                                // MediaPipe mask uses RGB, so checking the red channel for white pixels
+                                for (let i = 0; i < maskData.length; i += 4) {
+                                    if (maskData[i] > 128) humanPixels++;
                                 }
-                                ctx.putImageData(finalImgData, 0, 0);
+                                
+                                let personCoverage = humanPixels / (w * h);
+
+                                if (personCoverage < 0.03) {
+                                    // --- SIGNATURE / DOCUMENT MODE ---
+                                    // AI didn't find a person, so we use luminance-based background removal for signatures
+                                    ctx.drawImage(results.image, 0, 0, w, h);
+                                    const imgData = ctx.getImageData(0, 0, w, h);
+                                    const pixels = imgData.data;
+
+                                    for (let i = 0; i < pixels.length; i += 4) {
+                                        let r = pixels[i];
+                                        let g = pixels[i+1];
+                                        let b = pixels[i+2];
+                                        
+                                        // Calculate brightness (Luma)
+                                        let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+                                        
+                                        if (brightness > 200) {
+                                            pixels[i+3] = 0; // Remove white/light background completely
+                                        } else if (brightness > 100) {
+                                            // Soft feathering for ink edges
+                                            pixels[i+3] = Math.round(255 - ((brightness - 100) * 2.55));
+                                        }
+                                    }
+                                    ctx.putImageData(imgData, 0, 0);
+
+                                } else {
+                                    // --- PERSON / SELFIE MODE ---
+                                    // Gentle dynamic blur to keep edges smooth
+                                    let edgeSmoothRadius = Math.max(1.5, Math.min(3, w / 1000));
+                                    ctx.filter = `blur(${edgeSmoothRadius}px)`; 
+                                    ctx.drawImage(results.segmentationMask, 0, 0, w, h);
+                                    
+                                    // Composite image cleanly onto the mask
+                                    ctx.filter = 'none';
+                                    ctx.globalCompositeOperation = 'source-in';
+                                    ctx.drawImage(results.image, 0, 0, w, h);
+                                    
+                                    // Removed the old 'Alpha Feathering Blend Matrix Loop' here because 
+                                    // that manual alpha calculation was destroying the smooth edges.
+                                }
 
                                 // Compile results live
                                 renderFinalComposite();
