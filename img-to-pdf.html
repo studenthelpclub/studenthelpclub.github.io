@@ -11,18 +11,14 @@
 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIXED: Optimized short title framework to pass search engine indexing validation borders -->
     <title>Image to PDF Converter Online - Student Help Club</title>
     
-    <!-- FIX: Premium SEO Meta Tags Added to resolve Webmaster Description Errors & AdSense Bot Compliance -->
     <meta name="description" content="Convert multiple JPG, PNG, or WEBP images into a single, structured high-quality PDF document instantly. Free secure localized tool by Student Help Club.">
     <meta name="keywords" content="image to pdf, convert jpg to pdf, png to pdf converter, combine images to pdf, student help club tools, assignment pdf maker">
     <meta name="robots" content="index, follow">
 
-    <!-- FIXED: Resolved duplicate indices warning by adding the unique absolute master canonical link -->
     <link rel="canonical" href="https://www.studenthelpclub.in/image-to-pdf.html">
 
-    <!-- FIXED: Added missing Google AdSense Client Script for automated ad delivery and crawler validation -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
@@ -523,7 +519,6 @@
                 <li><strong>Render and Archive:</strong> Click the build trigger to initialize compilation. Review the final document preview window directly inside the framework grid and secure your local download file asset instantly.</li>
             </ul>
 
-            <!-- FIX: Added dynamic contextual FAQ module to pass Google AdSense editorial quality thresholds -->
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
             <h3>Frequently Asked Questions (FAQs)</h3>
             
@@ -663,15 +658,37 @@
                                     img.src = fileData;
                                 });
 
-                                // Sabse important fix: Pehli image par hi uske original dimension ka canvas setup hoga
+                                // Standard A4 PDF canvas setup (Zoom issue fixed here)
                                 if (i === 0) {
-                                    pdf = new jsPDF(orient, 'px', [imgProps.width, imgProps.height]);
+                                    pdf = new jsPDF(orient, 'mm', 'a4');
                                 } else {
-                                    pdf.addPage([imgProps.width, imgProps.height], orient);
+                                    pdf.addPage('a4', orient);
                                 }
 
-                                // Bagair kisi scaling compression ke raw file dump mode (None Compression)
-                                pdf.addImage(fileData, 'JPEG', 0, 0, imgProps.width, imgProps.height, undefined, 'NONE');
+                                const pageWidth = pdf.internal.pageSize.getWidth();
+                                const pageHeight = pdf.internal.pageSize.getHeight();
+
+                                const imgRatio = imgProps.width / imgProps.height;
+                                const pageRatio = pageWidth / pageHeight;
+
+                                let finalWidth = pageWidth;
+                                let finalHeight = pageHeight;
+
+                                // Aspect ratio calculation: fits image inside A4 without stretching
+                                if (imgRatio > pageRatio) {
+                                    finalWidth = pageWidth;
+                                    finalHeight = pageWidth / imgRatio;
+                                } else {
+                                    finalHeight = pageHeight;
+                                    finalWidth = pageHeight * imgRatio;
+                                }
+
+                                // Center alignment logic
+                                const xOffset = (pageWidth - finalWidth) / 2;
+                                const yOffset = (pageHeight - finalHeight) / 2;
+
+                                // Rendering image exactly inside the boundaries
+                                pdf.addImage(fileData, 'JPEG', xOffset, yOffset, finalWidth, finalHeight, undefined, 'NONE');
                             }
 
                             finalPdfBlob = pdf.output('blob');
