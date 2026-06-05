@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Fix 1: Removed user-scalable=no for accessibility -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Help Club - Free Image Resizer, PDF Tools & Calculators</title>
 
     <link rel="canonical" href="https://www.shctools.in/index.html" />
@@ -13,7 +14,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <!-- Preload Fonts and Icons to fix Render-Blocking -->
+    <!-- Preload Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -36,18 +37,19 @@
 
     <style>
         :root {
-            --primary: #00b14f; 
+            /* Fix 4: Slightly darker green for perfect contrast ratio */
+            --primary: #00873D; 
             --primary-light: #e6f7ee;
             --dark: #0f172a; 
             --text-main: #334155; 
-            --text-muted: #64748b; 
+            --text-muted: #53647d; /* Slightly darker grey for better contrast */
             --bg-body: #f8fafc; 
             --border-color: #e2e8f0; 
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         html {
-            scroll-behavior: smooth; /* Added for smooth scrolling */
+            scroll-behavior: smooth;
         }
 
         * { 
@@ -64,7 +66,7 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Upgraded Corporate Navigation with Menu Links */
+        /* Header & Nav */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -129,16 +131,16 @@
             font-size: 0.9rem;
             font-weight: 700;
             transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 135, 61, 0.2);
         }
 
         .btn-join:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
-            background: #009642;
+            box-shadow: 0 6px 14px rgba(0, 135, 61, 0.3);
+            background: #006e32;
         }
         
-        /* Modern Minimalist Hero */
+        /* Hero Section */
         .hero {
             background: linear-gradient(180deg, #ffffff 0%, var(--bg-body) 100%);
             border-bottom: 1px solid var(--border-color);
@@ -158,7 +160,7 @@
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, #00b14f 0%, #10b981 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #10b981 100%);
             -webkit-background-clip: text;
             background-clip: text; 
             -webkit-text-fill-color: transparent;
@@ -174,21 +176,20 @@
             font-weight: 500;
         }
 
-        /* Container Area to Prevent Shrinking */
+        /* Container & Grid */
         .main-container { 
             max-width: 1400px; 
             margin: -50px auto 60px; 
             padding: 0 30px; 
         }
         
-        /* 4 Column Layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
         }
         
-        /* Premium Soft-SaaS Cards */
+        /* Cards */
         .card {
             background: #ffffff;
             padding: 32px 26px;
@@ -207,10 +208,9 @@
         .card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 25px -5px rgba(0, 177, 79, 0.08), 0 10px 10px -5px rgba(0, 177, 79, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 135, 61, 0.08), 0 10px 10px -5px rgba(0, 135, 61, 0.04);
         }
         
-        /* Tool Type Badge */
         .badge {
             align-self: flex-start;
             font-size: 0.72rem;
@@ -254,7 +254,8 @@
             color: #ffffff;
         }
         
-        .card h3 { 
+        /* Fix 3: Updated selector from h3 to h2 for sequential headings */
+        .card h2 { 
             margin-bottom: 8px; 
             font-size: 1.25rem; 
             color: var(--dark); 
@@ -269,7 +270,7 @@
             font-weight: 500;
         }
 
-        /* Rich Content Section for SEO & AdSense */
+        /* SEO Content Section */
         .seo-content {
             background: #ffffff;
             padding: 55px;
@@ -314,7 +315,7 @@
             font-weight: 500;
         }
 
-        /* Clean Balanced Footer */
+        /* Footer */
         .footer { 
             background: #ffffff; 
             padding: 60px 20px 40px; 
@@ -356,37 +357,37 @@
             color: var(--primary); 
         }
 
-        /* Responsive Settings - Adjusted for smoother mobile experience */
+        /* Responsive Settings */
         @media (max-width: 1024px) {
             .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
             .main-container { padding: 0 20px; }
         }
 
         @media (max-width: 768px) {
-            .header { padding: 12px 4%; } /* Slimmer mobile header */
+            .header { padding: 12px 4%; } 
             .nav-menu { display: none; } 
-            .brand .brand-title { font-size: 1.15rem; } /* Slightly smaller title for small screens */
-            .logo { width: 38px; height: 38px; } /* Slightly smaller logo */
+            .brand .brand-title { font-size: 1.15rem; } 
+            .logo { width: 38px; height: 38px; } 
             
-            .hero { padding: 60px 15px 80px; } /* Adjusted hero padding */
+            .hero { padding: 60px 15px 80px; } 
             .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1.05rem; padding: 0 10px; }
             
             .grid { grid-template-columns: 1fr; gap: 14px; }
             .main-container { margin-top: -30px; padding: 0 12px; }
-            .card { padding: 22px 18px; } /* Adjusted card padding for mobile */
+            .card { padding: 22px 18px; } 
             
-            .seo-content { padding: 30px 20px; margin-top: 40px; } /* Adjusted SEO content padding */
+            .seo-content { padding: 30px 20px; margin-top: 40px; } 
             .seo-content h2 { font-size: 1.5rem; }
             
             .footer { padding: 40px 15px 30px; }
             .social-links a { margin: 0 12px; }
-            .policy-links a { display: inline-block; margin: 8px 10px; } /* Better spacing for policy links on mobile */
+            .policy-links a { display: inline-block; margin: 8px 10px; } 
         }
         
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.9rem; }
-            .card h3 { font-size: 1.15rem; }
+            .card h2 { font-size: 1.15rem; }
         }
     </style>
 </head>
@@ -404,121 +405,125 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Web Utility Tools <span>Designed for Students</span></h1>
-        <p>A safe, rapid, and premium open workspace to optimize your files, manage calculations, and process exam documentation effortlessly.</p>
-    </section>
+    <!-- Fix 2: Added <main> tag to establish the main landmark for screen readers -->
+    <main>
+        <section class="hero">
+            <h1>Web Utility Tools <span>Designed for Students</span></h1>
+            <p>A safe, rapid, and premium open workspace to optimize your files, manage calculations, and process exam documentation effortlessly.</p>
+        </section>
 
-    <div class="main-container" id="tools-section">
-        <div class="grid">
-            
-            <a href="image-resize.html" class="card">
-                <span class="badge b-img">Image</span>
-                <div class="icon-wrapper"><i class="fas fa-file-image"></i></div>
-                <h3>Image Resizer</h3>
-                <p>Compress and crop image formats to target KB specifications for academic registrations.</p>
-            </a>
-            
-            <a href="pdf-resize.html" class="card">
-                <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="fas fa-compress-arrows-alt"></i></div>
-                <h3>PDF Resizer</h3>
-                <p>Reduce PDF file weights cleanly while securing proper content clarity standards.</p>
-            </a>
+        <div class="main-container" id="tools-section">
+            <div class="grid">
+                
+                <a href="image-resize.html" class="card">
+                    <span class="badge b-img">Image</span>
+                    <div class="icon-wrapper"><i class="fas fa-file-image"></i></div>
+                    <!-- Fix 3: Changed h3 to h2 -->
+                    <h2>Image Resizer</h2>
+                    <p>Compress and crop image formats to target KB specifications for academic registrations.</p>
+                </a>
+                
+                <a href="pdf-resize.html" class="card">
+                    <span class="badge b-pdf">PDF</span>
+                    <div class="icon-wrapper"><i class="fas fa-compress-arrows-alt"></i></div>
+                    <h2>PDF Resizer</h2>
+                    <p>Reduce PDF file weights cleanly while securing proper content clarity standards.</p>
+                </a>
 
-            <a href="image-bg-remover.html" class="card">
-                <span class="badge b-img">Image</span>
-                <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
-                <h3>Image Background Remover</h3>
-                <p>Automatically extract portraits and remove complex background environments instantly inside your browser.</p>
-            </a>
-            
-            <a href="resume-builder.html" class="card">
-                <span class="badge b-file">Resume</span>
-                <div class="icon-wrapper"><i class="fas fa-file-invoice"></i></div>
-                <h3>Resume Builder</h3>
-                <p>Design a professional, ATS-friendly single-page resume for job applications and college admissions.</p>
-            </a>
-            <a href="enhance.html" class="card">
-                <span class="badge b-img">Image</span>
-                <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
-                <h3>Instant Image Enhancer</h3>
-                <p>Upscale and convert your document scans or photos to high-definition 4K/8K quality tracks instantly.</p>
-            </a>
+                <a href="image-bg-remover.html" class="card">
+                    <span class="badge b-img">Image</span>
+                    <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h2>Image Background Remover</h2>
+                    <p>Automatically extract portraits and remove complex background environments instantly inside your browser.</p>
+                </a>
+                
+                <a href="resume-builder.html" class="card">
+                    <span class="badge b-file">Resume</span>
+                    <div class="icon-wrapper"><i class="fas fa-file-invoice"></i></div>
+                    <h2>Resume Builder</h2>
+                    <p>Design a professional, ATS-friendly single-page resume for job applications and college admissions.</p>
+                </a>
+                <a href="enhance.html" class="card">
+                    <span class="badge b-img">Image</span>
+                    <div class="icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h2>Instant Image Enhancer</h2>
+                    <p>Upscale and convert your document scans or photos to high-definition 4K/8K quality tracks instantly.</p>
+                </a>
 
-            <a href="pdf-invert.html" class="card">
-                <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="fas fa-circle-half-stroke"></i></div>
-                <h3>PDF Color Inverter</h3>
-                <p>Invert document contrast layouts into high-grade night mode templates for study comfort.</p>
-            </a>
+                <a href="pdf-invert.html" class="card">
+                    <span class="badge b-pdf">PDF</span>
+                    <div class="icon-wrapper"><i class="fas fa-circle-half-stroke"></i></div>
+                    <h2>PDF Color Inverter</h2>
+                    <p>Invert document contrast layouts into high-grade night mode templates for study comfort.</p>
+                </a>
 
-            <a href="word-counter.html" class="card">
-                <span class="badge b-util">Utility</span>
-                <div class="icon-wrapper"><i class="fas fa-font"></i></div>
-                <h3>Word Counter</h3>
-                <p>Analyze word frequencies, character lengths, and edit typography setups instantly.</p>
-            </a>
+                <a href="word-counter.html" class="card">
+                    <span class="badge b-util">Utility</span>
+                    <div class="icon-wrapper"><i class="fas fa-font"></i></div>
+                    <h2>Word Counter</h2>
+                    <p>Analyze word frequencies, character lengths, and edit typography setups instantly.</p>
+                </a>
 
-            <a href="age-calculator.html" class="card">
-                <span class="badge b-util">Utility</span>
-                <div class="icon-wrapper"><i class="fas fa-calculator"></i></div>
-                <h3>Age Calculator</h3>
-                <p>Compute precise structural biological age fields down to dates for recruitment rules.</p>
-            </a>
+                <a href="age-calculator.html" class="card">
+                    <span class="badge b-util">Utility</span>
+                    <div class="icon-wrapper"><i class="fas fa-calculator"></i></div>
+                    <h2>Age Calculator</h2>
+                    <p>Compute precise structural biological age fields down to dates for recruitment rules.</p>
+                </a>
 
-            <a href="pdf-merge.html" class="card">
-                <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
-                <h3>PDF Merge</h3>
-                <p>Combine multiple loose document streams together into a solid structured PDF file.</p>
-            </a>
+                <a href="pdf-merge.html" class="card">
+                    <span class="badge b-pdf">PDF</span>
+                    <div class="icon-wrapper"><i class="fas fa-layer-group"></i></div>
+                    <h2>PDF Merge</h2>
+                    <p>Combine multiple loose document streams together into a solid structured PDF file.</p>
+                </a>
 
-            <a href="img-to-pdf.html" class="card">
-                <span class="badge b-img">Image</span>
-                <div class="icon-wrapper"><i class="fas fa-file-pdf"></i></div>
-                <h3>Image to PDF</h3>
-                <p>Transform single or grouped graphic assets directly into universally readable PDFs.</p>
-            </a>
+                <a href="img-to-pdf.html" class="card">
+                    <span class="badge b-img">Image</span>
+                    <div class="icon-wrapper"><i class="fas fa-file-pdf"></i></div>
+                    <h2>Image to PDF</h2>
+                    <p>Transform single or grouped graphic assets directly into universally readable PDFs.</p>
+                </a>
 
-            <a href="pdf-split.html" class="card">
-                <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="scissors-icon"><i class="fas fa-scissors"></i></i></div>
-                <h3>PDF Split</h3>
-                <p>Extract standalone component blocks or break large PDFs into separate fragments.</p>
-            </a>
+                <a href="pdf-split.html" class="card">
+                    <span class="badge b-pdf">PDF</span>
+                    <div class="icon-wrapper"><i class="scissors-icon"><i class="fas fa-scissors"></i></i></div>
+                    <h2>PDF Split</h2>
+                    <p>Extract standalone component blocks or break large PDFs into separate fragments.</p>
+                </a>
 
-            <a href="pdf-to-img.html" class="card">
-                <span class="badge b-pdf">PDF</span>
-                <div class="icon-wrapper"><i class="fas fa-images"></i></div>
-                <h3>PDF to Image</h3>
-                <p>Isolate separate page content fields out into high-definition standalone images.</p>
-            </a>
+                <a href="pdf-to-img.html" class="card">
+                    <span class="badge b-pdf">PDF</span>
+                    <div class="icon-wrapper"><i class="fas fa-images"></i></div>
+                    <h2>PDF to Image</h2>
+                    <p>Isolate separate page content fields out into high-definition standalone images.</p>
+                </a>
 
-            <a href="percentage-calculator.html" class="card">
-                <span class="badge b-util">Utility</span>
-                <div class="icon-wrapper"><i class="fas fa-percentage"></i></div>
-                <h3>Percentage Calculator</h3>
-                <p>Process total multi-term marks and grading classes cleanly for admissions pipelines.</p>
-            </a>
-            
+                <a href="percentage-calculator.html" class="card">
+                    <span class="badge b-util">Utility</span>
+                    <div class="icon-wrapper"><i class="fas fa-percentage"></i></div>
+                    <h2>Percentage Calculator</h2>
+                    <p>Process total multi-term marks and grading classes cleanly for admissions pipelines.</p>
+                </a>
+                
+            </div>
+
+            <article class="seo-content">
+                <h2>The All-In-One Web Tool Application Suite for Students</h2>
+                <p>Navigating through competitive portals, government job platforms, or regular university submissions often demands strict file standards. At <strong>Student Help Club</strong>, we bridge that gap by offering custom-tailored automated programs that resolve file processing tasks smoothly. Our tools run locally via your browser window, ensuring data parameters are computed immediately without background server transfers—maximizing individual privacy metrics.</p>
+                
+                <h3>Core Functionalities Engineered for Academic Ease</h3>
+                <ul>
+                    <li><strong>Optimal Image and PDF Compressions:</strong> Easily resize image resolutions down to standardized requirements such as 20KB or 50KB setups without losing identity traits or clarity parameters.</li>
+                    <li><strong>Smart Document Manipulation Frameworks:</strong> Merge separate reference assets together or isolate complex pages down to custom fragments using our dedicated layout engines.</li>
+                    <li><strong>Fast Data Computing:</strong> Calculate parameters like age criteria for dynamic recruitment forms or analyze final grading criteria breakdowns instantly.</li>
+                </ul>
+
+                <h3>Complete Privacy and Performance Integration</h3>
+                <p>Unlike conventional web software, our tools prioritize your data integrity. Because operations run client-side inside the script ecosystem, standard academic materials, image uploads, and legal PDFs never process outside your own browser window. Enjoy high processing speeds entirely for free—no payment blocks, no subscription logs, just clean productivity tools.</p>
+            </article>
         </div>
-
-        <article class="seo-content">
-            <h2>The All-In-One Web Tool Application Suite for Students</h2>
-            <p>Navigating through competitive portals, government job platforms, or regular university submissions often demands strict file standards. At <strong>Student Help Club</strong>, we bridge that gap by offering custom-tailored automated programs that resolve file processing tasks smoothly. Our tools run locally via your browser window, ensuring data parameters are computed immediately without background server transfers—maximizing individual privacy metrics.</p>
-            
-            <h3>Core Functionalities Engineered for Academic Ease</h3>
-            <ul>
-                <li><strong>Optimal Image and PDF Compressions:</strong> Easily resize image resolutions down to standardized requirements such as 20KB or 50KB setups without losing identity traits or clarity parameters.</li>
-                <li><strong>Smart Document Manipulation Frameworks:</strong> Merge separate reference assets together or isolate complex pages down to custom fragments using our dedicated layout engines.</li>
-                <li><strong>Fast Data Computing:</strong> Calculate parameters like age criteria for dynamic recruitment forms or analyze final grading criteria breakdowns instantly.</li>
-            </ul>
-
-            <h3>Complete Privacy and Performance Integration</h3>
-            <p>Unlike conventional web software, our tools prioritize your data integrity. Because operations run client-side inside the script ecosystem, standard academic materials, image uploads, and legal PDFs never process outside your own browser window. Enjoy high processing speeds entirely for free—no payment blocks, no subscription logs, just clean productivity tools.</p>
-        </article>
-    </div>
+    </main>
 
     <footer class="footer">
         <div class="social-links">
