@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Student Help Club - Free Image Resizer, PDF Tools & Calculators</title>
+
+    <link rel="canonical" href="https://www.shctools.in/index.html" />
+    <meta name="description" content="Free online utility tools for students. Easily resize images to 20kb or 50kb, split or merge PDFs, convert images, use word counter, age calculator, and PDF night mode for exam forms.">
+    <meta name="keywords" content="Resume Builder, Online CV Maker for Students, Free Resume Creator, Student Help Club Tools, Image Resizer, Photo Size Compressor for Forms, Resize Photo in KB, PDF Compressor, PDF Size Reducer, Online PDF Compressor Free, Age Calculator, Date of Birth Calculator, Word Counter, Online Text Word Count Tool, PDF Dark Mode Converter, Image to PDF Converter, JPG to PDF Converter Online, Percentage Calculator, Online Grade Calculator, PDF Splitter, Split PDF Pages Online, PDF Merger, Merge PDF Files Free, Background Remover, Remove Image Background Free, Image Enhancer, Online Photo Enhancer, AI Photo Quality Booster">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Preload Fonts and Icons to fix Render-Blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKEZF1XEMF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -8,21 +30,8 @@
       gtag('js', new Date());
       gtag('config', 'G-WKEZF1XEMF');
     </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Help Club - Free Image Resizer, PDF Tools & Calculators</title>
-
-    <link rel="canonical" href="https://www.shctools.in/index.html" />
-    <meta name="description" content="Free online utility tools for students. Easily resize images to 20kb or 50kb, split or merge PDFs, convert images, use word counter, age calculator, and PDF night mode for exam forms.">
-    <meta name="keywords" content="Resume Builder, Online CV Maker for Students, Free Resume Creator, Student Help Club Tools, Image Resizer, Photo Size Compressor for Forms, Resize Photo in KB, PDF Compressor, PDF Size Reducer, Online PDF Compressor Free, Age Calculator, Date of Birth Calculator, Word Counter, Online Text Word Count Tool, PDF Dark Mode Converter, Image to PDF Converter, JPG to PDF Converter Online, Percentage Calculator, Online Grade Calculator, PDF Splitter, Split PDF Pages Online, PDF Merger, Merge PDF Files Free, Background Remover, Remove Image Background Free, Image Enhancer, Online Photo Enhancer, AI Photo Quality Booster">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
 
     <style>
@@ -37,6 +46,10 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
+        html {
+            scroll-behavior: smooth; /* Added for smooth scrolling */
+        }
+
         * { 
             margin: 0; 
             padding: 0; 
@@ -82,7 +95,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* FIXED: Changed brand heading to div style to fix 'More than one h1 tag' error validation */
         .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
@@ -135,7 +147,6 @@
             text-align: center;
         }
         
-        /* FIXED: Converted this main hero banner slogan to absolute unique master h1 hierarchy */
         .hero h1 { 
             font-size: 3rem; 
             font-weight: 800;
@@ -345,21 +356,37 @@
             color: var(--primary); 
         }
 
-        /* Responsive Settings */
+        /* Responsive Settings - Adjusted for smoother mobile experience */
         @media (max-width: 1024px) {
             .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
             .main-container { padding: 0 20px; }
         }
 
         @media (max-width: 768px) {
-            .header { padding: 16px 4%; }
+            .header { padding: 12px 4%; } /* Slimmer mobile header */
             .nav-menu { display: none; } 
-            .hero h1 { font-size: 2.1rem; }
-            .hero p { font-size: 1.1rem; }
-            .grid { grid-template-columns: 1fr; gap: 16px; }
-            .main-container { margin-top: -30px; padding: 0 15px; }
-            .card { padding: 24px 20px; }
-            .seo-content { padding: 35px 25px; }
+            .brand .brand-title { font-size: 1.15rem; } /* Slightly smaller title for small screens */
+            .logo { width: 38px; height: 38px; } /* Slightly smaller logo */
+            
+            .hero { padding: 60px 15px 80px; } /* Adjusted hero padding */
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1.05rem; padding: 0 10px; }
+            
+            .grid { grid-template-columns: 1fr; gap: 14px; }
+            .main-container { margin-top: -30px; padding: 0 12px; }
+            .card { padding: 22px 18px; } /* Adjusted card padding for mobile */
+            
+            .seo-content { padding: 30px 20px; margin-top: 40px; } /* Adjusted SEO content padding */
+            .seo-content h2 { font-size: 1.5rem; }
+            
+            .footer { padding: 40px 15px 30px; }
+            .social-links a { margin: 0 12px; }
+            .policy-links a { display: inline-block; margin: 8px 10px; } /* Better spacing for policy links on mobile */
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.9rem; }
+            .card h3 { font-size: 1.15rem; }
         }
     </style>
 </head>
