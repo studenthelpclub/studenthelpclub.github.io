@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -32,7 +31,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
         :root {
@@ -58,7 +56,6 @@
         .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
         
-        /* FIXED: Converted to standard div tag block to resolve 'More than one h1 tag' validation alert */
         .brand .brand-title { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
         .nav-menu { display: flex; gap: 24px; align-items: center; }
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
@@ -70,7 +67,6 @@
         
         .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
         
-        /* FIXED: Absolute single unique master h1 hierarchy implementation */
         .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
@@ -80,16 +76,16 @@
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .upload-container-box:hover { background: #e6fced; }
+        .upload-container-box:hover, .upload-container-box.dragover { background: #dcfce7; border-color: var(--primary-hover); }
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
-        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); }
+        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); transition: var(--transition); pointer-events: none;}
 
         .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
         #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
 
-        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
-        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); margin-top: 15px; }
         .main-btn:hover { background: var(--primary-hover); }
+        .main-btn:disabled { background: var(--text-muted); cursor: not-allowed; box-shadow: none; }
 
         /* Output Canvas Layout Checkerboard Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
@@ -106,7 +102,8 @@
         .color-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; transition: var(--transition); }
         .color-circle:hover, .color-circle.active { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.2); border-color: var(--primary); }
         
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
+        .download-btn:hover { background: #0056b3; }
 
         /* Full Rich Content SEO Section */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
@@ -155,7 +152,7 @@
             <h1>Image Background Remover</h1>
             <p class="subtitle">Advanced client-side AI network model to automatically extract persons and remove complex backgrounds instantly.</p>
             
-            <div class="upload-container-box">
+            <div class="upload-container-box" id="dropZone">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
                 <i class="fas fa-wand-magic-sparkles" style="font-size: 44px; color: var(--primary);"></i>
                 <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Clear Background</p>
@@ -166,11 +163,6 @@
                 <div class="preview-box">
                     <img id="sourceImagePreview" src="" alt="Source Upload">
                 </div>
-
-                <div class="recaptcha-wrapper">
-                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
-                </div>
-
                 <button id="processBtn" class="main-btn">Remove Background</button>
             </div>
 
@@ -205,7 +197,6 @@
             <ul>
                 <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
                 <li><strong>Isolate Erasing Parameters:</strong> The deep AI neural networks map user geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
-                <li><strong>Pass the Security Challenge Badge:</strong> Solve the automated responsive reCAPTCHA protection widget to activate script operations safely without interface lock constraints.</li>
                 <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
             </ul>
 
@@ -245,6 +236,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             
             const imageInput = document.getElementById('imageInput');
+            const dropZone = document.getElementById('dropZone');
             const settingsArea = document.getElementById('settingsArea');
             const processBtn = document.getElementById('processBtn');
             const resultArea = document.getElementById('resultArea');
@@ -255,9 +247,12 @@
             const previewWrapper = document.getElementById('previewWrapper');
 
             let sourceImageObject = new Image();
-            let isolatedPersonCanvas = null; 
             let selectedBgColor = 'transparent';
             let selfieSegmentation = null;
+            
+            // Reusable canvases to prevent memory leaks
+            let isolatedPersonCanvas = document.createElement('canvas');
+            let tempMaskCanvas = document.createElement('canvas');
 
             function initAI() {
                 try {
@@ -266,14 +261,41 @@
                             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
                         });
                         selfieSegmentation.setOptions({ modelSelection: 1 });
+                        
+                        // Prime the model empty to ensure it's loaded
+                        selfieSegmentation.onResults(()=>{});
+                        selfieSegmentation.send({image: document.createElement('canvas')}).catch(e=>{});
                     } else {
                         setTimeout(initAI, 500);
                     }
                 } catch(e) {
-                    console.error("AI Matrix initialization loop pending.");
+                    console.error("AI Matrix initialization pending.");
                 }
             }
             initAI();
+
+            // Drag and Drop Logic
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                let dt = e.dataTransfer;
+                let files = dt.files;
+                if (files && files.length > 0) {
+                    imageInput.files = files;
+                    imageInput.dispatchEvent(new Event('change'));
+                }
+            });
 
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
@@ -290,9 +312,13 @@
                                     const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
                                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                                     file = new File([blob], "converted_shc.jpg", { type: "image/jpeg" });
+                                } else {
+                                    throw new Error("heic2any library not loaded");
                                 }
                             } catch (err) {
-                                console.error("HEIC Fallback pipeline executed.");
+                                console.error("HEIC Fallback pipeline executed.", err);
+                                if (statusText) statusText.innerHTML = `<b style="color:red;"><i class="fas fa-times-circle"></i> Format not supported or HEIC conversion failed. Try JPG/PNG.</b>`;
+                                return; // Stops execution on error
                             }
                         }
 
@@ -315,45 +341,36 @@
                 processBtn.addEventListener('click', function() {
                     if (!sourceImageObject.src) return;
 
-                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-                        if (grecaptcha.getResponse().length === 0) {
-                            alert("Please pass the security reCAPTCHA first.");
-                            return;
-                        }
-                    }
-
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
                     processBtn.disabled = true;
 
                     setTimeout(async () => {
                         try {
                             if (!selfieSegmentation) {
-                                alert("AI Engine initializing. Click again in 2 seconds.");
+                                alert("AI Engine initializing. Please wait a moment and try again.");
                                 processBtn.innerHTML = "Remove Background";
                                 processBtn.disabled = false;
                                 return;
                             }
 
                             selfieSegmentation.onResults((results) => {
-                                isolatedPersonCanvas = document.createElement('canvas');
                                 const ctx = isolatedPersonCanvas.getContext('2d');
-                                
                                 const w = sourceImageObject.naturalWidth || sourceImageObject.width;
                                 const h = sourceImageObject.naturalHeight || sourceImageObject.height;
+                                
                                 isolatedPersonCanvas.width = w;
                                 isolatedPersonCanvas.height = h;
-
                                 ctx.clearRect(0, 0, w, h);
 
                                 // Step 1: Detect if it's a person or a signature mask
-                                const tempMaskCanvas = document.createElement('canvas');
-                                tempMaskCanvas.width = w; tempMaskCanvas.height = h;
+                                tempMaskCanvas.width = w; 
+                                tempMaskCanvas.height = h;
                                 const maskCtx = tempMaskCanvas.getContext('2d');
+                                maskCtx.clearRect(0, 0, w, h);
                                 maskCtx.drawImage(results.segmentationMask, 0, 0, w, h);
                                 const maskData = maskCtx.getImageData(0, 0, w, h).data;
                                 
                                 let humanPixels = 0;
-                                // MediaPipe mask uses RGB, so checking the red channel for white pixels
                                 for (let i = 0; i < maskData.length; i += 4) {
                                     if (maskData[i] > 128) humanPixels++;
                                 }
@@ -362,7 +379,6 @@
 
                                 if (personCoverage < 0.03) {
                                     // --- SIGNATURE / DOCUMENT MODE ---
-                                    // AI didn't find a person, so we use luminance-based background removal for signatures
                                     ctx.drawImage(results.image, 0, 0, w, h);
                                     const imgData = ctx.getImageData(0, 0, w, h);
                                     const pixels = imgData.data;
@@ -372,13 +388,11 @@
                                         let g = pixels[i+1];
                                         let b = pixels[i+2];
                                         
-                                        // Calculate brightness (Luma)
                                         let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
                                         
                                         if (brightness > 200) {
-                                            pixels[i+3] = 0; // Remove white/light background completely
+                                            pixels[i+3] = 0;
                                         } else if (brightness > 100) {
-                                            // Soft feathering for ink edges
                                             pixels[i+3] = Math.round(255 - ((brightness - 100) * 2.55));
                                         }
                                     }
@@ -386,21 +400,15 @@
 
                                 } else {
                                     // --- PERSON / SELFIE MODE ---
-                                    // Gentle dynamic blur to keep edges smooth
                                     let edgeSmoothRadius = Math.max(1.5, Math.min(3, w / 1000));
                                     ctx.filter = `blur(${edgeSmoothRadius}px)`; 
                                     ctx.drawImage(results.segmentationMask, 0, 0, w, h);
                                     
-                                    // Composite image cleanly onto the mask
                                     ctx.filter = 'none';
                                     ctx.globalCompositeOperation = 'source-in';
                                     ctx.drawImage(results.image, 0, 0, w, h);
-                                    
-                                    // Removed the old 'Alpha Feathering Blend Matrix Loop' here because 
-                                    // that manual alpha calculation was destroying the smooth edges.
                                 }
 
-                                // Compile results live
                                 renderFinalComposite();
 
                                 if (resultArea) {
@@ -414,7 +422,7 @@
                             await selfieSegmentation.send({ image: sourceImageObject });
 
                         } catch(err) {
-                            alert("Engine busy loop tracker. Re-submitting data to threads.");
+                            alert("Engine busy. Please try clicking again.");
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                         }
@@ -434,19 +442,15 @@
 
                 rCtx.clearRect(0, 0, renderCanvas.width, renderCanvas.height);
 
-                // Add solid passport color behind person layer if chosen
                 if (selectedBgColor !== 'transparent') {
                     rCtx.fillStyle = selectedBgColor;
                     rCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
                 }
 
-                // Render clean alpha-isolated person on top layer
                 rCtx.drawImage(isolatedPersonCanvas, 0, 0);
-
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
-            // Color circle switcher activation grid loops
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -454,7 +458,6 @@
                     
                     selectedBgColor = this.getAttribute('data-color');
                     
-                    // Real-time UI preview boundary wrapper change sync
                     if(selectedBgColor === 'transparent') {
                         previewWrapper.style.backgroundColor = '#fff';
                         previewWrapper.style.backgroundImage = "linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%)";
@@ -478,7 +481,6 @@
                     document.body.removeChild(a);
                 };
             }
-
         });
     })();
     </script>
