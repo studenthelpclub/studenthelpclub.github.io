@@ -6,7 +6,7 @@
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
-          gtag('config', 'G-V8RJ9WQXJW');
+         gtag('config', 'G-V8RJ9WQXJW');
     </script>
 
     <meta charset="UTF-8">
@@ -232,8 +232,10 @@
             const previewWrapper = document.getElementById('previewWrapper');
 
             let sourceImageObject = new Image();
+            let processCanvasObject = document.createElement('canvas'); // Used for scaling
             let selectedBgColor = 'transparent';
             let selfieSegmentation = null;
+            let initRetryCount = 0;
             
             let isolatedPersonCanvas = document.createElement('canvas');
             let tempMaskCanvas = document.createElement('canvas');
@@ -244,12 +246,18 @@
                         selfieSegmentation = new SelfieSegmentation({
                             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
                         });
-                        selfieSegmentation.setOptions({ modelSelection: 1 });
+                        // Model 0 (General) is better at keeping closely held objects like laptops/headsets
+                        selfieSegmentation.setOptions({ modelSelection: 0 }); 
                         
                         selfieSegmentation.onResults(()=>{});
                         selfieSegmentation.send({image: document.createElement('canvas')}).catch(e=>{});
                     } else {
-                        setTimeout(initAI, 500);
+                        initRetryCount++;
+                        if(initRetryCount < 20) {
+                            setTimeout(initAI, 500);
+                        } else {
+                            console.error("AI Engine network timeout.");
+                        }
                     }
                 } catch(e) {
                     console.error("AI Matrix initialization pending.");
@@ -319,11 +327,29 @@
                 });
             }
 
+            // High-Res Image Scale Down Logic to prevent Browser Freeze
+            function getScaledCanvas(img) {
+                const MAX_DIMENSION = 1800; // Safe limit for RAM
+                let w = img.naturalWidth || img.width;
+                let h = img.naturalHeight || img.height;
+                
+                if (w > MAX_DIMENSION || h > MAX_DIMENSION) {
+                    const ratio = Math.min(MAX_DIMENSION / w, MAX_DIMENSION / h);
+                    w = Math.round(w * ratio);
+                    h = Math.round(h * ratio);
+                }
+                
+                processCanvasObject.width = w;
+                processCanvasObject.height = h;
+                const ctx = processCanvasObject.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                return processCanvasObject;
+            }
+
             if(processBtn) {
                 processBtn.addEventListener('click', function() {
                     if (!sourceImageObject.src) return;
 
-                    // CAPTCHA Validation Logic Restored
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
                             alert("Please verify that you are not a robot by clicking the reCAPTCHA box.");
@@ -343,11 +369,13 @@
                                 return;
                             }
 
+                            // Use scaled image to prevent freezing
+                            const scaledInput = getScaledCanvas(sourceImageObject);
+                            const w = scaledInput.width;
+                            const h = scaledInput.height;
+
                             selfieSegmentation.onResults((results) => {
                                 const ctx = isolatedPersonCanvas.getContext('2d');
-                                const w = sourceImageObject.naturalWidth || sourceImageObject.width;
-                                const h = sourceImageObject.naturalHeight || sourceImageObject.height;
-                                
                                 isolatedPersonCanvas.width = w;
                                 isolatedPersonCanvas.height = h;
                                 ctx.clearRect(0, 0, w, h);
@@ -367,7 +395,7 @@
                                 let personCoverage = humanPixels / (w * h);
 
                                 if (personCoverage < 0.03) {
-                                    // --- SIGNATURE / DOCUMENT MODE (UPDATED LOGIC) ---
+                                    // --- SIGNATURE / DOCUMENT MODE ---
                                     ctx.drawImage(results.image, 0, 0, w, h);
                                     const imgData = ctx.getImageData(0, 0, w, h);
                                     const pixels = imgData.data;
@@ -377,42 +405,35 @@
                                         let g = pixels[i+1];
                                         let b = pixels[i+2];
                                         
-                                        // Calculate luminance (brightness)
                                         let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
                                         
-                                        // Mobile photos of paper are usually grey (brightness 120-180)
-                                        // Ink is usually dark (brightness < 100)
                                         if (brightness > 140) {
-                                            // Light grey / paper -> Make fully transparent
                                             pixels[i+3] = 0;
                                         } else if (brightness > 80) {
-                                            // Edge of the pen stroke (Anti-aliasing / smoothing)
                                             let alpha = Math.round(((140 - brightness) / 60) * 255);
                                             pixels[i+3] = alpha;
-                                            
-                                            // Darken the grey edges to pure black for a scanned look
-                                            pixels[i] = 0;
-                                            pixels[i+1] = 0;
-                                            pixels[i+2] = 0;
+                                            pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
                                         } else {
-                                            // Core solid ink -> Fully opaque & pure black
                                             pixels[i+3] = 255;
-                                            pixels[i] = 0;
-                                            pixels[i+1] = 0;
-                                            pixels[i+2] = 0;
+                                            pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
                                         }
                                     }
                                     ctx.putImageData(imgData, 0, 0);
 
                                 } else {
-                                    // --- PERSON / SELFIE MODE ---
-                                    let edgeSmoothRadius = Math.max(1.5, Math.min(3, w / 1000));
-                                    ctx.filter = `blur(${edgeSmoothRadius}px)`; 
+                                    // --- PERSON / PASSPORT MODE (Smooth Edges & Retain Objects) ---
+                                    
+                                    // Step 1: Draw mask with a slight blur to create soft, professional edges
+                                    ctx.filter = 'blur(1px)';
                                     ctx.drawImage(results.segmentationMask, 0, 0, w, h);
                                     
+                                    // Step 2: Source-in ensures image only shows where mask exists (with soft edges)
                                     ctx.filter = 'none';
                                     ctx.globalCompositeOperation = 'source-in';
                                     ctx.drawImage(results.image, 0, 0, w, h);
+                                    
+                                    // Reset context behavior
+                                    ctx.globalCompositeOperation = 'source-over';
                                 }
 
                                 renderFinalComposite();
@@ -425,7 +446,7 @@
                                 processBtn.disabled = false;
                             });
 
-                            await selfieSegmentation.send({ image: sourceImageObject });
+                            await selfieSegmentation.send({ image: scaledInput });
 
                         } catch(err) {
                             alert("Engine busy. Please try clicking again.");
@@ -490,7 +511,7 @@
                     }
                     rCtx.drawImage(isolatedPersonCanvas, 0, 0);
 
-                    // Fixed download method using Blob for large images
+                    // Blob method for large images (Crash Prevention)
                     renderCanvas.toBlob(function(blob) {
                         if (!blob) return;
                         const url = URL.createObjectURL(blob);
