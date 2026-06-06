@@ -6,7 +6,6 @@
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
-
           gtag('config', 'G-V8RJ9WQXJW');
     </script>
 
@@ -31,6 +30,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
         :root {
@@ -47,7 +47,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* Premium Header Layout */
         .header {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 16px 6%; display: flex; justify-content: space-between; align-items: center;
@@ -55,22 +54,18 @@
         }
         .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        
         .brand .brand-title { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
         .nav-menu { display: flex; gap: 24px; align-items: center; }
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; }
         .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; }
 
-        /* Workspace Layout Structure */
         .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
         
         .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        
         .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        /* Transparent Drop File Trigger Box */
         .upload-container-box {
             position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px;
             text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px;
@@ -83,11 +78,11 @@
         .preview-box { max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; }
         #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; }
 
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
         .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); margin-top: 15px; }
         .main-btn:hover { background: var(--primary-hover); }
         .main-btn:disabled { background: var(--text-muted); cursor: not-allowed; box-shadow: none; }
 
-        /* Output Canvas Layout Checkerboard Container */
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
         .canvas-container-bg {
             display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff;
@@ -96,7 +91,6 @@
         }
         #finalPreview { max-width: 100%; max-height: 350px; display: block; border-radius: 6px; }
         
-        /* Premium Passport Solid Backdrop Color Selector Widget */
         .color-panel-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 20px 0 12px; text-align: center; }
         .color-picker-grid { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
         .color-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; transition: var(--transition); }
@@ -105,14 +99,12 @@
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
         .download-btn:hover { background: #0056b3; }
 
-        /* Full Rich Content SEO Section */
         .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
         .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
         .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        /* Unified Original Footer */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
@@ -163,6 +155,11 @@
                 <div class="preview-box">
                     <img id="sourceImagePreview" src="" alt="Source Upload">
                 </div>
+                
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
+                </div>
+
                 <button id="processBtn" class="main-btn">Remove Background</button>
             </div>
 
@@ -199,18 +196,6 @@
                 <li><strong>Isolate Erasing Parameters:</strong> The deep AI neural networks map user geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
                 <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
             </ul>
-
-            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
-            <h3>Frequently Asked Questions (FAQs)</h3>
-            
-            <h3>Q1: Does this tool upload my private photographs to cloud servers for background cutting?</h3>
-            <p>No, absolutely not. The entire computational pipeline runs 100% inside your client-side browser context using client browser arrays. Your portrait photos, credentials, or signature captures are processed entirely locally and are never stored or logged externally.</p>
-            
-            <h3>Q2: Can I use this background remover tool to prepare Indian passport visa pictures?</h3>
-            <p>Yes. After clearing out the raw background parameters via the automated neural pipeline, you can easily tap on the solid background color selector panel. Clicking on the white preset or official blue preset instantly applies the standard solid backdrop required by diplomatic passport agencies.</p>
-            
-            <h3>Q3: What types of file compression streams does this AI cutter output?</h3>
-            <p>The system generates premium uncompressed alpha transparent channels using standard lossless 32-bit PNG structures. This structural architecture retains extreme edge clarity across any background layer without degrading pixel details.</p>
         </article>
     </div>
 
@@ -250,7 +235,6 @@
             let selectedBgColor = 'transparent';
             let selfieSegmentation = null;
             
-            // Reusable canvases to prevent memory leaks
             let isolatedPersonCanvas = document.createElement('canvas');
             let tempMaskCanvas = document.createElement('canvas');
 
@@ -262,7 +246,6 @@
                         });
                         selfieSegmentation.setOptions({ modelSelection: 1 });
                         
-                        // Prime the model empty to ensure it's loaded
                         selfieSegmentation.onResults(()=>{});
                         selfieSegmentation.send({image: document.createElement('canvas')}).catch(e=>{});
                     } else {
@@ -274,7 +257,6 @@
             }
             initAI();
 
-            // Drag and Drop Logic
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
             });
@@ -317,8 +299,8 @@
                                 }
                             } catch (err) {
                                 console.error("HEIC Fallback pipeline executed.", err);
-                                if (statusText) statusText.innerHTML = `<b style="color:red;"><i class="fas fa-times-circle"></i> Format not supported or HEIC conversion failed. Try JPG/PNG.</b>`;
-                                return; // Stops execution on error
+                                if (statusText) statusText.innerHTML = `<b style="color:red;"><i class="fas fa-times-circle"></i> Format not supported. Try JPG/PNG.</b>`;
+                                return;
                             }
                         }
 
@@ -341,6 +323,14 @@
                 processBtn.addEventListener('click', function() {
                     if (!sourceImageObject.src) return;
 
+                    // CAPTCHA Validation Logic Restored
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        if (grecaptcha.getResponse().length === 0) {
+                            alert("Please verify that you are not a robot by clicking the reCAPTCHA box.");
+                            return;
+                        }
+                    }
+
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
                     processBtn.disabled = true;
 
@@ -362,7 +352,6 @@
                                 isolatedPersonCanvas.height = h;
                                 ctx.clearRect(0, 0, w, h);
 
-                                // Step 1: Detect if it's a person or a signature mask
                                 tempMaskCanvas.width = w; 
                                 tempMaskCanvas.height = h;
                                 const maskCtx = tempMaskCanvas.getContext('2d');
@@ -378,7 +367,7 @@
                                 let personCoverage = humanPixels / (w * h);
 
                                 if (personCoverage < 0.03) {
-                                    // --- SIGNATURE / DOCUMENT MODE ---
+                                    // --- SIGNATURE / DOCUMENT MODE (UPDATED LOGIC) ---
                                     ctx.drawImage(results.image, 0, 0, w, h);
                                     const imgData = ctx.getImageData(0, 0, w, h);
                                     const pixels = imgData.data;
@@ -388,12 +377,29 @@
                                         let g = pixels[i+1];
                                         let b = pixels[i+2];
                                         
+                                        // Calculate luminance (brightness)
                                         let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
                                         
-                                        if (brightness > 200) {
+                                        // Mobile photos of paper are usually grey (brightness 120-180)
+                                        // Ink is usually dark (brightness < 100)
+                                        if (brightness > 140) {
+                                            // Light grey / paper -> Make fully transparent
                                             pixels[i+3] = 0;
-                                        } else if (brightness > 100) {
-                                            pixels[i+3] = Math.round(255 - ((brightness - 100) * 2.55));
+                                        } else if (brightness > 80) {
+                                            // Edge of the pen stroke (Anti-aliasing / smoothing)
+                                            let alpha = Math.round(((140 - brightness) / 60) * 255);
+                                            pixels[i+3] = alpha;
+                                            
+                                            // Darken the grey edges to pure black for a scanned look
+                                            pixels[i] = 0;
+                                            pixels[i+1] = 0;
+                                            pixels[i+2] = 0;
+                                        } else {
+                                            // Core solid ink -> Fully opaque & pure black
+                                            pixels[i+3] = 255;
+                                            pixels[i] = 0;
+                                            pixels[i+1] = 0;
+                                            pixels[i+2] = 0;
                                         }
                                     }
                                     ctx.putImageData(imgData, 0, 0);
@@ -430,7 +436,6 @@
                 });
             }
 
-            // Real-time canvas matrix rendering function
             function renderFinalComposite() {
                 if (!isolatedPersonCanvas) return;
 
@@ -472,13 +477,31 @@
 
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
-                    if (!finalPreview.src || finalPreview.src === "") return;
-                    const a = document.createElement('a');
-                    a.href = finalPreview.src;
-                    a.download = `SHC_Remover_${Date.now()}.png`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    if (!isolatedPersonCanvas) return;
+                    
+                    const renderCanvas = document.createElement('canvas');
+                    const rCtx = renderCanvas.getContext('2d');
+                    renderCanvas.width = isolatedPersonCanvas.width;
+                    renderCanvas.height = isolatedPersonCanvas.height;
+                    
+                    if (selectedBgColor !== 'transparent') {
+                        rCtx.fillStyle = selectedBgColor;
+                        rCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
+                    }
+                    rCtx.drawImage(isolatedPersonCanvas, 0, 0);
+
+                    // Fixed download method using Blob for large images
+                    renderCanvas.toBlob(function(blob) {
+                        if (!blob) return;
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `SHC_Remover_${Date.now()}.png`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url); 
+                    }, 'image/png');
                 };
             }
         });
