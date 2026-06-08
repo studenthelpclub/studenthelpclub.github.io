@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -131,7 +130,7 @@
         .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
         .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
+        .seo-content { background: #ffffff; padding: 45px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content h3:first-child { margin-top: 0; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
@@ -334,6 +333,25 @@
             </div>
         </div>
 
+        <div class="shc-promo-container" style="grid-column: 1 / -1; width: 100%; max-width: 1350px; margin: 10px 0 30px 0; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+            <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                </div>
+                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+
+            <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                </div>
+                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+        </div>
         <article class="seo-content">
             <h3>Why an ATS-Friendly Single-Page Resume is Crucial for Students</h3>
             <p>Most modern recruiters and corporate recruitment management boards utilize Applicant Tracking Systems (ATS) to filter out resume profiles automatedly before a manual human screening loop occurs. Complicated layouts, multi-column designs, or heavy embedded graphic tracks often crash ATS readers, leading to instant candidate rejection. This clean, single-page matrix formatting engine builds an industry-standard structural profile optimized for compliance logs.</p>
@@ -410,7 +428,8 @@
             }
         });
 
-        window.onload = function() { updateLivePreviewCanvas(); };
+        // FIX: Replaced window.onload with addEventListener to prevent conflicts with AdBlocker script
+        window.addEventListener('load', function() { updateLivePreviewCanvas(); });
 
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
@@ -735,7 +754,8 @@
         }
     </script>
     <script>
-window.onload = function() {
+// FIX: Replaced window.onload with addEventListener to prevent conflicts
+window.addEventListener('load', function() {
     // Fetch API ka use kar rahe hain jisme strict 'no-store' cache bypass laga hai (Ctrl+F5 ka alternative)
     fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
         method: 'HEAD',
@@ -774,7 +794,7 @@ window.onload = function() {
             </div>
         `;
     });
-};
+});
 
 // Yeh function page ko bina kisi purane URL parameter (?t=) ke ekdam clean reload karega
 function cleanReload() {
