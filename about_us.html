@@ -175,14 +175,15 @@
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
-<script>
+   <script>
 window.onload = function() {
-    // 1. Detection Vector: Check via a popular ad script link
-    var checkAds = document.createElement('script');
-    checkAds.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    // 1. Live Timestamp ke sath request bhejenge taaki browser cache ka use na kar paye
+    var detector = document.createElement('script');
+    detector.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?v=" + Date.now();
+    detector.type = 'text/javascript';
     
-    checkAds.onerror = function() {
-        // Adblocker detected! Injecting Professional Layout
+    // Agar AdBlocker sach mein ACTIVE hai, toh yeh request block hogi aur onerror chalega
+    detector.onerror = function() {
         document.body.innerHTML = `
             <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; box-sizing: border-box;">
                 <div style="background: white; max-width: 500px; width: 100%; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid #eef2f5;">
@@ -203,7 +204,7 @@ window.onload = function() {
                         Kripya apne browser mein AdBlocker ko <b>Disable / Turn Off</b> karein aur niche diye gaye button par click karein.
                     </p>
 
-                    <button onclick="forceRefresh()" style="background: #2563eb; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
+                    <button onclick="hardReload()" style="background: #2563eb; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
                         I have disabled AdBlocker
                     </button>
                     
@@ -211,14 +212,18 @@ window.onload = function() {
             </div>
         `;
     };
+
+    // Agar AdBlocker PAUSED hai, toh script load ho jayegi aur site normal chalegi
+    detector.onload = function() {
+        detector.remove();
+    };
     
-    document.head.appendChild(checkAds);
+    document.head.appendChild(detector);
 };
 
-// Cache-Busting Refresh Function
-function forceRefresh() {
-    // Yeh line browser ke cache ko bypass karke ekdam fresh reload karegi
-    window.location.href = window.location.pathname + '?refresh=' + new Date().getTime();
+// Pure Cache-Bypass Reload
+function hardReload() {
+    window.location.href = window.location.origin + window.location.pathname + '?t=' + Date.now();
 }
 </script>
 </body>
