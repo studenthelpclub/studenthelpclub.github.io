@@ -65,7 +65,6 @@
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
         
-        /* Fixed Missing Styling for Brand Name Span */
         .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
         
         .nav-menu { display: flex; gap: 20px; align-items: center; }
@@ -87,7 +86,10 @@
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: var(--transition); }
         .back-link:hover { color: var(--primary); transform: translateX(-3px); }
 
-        .tool-card { background: #ffffff; padding: 35px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); height: max-content; }
+        /* Left Column Wrapper to prevent overlaps */
+        .left-panel { display: flex; flex-direction: column; gap: 30px; }
+
+        .tool-card { background: #ffffff; padding: 35px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
         .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
         .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
 
@@ -130,7 +132,7 @@
         .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
         .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-        .seo-content { background: #ffffff; padding: 45px; border-radius: 24px; border: 1px solid var(--border-color); grid-column: span 2; }
+        .seo-content { background: #ffffff; padding: 45px; border-radius: 24px; border: 1px solid var(--border-color); }
         .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
         .seo-content h3:first-child { margin-top: 0; }
         .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
@@ -145,7 +147,7 @@
         .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
         .policy-links a:hover { color: var(--primary); }
 
-        @media (max-width: 991px) { .workspace-grid { grid-template-columns: 1fr; } .back-link-wrapper { grid-column: span 1; } .seo-content { grid-column: span 1; } .preview-sticky-box { position: static; } #resumeCanvas { max-width: 100%; } }
+        @media (max-width: 991px) { .workspace-grid { grid-template-columns: 1fr; } .back-link-wrapper { grid-column: span 1; } .preview-sticky-box { position: static; } #resumeCanvas { max-width: 100%; } }
     </style>
     <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -169,162 +171,185 @@
             <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
         </div>
 
-        <div class="tool-card">
-            <h1>Professional Resume Builder</h1>
-            <p class="subtitle">Design a clean, single-page professional resume instantly. Perfect for job applications and college forms.</p>
-            
-            <div class="adsense-placeholder">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="YYYYYYYYYYYY"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-            </div>
-
-            <form id="resumeForm" onsubmit="event.preventDefault();">
-                <div class="form-section">
-                    <h3><i class="fas fa-palette"></i> 1. Choose Resume Color</h3>
-                    <div class="form-grid">
-                        <div class="input-group full-width">
-                            <label>Select Template Color</label>
-                            <select id="themeColor">
-                                <option value="#00b14f" selected>Standard Green</option>
-                                <option value="#1e40af">Professional Blue</option>
-                                <option value="#0f172a">Classic Black</option>
-                                <option value="#991b1b">Premium Maroon</option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="left-panel">
+            <div class="tool-card">
+                <h1>Professional Resume Builder</h1>
+                <p class="subtitle">Design a clean, single-page professional resume instantly. Perfect for job applications and college forms.</p>
+                
+                <div class="adsense-placeholder">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="YYYYYYYYYYYY"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
                 </div>
 
-                <div class="form-section">
-                    <h3><i class="fas fa-user"></i> 2. Personal Information</h3>
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Full Name</label>
-                            <input type="text" id="fullName" value="" placeholder="e.g. VISHAL KUMAR SHARMA" required>
+                <form id="resumeForm" onsubmit="event.preventDefault();">
+                    <div class="form-section">
+                        <h3><i class="fas fa-palette"></i> 1. Choose Resume Color</h3>
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label>Select Template Color</label>
+                                <select id="themeColor">
+                                    <option value="#00b14f" selected>Standard Green</option>
+                                    <option value="#1e40af">Professional Blue</option>
+                                    <option value="#0f172a">Classic Black</option>
+                                    <option value="#991b1b">Premium Maroon</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label>Job Title / Profession</label>
-                            <input type="text" id="title" value="" placeholder="e.g. Web Developer / Student" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Email Address</label>
-                            <input type="email" id="email" value="" placeholder="e.g. vishal@example.com" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Phone Number</label>
-                            <input type="text" id="phone" value="" placeholder="e.g. +91 98765 43210" required>
-                        </div>
-                        <div class="input-group full-width">
-                            <label>Full Address</label>
-                            <input type="text" id="location" value="" placeholder="e.g. Patna, Bihar, India" required>
-                        </div>
-                        
-                        <div class="input-group full-width">
-                            <label><i class="fas fa-camera" style="color: var(--primary);"></i> Upload Photo (Optional)</label>
-                            <input type="file" id="photoInput" accept="image/*">
-                            <div class="photo-settings">
-                                <div class="input-group">
-                                    <label>Photo Shape</label>
-                                    <select id="photoShape">
-                                        <option value="circle" selected>Circle (Gol)</option>
-                                        <option value="oval">Oval (Andakar)</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Photo Position</label>
-                                    <select id="photoPos">
-                                        <option value="left">Top Left</option>
-                                        <option value="center">Top Center</option>
-                                        <option value="right" selected>Top Right</option>
-                                    </select>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> 2. Personal Information</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" id="fullName" value="" placeholder="e.g. VISHAL KUMAR SHARMA" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Job Title / Profession</label>
+                                <input type="text" id="title" value="" placeholder="e.g. Web Developer / Student" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Email Address</label>
+                                <input type="email" id="email" value="" placeholder="e.g. vishal@example.com" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="phone" value="" placeholder="e.g. +91 98765 43210" required>
+                            </div>
+                            <div class="input-group full-width">
+                                <label>Full Address</label>
+                                <input type="text" id="location" value="" placeholder="e.g. Patna, Bihar, India" required>
+                            </div>
+                            
+                            <div class="input-group full-width">
+                                <label><i class="fas fa-camera" style="color: var(--primary);"></i> Upload Photo (Optional)</label>
+                                <input type="file" id="photoInput" accept="image/*">
+                                <div class="photo-settings">
+                                    <div class="input-group">
+                                        <label>Photo Shape</label>
+                                        <select id="photoShape">
+                                            <option value="circle" selected>Circle (Gol)</option>
+                                            <option value="oval">Oval (Andakar)</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Photo Position</label>
+                                        <select id="photoPos">
+                                            <option value="left">Top Left</option>
+                                            <option value="center">Top Center</option>
+                                            <option value="right" selected>Top Right</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-section">
-                    <h3><i class="fas fa-tools"></i> 3. Key Skills</h3>
-                    <div class="skills-dynamic-wrapper" id="skillsContainer">
-                        <div class="skill-input-item">
-                            <input type="text" class="skill-entry-field" placeholder="e.g. Tally / Web Development" oninput="updateLivePreviewCanvas()">
-                            <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
+                    <div class="form-section">
+                        <h3><i class="fas fa-tools"></i> 3. Key Skills</h3>
+                        <div class="skills-dynamic-wrapper" id="skillsContainer">
+                            <div class="skill-input-item">
+                                <input type="text" class="skill-entry-field" placeholder="e.g. Tally / Web Development" oninput="updateLivePreviewCanvas()">
+                                <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add-skill" onclick="addNewSkillInput()"><i class="fas fa-plus"></i> Add More Skill</button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-graduation-cap"></i> 4. Education</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Degree / Course</label>
+                                <input type="text" id="eduDegree" value="" placeholder="e.g. Bachelor of Commerce (B.Com)" required>
+                            </div>
+                            <div class="input-group">
+                                <label>School / University Board</label>
+                                <input type="text" id="eduSchool" value="" placeholder="e.g. IGNOU University" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Year / Duration</label>
+                                <input type="text" id="eduYear" value="" placeholder="e.g. 2023 - 2026" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Marks / Percentage / CGPA</label>
+                                <input type="text" id="eduMarks" value="" placeholder="e.g. 78%">
+                            </div>
                         </div>
                     </div>
-                    <button type="button" class="btn-add-skill" onclick="addNewSkillInput()"><i class="fas fa-plus"></i> Add More Skill</button>
-                </div>
 
-                <div class="form-section">
-                    <h3><i class="fas fa-graduation-cap"></i> 4. Education</h3>
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Degree / Course</label>
-                            <input type="text" id="eduDegree" value="" placeholder="e.g. Bachelor of Commerce (B.Com)" required>
-                        </div>
-                        <div class="input-group">
-                            <label>School / University Board</label>
-                            <input type="text" id="eduSchool" value="" placeholder="e.g. IGNOU University" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Year / Duration</label>
-                            <input type="text" id="eduYear" value="" placeholder="e.g. 2023 - 2026" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Marks / Percentage / CGPA</label>
-                            <input type="text" id="eduMarks" value="" placeholder="e.g. 78%">
+                    <div class="form-section">
+                        <h3><i class="fas fa-briefcase"></i> 5. Work Experience / Projects</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Job Profile</label>
+                                <input type="text" id="expTitle" value="" placeholder="e.g. Student Help Club Website">
+                            </div>
+                            <div class="input-group">
+                                <label>Role</label>
+                                <input type="text" id="expCompany" value="" placeholder="e.g. HTML, CSS, JavaScript, Excel">
+                            </div>
+                            <div class="input-group full-width">
+                                <label>Short Description (What you did)</label>
+                                <textarea id="expDesc" rows="4" maxlength="400" placeholder="Briefly explain your work or role..." oninput="countCharacters()"></textarea>
+                                <div class="word-counter" id="charCount">0 / 400 characters</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-section">
-                    <h3><i class="fas fa-briefcase"></i> 5. Work Experience / Projects</h3>
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Job Profile</label>
-                            <input type="text" id="expTitle" value="" placeholder="e.g. Student Help Club Website">
-                        </div>
-                        <div class="input-group">
-                            <label>Role</label>
-                            <input type="text" id="expCompany" value="" placeholder="e.g. HTML, CSS, JavaScript, Excel">
-                        </div>
-                        <div class="input-group full-width">
-                            <label>Short Description (What you did)</label>
-                            <textarea id="expDesc" rows="4" maxlength="400" placeholder="Briefly explain your work or role..." oninput="countCharacters()"></textarea>
-                            <div class="word-counter" id="charCount">0 / 400 characters</div>
+                    <div class="form-section">
+                        <h3><i class="fas fa-award"></i> 6. Certifications & Declaration</h3>
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label>Certificates / Extra Achievements</label>
+                                <input type="text" id="certifications" value="" placeholder="e.g. CCC Computer Course Certified, SEO Workshop Certificate">
+                            </div>
+                            <div class="input-group full-width">
+                                <label>Self Declaration Text</label>
+                                <textarea id="declaration" rows="2" placeholder="Declaration statement...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-section">
-                    <h3><i class="fas fa-award"></i> 6. Certifications & Declaration</h3>
-                    <div class="form-grid">
-                        <div class="input-group full-width">
-                            <label>Certificates / Extra Achievements</label>
-                            <input type="text" id="certifications" value="" placeholder="e.g. CCC Computer Course Certified, SEO Workshop Certificate">
-                        </div>
-                        <div class="input-group full-width">
-                            <label>Self Declaration Text</label>
-                            <textarea id="declaration" rows="2" placeholder="Declaration statement...">I hereby declare that all the details mentioned above are true and correct to the best of my knowledge and belief.</textarea>
-                        </div>
+                    <div class="recaptcha-wrapper">
+                        <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                     </div>
-                </div>
 
-                <div class="recaptcha-wrapper">
-                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
-                </div>
+                    <div class="action-buttons">
+                        <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset Form</button>
+                        <button type="button" class="action-btn btn-download" id="downloadBtn" onclick="triggerPDFDownload()">Download Resume PDF</button>
+                    </div>
+                </form>
+            </div> <div class="shc-promo-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%;">
+                <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                    <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                    <div>
+                        <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                        <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                    </div>
+                    <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+                </a>
 
-                <div class="action-buttons">
-                    <button type="button" class="action-btn btn-reset" onclick="resetForm()">Reset Form</button>
-                    <button type="button" class="action-btn btn-download" id="downloadBtn" onclick="triggerPDFDownload()">Download Resume PDF</button>
-                </div>
-            </form>
-        </div>
+                <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                    <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                    <div>
+                        <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                        <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                    </div>
+                    <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+                </a>
+            </div>
 
-        <div class="preview-sticky-box">
+            <article class="seo-content">
+                <h3>Why an ATS-Friendly Single-Page Resume is Crucial for Students</h3>
+                <p>Most modern recruiters and corporate recruitment management boards utilize Applicant Tracking Systems (ATS) to filter out resume profiles automatedly before a manual human screening loop occurs. Complicated layouts, multi-column designs, or heavy embedded graphic tracks often crash ATS readers, leading to instant candidate rejection. This clean, single-page matrix formatting engine builds an industry-standard structural profile optimized for compliance logs.</p>
+            </article>
+        </div> <div class="preview-sticky-box">
             <div class="preview-title">
                 <div><i class="fas fa-eye"></i> Live <span>A4 Preview Screen</span></div>
             </div>
@@ -333,29 +358,6 @@
             </div>
         </div>
 
-        <div class="shc-promo-container" style="grid-column: 1 / -1; width: 100%; max-width: 1350px; margin: 10px 0 30px 0; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-            <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
-                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
-                <div>
-                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
-                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
-                </div>
-                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
-            </a>
-
-            <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
-                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
-                <div>
-                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
-                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
-                </div>
-                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
-            </a>
-        </div>
-        <article class="seo-content">
-            <h3>Why an ATS-Friendly Single-Page Resume is Crucial for Students</h3>
-            <p>Most modern recruiters and corporate recruitment management boards utilize Applicant Tracking Systems (ATS) to filter out resume profiles automatedly before a manual human screening loop occurs. Complicated layouts, multi-column designs, or heavy embedded graphic tracks often crash ATS readers, leading to instant candidate rejection. This clean, single-page matrix formatting engine builds an industry-standard structural profile optimized for compliance logs.</p>
-        </article>
     </div>
 
     <footer class="footer">
@@ -407,7 +409,6 @@
                 <button type="button" class="btn-remove-skill" onclick="this.parentElement.remove(); updateLivePreviewCanvas();"><i class="fas fa-trash"></i></button>
             `;
             container.appendChild(div);
-            // Fixed live event binding for dynamically added skill slots
             div.querySelector('input').addEventListener('input', updateLivePreviewCanvas);
             updateLivePreviewCanvas();
         }
@@ -428,7 +429,6 @@
             }
         });
 
-        // FIX: Replaced window.onload with addEventListener to prevent conflicts with AdBlocker script
         window.addEventListener('load', function() { updateLivePreviewCanvas(); });
 
         function updateLivePreviewCanvas() {
@@ -754,18 +754,14 @@
         }
     </script>
     <script>
-// FIX: Replaced window.onload with addEventListener to prevent conflicts
 window.addEventListener('load', function() {
-    // Fetch API ka use kar rahe hain jisme strict 'no-store' cache bypass laga hai (Ctrl+F5 ka alternative)
     fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
         method: 'HEAD',
         mode: 'no-cors',
         cache: 'no-store' 
     }).then(function() {
-        // Success: AdBlocker band hai. Site normal khulegi, kuch hide nahi hoga.
         console.log("AdBlocker is OFF");
     }).catch(function() {
-        // Failed: AdBlocker chalu hai. Professional warning layout inject hoga.
         document.body.innerHTML = `
             <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; box-sizing: border-box;">
                 <div style="background: white; max-width: 500px; width: 100%; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid #eef2f5;">
@@ -796,7 +792,6 @@ window.addEventListener('load', function() {
     });
 });
 
-// Yeh function page ko bina kisi purane URL parameter (?t=) ke ekdam clean reload karega
 function cleanReload() {
     window.location.href = window.location.origin + window.location.pathname;
 }
