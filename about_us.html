@@ -175,5 +175,34 @@
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
+   <script>
+window.onload = function() {
+    // Ek fake ad banner create kar rahe hain
+    var fakeAd = document.createElement('div');
+    fakeAd.innerHTML = '&nbsp;';
+    fakeAd.className = 'ad-banner adsbox doubleclick sponsor';
+    document.body.appendChild(fakeAd);
+
+    // Thodi der baad check karenge ki kya adblocker ne ise hide kar diya
+    window.setTimeout(function() {
+        if (fakeAd.offsetHeight === 0 || fakeAd.display === 'none') {
+            // Adblocker pakda gaya! Ab website ka content hide karke warning dikhayenge
+            document.body.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-color: #f8f9fa; font-family: Arial, sans-serif; padding: 20px;">
+                    <h1 style="color: #d9534f; margin-bottom: 15px;">AdBlocker Detected! 🛑</h1>
+                    <p style="font-size: 18px; color: #333; max-width: 600px; line-height: 1.5;">
+                        Namaskar! Student Help Club par sabhi PDF aur Image tools aapke liye bilkul <b>FREE</b> hain. Is platform ko chalane ka kharcha Ads se nikalta hai. 
+                        <br><br>
+                        Kripya apne browser mein <b>AdBlocker ko disable karein</b> aur page ko <b>Refresh</b> karein taaki aap tools ka use kar sakein. 🙏
+                    </p>
+                    <button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Page Refresh Karein</button>
+                </div>
+            `;
+        }
+        // Agar adblocker nahi hai, toh fake ad ko hata do taaki site normal chale
+        fakeAd.remove();
+    }, 500); 
+};
+</script>
 </body>
 </html>
