@@ -18,60 +18,191 @@
     <meta name="robots" content="index, follow">
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --primary: #28a745; --dark: #1d3557; --light: #f8f9fa; --accent: #0d6efd; --border-color: #e2e8f0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--light); color: #333; }
-
-        .header {
-            background: #fff; padding: 10px 5%; display: flex;
-            justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;
+        :root {
+            --primary: #00b14f; 
+            --primary-hover: #009642;
+            --dark: #0f172a; 
+            --text-main: #334155; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-color: #e2e8f0; 
+            --accent: #0d6efd;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); }
-        .header h1 { font-size: 1.2rem; color: var(--dark); text-transform: uppercase; }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+        }
 
-        .main-nav { background: #2c3e50; padding: 10px 0; text-align: center; }
-        .main-nav a { color: #fff; text-decoration: none; padding: 10px 20px; font-size: 14px; }
-        .main-nav a:hover { color: var(--primary); }
+        /* Unified Premium Header */
+        .header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        
+        .brand .brand-name { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800;
+            letter-spacing: -0.5px; 
+        }
 
-        .container { 
-            max-width: 600px; margin: 40px auto; background: #fff; 
-            padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .btn-join {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+            background: var(--primary-hover);
+        }
+
+        /* Workspace Workspace Wrapper */
+        .workspace-container {
+            max-width: 800px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .tool-card { 
+            background: #ffffff; 
+            padding: 40px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); 
             text-align: center; 
         }
 
+        .tool-card h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .tool-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
         .input-group { text-align: left; margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--dark); }
-        input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; outline: none; }
-        input:focus { border-color: var(--accent); }
+        label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--dark); font-size: 0.9rem; }
+        input { width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 16px; outline: none; background: #fafafa; transition: var(--transition); color: var(--dark); font-weight: 500; }
+        input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.08); }
 
         .main-btn { 
             width: 100%; padding: 15px; background: var(--accent); color: #fff; 
-            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
-            font-size: 16px; transition: 0.3s;
+            border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
+            font-size: 16px; transition: var(--transition); box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
         }
-        .main-btn:hover { background: #0056b3; }
+        .main-btn:hover { background: #0056b3; transform: translateY(-1px); }
 
         #resultArea { 
             margin-top: 25px; padding: 20px; background: #f0f7ff; 
-            border-radius: 12px; display: none; border: 1px solid var(--accent);
+            border-radius: 14px; display: none; border: 1px solid var(--accent);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* SEO Content Styles */
-        .seo-container {
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            padding: 0 15px;
-        }
         .seo-content {
             background: #ffffff;
-            padding: 40px;
-            border-radius: 20px;
+            padding: 45px;
+            margin-top: 40px;
+            border-radius: 24px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             text-align: left;
         }
         .seo-content h3 {
@@ -84,29 +215,69 @@
         .seo-content h3:first-child { margin-top: 0; }
         .seo-content p {
             font-size: 0.98rem;
-            color: #555;
+            color: var(--text-main);
             margin-bottom: 16px;
-            line-height: 1.7;
+            font-weight: 500;
             text-align: justify;
         }
         .seo-content ul {
             margin-left: 20px;
-            color: #555;
+            color: var(--text-main);
             margin-bottom: 20px;
         }
         .seo-content ul li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        .footer { background: #fff; padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 50px; }
-        .social-links a { font-size: 28px; margin: 0 15px; text-decoration: none; }
-        .yt { color: #ff0000; } .tg { color: #0088cc; } .wa { color: #25d366; }
+        /* Premium Footer Layout */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted);
+        }
+        
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition);
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
 
-        @media (max-width: 600px) {
-            .container { margin: 20px 15px; }
-            .header h1 { font-size: 1rem; }
-            .seo-content { padding: 25px 20px; }
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .nav-menu { display: none; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
         }
     </style>
     
@@ -116,58 +287,62 @@
 <body>
 
     <header class="header">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="shc-logo.jpg" alt="Logo" class="logo">
-            <h1>STUDENT HELP CLUB</h1>
-        </div>
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <span class="brand-name">Student Help Club</span>
+        </a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="about_us.html" class="nav-link">About Us</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <nav class="main-nav">
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    </nav>
+    <div class="workspace-container">
+        
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
-    <div class="container">
-        <h2><i class="fas fa-percentage" style="color: var(--primary);"></i> Marks Calculator</h2>
-        <p style="color: #666; margin-bottom: 25px;">Calculate your exam percentage easily.</p>
+        <div class="tool-card">
+            <h1><i class="fas fa-percentage" style="color: var(--primary);"></i> Marks Percentage Calculator</h1>
+            <p class="subtitle">Calculate your examination marks percentage and tracking academic division status instantly.</p>
 
-        <div class="input-group">
-            <label>Marks Obtained:</label>
-            <input type="number" id="obtained" placeholder="Example: 450">
-        </div>
-
-        <div class="input-group">
-            <label>Total Marks:</label>
-            <input type="number" id="total" placeholder="Example: 600">
-        </div>
-
-        <button class="main-btn" onclick="calculate()">Calculate Percentage</button>
-
-        <div id="resultArea">
-            <h3 id="resText" style="color: var(--dark);"></h3>
-            <p id="gradeText" style="margin-top: 5px; font-weight: bold;"></p>
-        </div>
-    </div>
-
-    <div class="shc-promo-container" style="max-width: 800px; margin: 10px auto 40px auto; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; padding: 0 15px;">
-        <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
-            <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
-            <div>
-                <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
-                <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+            <div class="input-group">
+                <label>Marks Obtained:</label>
+                <input type="number" id="obtained" placeholder="Example: 450">
             </div>
-            <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
-        </a>
 
-        <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
-            <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
-            <div>
-                <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
-                <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+            <div class="input-group">
+                <label>Total Marks:</label>
+                <input type="number" id="total" placeholder="Example: 600">
             </div>
-            <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
-        </a>
-    </div>
-    <div class="seo-container">
+
+            <button class="main-btn" onclick="calculate()">Calculate Percentage</button>
+
+            <div id="resultArea">
+                <h3 id="resText" style="color: var(--dark); font-weight: 800; font-size: 1.3rem;"></h3>
+                <p id="gradeText" style="margin-top: 8px; font-weight: 700; font-size: 1rem;"></p>
+            </div>
+        </div>
+
+        <div class="shc-promo-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+            <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                </div>
+                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+
+            <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                </div>
+                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+        </div>
         <article class="seo-content">
             <h3>How to Use the Free Marks Percentage Calculator?</h3>
             <p>Our online percentage calculator is designed specifically for students to quickly and accurately determine their exam results. Whether you are checking your board exam scores, calculating your university GPA parameters, or verifying your IGNOU assignment marks, this tool provides instant results without any complex mathematical formulas. The execution runs entirely on your browser, ensuring maximum speed and complete data privacy.</p>
@@ -196,11 +371,19 @@
 
     <footer class="footer">
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub" class="yt"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" class="tg"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" class="wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p style="margin-top: 20px; font-size: 12px; color: #999;">&copy; 2026 Student Help Club.</p>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
     <script>
@@ -228,11 +411,12 @@
             else grade = "Fail";
             
             document.getElementById('gradeText').innerText = "Status: " + grade;
-            document.getElementById('gradeText').style.color = (percentage >= 33) ? "#28a745" : "#ff0000";
+            document.getElementById('gradeText').style.color = (percentage >= 33) ? "#00b14f" : "#ff0000";
         }
     </script>
     
     <script>
+// Window Event listener connected perfectly without conflicts
 window.addEventListener('load', function() {
     // Fetch API ka use kar rahe hain jisme strict 'no-store' cache bypass laga hai
     fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
@@ -272,7 +456,6 @@ window.addEventListener('load', function() {
     });
 });
 
-// Yeh function page ko bina kisi purane URL parameter (?t=) ke ekdam clean reload karega
 function cleanReload() {
     window.location.href = window.location.origin + window.location.pathname;
 }
