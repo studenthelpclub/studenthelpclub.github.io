@@ -19,7 +19,6 @@
 
     <link rel="canonical" href="https://www.shctools.in/image-bg-remover.html">
 
-    <!-- SHC Ads & Monetization -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -33,7 +32,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
-    <!-- Google MediaPipe AI -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
     
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
@@ -259,6 +257,7 @@
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
 
+            // Processing Lock
             let isUserProcessing = false; 
             let selfieSegmentation = null;
 
@@ -373,7 +372,7 @@
                 showResultArea();
             }
 
-            // ✨ THE SOLUTION: Premium Hardware-Accelerated Edge Feathering ✨
+            // ✨ THE FINAL FLAWLESS FIX: Erode (Shrink) -> Feather (Blur) -> Composite
             function onMediaPipeResults(results) {
                 if (!isUserProcessing) return; 
 
@@ -384,33 +383,48 @@
                     isolatedPersonCanvas.width = w;
                     isolatedPersonCanvas.height = h;
                     const ctx = isolatedPersonCanvas.getContext('2d');
-                    
                     ctx.clearRect(0, 0, w, h);
 
-                    // Step 1: Draw the AI Mask to an off-screen layer
-                    const maskCanvas = document.createElement('canvas');
-                    maskCanvas.width = w;
-                    maskCanvas.height = h;
-                    const maskCtx = maskCanvas.getContext('2d');
-                    
-                    // ✨ MAGIC HAPPENS HERE: Soften the edges of the mask natively
-                    // This creates the "Remove.bg" feather effect instead of a harsh scissor cut.
-                    maskCtx.filter = 'blur(1.5px)'; 
-                    maskCtx.drawImage(results.segmentationMask, 0, 0, w, h);
-                    maskCtx.filter = 'none';
+                    // 1. Get the raw mask from AI
+                    const rawMaskCanvas = document.createElement('canvas');
+                    rawMaskCanvas.width = w;
+                    rawMaskCanvas.height = h;
+                    const rmCtx = rawMaskCanvas.getContext('2d');
+                    rmCtx.drawImage(results.segmentationMask, 0, 0, w, h);
+                    const rawMaskData = rmCtx.getImageData(0, 0, w, h);
+                    const rmPixels = rawMaskData.data;
 
-                    // Step 2: Use the soft mask to cut out the original image
-                    ctx.drawImage(maskCanvas, 0, 0, w, h);
+                    // 2. MASK CHOKE (Erode): Shrink the mask slightly to completely cut off the white halo fringe
+                    for (let i = 0; i < rmPixels.length; i += 4) {
+                        let val = rmPixels[i]; 
+                        let newVal = 0;
+                        // Push everything below 140 to 0. This shrinks the border inward.
+                        if (val > 140) {
+                            newVal = Math.min(255, (val - 140) * (255 / 115));
+                        }
+                        rmPixels[i] = newVal;     // R
+                        rmPixels[i+1] = newVal;   // G
+                        rmPixels[i+2] = newVal;   // B
+                        rmPixels[i+3] = newVal;   // A
+                    }
+                    rmCtx.putImageData(rawMaskData, 0, 0);
+
+                    // 3. MASK FEATHER (Blur): Soften the shrunken mask so it doesn't look jagged (anti-aliasing)
+                    const featherCanvas = document.createElement('canvas');
+                    featherCanvas.width = w;
+                    featherCanvas.height = h;
+                    const fCtx = featherCanvas.getContext('2d');
+                    fCtx.filter = 'blur(1.5px)'; // The Magic "Professional" Edge Softener
+                    fCtx.drawImage(rawMaskCanvas, 0, 0, w, h);
+                    fCtx.filter = 'none';
+
+                    // 4. CUTOUT: Use the perfectly feathered mask to cut the original image
+                    ctx.drawImage(featherCanvas, 0, 0, w, h);
                     ctx.globalCompositeOperation = 'source-in';
-                    
-                    // ✨ Facial Consistency Guaranteed: We draw the ORIGINAL image back over the soft mask.
-                    // The inner face remains 100% untouched and sharp, only the outer boundary fades.
-                    ctx.drawImage(results.image, 0, 0, w, h);
-                    
-                    // Reset
+                    ctx.drawImage(results.image, 0, 0, w, h); // Face remains 100% untouched inside the mask
                     ctx.globalCompositeOperation = 'source-over';
 
-                    // Check for empty mask (Signature Mode trigger)
+                    // Signature Mode Coverage Check
                     const imgData = ctx.getImageData(0, 0, w, h);
                     let nonTransparentPixels = 0;
                     for (let i = 3; i < imgData.data.length; i += 4) {
