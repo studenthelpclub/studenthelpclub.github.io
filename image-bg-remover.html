@@ -32,8 +32,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab@0.2.2/dist/deeplab.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
     
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -208,7 +207,7 @@
         </div>
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced TensorFlow machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            <p>Our premium platform integrates advanced Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
             
             <h3>Essential Utility for Scanning <b>Digital Signatures</b> and Student Profiles</h3>
             <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium <b>transparent PNG assets</b> optimized for application compliance.</p>
@@ -255,20 +254,33 @@
             const previewWrapper = document.getElementById('previewWrapper');
 
             let sourceImageObject = new Image();
-            let processCanvasObject = document.createElement('canvas'); 
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
 
-            // PRE-LOAD AI TO MAKE IT SUPER FAST
-            let preloadedModel = null;
-            setTimeout(async () => {
-                try {
-                    if (typeof deeplab !== 'undefined') {
-                        preloadedModel = await deeplab.load({base: 'pascal', quantizationBytes: 2});
-                    }
-                } catch(e) {}
-            }, 500);
+            // 🚀 INITIALIZE MEDIAPIPE AI (Super Reliable)
+            let selfieSegmentation = null;
+            let isModelLoaded = false;
 
+            function initModel() {
+                if(typeof SelfieSegmentation === 'undefined') return;
+                selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
+                    return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
+                }});
+                selfieSegmentation.setOptions({
+                    modelSelection: 0, // 0 is general robust model
+                });
+                selfieSegmentation.onResults(onMediaPipeResults);
+                // Dummy send to wake up the model
+                const dummyCanvas = document.createElement('canvas');
+                dummyCanvas.width = 1; dummyCanvas.height = 1;
+                selfieSegmentation.send({image: dummyCanvas}).then(() => {
+                    isModelLoaded = true;
+                }).catch(e => console.log("Background load wait...", e));
+            }
+            
+            setTimeout(initModel, 500);
+
+            // Drag and Drop
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
             });
@@ -291,6 +303,7 @@
                 }
             });
 
+            // Image Selection
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
@@ -331,27 +344,96 @@
                 });
             }
 
-            // REDUCED RESOLUTION TO 1024 FOR FASTER & STABLE PROCESSING
-            function getScaledCanvas(img) {
-                const MAX_DIMENSION = 1024; 
-                let w = img.naturalWidth || img.width;
-                let h = img.naturalHeight || img.height;
-                
-                if (w > MAX_DIMENSION || h > MAX_DIMENSION) {
-                    const ratio = Math.min(MAX_DIMENSION / w, MAX_DIMENSION / h);
-                    w = Math.round(w * ratio);
-                    h = Math.round(h * ratio);
-                }
-                
-                processCanvasObject.width = w;
-                processCanvasObject.height = h;
-                const ctx = processCanvasObject.getContext('2d');
+            // Fallback for Document/Signature Mode
+            function processSignatureFallback(img) {
+                const w = img.naturalWidth;
+                const h = img.naturalHeight;
+                isolatedPersonCanvas.width = w;
+                isolatedPersonCanvas.height = h;
+                const ctx = isolatedPersonCanvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, w, h);
-                return processCanvasObject;
+                
+                const imgData = ctx.getImageData(0, 0, w, h);
+                const pixels = imgData.data;
+
+                for (let i = 0; i < pixels.length; i += 4) {
+                    let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+                    let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+                    
+                    if (brightness > 140) {
+                        pixels[i+3] = 0; 
+                    } else if (brightness > 80) {
+                        let alpha = Math.round(((140 - brightness) / 60) * 255);
+                        pixels[i+3] = alpha;
+                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
+                    } else {
+                        pixels[i+3] = 255;
+                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0; 
+                    }
+                }
+                ctx.putImageData(imgData, 0, 0);
+                
+                renderFinalComposite();
+                showResultArea();
+            }
+
+            // The main MediaPipe Success Callback
+            function onMediaPipeResults(results) {
+                try {
+                    const w = results.image.width;
+                    const h = results.image.height;
+                    
+                    isolatedPersonCanvas.width = w;
+                    isolatedPersonCanvas.height = h;
+                    const ctx = isolatedPersonCanvas.getContext('2d');
+                    
+                    ctx.clearRect(0, 0, w, h);
+
+                    // 1. Draw the perfect mask provided by Google
+                    ctx.drawImage(results.segmentationMask, 0, 0, w, h);
+
+                    // 2. Map original image ONLY where the mask exists (Pixel-Perfect Cutout)
+                    ctx.globalCompositeOperation = 'source-in';
+                    ctx.drawImage(results.image, 0, 0, w, h);
+                    
+                    // Reset blending
+                    ctx.globalCompositeOperation = 'source-over';
+
+                    // 3. Smart check: Did it actually find a person? (Coverage check for signatures)
+                    const imgData = ctx.getImageData(0, 0, w, h);
+                    let nonTransparentPixels = 0;
+                    for (let i = 3; i < imgData.data.length; i += 4) {
+                        if (imgData.data[i] > 10) nonTransparentPixels++;
+                    }
+                    
+                    const coverage = nonTransparentPixels / (w * h);
+
+                    if (coverage < 0.05) {
+                        // AI didn't find a face/body. Assume it's a signature on white paper.
+                        processSignatureFallback(sourceImageObject);
+                    } else {
+                        renderFinalComposite();
+                        showResultArea();
+                    }
+                } catch (e) {
+                    console.error("Rendering Error:", e);
+                    alert("Error drawing image. Please try again.");
+                } finally {
+                    processBtn.innerHTML = "Remove Background";
+                    processBtn.disabled = false;
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
+                }
+            }
+
+            function showResultArea() {
+                if (resultArea) {
+                    resultArea.style.display = "block";
+                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                }
             }
 
             if(processBtn) {
-                processBtn.addEventListener('click', function() {
+                processBtn.addEventListener('click', async function() {
                     if (!sourceImageObject.src) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
@@ -361,128 +443,28 @@
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Initializing Google AI...`;
+                    if (typeof SelfieSegmentation === 'undefined') {
+                        alert("AI tools are still loading or blocked by your browser. Please wait a few seconds and try again.");
+                        return;
+                    }
+
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Google AI...`;
                     processBtn.disabled = true;
 
-                    setTimeout(async () => {
-                        try {
-                            if (typeof deeplab === 'undefined') {
-                                alert("AI Engine initializing. Please wait a moment and try again.");
-                                processBtn.innerHTML = "Remove Background";
-                                processBtn.disabled = false;
-                                return;
-                            }
-
-                            let model = preloadedModel;
-                            if (!model) {
-                                model = await deeplab.load({base: 'pascal', quantizationBytes: 2});
-                                preloadedModel = model;
-                            }
-
-                            processBtn.innerHTML = `<i class="fas fa-cog fa-spin"></i> Extracting Subject...`;
-
-                            const scaledInputCanvas = getScaledCanvas(sourceImageObject);
-                            const w = scaledInputCanvas.width;
-                            const h = scaledInputCanvas.height;
-
-                            const segmentation = await model.segment(scaledInputCanvas);
-                            const segW = segmentation.width;
-                            const segH = segmentation.height;
-
-                            // ✨ 1. CREATE EXACT RAW MASK (Fixes Grid Bug)
-                            const rawMaskCanvas = document.createElement('canvas');
-                            rawMaskCanvas.width = segW;
-                            rawMaskCanvas.height = segH;
-                            const rawMaskCtx = rawMaskCanvas.getContext('2d');
-                            const rawImageData = rawMaskCtx.createImageData(segW, segH);
-                            let objectPixels = 0;
-
-                            for (let i = 0; i < segmentation.segmentationMap.length; i++) {
-                                const isObject = segmentation.segmentationMap[i] !== 0;
-                                const color = isObject ? 255 : 0; // Solid White or Black
-                                
-                                rawImageData.data[i*4]   = color; // R
-                                rawImageData.data[i*4+1] = color; // G
-                                rawImageData.data[i*4+2] = color; // B
-                                rawImageData.data[i*4+3] = 255;   // A (Solid Alpha for mapping)
-                                
-                                if (isObject) objectPixels++;
-                            }
-                            rawMaskCtx.putImageData(rawImageData, 0, 0);
-
-                            const ctx = isolatedPersonCanvas.getContext('2d');
-                            isolatedPersonCanvas.width = w;
-                            isolatedPersonCanvas.height = h;
-                            ctx.clearRect(0, 0, w, h);
-
-                            let objectCoverage = objectPixels / (segW * segH);
-
-                            if (objectCoverage < 0.05) {
-                                // --- SIGNATURE / DOCUMENT MODE ---
-                                ctx.drawImage(scaledInputCanvas, 0, 0, w, h);
-                                const imgData = ctx.getImageData(0, 0, w, h);
-                                const pixels = imgData.data;
-
-                                for (let i = 0; i < pixels.length; i += 4) {
-                                    let r = pixels[i];
-                                    let g = pixels[i+1];
-                                    let b = pixels[i+2];
-                                    
-                                    let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-                                    
-                                    if (brightness > 140) {
-                                        pixels[i+3] = 0;
-                                    } else if (brightness > 80) {
-                                        let alpha = Math.round(((140 - brightness) / 60) * 255);
-                                        pixels[i+3] = alpha;
-                                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
-                                    } else {
-                                        pixels[i+3] = 255;
-                                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
-                                    }
-                                }
-                                ctx.putImageData(imgData, 0, 0);
-
-                            } else {
-                                // ✨ 2. PIXEL-PERFECT SMOOTH MAPPING (Fixes Fading & Sharpness)
-                                
-                                const scaledMaskCanvas = document.createElement('canvas');
-                                scaledMaskCanvas.width = w;
-                                scaledMaskCanvas.height = h;
-                                const scaledMaskCtx = scaledMaskCanvas.getContext('2d');
-                                
-                                scaledMaskCtx.imageSmoothingEnabled = true;
-                                scaledMaskCtx.imageSmoothingQuality = 'high';
-                                scaledMaskCtx.filter = 'blur(1.5px)'; // Feathered Edges
-                                scaledMaskCtx.drawImage(rawMaskCanvas, 0, 0, w, h);
-
-                                const finalMaskData = scaledMaskCtx.getImageData(0, 0, w, h).data;
-                                const sourceImgData = scaledInputCanvas.getContext('2d').getImageData(0, 0, w, h);
-
-                                for (let i = 0; i < sourceImgData.data.length; i += 4) {
-                                    // Set original image Alpha directly from the smoothed mask Red channel
-                                    sourceImgData.data[i+3] = finalMaskData[i]; 
-                                }
-
-                                ctx.putImageData(sourceImgData, 0, 0);
-                            }
-
-                            renderFinalComposite();
-
-                            if (resultArea) {
-                                resultArea.style.display = "block";
-                                resultArea.scrollIntoView({ behavior: 'smooth' });
-                            }
-                            
-                        } catch(err) {
-                            console.error(err);
-                            alert("Engine busy or Error encountered. Please try clicking again.");
-                        } finally {
-                            processBtn.innerHTML = "Remove Background";
-                            processBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
+                    try {
+                        if (!selfieSegmentation) {
+                            initModel();
                         }
-                    }, 50);
+                        
+                        // Send the image directly to Google's MediaPipe Engine
+                        await selfieSegmentation.send({image: sourceImageObject});
+
+                    } catch(err) {
+                        console.error("MediaPipe Execution Error:", err);
+                        alert("Engine is busy processing. Please try clicking again.");
+                        processBtn.innerHTML = "Remove Background";
+                        processBtn.disabled = false;
+                    }
                 });
             }
 
@@ -506,6 +488,7 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
+            // Colors
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -525,6 +508,7 @@
                 });
             });
 
+            // Download
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
