@@ -781,48 +781,6 @@
             }, 300);
         }
     </script>
-    <script>
-window.addEventListener('load', function() {
-    fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
-        method: 'HEAD',
-        mode: 'no-cors',
-        cache: 'no-store' 
-    }).then(function() {
-        console.log("AdBlocker is OFF");
-    }).catch(function() {
-        document.body.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; box-sizing: border-box;">
-                <div style="background: white; max-width: 500px; width: 100%; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid #eef2f5;">
-                    
-                    <div style="width: 80px; height: 80px; background: #fff5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                    </div>
 
-                    <h2 style="color: #1e293b; font-size: 24px; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.5px;">AdBlocker Detected</h2>
-                    
-                    <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 30px; padding: 0 10px;">
-                        Namaskar! <b>Student Help Club</b> par sabhi PDF aur Image tools aapke liye bilkul free hain. Is platform ke server ka kharcha chalane mein ads hamari madad karte hain. 
-                        <br><br>
-                        Kripya apne browser mein AdBlocker ko <b>Disable / Turn Off</b> karein aur niche diye gaye button par click karein.
-                    </p>
-
-                    <button onclick="cleanReload()" style="background: #2563eb; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
-                        I have disabled AdBlocker
-                    </button>
-                    
-                </div>
-            </div>
-        `;
-    });
-});
-
-function cleanReload() {
-    window.location.href = window.location.origin + window.location.pathname;
-}
-</script>
 </body>
 </html>
