@@ -257,9 +257,9 @@
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
 
-            // 🚀 INITIALIZE MEDIAPIPE AI (Super Reliable)
+            // 🚀 THE FIX: LOCK TO PREVENT AUTOMATIC PROCESSING
+            let isUserProcessing = false; 
             let selfieSegmentation = null;
-            let isModelLoaded = false;
 
             function initModel() {
                 if(typeof SelfieSegmentation === 'undefined') return;
@@ -267,20 +267,18 @@
                     return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
                 }});
                 selfieSegmentation.setOptions({
-                    modelSelection: 0, // 0 is general robust model
+                    modelSelection: 0, 
                 });
                 selfieSegmentation.onResults(onMediaPipeResults);
-                // Dummy send to wake up the model
+                
+                // Sent to load model in background (Will be safely ignored by the lock)
                 const dummyCanvas = document.createElement('canvas');
                 dummyCanvas.width = 1; dummyCanvas.height = 1;
-                selfieSegmentation.send({image: dummyCanvas}).then(() => {
-                    isModelLoaded = true;
-                }).catch(e => console.log("Background load wait...", e));
+                selfieSegmentation.send({image: dummyCanvas}).catch(e => {});
             }
             
             setTimeout(initModel, 500);
 
-            // Drag and Drop
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
             });
@@ -303,7 +301,6 @@
                 }
             });
 
-            // Image Selection
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
@@ -377,8 +374,11 @@
                 showResultArea();
             }
 
-            // The main MediaPipe Success Callback
+            // AI Result Execution
             function onMediaPipeResults(results) {
+                // 🛑 THE BUG FIX IS HERE: Ignore automatic background loading
+                if (!isUserProcessing) return; 
+
                 try {
                     const w = results.image.width;
                     const h = results.image.height;
@@ -389,17 +389,11 @@
                     
                     ctx.clearRect(0, 0, w, h);
 
-                    // 1. Draw the perfect mask provided by Google
                     ctx.drawImage(results.segmentationMask, 0, 0, w, h);
-
-                    // 2. Map original image ONLY where the mask exists (Pixel-Perfect Cutout)
                     ctx.globalCompositeOperation = 'source-in';
                     ctx.drawImage(results.image, 0, 0, w, h);
-                    
-                    // Reset blending
                     ctx.globalCompositeOperation = 'source-over';
 
-                    // 3. Smart check: Did it actually find a person? (Coverage check for signatures)
                     const imgData = ctx.getImageData(0, 0, w, h);
                     let nonTransparentPixels = 0;
                     for (let i = 3; i < imgData.data.length; i += 4) {
@@ -409,7 +403,6 @@
                     const coverage = nonTransparentPixels / (w * h);
 
                     if (coverage < 0.05) {
-                        // AI didn't find a face/body. Assume it's a signature on white paper.
                         processSignatureFallback(sourceImageObject);
                     } else {
                         renderFinalComposite();
@@ -419,6 +412,7 @@
                     console.error("Rendering Error:", e);
                     alert("Error drawing image. Please try again.");
                 } finally {
+                    isUserProcessing = false; // Reset the lock
                     processBtn.innerHTML = "Remove Background";
                     processBtn.disabled = false;
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
@@ -450,16 +444,19 @@
 
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Google AI...`;
                     processBtn.disabled = true;
+                    
+                    // 🟢 OPEN THE LOCK: Only process when user actually clicks
+                    isUserProcessing = true; 
 
                     try {
                         if (!selfieSegmentation) {
                             initModel();
                         }
                         
-                        // Send the image directly to Google's MediaPipe Engine
                         await selfieSegmentation.send({image: sourceImageObject});
 
                     } catch(err) {
+                        isUserProcessing = false; // Close lock on error
                         console.error("MediaPipe Execution Error:", err);
                         alert("Engine is busy processing. Please try clicking again.");
                         processBtn.innerHTML = "Remove Background";
@@ -488,7 +485,6 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
-            // Colors
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -508,7 +504,6 @@
                 });
             });
 
-            // Download
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
