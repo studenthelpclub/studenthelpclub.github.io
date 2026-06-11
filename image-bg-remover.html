@@ -32,8 +32,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
-    
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
@@ -146,7 +144,7 @@
 
         <div class="tool-card">
             <h1>Image Background Remover</h1>
-            <p class="subtitle">Advanced client-side AI network model to automatically extract objects, products & persons and remove complex backgrounds instantly.</p>
+            <p class="subtitle">Advanced High-Definition AI to automatically extract objects, products & persons and remove complex backgrounds instantly.</p>
             
             <div class="upload-container-box" id="dropZone">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
@@ -205,19 +203,10 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced Google MediaPipe machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
-            
-            <h3>Essential Utility for Scanning <b>Digital Signatures</b> and Student Profiles</h3>
-            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium <b>transparent PNG assets</b> optimized for application compliance.</p>
-            
-            <h3>Step-by-Step <b>Transparency Optimization</b> Guidelines</h3>
-            <ul>
-                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
-                <li><strong>Isolate Erasing Parameters:</strong> The <b>deep AI neural networks</b> map user and object geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
-                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
-            </ul>
+            <p>Our premium platform integrates advanced machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter.</p>
         </article>
     </div>
 
@@ -238,10 +227,11 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <script>
-    (function() {
+    <script type="module">
+        // Using strict ES Modules prevents CDN and lodash dependency crashes
+        import imglyRemoveBackground from "https://unpkg.com/@imgly/background-removal@1.4.5/dist/browser/bundle.mjs";
+
         document.addEventListener("DOMContentLoaded", function() {
-            
             const imageInput = document.getElementById('imageInput');
             const dropZone = document.getElementById('dropZone');
             const settingsArea = document.getElementById('settingsArea');
@@ -256,50 +246,29 @@
             let sourceImageObject = new Image();
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
-
-            // Processing Lock
-            let isUserProcessing = false; 
-            let selfieSegmentation = null;
-
-            function initModel() {
-                if(typeof SelfieSegmentation === 'undefined') return;
-                selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
-                    return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
-                }});
-                selfieSegmentation.setOptions({
-                    modelSelection: 0, 
-                });
-                selfieSegmentation.onResults(onMediaPipeResults);
-                
-                const dummyCanvas = document.createElement('canvas');
-                dummyCanvas.width = 1; dummyCanvas.height = 1;
-                selfieSegmentation.send({image: dummyCanvas}).catch(e => {});
-            }
             
-            setTimeout(initModel, 500);
+            let currentUploadedFile = null;
 
+            // Drag and Drop Handlers
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, preventDefaults, false);
+                dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
             });
-            function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-            
             ['dragenter', 'dragover'].forEach(eventName => {
                 dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
             });
-            
             ['dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
             });
 
             dropZone.addEventListener('drop', function(e) {
                 let dt = e.dataTransfer;
-                let files = dt.files;
-                if (files && files.length > 0) {
-                    imageInput.files = files;
+                if (dt.files && dt.files.length > 0) {
+                    imageInput.files = dt.files;
                     imageInput.dispatchEvent(new Event('change'));
                 }
             });
 
+            // Load Image
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
@@ -319,11 +288,13 @@
                                     throw new Error("heic2any library not loaded");
                                 }
                             } catch (err) {
-                                console.error("HEIC Fallback pipeline executed.", err);
+                                console.error("HEIC Error.", err);
                                 if (statusText) statusText.innerHTML = `<b style="color:red;"><i class="fas fa-times-circle"></i> Format not supported. Try JPG/PNG.</b>`;
                                 return;
                             }
                         }
+
+                        currentUploadedFile = file;
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
@@ -340,6 +311,7 @@
                 });
             }
 
+            // Fallback for Document/Signature Scans
             function processSignatureFallback(img) {
                 const w = img.naturalWidth;
                 const h = img.naturalHeight;
@@ -369,96 +341,16 @@
                 ctx.putImageData(imgData, 0, 0);
                 
                 renderFinalComposite();
-                showResultArea();
-            }
-
-            // ✨ THE FINAL FLAWLESS FIX: Erode (Shrink) -> Feather (Blur) -> Composite
-            function onMediaPipeResults(results) {
-                if (!isUserProcessing) return; 
-
-                try {
-                    const w = results.image.width;
-                    const h = results.image.height;
-                    
-                    isolatedPersonCanvas.width = w;
-                    isolatedPersonCanvas.height = h;
-                    const ctx = isolatedPersonCanvas.getContext('2d');
-                    ctx.clearRect(0, 0, w, h);
-
-                    // 1. Get the raw mask from AI
-                    const rawMaskCanvas = document.createElement('canvas');
-                    rawMaskCanvas.width = w;
-                    rawMaskCanvas.height = h;
-                    const rmCtx = rawMaskCanvas.getContext('2d');
-                    rmCtx.drawImage(results.segmentationMask, 0, 0, w, h);
-                    const rawMaskData = rmCtx.getImageData(0, 0, w, h);
-                    const rmPixels = rawMaskData.data;
-
-                    // 2. MASK CHOKE (Erode): Shrink the mask slightly to completely cut off the white halo fringe
-                    for (let i = 0; i < rmPixels.length; i += 4) {
-                        let val = rmPixels[i]; 
-                        let newVal = 0;
-                        // Push everything below 140 to 0. This shrinks the border inward.
-                        if (val > 140) {
-                            newVal = Math.min(255, (val - 140) * (255 / 115));
-                        }
-                        rmPixels[i] = newVal;     // R
-                        rmPixels[i+1] = newVal;   // G
-                        rmPixels[i+2] = newVal;   // B
-                        rmPixels[i+3] = newVal;   // A
-                    }
-                    rmCtx.putImageData(rawMaskData, 0, 0);
-
-                    // 3. MASK FEATHER (Blur): Soften the shrunken mask so it doesn't look jagged (anti-aliasing)
-                    const featherCanvas = document.createElement('canvas');
-                    featherCanvas.width = w;
-                    featherCanvas.height = h;
-                    const fCtx = featherCanvas.getContext('2d');
-                    fCtx.filter = 'blur(1.5px)'; // The Magic "Professional" Edge Softener
-                    fCtx.drawImage(rawMaskCanvas, 0, 0, w, h);
-                    fCtx.filter = 'none';
-
-                    // 4. CUTOUT: Use the perfectly feathered mask to cut the original image
-                    ctx.drawImage(featherCanvas, 0, 0, w, h);
-                    ctx.globalCompositeOperation = 'source-in';
-                    ctx.drawImage(results.image, 0, 0, w, h); // Face remains 100% untouched inside the mask
-                    ctx.globalCompositeOperation = 'source-over';
-
-                    // Signature Mode Coverage Check
-                    const imgData = ctx.getImageData(0, 0, w, h);
-                    let nonTransparentPixels = 0;
-                    for (let i = 3; i < imgData.data.length; i += 4) {
-                        if (imgData.data[i] > 10) nonTransparentPixels++;
-                    }
-                    const coverage = nonTransparentPixels / (w * h);
-
-                    if (coverage < 0.05) {
-                        processSignatureFallback(sourceImageObject);
-                    } else {
-                        renderFinalComposite();
-                        showResultArea();
-                    }
-                } catch (e) {
-                    console.error("Rendering Error:", e);
-                    alert("Error drawing image. Please try again.");
-                } finally {
-                    isUserProcessing = false; 
-                    processBtn.innerHTML = "Remove Background";
-                    processBtn.disabled = false;
-                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
-                }
-            }
-
-            function showResultArea() {
                 if (resultArea) {
                     resultArea.style.display = "block";
                     resultArea.scrollIntoView({ behavior: 'smooth' });
                 }
             }
 
+            // MAIN EXECUTION (PREMIUM AI)
             if(processBtn) {
                 processBtn.addEventListener('click', async function() {
-                    if (!sourceImageObject.src) return;
+                    if (!currentUploadedFile) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
@@ -467,29 +359,63 @@
                         }
                     }
 
-                    if (typeof SelfieSegmentation === 'undefined') {
-                        alert("AI tools are still loading or blocked by your browser. Please wait a few seconds and try again.");
-                        return;
-                    }
-
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Google AI...`;
+                    // ⚠️ IMPORTANT WARNING FOR USER
+                    processBtn.innerHTML = `<i class="fas fa-cloud-download-alt fa-spin"></i> Downloading Premium AI Engine... (Approx 15-30 Sec)`;
                     processBtn.disabled = true;
-                    
-                    isUserProcessing = true; 
 
                     try {
-                        if (!selfieSegmentation) {
-                            initModel();
-                        }
-                        await selfieSegmentation.send({image: sourceImageObject});
+                        // Using official Unpkg path which solves CORS & Lodash issues dynamically
+                        const config = {
+                            publicPath: "https://unpkg.com/@imgly/background-removal@1.4.5/dist/"
+                        };
+                        
+                        // The engine natively anti-aliases and cuts hair strands smoothly!
+                        const bgRemovedBlob = await imglyRemoveBackground(currentUploadedFile, config);
+                        
+                        const url = URL.createObjectURL(bgRemovedBlob);
+                        const resultImg = new Image();
+                        
+                        resultImg.onload = function() {
+                            isolatedPersonCanvas.width = resultImg.width;
+                            isolatedPersonCanvas.height = resultImg.height;
+                            const ctx = isolatedPersonCanvas.getContext('2d');
+                            ctx.drawImage(resultImg, 0, 0);
+                            
+                            // Signature Fallback Check
+                            const imgData = ctx.getImageData(0, 0, resultImg.width, resultImg.height);
+                            let fgPixels = 0;
+                            for(let i = 3; i < imgData.data.length; i += 4) {
+                                if (imgData.data[i] > 10) fgPixels++;
+                            }
+                            const coverage = fgPixels / (resultImg.width * resultImg.height);
+                            
+                            if (coverage < 0.05) {
+                                processSignatureFallback(sourceImageObject);
+                            } else {
+                                renderFinalComposite();
+                                if (resultArea) {
+                                    resultArea.style.display = "block";
+                                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }
+                            
+                            URL.revokeObjectURL(url); 
+                            resetButton();
+                        };
+                        resultImg.src = url;
+
                     } catch(err) {
-                        isUserProcessing = false; 
-                        console.error("MediaPipe Execution Error:", err);
-                        alert("Engine is busy processing. Please try clicking again.");
-                        processBtn.innerHTML = "Remove Background";
-                        processBtn.disabled = false;
+                        console.error("AI Error:", err);
+                        alert("AI Engine encountered an error: " + err.message + "\nPlease check your internet connection and try again.");
+                        resetButton();
                     }
                 });
+            }
+
+            function resetButton() {
+                processBtn.innerHTML = "Remove Background";
+                processBtn.disabled = false;
+                if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
             }
 
             function renderFinalComposite() {
@@ -512,6 +438,7 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
+            // Color Picker
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -531,6 +458,7 @@
                 });
             });
 
+            // Download
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
@@ -560,7 +488,6 @@
                 };
             }
         });
-    })();
     </script>   
 </body>
 </html>
