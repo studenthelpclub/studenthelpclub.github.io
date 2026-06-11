@@ -206,6 +206,7 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
             <p>Our premium platform integrates advanced TensorFlow machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
@@ -259,6 +260,21 @@
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
             let tempMaskCanvas = document.createElement('canvas');
+            
+            // AI CACHING FOR SPEED BOOST
+            let preloadedModel = null;
+            
+            // 1. Silent Background Loading on page start
+            setTimeout(async () => {
+                try {
+                    if (typeof deeplab !== 'undefined') {
+                        preloadedModel = await deeplab.load({base: 'pascal', quantizationBytes: 2});
+                        console.log("AI Model Pre-loaded successfully for Instant Processing");
+                    }
+                } catch(e) {
+                    console.log("Preloading failed, will load on click.", e);
+                }
+            }, 500);
 
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
@@ -322,8 +338,9 @@
                 });
             }
 
+            // 2. Optimized Processing Dimension
             function getScaledCanvas(img) {
-                const MAX_DIMENSION = 1800; 
+                const MAX_DIMENSION = 1024; // REDUCED FROM 1800 FOR 4X SPEED
                 let w = img.naturalWidth || img.width;
                 let h = img.naturalHeight || img.height;
                 
@@ -351,9 +368,10 @@
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Model...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Fast AI...`;
                     processBtn.disabled = true;
 
+                    // Reduced timeout for snappier UI response
                     setTimeout(async () => {
                         try {
                             if (typeof deeplab === 'undefined') {
@@ -363,8 +381,12 @@
                                 return;
                             }
 
-                            // Load DeepLab v3 Model for Generic Objects & Humans
-                            const model = await deeplab.load({base: 'pascal', quantizationBytes: 2});
+                            // 3. Use Pre-loaded model to save loading time
+                            let model = preloadedModel;
+                            if (!model) {
+                                model = await deeplab.load({base: 'pascal', quantizationBytes: 2});
+                                preloadedModel = model; 
+                            }
 
                             const scaledInput = getScaledCanvas(sourceImageObject);
                             const w = scaledInput.width;
@@ -372,10 +394,14 @@
 
                             const segmentation = await model.segment(scaledInput);
 
-                            tempMaskCanvas.width = w;
-                            tempMaskCanvas.height = h;
+                            // 4. Glitch Fix Applied Here
+                            const segW = segmentation.width;
+                            const segH = segmentation.height;
+
+                            tempMaskCanvas.width = segW;
+                            tempMaskCanvas.height = segH;
                             const maskCtx = tempMaskCanvas.getContext('2d');
-                            const maskImageData = maskCtx.createImageData(w, h);
+                            const maskImageData = maskCtx.createImageData(segW, segH);
                             const segMap = segmentation.segmentationMap;
                             let objectPixels = 0;
 
@@ -397,7 +423,7 @@
                             isolatedPersonCanvas.height = h;
                             ctx.clearRect(0, 0, w, h);
 
-                            let objectCoverage = objectPixels / (w * h);
+                            let objectCoverage = objectPixels / (segW * segH);
 
                             if (objectCoverage < 0.03) {
                                 // --- SIGNATURE / DOCUMENT MODE ---
@@ -426,9 +452,13 @@
                                 ctx.putImageData(imgData, 0, 0);
 
                             } else {
-                                // --- OBJECT / PERSON MODE (Smooth Edges & Retain Objects) ---
-                                ctx.filter = 'blur(1px)';
-                                ctx.drawImage(tempMaskCanvas, 0, 0, w, h);
+                                // --- PREMIUM SMOOTH EDGES MODE ---
+                                ctx.filter = 'blur(1.5px)';
+                                ctx.imageSmoothingEnabled = true;
+                                ctx.imageSmoothingQuality = 'high';
+                                
+                                // Resize mask accurately without glitches
+                                ctx.drawImage(tempMaskCanvas, 0, 0, segW, segH, 0, 0, w, h);
                                 
                                 ctx.filter = 'none';
                                 ctx.globalCompositeOperation = 'source-in';
@@ -452,7 +482,7 @@
                             processBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
                         }
-                    }, 200);
+                    }, 50); // Timeout reduced to 50ms for faster UI response
                 });
             }
 
