@@ -20,8 +20,6 @@
     <link rel="canonical" href="https://www.shctools.in/image-bg-remover.html">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
-    <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -32,8 +30,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab@0.2.2/dist/deeplab.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/browser/bundle.umd.min.js"></script>
     
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -147,7 +144,7 @@
 
         <div class="tool-card">
             <h1>Image Background Remover</h1>
-            <p class="subtitle">Advanced client-side AI network model to automatically extract objects, products & persons and remove complex backgrounds instantly.</p>
+            <p class="subtitle">Advanced High-Definition AI to automatically extract objects, products & persons and remove complex backgrounds instantly.</p>
             
             <div class="upload-container-box" id="dropZone">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
@@ -209,34 +206,11 @@
         
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced TensorFlow machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
-            
-            <h3>Essential Utility for Scanning <b>Digital Signatures</b> and Student Profiles</h3>
-            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium <b>transparent PNG assets</b> optimized for application compliance.</p>
-            
-            <h3>Step-by-Step <b>Transparency Optimization</b> Guidelines</h3>
-            <ul>
-                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
-                <li><strong>Isolate Erasing Parameters:</strong> The <b>deep AI neural networks</b> map user and object geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
-                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
-            </ul>
+            <p>Our premium platform integrates advanced machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
         </article>
     </div>
 
     <footer class="footer">
-        <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        
-        <div class="policy-links">
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="about_us.html">About Us</a> | 
-            <a href="contact.html">Contact Us</a> | 
-            <a href="terms.html">Terms of Service</a> |
-            <a href="disclaimer.html">Disclaimer</a>
-        </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
@@ -256,24 +230,10 @@
             const previewWrapper = document.getElementById('previewWrapper');
 
             let sourceImageObject = new Image();
-            let processCanvasObject = document.createElement('canvas'); 
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
-            let tempMaskCanvas = document.createElement('canvas');
-            
-            let preloadedModel = null;
-            
-            setTimeout(async () => {
-                try {
-                    if (typeof deeplab !== 'undefined') {
-                        preloadedModel = await deeplab.load({base: 'pascal', quantizationBytes: 2});
-                        console.log("AI Model Pre-loaded successfully for Instant Processing");
-                    }
-                } catch(e) {
-                    console.log("Preloading failed, will load on click.", e);
-                }
-            }, 500);
 
+            // Drag and drop event listeners
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
             });
@@ -296,6 +256,7 @@
                 }
             });
 
+            // Load Image Data
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
@@ -336,26 +297,53 @@
                 });
             }
 
-            function getScaledCanvas(img) {
-                const MAX_DIMENSION = 1024;
-                let w = img.naturalWidth || img.width;
-                let h = img.naturalHeight || img.height;
+            // --- Custom Signature Fallback Logic ---
+            // Student Help Club students often upload signatures on white paper.
+            function processSignatureFallback(img) {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
                 
-                if (w > MAX_DIMENSION || h > MAX_DIMENSION) {
-                    const ratio = Math.min(MAX_DIMENSION / w, MAX_DIMENSION / h);
-                    w = Math.round(w * ratio);
-                    h = Math.round(h * ratio);
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imgData.data;
+
+                for (let i = 0; i < pixels.length; i += 4) {
+                    let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+                    let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+                    
+                    if (brightness > 140) {
+                        pixels[i+3] = 0; // Transparent background
+                    } else if (brightness > 80) {
+                        let alpha = Math.round(((140 - brightness) / 60) * 255);
+                        pixels[i+3] = alpha;
+                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
+                    } else {
+                        pixels[i+3] = 255;
+                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0; // Solid ink
+                    }
                 }
+                ctx.putImageData(imgData, 0, 0);
                 
-                processCanvasObject.width = w;
-                processCanvasObject.height = h;
-                const ctx = processCanvasObject.getContext('2d');
-                ctx.drawImage(img, 0, 0, w, h);
-                return processCanvasObject;
+                isolatedPersonCanvas.width = canvas.width;
+                isolatedPersonCanvas.height = canvas.height;
+                isolatedPersonCanvas.getContext('2d').drawImage(canvas, 0, 0);
+                
+                renderFinalComposite();
+                showResultArea();
             }
 
+            function showResultArea() {
+                if (resultArea) {
+                    resultArea.style.display = "block";
+                    resultArea.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // --- Main AI Processing ---
             if(processBtn) {
-                processBtn.addEventListener('click', function() {
+                processBtn.addEventListener('click', async function() {
                     if (!sourceImageObject.src) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
@@ -365,133 +353,57 @@
                         }
                     }
 
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Fast AI...`;
+                    // Loading Status Update
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Premium AI...`;
                     processBtn.disabled = true;
 
-                    setTimeout(async () => {
-                        try {
-                            if (typeof deeplab === 'undefined') {
-                                alert("AI Engine initializing. Please wait a moment and try again.");
-                                processBtn.innerHTML = "Remove Background";
-                                processBtn.disabled = false;
-                                return;
-                            }
-
-                            let model = preloadedModel;
-                            if (!model) {
-                                model = await deeplab.load({base: 'pascal', quantizationBytes: 2});
-                                preloadedModel = model; 
-                            }
-
-                            const scaledInput = getScaledCanvas(sourceImageObject);
-                            const w = scaledInput.width;
-                            const h = scaledInput.height;
-
-                            const segmentation = await model.segment(scaledInput);
-
-                            const segW = segmentation.width;
-                            const segH = segmentation.height;
-
-                            // 1. Solid Grayscale Mask Banayenge (Taki browser glitch na kare)
-                            tempMaskCanvas.width = segW;
-                            tempMaskCanvas.height = segH;
-                            const maskCtx = tempMaskCanvas.getContext('2d');
-                            const maskImageData = maskCtx.createImageData(segW, segH);
-                            const segMap = segmentation.segmentationMap;
-                            let objectPixels = 0;
-
-                            for (let i = 0; i < segMap.length; i++) {
-                                const isForeground = segMap[i] !== 0;
-                                const colorVal = isForeground ? 255 : 0; // 255 = White (Subject), 0 = Black (BG)
-                                
-                                maskImageData.data[i * 4] = colorVal;     // Red
-                                maskImageData.data[i * 4 + 1] = colorVal; // Green
-                                maskImageData.data[i * 4 + 2] = colorVal; // Blue
-                                maskImageData.data[i * 4 + 3] = 255;      // ALPHA MESH GLITCH FIX: MUST be 100% Solid (255)
-                                
-                                if (isForeground) objectPixels++;
-                            }
-                            maskCtx.putImageData(maskImageData, 0, 0);
-
+                    try {
+                        // Imgly API Configuration
+                        const config = {
+                            publicPath: "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/"
+                        };
+                        
+                        // Execute Premium Segmentation!
+                        const bgRemovedBlob = await imglyRemoveBackground(sourceImageObject, config);
+                        const url = URL.createObjectURL(bgRemovedBlob);
+                        
+                        const resultImg = new Image();
+                        resultImg.onload = function() {
+                            isolatedPersonCanvas.width = resultImg.width;
+                            isolatedPersonCanvas.height = resultImg.height;
                             const ctx = isolatedPersonCanvas.getContext('2d');
-                            isolatedPersonCanvas.width = w;
-                            isolatedPersonCanvas.height = h;
-                            ctx.clearRect(0, 0, w, h);
-
-                            let objectCoverage = objectPixels / (segW * segH);
-
-                            if (objectCoverage < 0.03) {
-                                // --- SIGNATURE / DOCUMENT MODE ---
-                                ctx.drawImage(scaledInput, 0, 0, w, h);
-                                const imgData = ctx.getImageData(0, 0, w, h);
-                                const pixels = imgData.data;
-
-                                for (let i = 0; i < pixels.length; i += 4) {
-                                    let r = pixels[i];
-                                    let g = pixels[i+1];
-                                    let b = pixels[i+2];
-                                    
-                                    let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-                                    
-                                    if (brightness > 140) {
-                                        pixels[i+3] = 0;
-                                    } else if (brightness > 80) {
-                                        let alpha = Math.round(((140 - brightness) / 60) * 255);
-                                        pixels[i+3] = alpha;
-                                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
-                                    } else {
-                                        pixels[i+3] = 255;
-                                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
-                                    }
-                                }
-                                ctx.putImageData(imgData, 0, 0);
-
-                            } else {
-                                // --- PREMIUM PIXEL-BY-PIXEL ALPHA MODE ---
-                                
-                                // Step A: Mask ko Original Canvas Size par stretch and smooth karein
-                                const smoothMaskCanvas = document.createElement('canvas');
-                                smoothMaskCanvas.width = w;
-                                smoothMaskCanvas.height = h;
-                                const smCtx = smoothMaskCanvas.getContext('2d');
-                                
-                                smCtx.filter = 'blur(2px)'; // Feathered edges ke liye halka blur
-                                smCtx.imageSmoothingEnabled = true;
-                                smCtx.imageSmoothingQuality = 'high';
-                                smCtx.drawImage(tempMaskCanvas, 0, 0, segW, segH, 0, 0, w, h);
-                                
-                                // Step B: Smooth Grayscale pixels extract karein
-                                const smoothMaskData = smCtx.getImageData(0, 0, w, h).data;
-                                
-                                // Step C: Original Image extract karein
-                                const originalPixels = scaledInput.getContext('2d').getImageData(0, 0, w, h);
-                                
-                                // Step D: Har pixel ka alpha channel seedha apply karein (100% Bug Free)
-                                for (let i = 0; i < originalPixels.data.length; i += 4) {
-                                    // Original Image ka Alpha (i+3) = Stretched Mask ka Red channel (i)
-                                    originalPixels.data[i + 3] = smoothMaskData[i];
-                                }
-                                
-                                // Step E: Clean image canvas par daalein
-                                ctx.putImageData(originalPixels, 0, 0);
+                            ctx.drawImage(resultImg, 0, 0);
+                            
+                            // Check if the AI erased almost everything (Which happens when AI tries to erase white paper under a signature)
+                            const imgData = ctx.getImageData(0, 0, resultImg.width, resultImg.height);
+                            let fgPixels = 0;
+                            for(let i=3; i < imgData.data.length; i+=4) {
+                                if (imgData.data[i] > 10) fgPixels++;
                             }
-
-                            renderFinalComposite();
-
-                            if (resultArea) {
-                                resultArea.style.display = "block";
-                                resultArea.scrollIntoView({ behavior: 'smooth' });
+                            const coverage = fgPixels / (resultImg.width * resultImg.height);
+                            
+                            // Auto-trigger signature mode if object coverage is too small (< 5%)
+                            if (coverage < 0.05) {
+                                processSignatureFallback(sourceImageObject);
+                            } else {
+                                // For Humans & Products: Display AI Perfect Result
+                                renderFinalComposite();
+                                showResultArea();
                             }
                             
-                        } catch(err) {
-                            console.error(err);
-                            alert("Engine busy. Please try clicking again.");
-                        } finally {
+                            URL.revokeObjectURL(url); // Memory cleanup
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
-                        }
-                    }, 50); 
+                        };
+                        resultImg.src = url;
+
+                    } catch(err) {
+                        console.error(err);
+                        alert("AI Engine is busy. Please try clicking again.");
+                        processBtn.innerHTML = "Remove Background";
+                        processBtn.disabled = false;
+                    }
                 });
             }
 
@@ -515,6 +427,7 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
+            // Background Color Picker Logic
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -534,6 +447,7 @@
                 });
             });
 
+            // Download Asset
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
