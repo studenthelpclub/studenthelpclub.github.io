@@ -19,7 +19,10 @@
 
     <link rel="canonical" href="https://www.shctools.in/image-bg-remover.html">
 
+    <!-- ALL ORIGINAL AD SCRIPTS RESTORED -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
+    <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -30,6 +33,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
+    <!-- PREMIUM AI ENGINE FOR HIGH QUALITY REMOVAL -->
     <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/browser/bundle.umd.min.js"></script>
     
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
@@ -204,13 +208,38 @@
             </a>
         </div>
         
+        <!-- ALL ORIGINAL SEO CONTENT RESTORED -->
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            <p>Our premium platform integrates advanced TensorFlow machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
+            
+            <h3>Essential Utility for Scanning <b>Digital Signatures</b> and Student Profiles</h3>
+            <p>Prominent digital application portals—including central admission forms, open learning pipelines (such as IGNOU), SSC setups, and state commission registries—require candidates to upload signatures on pure transparent or standard borders. Handwritten signature snapshots captured via mobile cameras usually result in greyish, uneven backdrops that fail automated validation systems. This smart responsive color remover eliminates scanning defects completely, stripping out off-white noise to deliver premium <b>transparent PNG assets</b> optimized for application compliance.</p>
+            
+            <h3>Step-by-Step <b>Transparency Optimization</b> Guidelines</h3>
+            <ul>
+                <li><strong>Upload Image Materials:</strong> Select or drop your snapshot elements (Supports JPEG, PNG, and converted mobile HEIC frames) into the layout field box.</li>
+                <li><strong>Isolate Erasing Parameters:</strong> The <b>deep AI neural networks</b> map user and object geometry curves automatically, removing complex landscapes without manual threshold editing grids.</li>
+                <li><strong>Isolate and Download:</strong> Trigger the extraction button to execute canvas manipulation loops. Inspect the finished product against our checkerboard transparency background, and download your processed PNG immediately.</li>
+            </ul>
         </article>
     </div>
 
+    <!-- ALL ORIGINAL FOOTER LINKS RESTORED -->
     <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
@@ -233,7 +262,6 @@
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
 
-            // Drag and drop event listeners
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
             });
@@ -256,7 +284,6 @@
                 }
             });
 
-            // Load Image Data
             if(imageInput) {
                 imageInput.addEventListener('change', async function(e) {
                     if (e.target.files && e.target.files[0]) {
@@ -297,8 +324,7 @@
                 });
             }
 
-            // --- Custom Signature Fallback Logic ---
-            // Student Help Club students often upload signatures on white paper.
+            // Fallback for document/signature scans to ensure forms don't get rejected
             function processSignatureFallback(img) {
                 const canvas = document.createElement('canvas');
                 canvas.width = img.naturalWidth;
@@ -314,14 +340,14 @@
                     let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
                     
                     if (brightness > 140) {
-                        pixels[i+3] = 0; // Transparent background
+                        pixels[i+3] = 0; 
                     } else if (brightness > 80) {
                         let alpha = Math.round(((140 - brightness) / 60) * 255);
                         pixels[i+3] = alpha;
                         pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
                     } else {
                         pixels[i+3] = 255;
-                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0; // Solid ink
+                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0; 
                     }
                 }
                 ctx.putImageData(imgData, 0, 0);
@@ -341,7 +367,6 @@
                 }
             }
 
-            // --- Main AI Processing ---
             if(processBtn) {
                 processBtn.addEventListener('click', async function() {
                     if (!sourceImageObject.src) return;
@@ -353,17 +378,14 @@
                         }
                     }
 
-                    // Loading Status Update
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Premium AI...`;
                     processBtn.disabled = true;
 
                     try {
-                        // Imgly API Configuration
                         const config = {
                             publicPath: "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/"
                         };
                         
-                        // Execute Premium Segmentation!
                         const bgRemovedBlob = await imglyRemoveBackground(sourceImageObject, config);
                         const url = URL.createObjectURL(bgRemovedBlob);
                         
@@ -374,7 +396,6 @@
                             const ctx = isolatedPersonCanvas.getContext('2d');
                             ctx.drawImage(resultImg, 0, 0);
                             
-                            // Check if the AI erased almost everything (Which happens when AI tries to erase white paper under a signature)
                             const imgData = ctx.getImageData(0, 0, resultImg.width, resultImg.height);
                             let fgPixels = 0;
                             for(let i=3; i < imgData.data.length; i+=4) {
@@ -382,16 +403,14 @@
                             }
                             const coverage = fgPixels / (resultImg.width * resultImg.height);
                             
-                            // Auto-trigger signature mode if object coverage is too small (< 5%)
                             if (coverage < 0.05) {
                                 processSignatureFallback(sourceImageObject);
                             } else {
-                                // For Humans & Products: Display AI Perfect Result
                                 renderFinalComposite();
                                 showResultArea();
                             }
                             
-                            URL.revokeObjectURL(url); // Memory cleanup
+                            URL.revokeObjectURL(url); 
                             processBtn.innerHTML = "Remove Background";
                             processBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
@@ -427,7 +446,6 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
-            // Background Color Picker Logic
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -447,7 +465,6 @@
                 });
             });
 
-            // Download Asset
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
