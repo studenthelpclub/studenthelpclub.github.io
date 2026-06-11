@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -13,28 +12,28 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIXED: Optimized short title framework to pass search indexing validation borders -->
     <title>Smart PDF Color Inverter Online - Student Help Club</title>
      
-    <!-- FIX: Premium SEO Meta Tags Added to resolve Webmaster Description Errors & AdSense Bot Compliance -->
     <meta name="description" content="Convert standard light documents into high-contrast dark mode layouts instantly inside your browser. Free secure client-side PDF color inversion tool by Student Help Club.">
     <meta name="keywords" content="pdf color inverter, pdf dark mode, invert pdf colors online, pdf background changer, student help club tools, read pdf in dark mode">
     <meta name="robots" content="index, follow">
 
-    <!-- FIXED: Resolved duplicate indices warning by adding the unique absolute master canonical link -->
     <link rel="canonical" href="https://www.shctools.in/pdf-invert.html">
 
-    <!-- FIXED: Added missing Google AdSense Client Script for automated ad delivery and crawler validation -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     
+    <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
     <style>
@@ -94,7 +93,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* FIXED: Brand title heading converted to safe div tag style to resolve multiple h1 validation issues */
         .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
@@ -170,7 +168,6 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        /* FIXED: Set tool identity title marked as absolute unique h1 master scope tracking */
         .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
@@ -188,18 +185,18 @@
             text-align: center;
         }
 
-        /* Modern Dashed Upload Container */
-        .upload-container { 
-            border: 2px dashed var(--primary); 
-            padding: 40px 20px; 
-            border-radius: 16px; 
-            cursor: pointer; 
+        /* Upload Container */
+        .upload-container {
+            border: 2px dashed var(--primary);
             background: #f0fdf4;
+            padding: 40px 20px;
+            border-radius: 16px;
             text-align: center;
+            cursor: pointer;
             transition: var(--transition);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-
+        
         .upload-container:hover {
             background: #e6fced;
         }
@@ -210,18 +207,31 @@
             margin-bottom: 12px;
         }
 
-        #statusText {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-main);
+        .select-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
+            pointer-events: none;
         }
 
-        #selectedFileName { 
-            margin: 15px 0; 
-            font-size: 0.95rem; 
-            color: #007bff; 
-            font-weight: 700; 
-            text-align: center;
+        #pdfNameDisplay {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            line-height: 1.8;
+            text-align: left;
         }
 
         .recaptcha-wrapper {
@@ -230,42 +240,40 @@
             justify-content: center;
         }
 
-        /* Button Frameworks */
-        .main-btn { 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            padding: 15px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            width: 100%; 
-            font-weight: 700; 
+        .main-btn {
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
         }
 
-        .main-btn:hover:not(:disabled) { 
-            background: var(--primary-hover); 
+        .main-btn:hover:not(:disabled) {
+            background: #1e293b;
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
         }
 
-        .main-btn:disabled { 
-            background: #cbd5e1; 
+        .main-btn:disabled {
+            background: #cbd5e1;
             color: #94a3b8;
-            cursor: not-allowed; 
+            cursor: not-allowed;
             box-shadow: none;
         }
 
-        /* Results Display UI */
+        /* Result Display Area */
         .result-box {
             display: none;
-            margin-top: 30px;
-            padding: 25px;
-            background: #f0fdf4;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 177, 79, 0.2);
+            margin-top: 35px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
             text-align: center;
             animation: fadeIn 0.4s ease;
         }
@@ -275,31 +283,40 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .success-msg { 
-            color: var(--primary-hover); 
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+        .result-box h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
 
-        .download-btn { 
-            background: #007bff; 
-            color: white; 
-            border: none; 
-            padding: 15px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            width: 100%; 
-            font-weight: 700; 
+        #previewContainer iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: #1e293b;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
+            margin-top: 20px;
         }
 
-        .download-btn:hover { 
-            background: #0056b3; 
+        .download-btn:hover {
+            background: var(--primary-hover);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
         }
 
         /* Informative SEO Section */
@@ -390,15 +407,12 @@
             .seo-content { padding: 30px 20px; }
         }
     </style>
-    <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
 <body>
 
     <header class="header">
         <a href="index.html" class="brand">
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            <!-- FIXED: Switched to brand-title div to clean up double h1 layout markers -->
             <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
@@ -413,62 +427,78 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <!-- FIXED: Marked as absolute single h1 tracking element on current document tree -->
-            <h1>SHC Smart PDF Color Inverter</h1>
-            <p class="subtitle">Convert standard light documents into high-contrast dark mode layouts instantly inside your browser.</p>
-
+            <h1>SHC Smart PDF Inverter</h1>
+            <p class="subtitle">Convert standard light documents into high-contrast dark mode layouts instantly for comfortable reading.</p>
+            
             <div class="upload-container" id="dropZone">
-                <i class="fas fa-file-pdf"></i>
-                <p id="statusText">Click or Drag PDF here</p>
-                <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
+                <i class="fas fa-moon"></i>
+                <p id="pdfStatusText">Select or Drag PDF to Invert Colors</p>
+                <input type="file" id="pdfInput" accept="application/pdf" hidden>
+                <button type="button" class="select-btn">Select PDF File</button>
             </div>
 
-            <div id="selectedFileName"></div>
-
-            <div id="actionArea" style="display: none;">
+            <div id="convertSettings" style="display: none; margin-top: 20px;">
+                <p id="pdfNameDisplay"></p>
+                
                 <div class="recaptcha-wrapper">
                     <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
-                <button id="invertBtn" class="main-btn">Invert Colors Now</button>
+
+                <button id="convertBtn" class="main-btn"><i class="fas fa-adjust"></i> Invert PDF Colors</button>
             </div>
 
             <div id="resultArea" class="result-box">
-                <div class="success-msg" id="successMsg">
-                    <i class="fas fa-check-circle"></i> Inversion Successful!
-                </div>
-                <button id="downloadBtn" class="download-btn">
-                    <i class="fas fa-download"></i> Download Inverted PDF
-                </button>
+                <h3><i class="fas fa-check-double" style="color: var(--primary);"></i> Inversion Complete!</h3>
+                <div id="previewContainer"></div>
+                <button id="downloadPdfBtn" class="download-btn">Download Dark PDF</button>
             </div>
         </div>
 
+        <div class="shc-promo-container" style="max-width: 800px; margin: 30px auto; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+            <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                </div>
+                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+
+            <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                </div>
+                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+        </div>
         <article class="seo-content">
-            <h3>How the Smart Local PDF Inversion Engine Works</h3>
-            <p>Our premium document utility alters color layout properties completely within your client browser framework, prioritizing safety and compliance rules. When a target PDF file milestone is loaded, the processing structure calculates matrix boundaries across individual page arrays without distributing data channels to exterior web servers. By generating a dynamic difference layer directly onto text objects and vector shapes, white backgrounds shift seamlessly to dark tones while dark text translates into clear, accessible light text automatically.</p>
+            <h3>How the Localized <b>PDF Color Inversion</b> Engine Works</h3>
+            <p>Our online <b>PDF dark mode</b> conversion utility operates strictly within your personal <b>client-side processing</b> environment, ensuring total data privacy. When a standard document is loaded, the integrated JavaScript engine maps the individual document arrays cleanly. By utilizing high-performance pixel manipulation via PDF.js, the application reverses RGB values mathematically, converting white backgrounds to deep blacks and dark text to highly readable white hues—generating a <b>high-contrast dark mode</b> layout without relying on external server transmissions.</p>
             
-            <h3>High Importance for Long-Hour Study Sessions and Digital Notes</h3>
-            <p>Academic students across competitive spaces (such as IGNOU, state commissions, and university pipelines) spend extensive periods tracking study guides, notes, and curriculum structures on smartphones or tablets. Continuous exposure to bright background layouts can strain vision and compromise sleep frameworks. Converting your standard PDF files into high-contrast dark mode structures provides maximum eye tracking comfort. This tool fixes presentation imbalances instantly, turning difficult white sheets into ergonomic layouts that support focused research sessions anytime.</p>
+            <h3>High Importance Asset for Late-Night Reading & Eye Comfort</h3>
+            <p>A broad variety of academic textbooks, complex study guides, and university syllabuses (like IGNOU assignment materials) are formatted entirely in bright white layouts. Reading these materials for extended hours on digital screens often causes severe eye strain and fatigue. This smart inverter fixes extreme luminance imbalances instantly, transforming glaring pages into a soothing, independent <b>dark mode</b> graphic layout ready for comfortable reading and printing.</p>
             
-            <h3>Step-by-Step Color Modification Guidelines</h3>
+            <h3>Step-by-Step Color Inversion Guidelines</h3>
             <ul>
-                <li><strong>Acquire Material Structure:</strong> Use the dashed click wrapper tool or drop your textbook framework into the processing space. (Accepts standard application/pdf guidelines cleanly).</li>
-                <li><strong>Pass Verification Challenge:</strong> Solve the automated responsive script protection badge widget to confirm programmatic integrity smoothly.</li>
-                <li><strong>Initialize Inversion Script:</strong> Click the inversion trigger. The localized engine map loops through all included page matrices instantly, reversing structural color values.</li>
-                <li><strong>Secure the Local Asset:</strong> As soon as the success confirmation window registers, trigger the download pipeline to save your customized dark mode file asset securely.</li>
+                <li><strong>Acquire Document Assets:</strong> Use the graphical dashed select field wrapper to link your desired source document directly inside the workspace window.</li>
+                <li><strong>Verify Page Metadata:</strong> Review the automated data container info text to inspect your loaded file title details and total page parameters.</li>
+                <li><strong>Solve Security Guard:</strong> Complete the automated verification check badge widget to protect processing layers from automated bot scripting triggers.</li>
+                <li><strong>Render and Save:</strong> Click the invert script trigger. The engine will sequentially flip the layout vectors page by page. Review your processed file within the preview frame and download it locally.</li>
             </ul>
 
-            <!-- FIX: Added dynamic FAQ section to completely block AdSense Low Value Content rejections -->
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
             <h3>Frequently Asked Questions (FAQs)</h3>
             
-            <h3>Q1: Will my inverted PDF files be uploaded to external servers?</h3>
-            <p>No, not at all. The processing logic reads the file buffer bytes and calculates the mathematical difference maps completely client-side via JavaScript memory arrays inside your own browser window context.</p>
+            <h3>Q1: Is my document converted on your servers?</h3>
+            <p>No. Our tool processes the <b>PDF color inversion</b> entirely within your own browser's memory using local Client-Side rendering architecture. We never touch, upload, or log your files to any remote server storage systems.</p>
             
-            <h3>Q2: Does this inverter modify scanned image PDFs or only native text PDFs?</h3>
-            <p>The native PDF-Lib inversion engine applies structural page difference operations vector-wide, which covers text elements and shapes perfectly. For flat pixelated graphic page scans, it applies a programmatic contrast layout change locally.</p>
+            <h3>Q2: Will the text remain selectable after the color inversion?</h3>
+            <p>The conversion process rasterizes the layout to invert colors precisely, which transforms the layout into a high-quality graphical sequence. While original vector text is converted, this guarantees perfect aesthetic inversion across all document layers, images, and charts.</p>
             
-            <h3>Q3: Why can't I see a raw page canvas preview box inside this specific tool card?</h3>
-            <p>Inverting massive structural PDF books or multi-page assignments generates heavy binary structures. To optimize processing execution speed and prevent browser crashes on low-end mobile hardware, the engine drops heavy rendering containers and provides a direct instant download path instead.</p>
+            <h3>Q3: Can this tool handle large textbook files?</h3>
+            <p>Yes, the system is designed to handle multi-page documents efficiently. However, since processing happens entirely within your local device memory, extremely large files (e.g., hundreds of pages) may take slightly longer depending on your device's processing RAM capability.</p>
         </article>
     </div>
 
@@ -478,12 +508,11 @@
             <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="about_us.html">About Us</a> | 
             <a href="contact.html">Contact Us</a> | 
-            <a href="terms.html">Terms of Service</a>|
+            <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
@@ -494,168 +523,132 @@
         document.addEventListener("DOMContentLoaded", function() {
             const pdfInput = document.getElementById('pdfInput');
             const dropZone = document.getElementById('dropZone');
-            const invertBtn = document.getElementById('invertBtn');
-            const actionArea = document.getElementById('actionArea');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const successMsg = document.getElementById('successMsg');
+            const convertSettings = document.getElementById('convertSettings');
+            const pdfNameDisplay = document.getElementById('pdfNameDisplay');
+            const convertBtn = document.getElementById('convertBtn');
             const resultArea = document.getElementById('resultArea');
-            const fileNameDisplay = document.getElementById('selectedFileName');
-            const statusText = document.getElementById('statusText');
+            const previewContainer = document.getElementById('previewContainer');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+            const pdfStatusText = document.getElementById('pdfStatusText');
 
+            let currentPdfDoc = null;
             let invertedBlobUrl = null;
-            let currentFileName = "";
 
-            if (dropZone && pdfInput) {
-                dropZone.onclick = () => pdfInput.click();
-                pdfInput.onchange = (e) => {
-                    if (e.target.files && e.target.files[0]) {
-                        handleFile(e.target.files[0]);
-                    }
-                };
+            if(dropZone && pdfInput) {
+                dropZone.addEventListener('click', () => pdfInput.click());
+                pdfInput.addEventListener('change', (e) => { 
+                    if (e.target.files && e.target.files[0]) handlePdf(e.target.files[0]); 
+                });
             }
 
-            function handleFile(file) {
-                if (file && file.type === "application/pdf") {
-                    currentFileName = file.name;
-                    if (fileNameDisplay) fileNameDisplay.innerText = "Selected: " + currentFileName;
-                    if (statusText) statusText.innerText = "File Ready";
-                    if (actionArea) actionArea.style.display = "block";
+            async function handlePdf(file) {
+                if (file.type !== "application/pdf") return alert("Please upload a valid PDF file.");
+                try {
+                    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+                    if(!pdfjsLib) { alert("Core engine loading, please try in 1 second."); return; }
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
                     
-                    // Reset Output Display states safely
-                    if (resultArea) resultArea.style.display = "none";
-                    if (successMsg) successMsg.style.display = "none";
-                } else {
-                    alert("Please select a valid PDF file!");
+                    const arrayBuffer = await file.arrayBuffer();
+                    currentPdfDoc = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+                    
+                    if(pdfNameDisplay) pdfNameDisplay.innerHTML = `<i class="fas fa-file-pdf" style="color:var(--primary);"></i> Selected File: <b>${file.name}</b> <br> <i class="fas fa-layer-group" style="color:var(--primary);"></i> Total Sheets: <b>${currentPdfDoc.numPages} Pages</b>`;
+                    if(pdfStatusText) pdfStatusText.innerText = "Document Ready";
+                    if(convertSettings) convertSettings.style.display = 'block';
+                    if(resultArea) resultArea.style.display = 'none';
+                    if(convertSettings) convertSettings.scrollIntoView({ behavior: 'smooth' });
+                } catch (err) {
+                    alert("Error loading PDF structural parameters.");
                 }
             }
 
-            if (invertBtn) {
-                invertBtn.onclick = async () => {
-                    const file = pdfInput.files[0];
-                    if (!file) return;
+            if(convertBtn) {
+                convertBtn.addEventListener('click', async () => {
+                    if (!currentPdfDoc) return;
 
-                    // Google reCAPTCHA Validation Guard with initialization checks
+                    // Security Recaptcha Guard
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
-                        const captchaResponse = grecaptcha.getResponse();
-                        if (captchaResponse.length === 0) {
-                            alert("Please complete the 'I'm not a robot' Google verification challenge.");
-                            return;
-                        }
-                    } else {
-                        alert("Security widget is still preparing, please wait 2 seconds.");
-                        return;
-                    }
-
-                    invertBtn.innerText = "Processing Inversion... Please wait";
-                    invertBtn.disabled = true;
+                        const captchaRes = grecaptcha.getResponse();
+                        if (captchaRes.length === 0) { alert("Please complete the 'I'm not a robot' Google verification challenge."); return; }
+                    } else { alert("Security check initialization pending, please wait 2 seconds."); return; }
+                    
+                    convertBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Inverting Colors...`;
+                    convertBtn.disabled = true;
 
                     setTimeout(async () => {
                         try {
-                            if (typeof PDFLib === 'undefined') {
-                                alert("PDF core engine is loading. Please click again in a brief second.");
-                                invertBtn.innerText = "Invert Colors Now";
-                                invertBtn.disabled = false;
-                                return;
-                            }
-
-                            const arrayBuffer = await file.arrayBuffer();
-                            const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                            const pages = pdfDoc.getPages();
-
-                            pages.forEach(page => {
-                                const { width, height } = page.getSize();
-                                page.drawRectangle({
-                                    x: 0, y: 0, width, height,
-                                    color: PDFLib.rgb(1, 1, 1),
-                                    blendMode: PDFLib.BlendMode.Difference,
-                                });
-                            });
-
-                            const invertedBytes = await pdfDoc.save();
+                            const { jsPDF } = window.jspdf;
+                            // Pre-detect orientation from first page
+                            const firstPage = await currentPdfDoc.getPage(1);
+                            const fpView = firstPage.getViewport({scale: 1.0});
+                            const docOrientation = fpView.width > fpView.height ? 'l' : 'p';
                             
-                            if (invertedBlobUrl) URL.revokeObjectURL(invertedBlobUrl);
-                            invertedBlobUrl = URL.createObjectURL(new Blob([invertedBytes], { type: 'application/pdf' }));
+                            let pdf = new jsPDF(docOrientation, 'pt', [fpView.width, fpView.height]);
 
-                            if (actionArea) actionArea.style.display = "none";
-                            if (successMsg) successMsg.style.display = "block";
-                            if (resultArea) {
-                                resultArea.style.display = "block";
-                                resultArea.scrollIntoView({ behavior: 'smooth' });
+                            for (let i = 1; i <= currentPdfDoc.numPages; i++) {
+                                const page = await currentPdfDoc.getPage(i);
+                                const viewport = page.getViewport({scale: 1.5}); // Scale up for clarity
+                                
+                                const canvas = document.createElement('canvas');
+                                const context = canvas.getContext('2d', { willReadFrequently: true });
+                                canvas.height = viewport.height;
+                                canvas.width = viewport.width;
+
+                                await page.render({canvasContext: context, viewport: viewport}).promise;
+
+                                // Pixel manipulation logic for true color inversion
+                                const imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+                                const data = imgData.data;
+                                for (let j = 0; j < data.length; j += 4) {
+                                    data[j] = 255 - data[j];         // R
+                                    data[j+1] = 255 - data[j+1];     // G
+                                    data[j+2] = 255 - data[j+2];     // B
+                                    // alpha channel data[j+3] remains unchanged
+                                }
+                                context.putImageData(imgData, 0, 0);
+
+                                const invertedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+                                if (i > 1) {
+                                    const pgView = page.getViewport({scale: 1.0});
+                                    const pgOrient = pgView.width > pgView.height ? 'l' : 'p';
+                                    pdf.addPage([pgView.width, pgView.height], pgOrient);
+                                }
+                                
+                                const pgBaseView = page.getViewport({scale: 1.0});
+                                pdf.addImage(invertedDataUrl, 'JPEG', 0, 0, pgBaseView.width, pgBaseView.height, undefined, 'FAST');
                             }
+
+                            const finalBlob = pdf.output('blob');
+                            if (invertedBlobUrl) URL.revokeObjectURL(invertedBlobUrl);
+                            invertedBlobUrl = URL.createObjectURL(finalBlob);
+
+                            if(previewContainer) previewContainer.innerHTML = `<iframe src="${invertedBlobUrl}#toolbar=0"></iframe>`;
+                            if(resultArea) { resultArea.style.display = 'block'; resultArea.scrollIntoView({ behavior: 'smooth' }); }
 
                         } catch (err) {
-                            alert("Error processing PDF document channels!");
-                            invertBtn.innerText = "Invert Colors Now";
-                            invertBtn.disabled = false;
+                            alert("Error during document inversion process arrays.");
                         } finally {
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                grecaptcha.reset();
-                            }
+                            convertBtn.innerHTML = `<i class="fas fa-adjust"></i> Invert PDF Colors`;
+                            convertBtn.disabled = false;
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') { grecaptcha.reset(); }
                         }
                     }, 100);
-                };
+                });
             }
 
-            if (downloadBtn) {
-                downloadBtn.onclick = () => {
+            if (downloadPdfBtn) {
+                downloadPdfBtn.onclick = () => {
                     if (!invertedBlobUrl) return;
-                    const link = document.createElement('a');
-                    link.href = invertedBlobUrl;
-                    link.download = "Inverted_SHC_" + currentFileName;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    const a = document.createElement('a');
+                    a.href = invertedBlobUrl;
+                    a.download = `SHC_Dark_Mode_${Date.now()}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
                 };
             }
         });
     })();
     </script>
-<script>
-window.onload = function() {
-    // Fetch API ka use kar rahe hain jisme strict 'no-store' cache bypass laga hai (Ctrl+F5 ka alternative)
-    fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
-        method: 'HEAD',
-        mode: 'no-cors',
-        cache: 'no-store' 
-    }).then(function() {
-        // Success: AdBlocker band hai. Site normal khulegi, kuch hide nahi hoga.
-        console.log("AdBlocker is OFF");
-    }).catch(function() {
-        // Failed: AdBlocker chalu hai. Professional warning layout inject hoga.
-        document.body.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; box-sizing: border-box;">
-                <div style="background: white; max-width: 500px; width: 100%; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid #eef2f5;">
-                    
-                    <div style="width: 80px; height: 80px; background: #fff5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                    </div>
-
-                    <h2 style="color: #1e293b; font-size: 24px; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.5px;">AdBlocker Detected</h2>
-                    
-                    <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 30px; padding: 0 10px;">
-                        Namaskar! <b>Student Help Club</b> par sabhi PDF aur Image tools aapke liye bilkul free hain. Is platform ke server ka kharcha chalane mein ads hamari madad karte hain. 
-                        <br><br>
-                        Kripya apne browser mein AdBlocker ko <b>Disable / Turn Off</b> karein aur niche diye gaye button par click karein.
-                    </p>
-
-                    <button onclick="cleanReload()" style="background: #2563eb; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);">
-                        I have disabled AdBlocker
-                    </button>
-                    
-                </div>
-            </div>
-        `;
-    });
-};
-
-// Yeh function page ko bina kisi purane URL parameter (?t=) ke ekdam clean reload karega
-function cleanReload() {
-    window.location.href = window.location.origin + window.location.pathname;
-}
-</script>
 </body>
 </html>
