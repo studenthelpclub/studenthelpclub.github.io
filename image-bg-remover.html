@@ -261,10 +261,8 @@
             let isolatedPersonCanvas = document.createElement('canvas');
             let tempMaskCanvas = document.createElement('canvas');
             
-            // AI CACHING FOR SPEED BOOST
             let preloadedModel = null;
             
-            // 1. Silent Background Loading on page start
             setTimeout(async () => {
                 try {
                     if (typeof deeplab !== 'undefined') {
@@ -338,9 +336,8 @@
                 });
             }
 
-            // 2. Optimized Processing Dimension
             function getScaledCanvas(img) {
-                const MAX_DIMENSION = 1024; // REDUCED FROM 1800 FOR 4X SPEED
+                const MAX_DIMENSION = 1024;
                 let w = img.naturalWidth || img.width;
                 let h = img.naturalHeight || img.height;
                 
@@ -371,7 +368,6 @@
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Fast AI...`;
                     processBtn.disabled = true;
 
-                    // Reduced timeout for snappier UI response
                     setTimeout(async () => {
                         try {
                             if (typeof deeplab === 'undefined') {
@@ -381,7 +377,6 @@
                                 return;
                             }
 
-                            // 3. Use Pre-loaded model to save loading time
                             let model = preloadedModel;
                             if (!model) {
                                 model = await deeplab.load({base: 'pascal', quantizationBytes: 2});
@@ -394,10 +389,10 @@
 
                             const segmentation = await model.segment(scaledInput);
 
-                            // 4. Glitch Fix Applied Here
                             const segW = segmentation.width;
                             const segH = segmentation.height;
 
+                            // 1. Solid Grayscale Mask Banayenge (Taki browser glitch na kare)
                             tempMaskCanvas.width = segW;
                             tempMaskCanvas.height = segH;
                             const maskCtx = tempMaskCanvas.getContext('2d');
@@ -406,15 +401,15 @@
                             let objectPixels = 0;
 
                             for (let i = 0; i < segMap.length; i++) {
-                                if (segMap[i] !== 0) { // Not background
-                                    maskImageData.data[i * 4] = 255;
-                                    maskImageData.data[i * 4 + 1] = 255;
-                                    maskImageData.data[i * 4 + 2] = 255;
-                                    maskImageData.data[i * 4 + 3] = 255;
-                                    objectPixels++;
-                                } else {
-                                    maskImageData.data[i * 4 + 3] = 0;
-                                }
+                                const isForeground = segMap[i] !== 0;
+                                const colorVal = isForeground ? 255 : 0; // 255 = White (Subject), 0 = Black (BG)
+                                
+                                maskImageData.data[i * 4] = colorVal;     // Red
+                                maskImageData.data[i * 4 + 1] = colorVal; // Green
+                                maskImageData.data[i * 4 + 2] = colorVal; // Blue
+                                maskImageData.data[i * 4 + 3] = 255;      // ALPHA MESH GLITCH FIX: MUST be 100% Solid (255)
+                                
+                                if (isForeground) objectPixels++;
                             }
                             maskCtx.putImageData(maskImageData, 0, 0);
 
@@ -452,19 +447,33 @@
                                 ctx.putImageData(imgData, 0, 0);
 
                             } else {
-                                // --- PREMIUM SMOOTH EDGES MODE ---
-                                ctx.filter = 'blur(1.5px)';
-                                ctx.imageSmoothingEnabled = true;
-                                ctx.imageSmoothingQuality = 'high';
+                                // --- PREMIUM PIXEL-BY-PIXEL ALPHA MODE ---
                                 
-                                // Resize mask accurately without glitches
-                                ctx.drawImage(tempMaskCanvas, 0, 0, segW, segH, 0, 0, w, h);
+                                // Step A: Mask ko Original Canvas Size par stretch and smooth karein
+                                const smoothMaskCanvas = document.createElement('canvas');
+                                smoothMaskCanvas.width = w;
+                                smoothMaskCanvas.height = h;
+                                const smCtx = smoothMaskCanvas.getContext('2d');
                                 
-                                ctx.filter = 'none';
-                                ctx.globalCompositeOperation = 'source-in';
-                                ctx.drawImage(scaledInput, 0, 0, w, h);
+                                smCtx.filter = 'blur(2px)'; // Feathered edges ke liye halka blur
+                                smCtx.imageSmoothingEnabled = true;
+                                smCtx.imageSmoothingQuality = 'high';
+                                smCtx.drawImage(tempMaskCanvas, 0, 0, segW, segH, 0, 0, w, h);
                                 
-                                ctx.globalCompositeOperation = 'source-over';
+                                // Step B: Smooth Grayscale pixels extract karein
+                                const smoothMaskData = smCtx.getImageData(0, 0, w, h).data;
+                                
+                                // Step C: Original Image extract karein
+                                const originalPixels = scaledInput.getContext('2d').getImageData(0, 0, w, h);
+                                
+                                // Step D: Har pixel ka alpha channel seedha apply karein (100% Bug Free)
+                                for (let i = 0; i < originalPixels.data.length; i += 4) {
+                                    // Original Image ka Alpha (i+3) = Stretched Mask ka Red channel (i)
+                                    originalPixels.data[i + 3] = smoothMaskData[i];
+                                }
+                                
+                                // Step E: Clean image canvas par daalein
+                                ctx.putImageData(originalPixels, 0, 0);
                             }
 
                             renderFinalComposite();
@@ -482,7 +491,7 @@
                             processBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
                         }
-                    }, 50); // Timeout reduced to 50ms for faster UI response
+                    }, 50); 
                 });
             }
 
