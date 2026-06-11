@@ -257,7 +257,7 @@
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
 
-            // 🚀 THE FIX: LOCK TO PREVENT AUTOMATIC PROCESSING
+            // Prevent Background Execution Lock
             let isUserProcessing = false; 
             let selfieSegmentation = null;
 
@@ -271,7 +271,6 @@
                 });
                 selfieSegmentation.onResults(onMediaPipeResults);
                 
-                // Sent to load model in background (Will be safely ignored by the lock)
                 const dummyCanvas = document.createElement('canvas');
                 dummyCanvas.width = 1; dummyCanvas.height = 1;
                 selfieSegmentation.send({image: dummyCanvas}).catch(e => {});
@@ -374,9 +373,8 @@
                 showResultArea();
             }
 
-            // AI Result Execution
+            // --- 🚀 THE HALO FIX ALGORITHM IS HERE ---
             function onMediaPipeResults(results) {
-                // 🛑 THE BUG FIX IS HERE: Ignore automatic background loading
                 if (!isUserProcessing) return; 
 
                 try {
@@ -387,19 +385,41 @@
                     isolatedPersonCanvas.height = h;
                     const ctx = isolatedPersonCanvas.getContext('2d');
                     
-                    ctx.clearRect(0, 0, w, h);
-
-                    ctx.drawImage(results.segmentationMask, 0, 0, w, h);
-                    ctx.globalCompositeOperation = 'source-in';
+                    // 1. Draw Mask to a temporary layer to read its pixels
+                    const maskCanvas = document.createElement('canvas');
+                    maskCanvas.width = w;
+                    maskCanvas.height = h;
+                    const maskCtx = maskCanvas.getContext('2d');
+                    maskCtx.drawImage(results.segmentationMask, 0, 0, w, h);
+                    const maskData = maskCtx.getImageData(0, 0, w, h).data;
+                    
+                    // 2. Draw the Original Unedited Image to our main canvas
                     ctx.drawImage(results.image, 0, 0, w, h);
-                    ctx.globalCompositeOperation = 'source-over';
-
                     const imgData = ctx.getImageData(0, 0, w, h);
+                    const pixels = imgData.data;
+
                     let nonTransparentPixels = 0;
-                    for (let i = 3; i < imgData.data.length; i += 4) {
-                        if (imgData.data[i] > 10) nonTransparentPixels++;
+                    
+                    // 3. Pixel-Perfect Edge Choke (Erase Halo without touching inner face)
+                    for (let i = 0; i < pixels.length; i += 4) {
+                        // MediaPipe mask uses RGB channels for confidence. We read Red.
+                        let maskValue = maskData[i]; 
+                        
+                        let finalAlpha = 0;
+                        
+                        // Shrink mask slightly by choking lower confidence values
+                        if (maskValue > 110) {
+                            finalAlpha = Math.min(255, (maskValue - 110) * (255 / 145));
+                            if (finalAlpha > 10) nonTransparentPixels++;
+                        }
+                        
+                        // Set calculated transparent/opaque value exactly
+                        pixels[i + 3] = finalAlpha; 
                     }
                     
+                    // Put the final crisp image back
+                    ctx.putImageData(imgData, 0, 0);
+
                     const coverage = nonTransparentPixels / (w * h);
 
                     if (coverage < 0.05) {
@@ -412,7 +432,7 @@
                     console.error("Rendering Error:", e);
                     alert("Error drawing image. Please try again.");
                 } finally {
-                    isUserProcessing = false; // Reset the lock
+                    isUserProcessing = false; 
                     processBtn.innerHTML = "Remove Background";
                     processBtn.disabled = false;
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
@@ -445,7 +465,6 @@
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Running Google AI...`;
                     processBtn.disabled = true;
                     
-                    // 🟢 OPEN THE LOCK: Only process when user actually clicks
                     isUserProcessing = true; 
 
                     try {
@@ -456,7 +475,7 @@
                         await selfieSegmentation.send({image: sourceImageObject});
 
                     } catch(err) {
-                        isUserProcessing = false; // Close lock on error
+                        isUserProcessing = false; 
                         console.error("MediaPipe Execution Error:", err);
                         alert("Engine is busy processing. Please try clicking again.");
                         processBtn.innerHTML = "Remove Background";
