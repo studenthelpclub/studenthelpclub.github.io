@@ -19,7 +19,6 @@
 
     <link rel="canonical" href="https://www.shctools.in/image-bg-remover.html">
 
-    <!-- ALL ORIGINAL AD SCRIPTS RESTORED -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     <script>(function(s){s.dataset.zone='11117018',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='11117020',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -33,8 +32,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     
-    <!-- PREMIUM AI ENGINE FOR HIGH QUALITY REMOVAL -->
-    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/browser/bundle.umd.min.js"></script>
+    <script src="https://unpkg.com/@imgly/background-removal@1.4.3/dist/browser/bundle.umd.min.js"></script>
     
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -208,7 +206,6 @@
             </a>
         </div>
         
-        <!-- ALL ORIGINAL SEO CONTENT RESTORED -->
         <article class="seo-content">
             <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
             <p>Our premium platform integrates advanced TensorFlow machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter. The script maps geometry instantly on a pixel scale, creating a clean alpha mask boundary layer without uploading your personal document graphics onto third-party network channels.</p>
@@ -225,7 +222,6 @@
         </article>
     </div>
 
-    <!-- ALL ORIGINAL FOOTER LINKS RESTORED -->
     <footer class="footer">
         <div class="social-links">
             <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
@@ -261,6 +257,9 @@
             let sourceImageObject = new Image();
             let selectedBgColor = 'transparent';
             let isolatedPersonCanvas = document.createElement('canvas');
+            
+            // 🔥 NAYA: Globally save the exact file user uploaded
+            let currentUploadedFile = null;
 
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, preventDefaults, false);
@@ -308,6 +307,8 @@
                                 return;
                             }
                         }
+
+                        currentUploadedFile = file; // 🔥 Store direct file for the AI
 
                         const reader = new FileReader();
                         reader.onload = function(event) {
@@ -369,7 +370,7 @@
 
             if(processBtn) {
                 processBtn.addEventListener('click', async function() {
-                    if (!sourceImageObject.src) return;
+                    if (!sourceImageObject.src || !currentUploadedFile) return;
 
                     if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                         if (grecaptcha.getResponse().length === 0) {
@@ -382,11 +383,13 @@
                     processBtn.disabled = true;
 
                     try {
+                        // 🔥 NAYA: Set to official static imgly server to bypass strict CORS
                         const config = {
-                            publicPath: "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/"
+                            publicPath: "https://static.imgly.com/@imgly/background-removal/1.4.3/dist/"
                         };
                         
-                        const bgRemovedBlob = await imglyRemoveBackground(sourceImageObject, config);
+                        // 🔥 NAYA: Feed raw file blob directly, instead of HTML Image node
+                        const bgRemovedBlob = await window.imglyRemoveBackground(currentUploadedFile, config);
                         const url = URL.createObjectURL(bgRemovedBlob);
                         
                         const resultImg = new Image();
@@ -418,8 +421,9 @@
                         resultImg.src = url;
 
                     } catch(err) {
-                        console.error(err);
-                        alert("AI Engine is busy. Please try clicking again.");
+                        console.error("AI Generation Error:", err);
+                        // 🔥 NAYA: Now it will show EXACTLY why it failed if it fails again
+                        alert(`Oops! Something went wrong.\n\nError: ${err.message || err}\n\nMake sure your internet connection is active.`);
                         processBtn.innerHTML = "Remove Background";
                         processBtn.disabled = false;
                     }
