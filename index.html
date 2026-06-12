@@ -215,10 +215,10 @@
             <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
-            <div class="search-container">
+            <form class="search-container" role="search" action="#" method="get" onsubmit="event.preventDefault();">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off">
-            </div>
+                <input type="search" name="q" id="tool-search" placeholder="Search tools..." autocomplete="off">
+            </form>
             <a href="#tools-section" class="nav-link">All Tools</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
