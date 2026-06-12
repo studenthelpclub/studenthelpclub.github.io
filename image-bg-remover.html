@@ -330,6 +330,14 @@
             imageInput.addEventListener('change', async function(e) {
                 if (e.target.files && e.target.files[0]) {
                     let file = e.target.files[0];
+                    // 👉 5MB LIMIT LOGIC START
+                    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB limit
+                    if (file.size > maxSizeInBytes) {
+                        alert("File is too large! Please upload an image under 5MB.");
+                        imageInput.value = ""; // Input clear kar dein
+                        return; // Aage ka code run nahi hoga
+                    }
+                    // 👉 5MB LIMIT LOGIC END
                     const fileName = file.name.toLowerCase();
                     
                     if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file stream...`;
