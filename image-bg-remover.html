@@ -205,8 +205,8 @@
         </div>
         
         <article class="seo-content">
-            <h3>How Browser-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced machine learning layers directly into your native client pipeline thread. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter.</p>
+            <h3>How Server-Based <b>AI Object Segmentation</b> Works</h3>
+            <p>Our premium platform integrates advanced server-side machine learning models to process your images. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter, offering lightning-fast results without crashing your browser.</p>
         </article>
     </div>
 
@@ -227,10 +227,7 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <script type="module">
-        // Using strict ES Modules prevents CDN and lodash dependency crashes
-        import imglyRemoveBackground from "https://unpkg.com/@imgly/background-removal@1.4.5/dist/browser/bundle.mjs";
-
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const imageInput = document.getElementById('imageInput');
             const dropZone = document.getElementById('dropZone');
@@ -311,43 +308,7 @@
                 });
             }
 
-            // Fallback for Document/Signature Scans
-            function processSignatureFallback(img) {
-                const w = img.naturalWidth;
-                const h = img.naturalHeight;
-                isolatedPersonCanvas.width = w;
-                isolatedPersonCanvas.height = h;
-                const ctx = isolatedPersonCanvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, w, h);
-                
-                const imgData = ctx.getImageData(0, 0, w, h);
-                const pixels = imgData.data;
-
-                for (let i = 0; i < pixels.length; i += 4) {
-                    let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
-                    let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-                    
-                    if (brightness > 140) {
-                        pixels[i+3] = 0; 
-                    } else if (brightness > 80) {
-                        let alpha = Math.round(((140 - brightness) / 60) * 255);
-                        pixels[i+3] = alpha;
-                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0;
-                    } else {
-                        pixels[i+3] = 255;
-                        pixels[i] = 0; pixels[i+1] = 0; pixels[i+2] = 0; 
-                    }
-                }
-                ctx.putImageData(imgData, 0, 0);
-                
-                renderFinalComposite();
-                if (resultArea) {
-                    resultArea.style.display = "block";
-                    resultArea.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-
-            // MAIN EXECUTION (PREMIUM AI)
+            // MAIN EXECUTION (PREMIUM SERVER AI)
             if(processBtn) {
                 processBtn.addEventListener('click', async function() {
                     if (!currentUploadedFile) return;
@@ -359,44 +320,42 @@
                         }
                     }
 
-                    // ⚠️ IMPORTANT WARNING FOR USER
-                    processBtn.innerHTML = `<i class="fas fa-cloud-download-alt fa-spin"></i> Downloading Premium AI Engine... (Approx 15-30 Sec)`;
+                    // Button UI Update
+                    processBtn.innerHTML = `<i class="fas fa-cloud-upload-alt fa-spin"></i> Processing on AI Server... (Wait 5-15 Sec)`;
                     processBtn.disabled = true;
 
                     try {
-                        // Using official Unpkg path which solves CORS & Lodash issues dynamically
-                        const config = {
-                            publicPath: "https://unpkg.com/@imgly/background-removal@1.4.5/dist/"
-                        };
-                        
-                        // The engine natively anti-aliases and cuts hair strands smoothly!
-                        const bgRemovedBlob = await imglyRemoveBackground(currentUploadedFile, config);
-                        
+                        // 1. Image ko form data mein append karein
+                        const formData = new FormData();
+                        formData.append("file", currentUploadedFile);
+
+                        // 2. Aapki Custom Hugging Face API par bhejein
+                        const response = await fetch("https://vishal62023-bg-remove.hf.space/remove-bg", {
+                            method: "POST",
+                            body: formData
+                        });
+
+                        if (!response.ok) {
+                            throw new Error("Server error: " + response.status);
+                        }
+
+                        // 3. API se aayi hui nayi transparent image extract karein
+                        const bgRemovedBlob = await response.blob();
                         const url = URL.createObjectURL(bgRemovedBlob);
-                        const resultImg = new Image();
                         
+                        // 4. Image ko canvas par draw karein taaki color change aur download kaam kare
+                        const resultImg = new Image();
                         resultImg.onload = function() {
                             isolatedPersonCanvas.width = resultImg.width;
                             isolatedPersonCanvas.height = resultImg.height;
                             const ctx = isolatedPersonCanvas.getContext('2d');
                             ctx.drawImage(resultImg, 0, 0);
                             
-                            // Signature Fallback Check
-                            const imgData = ctx.getImageData(0, 0, resultImg.width, resultImg.height);
-                            let fgPixels = 0;
-                            for(let i = 3; i < imgData.data.length; i += 4) {
-                                if (imgData.data[i] > 10) fgPixels++;
-                            }
-                            const coverage = fgPixels / (resultImg.width * resultImg.height);
-                            
-                            if (coverage < 0.05) {
-                                processSignatureFallback(sourceImageObject);
-                            } else {
-                                renderFinalComposite();
-                                if (resultArea) {
-                                    resultArea.style.display = "block";
-                                    resultArea.scrollIntoView({ behavior: 'smooth' });
-                                }
+                            // Result screen par dikhayein
+                            renderFinalComposite();
+                            if (resultArea) {
+                                resultArea.style.display = "block";
+                                resultArea.scrollIntoView({ behavior: 'smooth' });
                             }
                             
                             URL.revokeObjectURL(url); 
@@ -406,7 +365,7 @@
 
                     } catch(err) {
                         console.error("AI Error:", err);
-                        alert("AI Engine encountered an error: " + err.message + "\nPlease check your internet connection and try again.");
+                        alert("AI Server issue: " + err.message + "\nPlease try again.");
                         resetButton();
                     }
                 });
@@ -438,7 +397,7 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
-            // Color Picker
+            // Color Picker Logic
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
                     document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -458,7 +417,7 @@
                 });
             });
 
-            // Download
+            // Download Logic
             if(downloadBtn) {
                 downloadBtn.onclick = () => {
                     if (!isolatedPersonCanvas) return;
