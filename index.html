@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Help Club: Free PDF & Image Tools</title>
 
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
+
     <link rel="canonical" href="https://shctools.in/index.html" />
     <meta name="description" content="Free online utility tools for students. Easily resize images, split/merge PDFs, use calculators, and format exam documents securely.">
     <meta name="keywords" content="Resume Builder, Online CV Maker for Students, Free Resume Creator, Student Help Club Tools, Image Resizer, Photo Size Compressor for Forms, Resize Photo in KB, PDF Compressor, PDF Size Reducer, Online PDF Compressor Free, Age Calculator, Date of Birth Calculator, Word Counter, Online Text Word Count Tool, PDF Dark Mode Converter, Image to PDF Converter, JPG to PDF Converter Online, Percentage Calculator, Online Grade Calculator, PDF Splitter, Split PDF Pages Online, PDF Merger, Merge PDF Files Free, Background Remover, Remove Image Background Free, Image Enhancer, Online Photo Enhancer, AI Photo Quality Booster, IGNOU Assignment, Govt Jobs Portal">
@@ -13,7 +15,34 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico">
 
-    <!-- Preload Fonts and Icons -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Student Help Club",
+      "url": "https://shctools.in/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://shctools.in/#tools-section?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Student Help Club",
+      "url": "https://shctools.in/",
+      "logo": "https://shctools.in/images/shc-logo.jpg",
+      "sameAs": [
+        "https://www.youtube.com/@vishalhelpclub",
+        "https://t.me/studenthelpclub",
+        "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+      ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -22,8 +51,6 @@
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
-    <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -32,7 +59,6 @@
          gtag('config', 'G-V8RJ9WQXJW');
     </script>
     
-    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7332493779076670">
     
@@ -151,7 +177,7 @@
 
         @media (max-width: 768px) {
             .header { padding: 12px 4%; } 
-            .nav-menu { display: none; } /* On mobile, search bar will also hide to save space */
+            .nav-menu { display: none; } 
             .brand .brand-title { font-size: 1.15rem; } 
             .logo { width: 38px; height: 38px; } 
             .hero { padding: 60px 15px 80px; } 
@@ -189,7 +215,6 @@
             <div class="brand-title">Student Help Club</div>
         </a>
         <nav class="nav-menu">
-            <!-- Search Bar Added -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off">
@@ -415,13 +440,11 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <!-- Cookie Consent Banner -->
     <div id="cookie-consent-banner" class="cookie-banner">
         <p>We use cookies to improve your experience on our site. By using our site, you consent to our use of cookies.</p>
         <button id="accept-cookies-btn">Accept & Close</button>
     </div>
 
-    <!-- JavaScript for Cookie Banner and Search -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- Cookie Consent Logic ---
