@@ -11,10 +11,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Background Remover - Student Help Club</title>
+    <title>Free Image Background Remover - Student Help Club</title>
     
-    <meta name="description" content="Remove image backgrounds instantly online with high-definition smooth edges using advanced client-side AI. Free signature and passport photo extraction tool by Student Help Club.">
-    <meta name="keywords" content="background remover, remove bg online, transparent signature maker, photo cutout tool, student help club images tool, clear image background">
+    <meta name="description" content="Remove image backgrounds instantly online with high-definition smooth edges using advanced AI. Create transparent HD images, passport photos, and signature cutouts for free.">
+    <meta name="keywords" content="background remover, remove bg online, transparent image maker, free AI background eraser, passport photo background, signature extractor, HD photo cutout, white background maker">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://www.shctools.in/image-bg-remover.html">
@@ -25,7 +25,6 @@
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="shortcut icon" href="/favicon.ico">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -68,7 +67,6 @@
         .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
         .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); transition: var(--transition); pointer-events: none;}
 
-        /* Premium Animation Styling */
         .preview-box { position: relative; max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; overflow: hidden; }
         #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; z-index: 2; position: relative; }
         
@@ -94,18 +92,20 @@
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); transition: var(--transition); }
         .download-btn:hover { background: #0056b3; }
 
-        /* Limit Modal Ad Styling */
         .ad-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
         .ad-modal-content { background: white; padding: 35px 30px; border-radius: 20px; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .ad-timer-text { font-size: 1.2rem; font-weight: 800; color: #ef4444; margin: 20px 0; }
         .btn-unlock { background: #3b82f6; color: white; padding: 15px 25px; border-radius: 12px; border: none; font-weight: 700; width: 100%; cursor: pointer; display: none; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: all 0.3s ease; }
         .btn-unlock:hover { background: #2563eb; transform: translateY(-2px); }
 
-        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
-        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
-        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; text-align: justify; font-weight: 500; }
-        .seo-content ul { margin-left: 20px; margin-bottom: 16px; color: var(--text-main); }
-        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
+        /* Updated SEO Section Styles */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 50px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 20px rgba(0,0,0,0.03); }
+        .seo-content h2 { color: var(--dark); font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .seo-content h3 { color: var(--dark); font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; margin-top: 35px; }
+        .seo-content p { font-size: 1.05rem; color: #475569; margin-bottom: 18px; line-height: 1.8; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 25px; margin-bottom: 20px; color: #475569; }
+        .seo-content ul li { margin-bottom: 12px; font-size: 1.05rem; font-weight: 500; line-height: 1.7; }
+        .seo-content strong { color: var(--dark); font-weight: 700; }
 
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
@@ -122,6 +122,7 @@
             .nav-menu { display: none; }
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
+            .seo-content h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -210,12 +211,30 @@
         </div>
         
         <article class="seo-content">
-            <h3>How Server-Based <b>AI Object Segmentation</b> Works</h3>
-            <p>Our premium platform integrates advanced server-side machine learning models to process your images. Unlike legacy threshold color erasers that fail on complex outdoor coordinates, our <b>automated AI engine</b> relies on neural network matrices trained specifically to differentiate foreground objects, products, and humans from surrounding background clutter, offering lightning-fast results without crashing your browser.</p>
+            <h2>Free AI Image Background Remover Online</h2>
+            <p>Welcome to the <strong>Student Help Club Background Remover</strong>, your ultimate solution to remove image backgrounds instantly and effortlessly. Powered by advanced server-side AI object segmentation, our tool precisely detects humans, products, and objects, delivering clean, high-definition (HD) transparent cutouts in a matter of seconds.</p>
+            
+            <h3>Why Choose Our Transparent Background Maker?</h3>
+            <ul>
+                <li><strong>100% Automatic & Fast:</strong> No more manual selecting or lasso tools. Just upload your photo, and our AI does the heavy lifting instantly.</li>
+                <li><strong>High-Definition Edge Detection:</strong> Struggling with complex hair or fur? Our AI uses Alpha Matting technology to ensure smooth, professional edges without those ugly white borders.</li>
+                <li><strong>Perfect for E-commerce & Reviews:</strong> Whether you are uploading product images to Flipkart or Amazon, having a clean white background is essential. Our tool prepares your review or seller photos with just one click.</li>
+                <li><strong>Custom Passport & Signature Maker:</strong> Quickly extract your digital signature from a scanned paper, or swap out messy room backgrounds for a solid blue/white color to create official passport-size photos.</li>
+            </ul>
+
+            <h3>How to Remove Background from Image Online?</h3>
+            <p>You don't need any graphic design skills or Photoshop to use our tool. Just follow three simple steps:</p>
+            <ol style="margin-left: 25px; margin-bottom: 20px; color: #475569; font-size: 1.05rem; font-weight: 500; line-height: 1.7;">
+                <li><strong>Upload:</strong> Click on the upload box or drag-and-drop your image (JPG, PNG, or mobile HEIC formats are supported).</li>
+                <li><strong>Process:</strong> Verify the reCAPTCHA and hit "Remove Background". Our cloud AI will analyze and erase the background automatically.</li>
+                <li><strong>Download:</strong> Change the background color if needed using our preset color palette, and click download to save your new transparent PNG image.</li>
+            </ol>
+
+            <h3>Data Privacy & Security</h3>
+            <p>Your security is our priority. Images processed through our server are not permanently stored or shared with any third party. The process is completely secure, ensuring your personal photos, documents, and signatures remain private.</p>
         </article>
     </div>
 
-    <!-- Monetag Limit Exceeded Modal -->
     <div class="ad-modal-overlay" id="adModal">
         <div class="ad-modal-content">
             <div style="font-size: 45px; margin-bottom: 15px;">⏳</div>
@@ -351,7 +370,7 @@
                         img.src = event.target.result;
                         img.onload = () => {
                             const canvas = document.createElement('canvas');
-                            const MAX_WIDTH = 1200; // Shrinking large images to max 1200px width
+                            const MAX_WIDTH = 1200; 
                             let width = img.width;
                             let height = img.height;
 
@@ -367,7 +386,7 @@
                             
                             canvas.toBlob((blob) => {
                                 resolve(new File([blob], file.name, { type: 'image/jpeg' }));
-                            }, 'image/jpeg', 0.85); // 85% quality keeps it fast & good
+                            }, 'image/jpeg', 0.85); 
                         };
                     };
                 });
@@ -395,7 +414,7 @@
                     // --- PREMIUM ANIMATION ---
                     const scannerLine = document.getElementById('scannerLine');
                     const processOverlay = document.getElementById('processOverlay');
-                    const texts = ["Optimizing Image...", "Sending to AI Server...", "Applying Alpha Matting...", "Refining Hair Edges...", "Almost Done..."];
+                    const texts = ["Optimizing Image...", "Sending to AI Server...", "Applying Alpha Matting...", "Refining Edges...", "Almost Done..."];
                     let textIdx = 0;
                     
                     scannerLine.style.display = "block";
@@ -409,7 +428,6 @@
                     processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Initializing Server...`;
 
                     try {
-                        // Image compress karna speed badhane ke liye
                         const optimizedFile = await compressImageForSpeed(currentUploadedFile);
 
                         const formData = new FormData();
@@ -439,7 +457,6 @@
                             
                             URL.revokeObjectURL(url); 
                             
-                            // Update Usage Count
                             usageData.count += 1;
                             localStorage.setItem('shc_bg_limit', JSON.stringify(usageData));
                             updateCounterUI();
