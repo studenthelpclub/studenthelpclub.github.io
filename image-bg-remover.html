@@ -123,6 +123,9 @@
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
             .seo-content h2 { font-size: 1.5rem; }
+            
+            /* Action button flex behavior on mobile */
+            .action-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -187,7 +190,15 @@
                     <div class="color-circle" data-color="#ff0000" title="Red Preset" style="background: #ff0000;"></div>
                 </div>
 
-                <button id="downloadBtn" class="download-btn">Download Image Asset</button>
+                <div style="position: relative; margin-top: 15px;">
+                    <span style="font-size: 10px; font-weight: bold; color: var(--text-muted); text-transform: uppercase;">Custom Background Color</span>
+                    <input type="color" id="customColor" value="#0f172a" style="display: block; margin: 5px auto 15px auto;">
+                </div>
+
+                <div class="action-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="downloadBtn" class="download-btn" style="flex: 2; margin-top: 0;">Download Image Asset</button>
+                    <button id="resetAppBtn" class="main-btn" style="flex: 1; margin-top: 0; background-color: var(--dark);">Edit New</button>
+                </div>
             </div>
         </div>
 
@@ -279,11 +290,13 @@
             const processBtn = document.getElementById('processBtn');
             const resultArea = document.getElementById('resultArea');
             const downloadBtn = document.getElementById('downloadBtn');
+            const resetAppBtn = document.getElementById('resetAppBtn');
             const sourceImagePreview = document.getElementById('sourceImagePreview');
             const finalPreview = document.getElementById('finalPreview');
             const statusText = document.getElementById('statusText');
             const previewWrapper = document.getElementById('previewWrapper');
             const limitCounterText = document.getElementById('limitCounter');
+            const customColorInput = document.getElementById('customColor');
 
             let sourceImageObject = new Image();
             let selectedBgColor = 'transparent';
@@ -334,8 +347,8 @@
                     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB limit
                     if (file.size > maxSizeInBytes) {
                         alert("File is too large! Please upload an image under 5MB.");
-                        imageInput.value = ""; // Input clear kar dein
-                        return; // Aage ka code run nahi hoga
+                        imageInput.value = ""; 
+                        return; 
                     }
                     // 👉 5MB LIMIT LOGIC END
                     const fileName = file.name.toLowerCase();
@@ -505,6 +518,22 @@
                 finalPreview.src = renderCanvas.toDataURL('image/png');
             }
 
+            // Fix 1: Properly added Custom Color Input Handler
+            if (customColorInput) {
+                customColorInput.addEventListener('input', function() {
+                    document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+                    selectedBgColor = this.value;
+                    if(selectedBgColor === 'transparent') {
+                        previewWrapper.style.backgroundColor = '#fff';
+                        previewWrapper.style.backgroundImage = "linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%)";
+                    } else {
+                        previewWrapper.style.backgroundImage = 'none';
+                        previewWrapper.style.backgroundColor = selectedBgColor;
+                    }
+                    renderFinalComposite();
+                });
+            }
+
             // Color Picker Logic
             document.querySelectorAll('.color-circle').forEach(circle => {
                 circle.addEventListener('click', function() {
@@ -549,6 +578,23 @@
                         URL.revokeObjectURL(url); 
                     }, 'image/png');
                 };
+            }
+
+            // Fix 2: Reset Form functionality
+            if (resetAppBtn) {
+                resetAppBtn.addEventListener('click', function() {
+                    resultArea.style.display = "none";
+                    settingsArea.style.display = "none";
+                    statusText.innerHTML = "Select or Drag Photo to Clear Background";
+                    imageInput.value = "";
+                    currentUploadedFile = null;
+                    selectedBgColor = 'transparent';
+                    document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+                    document.querySelector('.color-circle[data-color="transparent"]').classList.add('active');
+                    previewWrapper.style.backgroundColor = '#fff';
+                    previewWrapper.style.backgroundImage = "linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%)";
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
 
             // --- MONETAG MODAL LOGIC ---
