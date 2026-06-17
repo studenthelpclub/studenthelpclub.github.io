@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Blog Admin | SHC</title>
+    <style>
+        :root { --primary: #003366; --bg: #f0f2f5; --success: #27ae60; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        .top-nav { background: var(--white); border-bottom: 2px solid var(--primary); padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+        .admin-container { max-width: 800px; margin: 30px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .btn-push { width: 100%; padding: 15px; background: var(--success); color: white; border: none; border-radius: 6px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        #login-section { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
+        #admin-panel { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="top-nav">SHC Tools Blog Admin</div>
+
+<div id="login-section">
+    <h3>Admin Login</h3>
+    <div class="form-group"><input type="email" id="login_email" placeholder="Email"></div>
+    <div class="form-group"><input type="password" id="login_pass" placeholder="Password"></div>
+    <button id="loginBtn" class="btn-push" style="background:var(--primary);">Login</button>
+</div>
+
+<div id="admin-panel">
+    <div class="admin-container">
+        <div class="form-group">
+            <label>Category</label>
+            <select id="blog_category">
+                <option value="Image Resize">Image Resize</option>
+                <option value="PDF Tools">PDF Tools</option>
+                <option value="Background Remover">Background Remover</option>
+                <option value="Calculators">Calculators</option>
+                <option value="General Update">General Update</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Article Title</label>
+            <input type="text" id="blog_title" placeholder="SSC Exams ke liye Photo kaise compress karein?">
+        </div>
+        <div class="form-group">
+            <label>Short Excerpt (Dikhaane ke liye)</label>
+            <textarea id="blog_excerpt" rows="3" placeholder="Is guide mein sikhiye ki bina quality lose kiye photo ka size exact format mein kaise set karein..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Full Content (HTML tags use kar sakte hain)</label>
+            <textarea id="blog_content" rows="10" placeholder="<p>Full article details here...</p>"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Tool Link (Optional)</label>
+            <input type="text" id="tool_link" placeholder="https://shctools.in/image-resizer">
+        </div>
+        <button class="btn-push" id="submitBtn">PUBLISH ARTICLE</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAYE9Q_Lub0aHDHsibMp-v6Ov4Dz25jyLE",
+        authDomain: "tools-blog.firebaseapp.com",
+        projectId: "tools-blog",
+        storageBucket: "tools-blog.firebasestorage.app",
+        messagingSenderId: "657535253741",
+        appId: "1:657535253741:web:854e9563a5db4f983ee0e4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+        } else {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        signInWithEmailAndPassword(auth, document.getElementById('login_email').value, document.getElementById('login_pass').value)
+        .catch(err => alert("Login Failed!"));
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+        const title = document.getElementById('blog_title').value;
+        const category = document.getElementById('blog_category').value;
+        const excerpt = document.getElementById('blog_excerpt').value;
+        const content = document.getElementById('blog_content').value;
+        const toolLink = document.getElementById('tool_link').value;
+
+        if(!title || !excerpt || !content) return alert("Title, Excerpt aur Content zaruri hai!");
+
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+        try {
+            document.getElementById('submitBtn').innerText = "PUBLISHING...";
+
+            // 1. Firebase mein Data Save karna
+            await addDoc(collection(db, "blog_posts"), {
+                title: title,
+                slug: slug,
+                category: category,
+                excerpt: excerpt,
+                content: content,
+                toolLink: toolLink,
+                timestamp: serverTimestamp()
+            });
+
+            // 2. Google Script (Telegram) Trigger (Aapka final script URL)
+            const postUrl = `https://shctools.in/blog.html?post=${slug}`;
+            const googleServerUrl = "https://script.google.com/macros/s/AKfycbwLnWNqq5z8D8jFFFe8FnYmrisXWGrefJgNXQurmncmGO9R7jciS0DFR67WSyiDQdI/exec";
+            const finalUrl = googleServerUrl + "?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(postUrl);
+            
+            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert issue:", err));
+
+            setTimeout(() => {
+                alert("Article Published Successfully! Telegram notification sent.");
+                location.reload();
+            }, 1500);
+
+        } catch (e) {
+            alert("Error: " + e.message);
+            document.getElementById('submitBtn').innerText = "PUBLISH ARTICLE";
+        }
+    });
+</script>
+</body>
+</html>
