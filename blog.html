@@ -25,16 +25,7 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        /* OVERFLOW FIX FOR MOBILE */
-        html, body { 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased; 
-            overflow-x: hidden; /* Ye line website ko right me khisakne se rokegi */
-            width: 100%;
-        }
+        html, body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; width: 100%; }
         
         /* HEADER & NAV */
         .header { width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-sizing: border-box; }
@@ -65,7 +56,10 @@
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .blog-card { background: #ffffff; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); transition: var(--transition); display: flex; flex-direction: column; text-decoration: none; }
         .blog-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: 0 20px 25px -5px rgba(0, 135, 61, 0.08); }
-        .blog-img { width: 100%; height: 210px; object-fit: cover; border-bottom: 1px solid var(--border-color); background: #f1f5f9; }
+        
+        /* 🔥 PRO FIX: Image Container - Never breaks even if blocked 🔥 */
+        .blog-img { width: 100%; height: 210px; border-bottom: 1px solid var(--border-color); background-color: #f1f5f9; display: flex; align-items: center; justify-content: center; }
+        
         .blog-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .cat-badge { align-self: flex-start; background: var(--primary-light); color: var(--primary); padding: 5px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
         .blog-title { font-size: 1.3rem; color: var(--dark); font-weight: 800; margin-bottom: 10px; line-height: 1.4; letter-spacing: -0.3px; }
@@ -79,18 +73,16 @@
         .article-container { max-width: 850px; margin: 50px auto; padding: 50px; background: #fff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border-color); box-sizing: border-box; }
         .article-header { text-align: center; margin-bottom: 40px; }
         .article-title-main { font-size: 2.5rem; color: var(--dark); font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.5px; }
-        .article-thumb { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); background: #f8fafc; }
+        
+        /* 🔥 PRO FIX: Cover Image Container 🔥 */
+        .article-thumb { width: 100%; height: 400px; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); background-color: #f8fafc; }
         
         .article-body h2, .article-body h3 { color: var(--dark); margin-top: 40px; margin-bottom: 15px; font-weight: 800; line-height: 1.4; }
         .article-body p { margin-bottom: 20px; font-size: 1.1rem; color: var(--text-main); line-height: 1.8;}
-        
-        /* IMAGE RESPONSIVE FIX */
         .article-body img { max-width: 100% !important; height: auto !important; border-radius: 8px; margin: 25px auto; display: block; border: 1px solid var(--border-color); box-sizing: border-box; }
-        
         .article-body ul, .article-body ol { margin-left: 20px; margin-bottom: 25px; font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
         .article-body li { margin-bottom: 10px; }
         
-        /* Responsive Table Design */
         .table-responsive-wrapper { width: 100%; overflow-x: auto; margin: 30px 0; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
         .article-body table { width: 100%; border-collapse: collapse; margin: 0; min-width: 600px; font-size: 1rem; }
         .article-body th { background: var(--primary); color: white; padding: 14px; text-align: left; font-weight: 700; }
@@ -110,15 +102,11 @@
         .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
         .policy-links a:hover { color: var(--primary); }
 
-        /* =========================================
-           MOBILE RESPONSIVE SETTINGS 
-           ========================================= */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .header { padding: 12px 5%; width: 100%; }
             .brand .brand-title { font-size: 1.15rem; }
             .logo { width: 38px; height: 38px; }
-            
-            /* Mobile Menu */
             .mobile-toggle { display: block; }
             .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; box-sizing: border-box; }
             .nav-menu.active { display: flex; }
@@ -127,41 +115,17 @@
             .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
             .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
             
-            /* List View Mobile */
             .blog-hero { padding: 50px 15px; }
             .blog-hero h1 { font-size: 2.2rem; }
             .blog-container { padding: 0 15px; margin: 30px auto; }
             .blog-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            /* Single Article View Mobile - FULLY FIXED */
-            .article-container { 
-                width: 94%; /* Screen ke andar rakhne ke liye */
-                margin: 20px auto; 
-                padding: 25px 15px; /* Left-right padding adjust kiya */
-                border-radius: 12px; 
-                background: #fff;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-                border: 1px solid var(--border-color); 
-            }
+            .article-container { width: 94%; margin: 20px auto; padding: 25px 15px; border-radius: 12px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
             .article-title-main { font-size: 1.7rem; margin-bottom: 15px; line-height: 1.3; }
-            .article-thumb { max-height: 220px; margin-bottom: 25px; border-radius: 8px; width: 100%; }
+            .article-thumb { height: 220px; margin-bottom: 25px; border-radius: 8px; width: 100%; }
+            .article-body p, .article-body h2, .article-body h3 { font-size: 1.05rem; line-height: 1.7; text-align: left; padding: 0 5px; word-wrap: break-word; }
+            .article-body ul, .article-body ol { font-size: 1.05rem; line-height: 1.7; margin-left: 20px; padding-right: 5px; }
             
-            /* TEXT PADDING FIX */
-            .article-body p, .article-body h2, .article-body h3 { 
-                font-size: 1.05rem; 
-                line-height: 1.7; 
-                text-align: left; 
-                padding: 0 5px; /* Text ko kinare se door rakhne ke liye */
-                word-wrap: break-word;
-            }
-            .article-body ul, .article-body ol { 
-                font-size: 1.05rem; 
-                line-height: 1.7; 
-                margin-left: 20px; 
-                padding-right: 5px;
-            }
-            
-            /* Footer */
             .footer { padding: 40px 15px 30px; margin-top: 40px; }
             .policy-links a { display: inline-block; margin: 8px 10px; }
         }
@@ -191,7 +155,7 @@
     </header>
 
     <main>
-        
+        <!-- VIEW 1: BLOG LIST -->
         <div id="list-view">
             <section class="blog-hero">
                 <h1>SHC Guides <span>& Updates</span></h1>
@@ -204,12 +168,12 @@
             </div>
         </div>
 
+        <!-- VIEW 2: SINGLE ARTICLE -->
         <div id="single-view">
             <div class="article-container" id="content-box">
                 <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading Article...</div>
             </div>
         </div>
-
     </main>
 
     <footer class="footer">
@@ -229,7 +193,6 @@
     </footer>
 
     <script type="module">
-        // --- Mobile Menu Toggle ---
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('nav-menu');
             const icon = this.querySelector('i');
@@ -241,7 +204,6 @@
             }
         });
 
-        // --- Firebase Setup ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -257,7 +219,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- SMART ROUTING LOGIC ---
         const urlParams = new URLSearchParams(window.location.search);
         const slug = urlParams.get('post');
 
@@ -286,16 +247,17 @@
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     
-                    let imageTag = '';
-                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg') {
-                        imageTag = `<img src="${data.thumbnailUrl}" alt="${data.title}" class="blog-img">`;
+                    // 🔥 PRO FIX: CSS Background Image trick lagayi gayi hai 🔥
+                    let thumbDiv = '';
+                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg' && data.thumbnailUrl !== '') {
+                        thumbDiv = `<div class="blog-img" style="background-image: url('${data.thumbnailUrl}'); background-size: cover; background-position: center;"></div>`;
                     } else {
-                        imageTag = `<div class="blog-img" style="display:flex; align-items:center; justify-content:center; font-size:2rem; color:#cbd5e1;"><i class="fas fa-file-alt"></i></div>`;
+                        thumbDiv = `<div class="blog-img"><i class="fas fa-image" style="font-size:3rem; color:#cbd5e1;"></i></div>`;
                     }
 
                     const cardHtml = `
                         <a href="blog.html?post=${data.slug}" class="blog-card">
-                            ${imageTag}
+                            ${thumbDiv}
                             <div class="blog-content">
                                 <span class="cat-badge">${data.category}</span>
                                 <h2 class="blog-title">${data.title}</h2>
@@ -326,9 +288,10 @@
                     const data = doc.data();
                     document.title = data.title + " | SHC Guides";
                     
+                    // 🔥 PRO FIX: Single page me bhi Background Image trick 🔥
                     let coverHtml = '';
-                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg') {
-                        coverHtml = `<img src="${data.thumbnailUrl}" class="article-thumb" alt="Cover Image">`;
+                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg' && data.thumbnailUrl !== '') {
+                        coverHtml = `<div class="article-thumb" style="background-image: url('${data.thumbnailUrl}'); background-size: cover; background-position: center;"></div>`;
                     }
 
                     contentBox.innerHTML = `
@@ -348,7 +311,6 @@
                     `;
                 });
 
-                // --- MOBILE RESPONSIVE TABLE FIX ---
                 document.querySelectorAll('.article-body table').forEach(tbl => {
                     const wrapper = document.createElement('div');
                     wrapper.className = 'table-responsive-wrapper';
