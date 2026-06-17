@@ -90,7 +90,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* FIXED: Changed brand heading to div style to fix 'More than one h1 tag' error validation */
         .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
@@ -98,10 +97,19 @@
             letter-spacing: -0.5px; 
         }
 
+        /* --- MOBILE MENU CSS ADDED HERE --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
+
         .nav-menu {
             display: flex;
             gap: 20px;
             align-items: center;
+            transition: var(--transition);
         }
 
         .nav-link {
@@ -166,7 +174,6 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        /* FIXED: Made this tool header the absolute unique h1 element on page scope to maximize index tracking */
         .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
@@ -360,15 +367,36 @@
             color: var(--primary); 
         }
 
+        /* --- UPDATED MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
+            
+            /* Mobile Toggle Visibility */
+            .mobile-toggle { display: block; }
+            
+            /* Dropdown Navigation Menu */
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+            }
+            .nav-menu.active { display: flex; }
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
         }
     </style>
     
-   
 </head>
 <body>
 
@@ -377,7 +405,13 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <div class="brand-title">Student Help Club</div>
         </a>
-        <nav class="nav-menu">
+        
+        <!-- --- MOBILE TOGGLE BUTTON ADDED --- -->
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
             <a href="index.html" class="nav-link">All Tools</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
@@ -479,6 +513,26 @@
     </footer>
 
     <script>
+        // --- MOBILE MENU JAVASCRIPT ADDED HERE ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+
         // Set default cutoff tracking field value seamlessly
         document.getElementById('today').valueAsDate = new Date();
 
