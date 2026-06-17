@@ -17,9 +17,13 @@
         .hero-section p { font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.9; }
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .blog-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #eaeaea; display: flex; flex-direction: column; }
+        
+        .blog-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s ease; border: 1px solid #eaeaea; display: flex; flex-direction: column; }
         .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .blog-image { height: 180px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        
+        /* New Image CSS */
+        .blog-image { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid #eaeaea; }
+        
         .blog-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .blog-category { display: inline-block; padding: 5px 12px; background: rgba(39, 174, 96, 0.1); color: var(--secondary-color); border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; align-self: flex-start; }
         .blog-title { font-size: 1.25rem; color: var(--primary-color); margin: 0 0 15px 0; line-height: 1.4; }
@@ -72,22 +76,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Styling icons based on category
-        const categoryData = {
-            "Image Resize": { icon: "fa-image", bg: "linear-gradient(45deg, #e0c3fc, #8ec5fc)" },
-            "PDF Tools": { icon: "fa-file-pdf", bg: "linear-gradient(45deg, #a1c4fd, #c2e9fb)" },
-            "Background Remover": { icon: "fa-eraser", bg: "linear-gradient(45deg, #ffecd2, #fcb69f)" },
-            "Calculators": { icon: "fa-calculator", bg: "linear-gradient(45deg, #f6d365, #fda085)" },
-            "General Update": { icon: "fa-newspaper", bg: "linear-gradient(45deg, #84fab0, #8fd3f4)" }
-        };
-
         async function fetchBlogs() {
             const blogContainer = document.getElementById('blog-container');
             try {
                 const q = query(collection(db, "blog_posts"), orderBy("timestamp", "desc"));
                 const querySnapshot = await getDocs(q);
                 
-                blogContainer.innerHTML = ''; // Clear loader
+                blogContainer.innerHTML = ''; 
                 
                 if(querySnapshot.empty) {
                     blogContainer.innerHTML = '<div class="loader">No articles published yet.</div>';
@@ -96,18 +91,15 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    const styleMeta = categoryData[data.category] || categoryData["General Update"];
                     
                     const cardHtml = `
                         <div class="blog-card">
-                            <div class="blog-image" style="background: ${styleMeta.bg}">
-                                <i class="fa-solid ${styleMeta.icon}"></i>
-                            </div>
+                            <img src="${data.thumbnailUrl}" alt="${data.title}" class="blog-image" onerror="this.src='https://via.placeholder.com/600x400?text=SHC+Tools'">
                             <div class="blog-content">
                                 <span class="blog-category">${data.category}</span>
                                 <h2 class="blog-title">${data.title}</h2>
                                 <p class="blog-excerpt">${data.excerpt}</p>
-                                <a href="article.html?id=${doc.id}" class="read-more">Read Full Guide <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="article.html?post=${data.slug}" class="read-more">Read Full Guide <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     `;
