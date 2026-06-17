@@ -253,8 +253,8 @@
             });
 
             // Trigger Telegram Bot Alert
-            const postUrl = `https://shctools.in/article.html?post=${slug}`;
-            const googleServerUrl = "https://script.google.com/macros/s/AKfycbwLnWNqq5z8D8jFFFe8FnYmrisXWGrefJgNXQurmncmGO9R7jciS0DFR67WSyiDQdI/exec";
+            const postUrl = `https://shctools.in/blog.html?post=${slug}`;
+            const googleServerUrl = "https://script.google.com/macros/s/AKfycbyo025_xgev4ItpdWA6VaycY4nBPLXvPro97qjhJd4U0kFSv5CmqPks64hz96mCxIsk/exec";
             const finalUrl = googleServerUrl + "?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(postUrl);
             fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert background trigger"));
 
