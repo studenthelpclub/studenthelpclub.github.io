@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #00873D; --dark: #0f172a; --text-main: #334155; --text-muted: #53647d; --bg-body: #f8fafc; --border-color: #e2e8f0; }
+        :root { --primary: #00873D; --dark: #0f172a; --text-main: #334155; --text-muted: #53647d; --bg-body: #f8fafc; --border-color: #e2e8f0; --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         
         /* 🚨 OVERFLOW FIX FOR MOBILE 🚨 */
         html, body { 
@@ -17,21 +17,31 @@
             margin: 0; 
             padding: 0; 
             line-height: 1.7; 
-            overflow-x: hidden; /* Ye page ko daayein (right) khisakne se rokega */
+            overflow-x: hidden; 
             width: 100%;
         }
         
+        /* HEADER & NAV */
         .header { width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-sizing: border-box; }
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
         .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; }
-        .btn-join { background: var(--dark); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
         
+        /* MOBILE MENU CSS ADDED */
+        .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 135, 61, 0.2); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 135, 61, 0.3); background: #006e32; }
+
         .article-container { max-width: 850px; margin: 50px auto; padding: 50px; background: #fff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border-color); box-sizing: border-box; }
         .article-header { text-align: center; margin-bottom: 40px; }
         .article-category { background: #e6f7ee; color: var(--primary); padding: 6px 15px; border-radius: 20px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
         .article-title { font-size: 2.5rem; color: var(--dark); font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.5px; }
-        .article-thumb { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); }
+        
+        /* 🔥 PRO FIX: ADBLOCKER BYPASS CONTAINER (div instead of img) 🔥 */
+        .article-thumb { width: 100%; height: 400px; background-size: cover; background-position: center; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); background-color: #f8fafc; display: block; }
         
         .article-body h2, .article-body h3 { color: var(--dark); margin-top: 40px; margin-bottom: 15px; font-weight: 800; line-height: 1.4; }
         .article-body p { margin-bottom: 20px; font-size: 1.05rem; color: var(--text-main); line-height: 1.8; }
@@ -59,23 +69,29 @@
             .header { padding: 12px 15px; }
             .brand-title { font-size: 1.15rem; }
             .logo { width: 38px; height: 38px; }
-            .btn-join { display: none; } /* Mobile par back button chupa diya jagah bachane ke liye */
             
+            /* Mobile Toggle Visibility */
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; box-sizing: border-box; }
+            .nav-menu.active { display: flex; }
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+
             /* Text PADDING FIX For Mobile */
             .article-container { 
-                margin: 0; /* Margin hatakar full width kiya */
-                padding: 25px 20px; /* Text aur kinare ke beech 20px ki jagah de di */
+                margin: 0; 
+                padding: 25px 20px; 
                 border-radius: 0; 
                 border: none;
                 box-shadow: none;
                 border-bottom: 1px solid var(--border-color);
             }
             .article-title { font-size: 1.8rem; }
-            .article-thumb { max-height: 200px; margin-bottom: 25px; }
+            .article-thumb { height: 200px; margin-bottom: 25px; }
             
             .article-body p, .article-body ul, .article-body ol { 
                 font-size: 1.05rem; 
-                padding: 0; /* Container padding se theek ho jayega */
+                padding: 0; 
             }
         }
     </style>
@@ -87,7 +103,17 @@
             <img src="shc-logo.jpg" alt="Logo" class="logo">
             <div class="brand-title">Student Help Club</div>
         </a>
-        <a href="blog.html" class="btn-join">← Back to Blog</a>
+        
+        <!-- MOBILE TOGGLE BUTTON -->
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link" style="color: var(--primary);">Blog & Guides</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
     <main class="article-container" id="content-box">
@@ -99,6 +125,21 @@
     </footer>
 
     <script type="module">
+        // --- MOBILE MENU JAVASCRIPT ---
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('nav-menu');
+            const icon = this.querySelector('i');
+            menu.classList.toggle('active');
+            
+            if(menu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -135,20 +176,24 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    document.title = data.title + " | SHC";
+                    document.title = data.title + " | SHC Guides";
                     
-                    const coverImage = data.thumbnailUrl ? data.thumbnailUrl : 'shc-logo.jpg';
+                    // 🔥 PRO FIX: CSS Background Image trick & Logo Hata Diya 🔥
+                    let coverHtml = '';
+                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg' && data.thumbnailUrl !== '') {
+                        coverHtml = `<div class="article-thumb" style="background-image: url('${data.thumbnailUrl}');"></div>`;
+                    }
 
                     contentBox.innerHTML = `
                         <div class="article-header">
                             <span class="article-category">${data.category}</span>
                             <h1 class="article-title">${data.title}</h1>
                         </div>
-                        <img src="${coverImage}" class="article-thumb" alt="Cover" onerror="this.src='shc-logo.jpg'">
+                        ${coverHtml}
                         <div class="article-body">
                             ${data.content}
                         </div>
-                        ${data.toolLink ? `<div style="text-align:center; margin-top: 40px;"><a href="${data.toolLink}" style="background:#00873D; color:#fff; padding:12px 25px; text-decoration:none; border-radius:8px; font-weight:bold; font-size:1.1rem; display:inline-block;">Use Free Tool Now</a></div>` : ''}
+                        ${data.toolLink ? `<div style="text-align:center; margin-top: 40px;"><a href="${data.toolLink}" style="background:#00873D; color:#fff; padding:12px 25px; text-decoration:none; border-radius:8px; font-weight:bold; font-size:1.1rem; display:inline-block;">Launch Free Tool Now</a></div>` : ''}
                     `;
                 });
 
