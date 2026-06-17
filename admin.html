@@ -10,16 +10,17 @@
         .top-nav { background: var(--white); border-bottom: 2px solid var(--primary); padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; color: var(--primary); }
         .admin-container { max-width: 800px; margin: 30px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
         input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
         .btn-push { width: 100%; padding: 15px; background: var(--success); color: white; border: none; border-radius: 6px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
         #login-section { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
         #admin-panel { display: none; }
+        .image-tool { background: #eef2f5; padding: 15px; border-radius: 8px; border: 2px dashed #b2bec3; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<div class="top-nav">SHC Tools Blog Admin</div>
+<div class="top-nav">SHC Tools Blog Admin (With Image Support)</div>
 
 <div id="login-section">
     <h3>Admin Login</h3>
@@ -30,32 +31,58 @@
 
 <div id="admin-panel">
     <div class="admin-container">
-        <div class="form-group">
-            <label>Category</label>
-            <select id="blog_category">
-                <option value="Image Resize">Image Resize</option>
-                <option value="PDF Tools">PDF Tools</option>
-                <option value="Background Remover">Background Remover</option>
-                <option value="Calculators">Calculators</option>
-                <option value="General Update">General Update</option>
-            </select>
+        
+        <!-- Yahan aap photo dalkar Article ke beech mein lagane ke liye Link nikal sakte hain -->
+        <div class="image-tool">
+            <label style="color:#e74c3c;">📸 Quick Image Link Generator (Article ke beech mein photo lagane ke liye)</label>
+            <input type="file" id="quick_img" accept="image/*" style="margin-bottom:10px;">
+            <button id="quickImgBtn" style="background:#f39c12; color:white; border:none; padding:8px 15px; border-radius:4px; cursor:pointer;">Upload & Get Link</button>
+            <input type="text" id="quick_img_link" placeholder="Image link yahan aayega, isko copy karke article mein use karein" readonly style="margin-top:10px; background:#fff;">
         </div>
+
+        <div class="form-group">
+            <label>Tool Category (Select karein ya Naya Type karein)</label>
+            <input type="text" id="blog_category" list="tool-categories" placeholder="Start typing category...">
+            <datalist id="tool-categories">
+                <!-- Aapke sabhi tools ki list, naya chahiye to input me direct type karein -->
+                <option value="Image Resizer In KB">
+                <option value="PDF Size Reducer">
+                <option value="PDF Split & Merge">
+                <option value="PDF to Image Converter">
+                <option value="Image Background Remover">
+                <option value="ATS Resume Builder">
+                <option value="Age & Percentage Calculator">
+                <option value="Sarkari Job Updates">
+                <option value="IGNOU Assignments">
+                <option value="General Update">
+            </datalist>
+        </div>
+        
+        <div class="form-group">
+            <label>Main Blog Thumbnail (Cover Photo)</label>
+            <input type="file" id="blog_thumbnail" accept="image/*">
+        </div>
+
         <div class="form-group">
             <label>Article Title</label>
             <input type="text" id="blog_title" placeholder="SSC Exams ke liye Photo kaise compress karein?">
         </div>
+        
         <div class="form-group">
-            <label>Short Excerpt (Dikhaane ke liye)</label>
+            <label>Short Excerpt (Homepage par dikhane ke liye)</label>
             <textarea id="blog_excerpt" rows="3" placeholder="Is guide mein sikhiye ki bina quality lose kiye photo ka size exact format mein kaise set karein..."></textarea>
         </div>
+        
         <div class="form-group">
-            <label>Full Content (HTML tags use kar sakte hain)</label>
+            <label>Full Content (HTML tags allowed: &lt;h3&gt;, &lt;p&gt;, &lt;img src="..."&gt;)</label>
             <textarea id="blog_content" rows="10" placeholder="<p>Full article details here...</p>"></textarea>
         </div>
+        
         <div class="form-group">
             <label>Tool Link (Optional)</label>
             <input type="text" id="tool_link" placeholder="https://shctools.in/image-resizer">
         </div>
+        
         <button class="btn-push" id="submitBtn">PUBLISH ARTICLE</button>
     </div>
 </div>
@@ -64,6 +91,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyAYE9Q_Lub0aHDHsibMp-v6Ov4Dz25jyLE",
@@ -77,6 +105,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -93,19 +122,46 @@
         .catch(err => alert("Login Failed!"));
     });
 
+    // Quick Image Link Generator Logic
+    document.getElementById('quickImgBtn').addEventListener('click', async () => {
+        const file = document.getElementById('quick_img').files[0];
+        if(!file) return alert("Pehle ek image select karein!");
+        
+        document.getElementById('quickImgBtn').innerText = "Uploading...";
+        try {
+            const storageRef = ref(storage, 'article_images/' + Date.now() + '_' + file.name);
+            await uploadBytesResumable(storageRef, file);
+            const url = await getDownloadURL(storageRef);
+            document.getElementById('quick_img_link').value = url;
+            document.getElementById('quickImgBtn').innerText = "Upload & Get Link";
+        } catch(e) {
+            alert("Upload Failed: " + e.message);
+            document.getElementById('quickImgBtn').innerText = "Upload & Get Link";
+        }
+    });
+
     document.getElementById('submitBtn').addEventListener('click', async () => {
         const title = document.getElementById('blog_title').value;
         const category = document.getElementById('blog_category').value;
         const excerpt = document.getElementById('blog_excerpt').value;
         const content = document.getElementById('blog_content').value;
         const toolLink = document.getElementById('tool_link').value;
+        const thumbFile = document.getElementById('blog_thumbnail').files[0];
 
-        if(!title || !excerpt || !content) return alert("Title, Excerpt aur Content zaruri hai!");
+        if(!title || !category || !excerpt || !content) return alert("Title, Category, Excerpt aur Content zaruri hai!");
 
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
         try {
-            document.getElementById('submitBtn').innerText = "PUBLISHING...";
+            document.getElementById('submitBtn').innerText = "UPLOADING THUMBNAIL & PUBLISHING...";
+
+            // Thumbnail Upload Logic
+            let thumbnailUrl = "https://via.placeholder.com/600x400?text=SHC+Tools"; // Default if no image
+            if(thumbFile) {
+                const storageRef = ref(storage, 'blog_thumbnails/' + Date.now() + '_' + thumbFile.name);
+                await uploadBytesResumable(storageRef, thumbFile);
+                thumbnailUrl = await getDownloadURL(storageRef);
+            }
 
             // 1. Firebase mein Data Save karna
             await addDoc(collection(db, "blog_posts"), {
@@ -114,16 +170,17 @@
                 category: category,
                 excerpt: excerpt,
                 content: content,
+                thumbnailUrl: thumbnailUrl,
                 toolLink: toolLink,
                 timestamp: serverTimestamp()
             });
 
-            // 2. Google Script (Telegram) Trigger (Aapka final script URL)
-            const postUrl = `https://shctools.in/blog.html?post=${slug}`;
+            // 2. Google Script (Telegram) Trigger
+            const postUrl = `https://shctools.in/article.html?post=${slug}`;
             const googleServerUrl = "https://script.google.com/macros/s/AKfycbwLnWNqq5z8D8jFFFe8FnYmrisXWGrefJgNXQurmncmGO9R7jciS0DFR67WSyiDQdI/exec";
             const finalUrl = googleServerUrl + "?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(postUrl);
             
-            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert issue:", err));
+            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert issue"));
 
             setTimeout(() => {
                 alert("Article Published Successfully! Telegram notification sent.");
