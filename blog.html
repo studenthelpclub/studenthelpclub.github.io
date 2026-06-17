@@ -6,16 +6,13 @@
     <title>Blog & Guides | Student Help Club</title>
 
     <meta name="description" content="Read the latest step-by-step tutorials, form-filling guides, and document optimization tips for students and job seekers.">
-    <meta property="og:image" content="https://shctools.in/images/shc-logo.jpg" />
-    
-    <!-- Fonts & Icons (Same as Index) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CORE VARIABLES (From your index) */
+        /* CORE VARIABLES */
         :root {
             --primary: #00873D; 
             --primary-light: #e6f7ee;
@@ -30,15 +27,15 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* HEADER & NAV (Fixed for Mobile) */
-        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        /* HEADER & NAV */
+        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); }
         .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
         
         .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
         .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
-        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; }
+        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); }
         #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 135, 61, 0.1); width: 250px; }
         .search-icon { position: absolute; left: 12px; color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
         
@@ -46,37 +43,51 @@
         .nav-link:hover { color: var(--primary); }
         .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 135, 61, 0.2); }
         .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 135, 61, 0.3); background: #006e32; }
-        
-        /* Mobile Hamburger Icon */
         .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
 
-        /* BLOG HERO SECTION */
+        /* VIEW 1: BLOG LIST DESIGN */
+        #list-view { display: none; }
         .blog-hero { background: linear-gradient(180deg, #ffffff 0%, var(--bg-body) 100%); border-bottom: 1px solid var(--border-color); padding: 70px 20px; text-align: center; }
         .blog-hero h1 { font-size: 2.8rem; font-weight: 800; color: var(--dark); letter-spacing: -1px; margin-bottom: 10px; }
         .blog-hero h1 span { color: var(--primary); }
         .blog-hero p { color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto; font-weight: 500; }
-
-        /* BLOG GRID (Matches Your Main Design) */
+        
         .blog-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        
         .blog-card { background: #ffffff; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); transition: var(--transition); display: flex; flex-direction: column; text-decoration: none; }
         .blog-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: 0 20px 25px -5px rgba(0, 135, 61, 0.08); }
-        
-        .blog-img { width: 100%; height: 210px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .blog-img { width: 100%; height: 210px; object-fit: cover; border-bottom: 1px solid var(--border-color); background: #f1f5f9; }
         .blog-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        
         .cat-badge { align-self: flex-start; background: var(--primary-light); color: var(--primary); padding: 5px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
         .blog-title { font-size: 1.3rem; color: var(--dark); font-weight: 800; margin-bottom: 10px; line-height: 1.4; letter-spacing: -0.3px; }
         .blog-excerpt { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; font-weight: 500; }
-        
         .read-btn { display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 700; font-size: 0.95rem; }
         .read-btn i { transition: var(--transition); }
         .blog-card:hover .read-btn i { transform: translateX(5px); }
 
-        .loader { text-align: center; font-size: 1.2rem; color: var(--text-muted); padding: 40px; font-weight: 600; grid-column: 1 / -1; }
+        /* VIEW 2: FULL ARTICLE READ DESIGN */
+        #single-view { display: none; }
+        .article-container { max-width: 850px; margin: 50px auto; padding: 50px; background: #fff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border-color); }
+        .article-header { text-align: center; margin-bottom: 40px; }
+        .article-title-main { font-size: 2.5rem; color: var(--dark); font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .article-thumb { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); background: #f8fafc; }
+        
+        .article-body h2, .article-body h3 { color: var(--dark); margin-top: 40px; margin-bottom: 15px; font-weight: 800; line-height: 1.4; }
+        .article-body p { margin-bottom: 20px; font-size: 1.1rem; color: var(--text-main); line-height: 1.8;}
+        .article-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 25px auto; display: block; border: 1px solid var(--border-color); }
+        .article-body ul, .article-body ol { margin-left: 20px; margin-bottom: 25px; font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+        .article-body li { margin-bottom: 10px; }
+        
+        /* Responsive Table Design */
+        .table-responsive-wrapper { overflow-x: auto; margin: 30px 0; border: 1px solid var(--border-color); border-radius: 8px; -webkit-overflow-scrolling: touch; }
+        .article-body table { width: 100%; border-collapse: collapse; margin: 0; min-width: 600px; font-size: 1rem; }
+        .article-body th { background: var(--primary); color: white; padding: 14px; text-align: left; font-weight: 700; }
+        .article-body td { border-bottom: 1px solid var(--border-color); padding: 14px; color: var(--text-main); }
+        .article-body tr:last-child td { border-bottom: none; }
 
-        /* FOOTER (Same as Index) */
+        .loader { text-align: center; font-size: 1.2rem; color: var(--text-muted); padding: 50px; font-weight: 600; grid-column: 1 / -1; }
+
+        /* FOOTER */
         .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
         .social-links { margin-bottom: 25px; }
         .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
@@ -87,43 +98,52 @@
         .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
         .policy-links a:hover { color: var(--primary); }
 
-        /* RESPONSIVE SETTINGS */
+        /* =========================================
+           MOBILE RESPONSIVE SETTINGS 
+           ========================================= */
         @media (max-width: 768px) {
             .header { padding: 12px 4%; }
             .brand .brand-title { font-size: 1.15rem; }
             .logo { width: 38px; height: 38px; }
             
-            /* Mobile Menu Fix */
+            /* Mobile Menu */
             .mobile-toggle { display: block; }
             .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; }
             .nav-menu.active { display: flex; }
             .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
-            #tool-search { width: 100%; }
-            #tool-search:focus { width: 100%; }
+            #tool-search, #tool-search:focus { width: 100%; }
             .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
             .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
             
+            /* List View Mobile */
             .blog-hero { padding: 50px 15px; }
             .blog-hero h1 { font-size: 2.2rem; }
-            .blog-hero p { font-size: 1.05rem; }
-            
+            .blog-container { padding: 0 15px; margin: 30px auto; }
             .blog-grid { grid-template-columns: 1fr; gap: 20px; }
-            .footer { padding: 40px 15px 30px; }
-            .social-links a { margin: 0 12px; }
+            
+            /* Single Article View Mobile - FULLY FIXED */
+            .article-container { margin: 15px; padding: 25px 20px; border-radius: 12px; box-shadow: none; border-top: 1px solid var(--border-color); }
+            .article-title-main { font-size: 1.7rem; margin-bottom: 15px; }
+            .article-thumb { max-height: 220px; margin-bottom: 25px; border-radius: 8px; }
+            .article-body h2, .article-body h3 { font-size: 1.4rem; margin-top: 30px; }
+            .article-body p { font-size: 1.05rem; line-height: 1.7; text-align: left; }
+            .article-body ul, .article-body ol { font-size: 1.05rem; line-height: 1.7; margin-left: 15px; }
+            .article-body img { margin: 20px auto; }
+            
+            /* Footer */
+            .footer { padding: 40px 15px 30px; margin-top: 40px; }
             .policy-links a { display: inline-block; margin: 8px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER (Now with working Mobile Toggle) -->
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
             <div class="brand-title">Student Help Club</div>
         </a>
         
-        <!-- Mobile Menu Button -->
         <div class="mobile-toggle" id="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </div>
@@ -140,28 +160,33 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="blog-hero">
-            <h1>SHC Guides <span>& Updates</span></h1>
-            <p>Step-by-step tutorials and expert tips to help you master form-filling and exam document preparation.</p>
-        </section>
-
-        <!-- Blog Cards Container -->
-        <div class="blog-container">
-            <div class="blog-grid" id="blog-container-box">
-                <div class="loader"><i class="fas fa-spinner fa-spin"></i> Fetching latest guides...</div>
+        
+        <div id="list-view">
+            <section class="blog-hero">
+                <h1>SHC Guides <span>& Updates</span></h1>
+                <p>Step-by-step tutorials and expert tips to help you master form-filling and exam document preparation.</p>
+            </section>
+            <div class="blog-container">
+                <div class="blog-grid" id="blog-container-box">
+                    <div class="loader"><i class="fas fa-spinner fa-spin"></i> Fetching latest guides...</div>
+                </div>
             </div>
         </div>
+
+        <div id="single-view">
+            <div class="article-container" id="content-box">
+                <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading Article...</div>
+            </div>
+        </div>
+
     </main>
 
-    <!-- EXACT SAME FOOTER FROM INDEX.HTML -->
     <footer class="footer">
         <div class="social-links">
             <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="about_us.html">About Us</a> | 
@@ -172,26 +197,22 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <!-- Scripts: Mobile Menu Toggle & Firebase Fetch -->
     <script type="module">
-        // 1. Mobile Menu Toggle Logic
+        // --- Mobile Menu Toggle ---
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('nav-menu');
             const icon = this.querySelector('i');
             menu.classList.toggle('active');
-            
             if(menu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+                icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
             } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
             }
         });
 
-        // 2. Firebase Database Logic
+        // --- Firebase Setup ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAYE9Q_Lub0aHDHsibMp-v6Ov4Dz25jyLE",
@@ -205,14 +226,27 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function fetchBlogs() {
+        // --- SMART ROUTING LOGIC ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('post');
+
+        if(slug) {
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('single-view').style.display = 'block';
+            loadSingleArticle(slug);
+        } else {
+            document.getElementById('list-view').style.display = 'block';
+            document.getElementById('single-view').style.display = 'none';
+            fetchAllBlogs();
+        }
+
+        async function fetchAllBlogs() {
             const container = document.getElementById('blog-container-box');
             try {
                 const q = query(collection(db, "blog_posts"), orderBy("timestamp", "desc"));
                 const querySnapshot = await getDocs(q);
                 
                 container.innerHTML = ''; 
-                
                 if(querySnapshot.empty) {
                     container.innerHTML = '<div class="loader">No articles published yet. Publish from Admin Panel!</div>';
                     return;
@@ -220,9 +254,19 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
+                    
+                    // Removed 'onerror' - if image fails to load due to adblock, it will just show alt text neatly.
+                    let imageTag = '';
+                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg') {
+                        imageTag = `<img src="${data.thumbnailUrl}" alt="${data.title}" class="blog-img">`;
+                    } else {
+                        // Agar image upload hi nahi ki admin ne, to placeholder dikhayenge
+                        imageTag = `<div class="blog-img" style="display:flex; align-items:center; justify-content:center; font-size:2rem; color:#cbd5e1;"><i class="fas fa-file-alt"></i></div>`;
+                    }
+
                     const cardHtml = `
-                        <a href="article.html?post=${data.slug}" class="blog-card">
-                            <img src="${data.thumbnailUrl}" alt="${data.title}" class="blog-img" onerror="this.src='https://via.placeholder.com/600x400?text=SHC+Tools'">
+                        <a href="blog.html?post=${data.slug}" class="blog-card">
+                            ${imageTag}
                             <div class="blog-content">
                                 <span class="cat-badge">${data.category}</span>
                                 <h2 class="blog-title">${data.title}</h2>
@@ -234,12 +278,60 @@
                     container.insertAdjacentHTML('beforeend', cardHtml);
                 });
             } catch (error) {
-                container.innerHTML = '<div class="loader" style="color:red;">Error loading articles. Check console.</div>';
-                console.error("Error: ", error);
+                container.innerHTML = '<div class="loader" style="color:red;">Error loading articles.</div>';
             }
         }
 
-        fetchBlogs();
+        async function loadSingleArticle(postSlug) {
+            const contentBox = document.getElementById('content-box');
+            try {
+                const q = query(collection(db, "blog_posts"), where("slug", "==", postSlug));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    contentBox.innerHTML = "<h2 style='text-align:center; color:red;'>404 - Article Not Found!</h2><div style='text-align:center; margin-top:20px;'><a href='blog.html' style='color:#00873D; font-weight:bold;'>Go Back to Blog</a></div>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    document.title = data.title + " | SHC Guides";
+                    
+                    let coverHtml = '';
+                    if(data.thumbnailUrl && data.thumbnailUrl !== 'shc-logo.jpg') {
+                        coverHtml = `<img src="${data.thumbnailUrl}" class="article-thumb" alt="Cover Image">`;
+                    }
+
+                    contentBox.innerHTML = `
+                        <div class="article-header">
+                            <span class="cat-badge" style="font-size: 0.9rem;">${data.category}</span>
+                            <h1 class="article-title-main">${data.title}</h1>
+                        </div>
+                        ${coverHtml}
+                        <div class="article-body">
+                            ${data.content}
+                        </div>
+                        ${data.toolLink ? `<div style="text-align:center; margin-top: 50px;"><a href="${data.toolLink}" style="background:#00873D; color:#fff; padding:15px 30px; text-decoration:none; border-radius:8px; font-weight:800; font-size:1.15rem; display:inline-block; box-shadow: 0 4px 15px rgba(0,135,61,0.3);">Launch Free Tool Now <i class="fas fa-external-link-alt" style="margin-left:8px;"></i></a></div>` : ''}
+                        
+                        <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align:center;">
+                            <a href="blog.html" style="color: var(--text-muted); font-weight: 600; text-decoration:none;"><i class="fas fa-arrow-left"></i> Back to all articles</a>
+                        </div>
+                    `;
+                });
+
+                // --- MOBILE RESPONSIVE TABLE FIX ---
+                // Find all tables generated by AI and wrap them in a scrollable div
+                document.querySelectorAll('.article-body table').forEach(tbl => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-responsive-wrapper';
+                    tbl.parentNode.insertBefore(wrapper, tbl);
+                    wrapper.appendChild(tbl);
+                });
+
+            } catch (error) {
+                contentBox.innerHTML = "<h2 style='text-align:center; color:red;'>Error Loading Article.</h2>";
+            }
+        }
     </script>
 </body>
 </html>
