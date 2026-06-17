@@ -8,29 +8,20 @@
         :root { --primary: #003366; --bg: #f4f7f6; --success: #27ae60; --warning: #f39c12; --danger: #e74c3c; --white: #ffffff; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
         .top-nav { background: var(--primary); padding: 15px 20px; text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--white); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        
         .admin-container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        
-        /* Step Boxes */
         .step-box { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border-left: 5px solid var(--primary); }
         .step-title { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; }
         .help-text { font-size: 0.85rem; color: #7f8c8d; margin-bottom: 8px; display: block; }
-        
         input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; font-family: inherit; }
         input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0,51,102,0.1); }
-        
         .btn { padding: 12px 20px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
         .btn-success { background: var(--success); width: 100%; font-size: 1.2rem; padding: 15px; }
         .btn-success:hover { background: #219653; }
         .btn-warning { background: var(--warning); }
-        
-        /* Image Generator Tool */
         .image-generator { background: #fff8e1; border: 2px dashed var(--warning); padding: 20px; border-radius: 8px; text-align: center; }
         .code-box { background: #2c3e50; color: #4afe4a; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 1.1rem; margin-top: 15px; display: none; word-wrap: break-word; }
-        
         #login-section { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
         #admin-panel { display: none; }
     </style>
@@ -49,37 +40,29 @@
 <div id="admin-panel">
     <div class="admin-container">
         
-        <!-- STEP 1: ImgBB Setup (No Code Needed) -->
         <div class="step-box" style="border-left-color: var(--danger);">
-            <div class="step-title">⚙️ Step 1: ImgBB API Setup (Ek baar karna hai)</div>
-            <span class="help-text">Agar image upload kaam nahi kar raha, toh <b>api.imgbb.com</b> se apni Free API key yahan daalkar Save karein.</span>
+            <div class="step-title">⚙️ Step 1: ImgBB API Setup</div>
             <div style="display: flex; gap: 10px;">
                 <input type="text" id="imgbb_api_key" placeholder="Paste your ImgBB API Key here...">
                 <button id="saveKeyBtn" class="btn btn-warning" style="white-space: nowrap;">Save Key</button>
             </div>
         </div>
 
-        <!-- STEP 2: Quick Image Link Generator -->
         <div class="step-box" style="border-left-color: var(--warning);">
-            <div class="step-title">📸 Step 2: Article Ke Beech Me Image Lagane Ka Code Banayein</div>
+            <div class="step-title">📸 Step 2: Article Image Generator</div>
             <div class="image-generator">
-                <span class="help-text">Apni photo yahan upload karein. Hum aapko ek HTML code denge jise copy karke aap 'Step 3' ke content box mein kahin bhi paste kar sakte hain.</span>
                 <input type="file" id="quick_img" accept="image/*" style="margin-bottom:10px; background: white;">
                 <button id="quickImgBtn" class="btn" style="background: var(--primary);">Upload Image & Get Code</button>
-                
-                <div id="code_box" class="code-box">
-                    <!-- Image tag will appear here -->
-                </div>
+                <div id="code_box" class="code-box"></div>
             </div>
         </div>
 
-        <!-- STEP 3: Write Article -->
         <div class="step-box" style="border-left-color: var(--success);">
             <div class="step-title">✍️ Step 3: Write & Publish Article</div>
             
             <div class="form-group">
                 <label>Main Blog Thumbnail (Cover Photo)</label>
-                <span class="help-text">Ye photo homepage par blog card ke upar dikhegi.</span>
+                <span class="help-text">Ab agar photo nahi daalenge toh site ka logo automatically lag jayega!</span>
                 <input type="file" id="blog_thumbnail" accept="image/*">
             </div>
 
@@ -97,17 +80,16 @@
 
             <div class="form-group">
                 <label>Article Title</label>
-                <input type="text" id="blog_title" placeholder="SSC Exams ke liye Photo kaise compress karein?">
+                <input type="text" id="blog_title" placeholder="Title here...">
             </div>
             
             <div class="form-group">
                 <label>Short Excerpt (Dikhaane ke liye)</label>
-                <textarea id="blog_excerpt" rows="2" placeholder="Homepage par dikhane ke liye 2 line ka description..."></textarea>
+                <textarea id="blog_excerpt" rows="2" placeholder="Description here..."></textarea>
             </div>
             
             <div class="form-group">
                 <label>Full Content (Paste generated HTML here)</label>
-                <span class="help-text">AI se generate kiya hua poora HTML code yahan paste karein. Jahan image lagani ho, wahan 'Step 2' wala code paste kar dein.</span>
                 <textarea id="blog_content" rows="15" placeholder="<p>Start your HTML article here...</p>"></textarea>
             </div>
             
@@ -118,7 +100,6 @@
             
             <button class="btn btn-success" id="submitBtn">🚀 PUBLISH ARTICLE NOW</button>
         </div>
-
     </div>
 </div>
 
@@ -140,7 +121,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Check & Load Saved ImgBB Key
     window.onload = function() {
         const savedKey = localStorage.getItem("imgbb_key");
         if(savedKey) {
@@ -148,7 +128,6 @@
         }
     };
 
-    // Save ImgBB Key Button
     document.getElementById("saveKeyBtn").addEventListener("click", () => {
         const key = document.getElementById("imgbb_api_key").value.trim();
         if(!key) return alert("Please enter a valid key!");
@@ -168,10 +147,9 @@
 
     document.getElementById('loginBtn').addEventListener('click', () => {
         signInWithEmailAndPassword(auth, document.getElementById('login_email').value, document.getElementById('login_pass').value)
-        .catch(err => alert("Login Failed! Please check email/password."));
+        .catch(err => alert("Login Failed!"));
     });
 
-    // ImgBB Upload Engine
     async function uploadToImgBB(file) {
         const apiKey = localStorage.getItem("imgbb_key");
         if(!apiKey) throw new Error("Pehle Step 1 me ImgBB API Key daalkar Save karein!");
@@ -187,11 +165,10 @@
         if(data.success) {
             return data.data.url;
         } else {
-            throw new Error("ImgBB Upload Failed! Ensure your API key is correct.");
+            throw new Error("ImgBB Upload Failed!");
         }
     }
 
-    // Step 2: Quick Image Link Generator (Generates HTML Image Tag)
     document.getElementById('quickImgBtn').addEventListener('click', async () => {
         const file = document.getElementById('quick_img').files[0];
         if(!file) return alert("Pehle ek image select karein!");
@@ -202,8 +179,6 @@
         try {
             const url = await uploadToImgBB(file);
             const codeBox = document.getElementById('code_box');
-            
-            // Create a ready-to-paste image tag
             const imgTag = `&lt;img src="${url}" style="width:100%; max-width:600px; border-radius:8px; margin: 20px auto; display:block;" alt="Blog Image"&gt;`;
             
             codeBox.innerHTML = `✅ Uploaded! Copy paste this code in your article content:<br><br> ${imgTag}`;
@@ -215,7 +190,6 @@
         }
     });
 
-    // Step 3: Publish Full Article
     document.getElementById('submitBtn').addEventListener('click', async () => {
         const title = document.getElementById('blog_title').value;
         const category = document.getElementById('blog_category').value;
@@ -234,13 +208,12 @@
         try {
             btn.innerText = "⏳ UPLOADING THUMBNAIL & PUBLISHING...";
 
-            // Upload Thumbnail if provided
-            let thumbnailUrl = "https://via.placeholder.com/600x400?text=SHC+Tools"; 
+            // Thumbnail Fallback: Ab SHC logo lag jayega agar upload nahi kiya
+            let thumbnailUrl = "shc-logo.jpg"; 
             if(thumbFile) {
                 thumbnailUrl = await uploadToImgBB(thumbFile);
             }
 
-            // Save to Firebase Database
             await addDoc(collection(db, "blog_posts"), {
                 title: title,
                 slug: slug,
@@ -252,14 +225,14 @@
                 timestamp: serverTimestamp()
             });
 
-            // Trigger Telegram Bot Alert
+            // Yahan aapka exact naya URL rakha gaya hai!
             const postUrl = `https://shctools.in/article.html?post=${slug}`;
             const googleServerUrl = "https://script.google.com/macros/s/AKfycbyo025_xgev4ItpdWA6VaycY4nBPLXvPro97qjhJd4U0kFSv5CmqPks64hz96mCxIsk/exec";
             const finalUrl = googleServerUrl + "?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(postUrl);
-            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert background trigger"));
+            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert issue"));
 
             setTimeout(() => {
-                alert("🎉 Article Published Successfully! Telegram notification sent.");
+                alert("🎉 Article Published Successfully!");
                 location.reload();
             }, 1500);
 
