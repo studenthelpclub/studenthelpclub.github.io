@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Article | Student Help Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #00873D; --dark: #0f172a; --text-main: #334155; --text-muted: #53647d; --bg-body: #f8fafc; --border-color: #e2e8f0; }
+        body { background: var(--bg-body); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; line-height: 1.7; }
+        
+        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+        .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+        
+        .article-container { max-width: 850px; margin: 50px auto; padding: 40px; background: #fff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid var(--border-color); }
+        .article-header { text-align: center; margin-bottom: 40px; }
+        .article-category { background: #e6f7ee; color: var(--primary); padding: 6px 15px; border-radius: 20px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
+        .article-title { font-size: 2.5rem; color: var(--dark); font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .article-thumb { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 40px; border: 1px solid var(--border-color); }
+        
+        .article-body h2, .article-body h3 { color: var(--dark); margin-top: 40px; margin-bottom: 15px; font-weight: 800; }
+        .article-body p { margin-bottom: 20px; font-size: 1.05rem; color: var(--text-main); }
+        .article-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 25px 0; display: block; border: 1px solid #eee; }
+        .article-body ul, .article-body ol { margin-left: 20px; margin-bottom: 25px; font-size: 1.05rem; }
+        .article-body li { margin-bottom: 10px; }
+        
+        /* Table Formatting */
+        .article-body table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+        .article-body th { background: var(--primary); color: white; padding: 12px; text-align: left; }
+        .article-body td { border: 1px solid #ddd; padding: 12px; }
+
+        .loader { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--text-muted); }
+
+        .footer { background: #ffffff; padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+
+        @media (max-width: 768px) {
+            .article-container { margin: 20px 15px; padding: 25px 20px; }
+            .article-title { font-size: 1.8rem; }
+            .header { padding: 12px 4%; }
+            .brand-title { font-size: 1.15rem; }
+            .logo { width: 38px; height: 38px; }
+            .btn-join { display: none; } /* Hide join on small header to fit space */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Logo" class="logo">
+            <div class="brand-title">Student Help Club</div>
+        </a>
+        <a href="blog.html" class="btn-join" style="background: var(--dark);">← Back to Blog</a>
+    </header>
+
+    <main class="article-container" id="content-box">
+        <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading Article...</div>
+    </main>
+
+    <footer class="footer">
+        <p style="font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYE9Q_Lub0aHDHsibMp-v6Ov4Dz25jyLE",
+            authDomain: "tools-blog.firebaseapp.com",
+            projectId: "tools-blog",
+            storageBucket: "tools-blog.firebasestorage.app",
+            messagingSenderId: "657535253741",
+            appId: "1:657535253741:web:854e9563a5db4f983ee0e4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // URL se ?post=slug nikalna
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('post');
+        const contentBox = document.getElementById('content-box');
+
+        async function loadArticle() {
+            if(!slug) {
+                contentBox.innerHTML = "<h2 style='text-align:center; color:red;'>Article Not Found!</h2>";
+                return;
+            }
+
+            try {
+                const q = query(collection(db, "blog_posts"), where("slug", "==", slug));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    contentBox.innerHTML = "<h2 style='text-align:center; color:red;'>404 - Article Not Found!</h2>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    document.title = data.title + " | SHC";
+                    
+                    // Fallback in case thumbnail is missing
+                    const coverImage = data.thumbnailUrl ? data.thumbnailUrl : 'shc-logo.jpg';
+
+                    contentBox.innerHTML = `
+                        <div class="article-header">
+                            <span class="article-category">${data.category}</span>
+                            <h1 class="article-title">${data.title}</h1>
+                        </div>
+                        <img src="${coverImage}" class="article-thumb" alt="Cover" onerror="this.src='shc-logo.jpg'">
+                        <div class="article-body">
+                            ${data.content}
+                        </div>
+                        ${data.toolLink ? `<div style="text-align:center; margin-top: 40px;"><a href="${data.toolLink}" style="background:#00873D; color:#fff; padding:12px 25px; text-decoration:none; border-radius:8px; font-weight:bold; font-size:1.1rem; display:inline-block;">Use Free Tool Now</a></div>` : ''}
+                    `;
+                });
+            } catch (error) {
+                contentBox.innerHTML = "<h2 style='text-align:center; color:red;'>Error Loading Database.</h2>";
+            }
+        }
+
+        loadArticle();
+    </script>
+</body>
+</html>
