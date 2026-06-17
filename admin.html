@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div class="top-nav">SHC Tools Blog Admin (With Image Support)</div>
+<div class="top-nav">SHC Tools Blog Admin (Free Image Hosting)</div>
 
 <div id="login-section">
     <h3>Admin Login</h3>
@@ -32,7 +32,6 @@
 <div id="admin-panel">
     <div class="admin-container">
         
-        <!-- Yahan aap photo dalkar Article ke beech mein lagane ke liye Link nikal sakte hain -->
         <div class="image-tool">
             <label style="color:#e74c3c;">📸 Quick Image Link Generator (Article ke beech mein photo lagane ke liye)</label>
             <input type="file" id="quick_img" accept="image/*" style="margin-bottom:10px;">
@@ -41,10 +40,9 @@
         </div>
 
         <div class="form-group">
-            <label>Tool Category (Select karein ya Naya Type karein)</label>
+            <label>Tool Category</label>
             <input type="text" id="blog_category" list="tool-categories" placeholder="Start typing category...">
             <datalist id="tool-categories">
-                <!-- Aapke sabhi tools ki list, naya chahiye to input me direct type karein -->
                 <option value="Image Resizer In KB">
                 <option value="PDF Size Reducer">
                 <option value="PDF Split & Merge">
@@ -70,11 +68,11 @@
         
         <div class="form-group">
             <label>Short Excerpt (Homepage par dikhane ke liye)</label>
-            <textarea id="blog_excerpt" rows="3" placeholder="Is guide mein sikhiye ki bina quality lose kiye photo ka size exact format mein kaise set karein..."></textarea>
+            <textarea id="blog_excerpt" rows="3" placeholder="Short description here..."></textarea>
         </div>
         
         <div class="form-group">
-            <label>Full Content (HTML tags allowed: &lt;h3&gt;, &lt;p&gt;, &lt;img src="..."&gt;)</label>
+            <label>Full Content (HTML tags allowed)</label>
             <textarea id="blog_content" rows="10" placeholder="<p>Full article details here...</p>"></textarea>
         </div>
         
@@ -88,10 +86,10 @@
 </div>
 
 <script type="module">
+    // Firebase se Storage Hata diya gaya hai, Sirf Database use hoga
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyAYE9Q_Lub0aHDHsibMp-v6Ov4Dz25jyLE",
@@ -105,7 +103,9 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const storage = getStorage(app);
+
+    // --- YAHAN APNI IMGBB API KEY DALEIN ---
+    const IMGBB_API_KEY = "YAHAN_APNI_IMGBB_API_KEY_DALEIN"; 
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -122,20 +122,37 @@
         .catch(err => alert("Login Failed!"));
     });
 
+    // IMGBB Upload Function (100% Free)
+    async function uploadToImgBB(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+        
+        const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+            method: "POST",
+            body: formData
+        });
+        const data = await response.json();
+        if(data.success) {
+            return data.data.url;
+        } else {
+            throw new Error("Image Upload Failed");
+        }
+    }
+
     // Quick Image Link Generator Logic
     document.getElementById('quickImgBtn').addEventListener('click', async () => {
+        if(IMGBB_API_KEY === "YAHAN_APNI_IMGBB_API_KEY_DALEIN") return alert("Pehle ImgBB API Key code me dalein!");
+        
         const file = document.getElementById('quick_img').files[0];
         if(!file) return alert("Pehle ek image select karein!");
         
         document.getElementById('quickImgBtn').innerText = "Uploading...";
         try {
-            const storageRef = ref(storage, 'article_images/' + Date.now() + '_' + file.name);
-            await uploadBytesResumable(storageRef, file);
-            const url = await getDownloadURL(storageRef);
+            const url = await uploadToImgBB(file);
             document.getElementById('quick_img_link').value = url;
             document.getElementById('quickImgBtn').innerText = "Upload & Get Link";
         } catch(e) {
-            alert("Upload Failed: " + e.message);
+            alert(e.message);
             document.getElementById('quickImgBtn').innerText = "Upload & Get Link";
         }
     });
@@ -149,21 +166,20 @@
         const thumbFile = document.getElementById('blog_thumbnail').files[0];
 
         if(!title || !category || !excerpt || !content) return alert("Title, Category, Excerpt aur Content zaruri hai!");
+        if(IMGBB_API_KEY === "ad3252454af3aaf0a6331c06f7a1ba9d") return alert("Pehle ImgBB API Key code me dalein!");
 
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
         try {
             document.getElementById('submitBtn').innerText = "UPLOADING THUMBNAIL & PUBLISHING...";
 
-            // Thumbnail Upload Logic
-            let thumbnailUrl = "https://via.placeholder.com/600x400?text=SHC+Tools"; // Default if no image
+            // Thumbnail Upload (Free Via ImgBB)
+            let thumbnailUrl = "https://via.placeholder.com/600x400?text=SHC+Tools"; 
             if(thumbFile) {
-                const storageRef = ref(storage, 'blog_thumbnails/' + Date.now() + '_' + thumbFile.name);
-                await uploadBytesResumable(storageRef, thumbFile);
-                thumbnailUrl = await getDownloadURL(storageRef);
+                thumbnailUrl = await uploadToImgBB(thumbFile);
             }
 
-            // 1. Firebase mein Data Save karna
+            // 1. Firebase mein Data Save karna (Sirf Text aur Link jayega, Image ImgBB par rahegi)
             await addDoc(collection(db, "blog_posts"), {
                 title: title,
                 slug: slug,
