@@ -6,18 +6,23 @@
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
-
-          gtag('config', 'G-V8RJ9WQXJW');
+         gtag('config', 'G-V8RJ9WQXJW');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator Online - Student Help Club</title>
+    <title>Age Calculator Online by DOB - Student Help Club</title>
     
-    <meta name="description" content="Calculate your exact age in years, months, and days from your date of birth as of any cutoff date. Perfect free tool for UPSC, SSC, IGNOU, and exam form eligibility checking by Student Help Club.">
-    <meta name="keywords" content="age calculator, exact age calculator, chronological age finder, chronological age calculator, date of birth calculator, student help club tools, recruitment eligibility calculator">
+    <meta name="description" content="Free online Age Calculator to find your exact age in years, months, and days. Best DOB calculator for UPSC, SSC, Sarkari exams, and IGNOU eligibility checking.">
+    <meta name="keywords" content="age calculator, exact age calculator, sarkari result age calculator, dob calculator, date of birth calculator, upsc age limit calculator, student help club tools">
     <meta name="robots" content="index, follow">
     <meta name="google-adsense-account" content="ca-pub-7332493779076670">
+
+    <!-- Open Graph Tags for Social Sharing & SEO -->
+    <meta property="og:title" content="Age Calculator Online by DOB - Student Help Club">
+    <meta property="og:description" content="Calculate your exact age in years, months, and days from your date of birth. Perfect for Sarkari exam form eligibility.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.shctools.in/age-calculator.html">
 
     <link rel="canonical" href="https://www.shctools.in/age-calculator.html">
 
@@ -33,6 +38,44 @@
     
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
+    <!-- GOOGLE SEO SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Age Calculator Online - Student Help Club",
+      "operatingSystem": "Any",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "description": "Calculate exact age in years, months, and days from Date of Birth. Ideal for Indian competitive exams (UPSC, SSC, Banking) eligibility verification."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How do I find my exact age for government exam cutoff dates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Select your birth date inside the 'Date of Birth' box, and input the official recruitment circular's timeline parameter inside the 'Age at the Date of' box to get your exact age."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Does the age calculator accommodate leap years?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our tool automatically calculates leap years, variable 28/31 calendar month intervals, and provides error-free exact chronological age."
+        }
+      }]
+    }
+    </script>
+
     <style>
         :root {
             --primary: #00b14f; 
@@ -45,19 +88,8 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-        }
-        
-        body { 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
         /* Unified Premium Header */
         .header {
@@ -69,334 +101,97 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
         
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            gap: 14px; 
-            text-decoration: none; 
-        }
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); }
+        .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
         
-        .logo { 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-color);
-        }
-        
-        .brand .brand-title { 
-            font-size: 1.35rem; 
-            color: var(--dark); 
-            font-weight: 800;
-            letter-spacing: -0.5px; 
-        }
+        /* --- NAV & SEARCH BAR CSS --- */
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
+        .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
+        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
+        #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); width: 250px; }
+        .search-icon { position: absolute; left: 12px; color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
 
-        /* --- MOBILE MENU CSS ADDED HERE --- */
-        .mobile-toggle { 
-            display: none; 
-            font-size: 1.6rem; 
-            color: var(--dark); 
-            cursor: pointer; 
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .btn-join {
-            background: var(--primary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
-        }
-
-        .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
-            background: var(--primary-hover);
-        }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); background: var(--primary-hover); }
 
         /* Tool Workspace Layout */
-        .workspace-container {
-            max-width: 800px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-        }
+        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; }
 
-        .back-link:hover {
-            color: var(--primary);
-            transform: translateX(-3px);
-        }
+        .input-group { margin-bottom: 24px; text-align: left; }
+        .input-group label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px; font-size: 0.92rem; }
+        .input-group input[type="date"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 1rem; color: var(--dark); font-weight: 500; background-color: #fafafa; transition: var(--transition); outline: none; }
+        .input-group input[type="date"]:focus { border-color: var(--primary); background-color: #ffffff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1); }
 
-        .tool-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
-        }
-
-        .tool-card h1 {
-            font-size: 1.8rem;
-            color: var(--dark);
-            font-weight: 800;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-        }
-
-        .tool-card .subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-size: 0.92rem;
-        }
-
-        .input-group input[type="date"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            color: var(--dark);
-            font-weight: 500;
-            background-color: #fafafa;
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .input-group input[type="date"]:focus {
-            border-color: var(--primary);
-            background-color: #ffffff;
-            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1);
-        }
-
-        /* Centered reCAPTCHA Box Container */
-        .recaptcha-wrapper {
-            margin: 25px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .calc-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
-        }
-
-        .calc-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
-        }
+        /* Centered reCAPTCHA */
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        
+        .calc-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .calc-btn:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25); }
 
         /* Upgraded Results Display */
-        .result-box {
-            display: none;
-            margin-top: 35px;
-            padding: 25px;
-            background: #f0fdf4;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 177, 79, 0.2);
-            text-align: center;
-            animation: fadeIn 0.4s ease;
-        }
+        .result-box { display: none; margin-top: 35px; padding: 25px; background: #f0fdf4; border-radius: 16px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box h3 { color: var(--dark); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .result-main { font-size: 1.6rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .result-days { margin-top: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Informative Section (SEO) */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .seo-content h3:not(:first-child) { margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 20px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        .result-box h3 {
-            color: var(--dark);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .result-main {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-        }
-
-        .result-days {
-            margin-top: 8px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* Informative Section */
-        .seo-content {
-            background: #ffffff;
-            padding: 45px;
-            margin-top: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-        }
-
-        .seo-content h3 {
-            color: var(--dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .seo-content h3:not(:first-child) {
-            margin-top: 30px;
-        }
-
-        .seo-content p {
-            font-size: 0.98rem;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            font-weight: 500;
-            text-align: justify;
-        }
-
-        .seo-content ul {
-            margin-left: 20px;
-            color: var(--text-main);
-        }
-
-        .seo-content ul li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Clean Footer */
-        .footer { 
-            background: #ffffff; 
-            padding: 60px 20px 40px; 
-            text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            margin-top: 80px; 
-        }
-        
-        .social-links { 
-            margin-bottom: 25px; 
-        }
-        
-        .social-links a { 
-            font-size: 24px; 
-            margin: 0 16px; 
-            transition: var(--transition); 
-            display: inline-block; 
-            color: var(--text-muted);
-        }
-        
+        /* Footer */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        
-        .policy-links { 
-            margin-top: 25px; 
-            font-size: 0.92rem; 
-        }
-        
-        .policy-links a { 
-            color: var(--text-muted); 
-            margin: 0 14px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            transition: var(--transition);
-        }
-        
-        .policy-links a:hover { 
-            color: var(--primary); 
-        }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
 
-        /* --- UPDATED MOBILE RESPONSIVE SETTINGS --- */
+        /* --- COOKIE BANNER CSS --- */
+        .cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--dark); color: #ffffff; padding: 15px 20px; text-align: center; z-index: 9999; display: none; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); }
+        .cookie-banner p { margin: 0; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .cookie-banner button { background-color: var(--primary); color: #ffffff; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: var(--transition); }
+        .cookie-banner button:hover { background-color: var(--primary-hover); }
+
+        /* --- MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
-            
-            /* Mobile Toggle Visibility */
             .mobile-toggle { display: block; }
-            
-            /* Dropdown Navigation Menu */
-            .nav-menu { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; 
-                left: 0; 
-                width: 100%; 
-                background: #ffffff; 
-                padding: 25px 20px; 
-                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-                border-bottom: 1px solid var(--border-color); 
-                align-items: flex-start; 
-            }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; z-index: 999; }
             .nav-menu.active { display: flex; }
+            
+            /* Search Bar Full Width in Mobile */
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+
             .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
             .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
-
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
         }
     </style>
-    
 </head>
 <body>
 
@@ -406,13 +201,18 @@
             <div class="brand-title">Student Help Club</div>
         </a>
         
-        <!-- --- MOBILE TOGGLE BUTTON ADDED --- -->
+        <!-- --- MOBILE TOGGLE BUTTON --- -->
         <div class="mobile-toggle" id="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </div>
 
         <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
@@ -423,7 +223,7 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h1>Age Calculator</h1>
+            <h1>Age Calculator Online</h1>
             <p class="subtitle">Calculate your exact age parameters down to chronological days.</p>
             
             <div class="input-group">
@@ -432,7 +232,7 @@
             </div>
 
             <div class="input-group">
-                <label for="today">Age at the Date of</label>
+                <label for="today">Age at the Date of (Cutoff Date)</label>
                 <input type="date" id="today">
             </div>
 
@@ -467,31 +267,33 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
-            <h3>How the <b>Online Age Calculation Engine</b> Works</h3>
-            <p>Our online calculation system runs entirely inside your <b>client browser thread</b>. When you select a specific <b>birth milestone</b>, the application determines the relative <b>chronological differences</b> between structural calendar frameworks, adjusting variables automatically for variable month metrics and <b>leap year constraints</b> instantly.</p>
+            <h3>How to Use Our Free <b>Age Calculator for Sarkari Exams</b></h3>
+            <p>Our online calculation system runs entirely inside your <b>client browser thread</b>, making it 100% safe and fast. When you enter your Date of Birth (DOB), the application calculates your exact chronological age in years, months, and days. It automatically adjusts for different month lengths and <b>leap years</b> instantly.</p>
             
-            <h3>Essential Utility for <b>Competitive Job Applications</b></h3>
-            <p>Many prominent public service commissions and entrance exams—such as <b>UPSC, SSC, banking sectors</b>, or state recruitment pipelines—mandate specific age brackets verified as of a predetermined <b>cutoff date</b>. Manually matching exact <b>eligibility thresholds</b> down to exact days can result in entry structural mistakes. This tool removes tracking issues by evaluating clear parameters, allowing you to fill forms with confidence.</p>
+            <h3>Best <b>DOB Calculator for UPSC, SSC & Bank Exams</b></h3>
+            <p>Many government recruitment boards in India like <b>UPSC, SSC, Banking sectors</b>, and state public service commissions require you to check your age eligibility as of a specific <b>cutoff date</b> (e.g., 1st August or 1st January). Manually calculating exact <b>eligibility thresholds</b> can lead to form rejection. This <b>Sarkari result age calculator</b> tool removes errors by evaluating clear parameters, allowing you to fill online forms with confidence.</p>
             
-            <h3>Step-by-Step <b>Operation Guide</b></h3>
+            <h3>Step-by-Step <b>Age Calculation Guide</b></h3>
             <ul>
-                <li><strong>Define Initial Framework:</strong> Choose your calendar timeline input field using the first chronological field wrapper to set your <b>Date of Birth</b>.</li>
-                <li><strong>Set Target Cutoff:</strong> The secondary window captures current server dates automatically but stays dynamic so you can manually insert custom <b>cutoff tracking lines</b>.</li>
-                <li><strong>Compute Framework:</strong> Trigger the verification engine to isolate broken down outputs showing exactly how many <b>years, individual months, and total cumulative days</b> have passed since birth.</li>
+                <li><strong>Select Date of Birth:</strong> Click the first input field to set your exact <b>Date of Birth (DOB)</b> from the calendar.</li>
+                <li><strong>Set Cutoff Date:</strong> The second box automatically shows today's date, but you can change it to match the official recruitment notification's <b>cutoff tracking date</b>.</li>
+                <li><strong>Get Exact Age:</strong> Click calculate to see exactly how many <b>years, individual months, and total cumulative days</b> have passed since your birth.</li>
             </ul>
 
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            
             <h3>Frequently Asked Questions (FAQs)</h3>
             
             <h3>Q1: How do I find my <b>exact age</b> as per <b>government exam cutoff dates</b>?</h3>
-            <p>To evaluate your eligibility precisely, select your birth date inside the 'Date of Birth' box, and input the official recruitment circular's timeline parameter inside the 'Age at the Date of' tracker input. Click calculate to isolate the <b>total chronological distribution</b> framework automatically.</p>
+            <p>To evaluate your eligibility precisely, select your birth date inside the 'Date of Birth' box, and input the official recruitment circular's timeline parameter inside the 'Age at the Date of' tracker input. Click calculate to isolate the <b>total chronological age</b> framework automatically.</p>
             
-            <h3>Q2: Does this system save private birthday records or student metadata logs?</h3>
-            <p>No. This responsive utility values individual <b>privacy constraints</b>. The computational loop works entirely on <b>client-side script infrastructure</b> inside your tracking session, ensuring no private documents or credential records reach backend server logs.</p>
+            <h3>Q2: Does this system save my private date of birth records?</h3>
+            <p>No. This utility values your <b>privacy</b>. The computation works entirely on <b>client-side script</b> inside your browser. No private data, DOB, or credential records are ever saved or sent to our servers.</p>
             
-            <h3>Q3: Does the calendar logic accommodate <b>leap years</b> dynamically?</h3>
-            <p>Yes. The <b>chronological code framework</b> parses standard millisecond timestamps and relative month matrix rules dynamically. It inherently calculates <b>leap year anomalies</b>, variable 28/31 calendar intervals, and micro-scale time parameters error-free.</p>
+            <h3>Q3: Does the calendar logic accommodate <b>leap years</b> correctly?</h3>
+            <p>Yes. The <b>chronological code</b> inherently calculates <b>leap year anomalies</b>, variable 28/30/31 calendar month intervals, and provides an error-free exact days count.</p>
         </article>
     </div>
 
@@ -512,9 +314,16 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
     <script>
-        // --- MOBILE MENU JAVASCRIPT ADDED HERE ---
+        // --- MOBILE MENU & COOKIE BANNER JAVASCRIPT ---
         document.addEventListener("DOMContentLoaded", function() {
+            // Mobile Toggle Logic
             const mobileBtn = document.getElementById('mobile-menu-btn');
             if (mobileBtn) {
                 mobileBtn.addEventListener('click', function() {
@@ -529,6 +338,19 @@
                         icon.classList.remove('fa-times');
                         icon.classList.add('fa-bars');
                     }
+                });
+            }
+
+            // Cookie Banner Logic
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
                 });
             }
         });
@@ -572,7 +394,6 @@
 
             if (days < 0) {
                 months--;
-                // Enhanced Dynamic Month Matrix to fix accurate days processing boundaries
                 const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
                 days += previousMonth.getDate();
             }
@@ -587,7 +408,6 @@
             resultText.innerText = `${years} Years, ${months} Months, ${days} Days`;
             resultDiv.style.display = "block";
             
-            // Fixed Precision Days Counting Sequence using absolute UTC instances
             const utcDob = Date.UTC(dob.getFullYear(), dob.getMonth(), dob.getDate());
             const utcToday = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
             const diffTime = Math.abs(utcToday - utcDob);
@@ -595,7 +415,6 @@
             
             document.getElementById('totalDays').innerText = `Total days since birth: ${diffDays} Days`;
             
-            // Optional: Resets reCAPTCHA box after output is rendered successfully
             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
                 grecaptcha.reset();
             }
