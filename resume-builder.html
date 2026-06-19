@@ -24,6 +24,35 @@
     <meta property="og:url" content="https://tools.studenthelpclub.in/resume-builder.html">
     <meta property="og:type" content="website">
 
+    <!-- GOOGLE SEO JSON-LD SCHEMA FOR RANKING -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free Online Resume Builder",
+      "url": "https://shctools.in/resume-builder.html",
+      "description": "Build a professional single-page resume online for free. Clean and simple layout for students, freshers, and cyber cafe users.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg",
+        "sameAs": [
+          "https://www.youtube.com/@vishalhelpclub",
+          "https://t.me/studenthelpclub",
+          "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+        ]
+      }
+    }
+    </script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -47,9 +76,21 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
         
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        /* Unified Premium Header */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -59,20 +100,114 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
         }
         
-        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
         
-        .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid var(--border-color); 
+        }
         
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
-        .nav-link:hover { color: var(--primary); }
-        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); }
-        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .brand .brand-name { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+        }
+        
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
 
+        /* --- NAV & SEARCH BAR CSS --- */
+        .nav-menu { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+            transition: var(--transition);
+        }
+        
+        .search-container { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            margin-right: 15px; 
+        }
+        
+        #tool-search { 
+            padding: 8px 15px 8px 35px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            font-size: 0.9rem; 
+            outline: none; 
+            transition: var(--transition); 
+            width: 220px; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            cursor: pointer; 
+        }
+        
+        #tool-search:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); 
+            width: 250px; 
+        }
+        
+        .search-icon { 
+            position: absolute; 
+            left: 12px; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            pointer-events: none; 
+        }
+
+        .nav-link { 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            transition: var(--transition); 
+        }
+        
+        .nav-link:hover { 
+            color: var(--primary); 
+        }
+        
+        .btn-join { 
+            background: var(--primary); 
+            color: white; 
+            padding: 8px 16px; 
+            border-radius: 100px; 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            transition: var(--transition); 
+        }
+        
+        .btn-join:hover { 
+            background: var(--primary-hover); 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+        }
+
+        /* Workspace Grid Container */
         .workspace-grid {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -82,74 +217,447 @@
             padding: 0 20px;
         }
 
-        .back-link-wrapper { grid-column: span 2; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: var(--transition); }
-        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
-
-        /* Left Column Wrapper to prevent overlaps */
-        .left-panel { display: flex; flex-direction: column; gap: 30px; }
-
-        .tool-card { background: #ffffff; padding: 35px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
-        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 25px; }
-
-        .adsense-placeholder { margin: 20px 0; background: #f8fafc; border: 1px dashed var(--border-color); padding: 10px; display: flex; justify-content: center; border-radius: 12px; min-height: 90px; }
-
-        .form-section { margin-bottom: 24px; border-bottom: 1px dashed var(--border-color); padding-bottom: 18px; }
-        .form-section h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
-        .form-section h3 i { color: var(--primary); }
+        .back-link-wrapper { 
+            grid-column: span 2; 
+        }
         
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .full-width { grid-column: span 2; }
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            transition: var(--transition); 
+        }
         
-        .input-group { display: flex; flex-direction: column; gap: 5px; position: relative; }
-        .input-group label { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
-        .input-group input, .input-group textarea, .input-group select { width: 100%; padding: 11px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; transition: var(--transition); outline: none; background: #f8fafc; }
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.08); }
+        .back-link:hover { 
+            color: var(--primary); 
+            transform: translateX(-3px); 
+        }
+
+        /* Left Column Wrapper */
+        .left-panel { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 30px; 
+        }
+
+        .tool-card { 
+            background: #ffffff; 
+            padding: 35px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); 
+        }
         
-        .word-counter { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-align: right; margin-top: 2px; }
-        .photo-settings { background: #f1f5f9; padding: 12px; border-radius: 10px; margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-        .skills-dynamic-wrapper { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-        .skill-input-item { display: flex; gap: 10px; align-items: center; }
-        .btn-remove-skill { background: #ef4444; color: white; border: none; padding: 11px 14px; border-radius: 8px; cursor: pointer; transition: var(--transition); }
-        .btn-remove-skill:hover { background: #b91c1c; }
-        .btn-add-skill { background: var(--dark); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: var(--transition); margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; }
-        .btn-add-skill:hover { background: #1e293b; }
-
-        .preview-sticky-box { position: sticky; top: 90px; height: max-content; display: flex; flex-direction: column; gap: 20px; }
-        .preview-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; justify-content: space-between; }
-        .preview-title span { color: var(--primary); }
+        .tool-card h1 { 
+            font-size: 1.8rem; 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 6px; 
+            letter-spacing: -0.5px; 
+        }
         
-        .canvas-shadow-wrap { background: #e2e8f0; padding: 15px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; min-height: 550px; }
-        #resumeCanvas { width: 100%; max-width: 420px; height: auto; background: white; border-radius: 4px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15); display: block; }
+        .tool-card .subtitle { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            font-weight: 500; 
+            margin-bottom: 25px; 
+        }
 
-        .recaptcha-wrapper { margin: 15px 0; display: flex; justify-content: center; }
-        .action-buttons { display: flex; gap: 12px; }
-        .action-btn { flex: 1; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: var(--transition); border: none; text-align: center; }
-        .btn-reset { background: #e2e8f0; color: var(--dark); }
-        .btn-reset:hover { background: #cbd5e1; }
-        .btn-download { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
-        .btn-download:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .adsense-placeholder { 
+            margin: 20px 0; 
+            background: #f8fafc; 
+            border: 1px dashed var(--border-color); 
+            padding: 10px; 
+            display: flex; 
+            justify-content: center; 
+            border-radius: 12px; 
+            min-height: 90px; 
+        }
 
-        .seo-content { background: #ffffff; padding: 45px; border-radius: 24px; border: 1px solid var(--border-color); }
-        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; margin-top: 30px; }
-        .seo-content h3:first-child { margin-top: 0; }
-        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
-        .seo-content ul { margin-left: 20px; color: var(--text-main); }
-        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
+        /* Form Sections */
+        .form-section { 
+            margin-bottom: 24px; 
+            border-bottom: 1px dashed var(--border-color); 
+            padding-bottom: 18px; 
+        }
+        
+        .form-section h3 { 
+            font-size: 1.1rem; 
+            color: var(--dark); 
+            margin-bottom: 14px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-weight: 700; 
+        }
+        
+        .form-section h3 i { 
+            color: var(--primary); 
+        }
+        
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 14px; 
+        }
+        
+        .full-width { 
+            grid-column: span 2; 
+        }
+        
+        .input-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 5px; 
+            position: relative; 
+        }
+        
+        .input-group label { 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            color: var(--dark); 
+        }
+        
+        .input-group input, 
+        .input-group textarea, 
+        .input-group select { 
+            width: 100%; 
+            padding: 11px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 0.9rem; 
+            transition: var(--transition); 
+            outline: none; 
+            background: #f8fafc; 
+        }
+        
+        .input-group input:focus, 
+        .input-group textarea:focus, 
+        .input-group select:focus { 
+            border-color: var(--primary); 
+            background: #ffffff; 
+            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.08); 
+        }
+        
+        .word-counter { 
+            font-size: 0.75rem; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            text-align: right; 
+            margin-top: 2px; 
+        }
+        
+        .photo-settings { 
+            background: #f1f5f9; 
+            padding: 12px; 
+            border-radius: 10px; 
+            margin-top: 8px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+        }
 
-        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; width: 100%; }
-        .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        /* Dynamic Skills Setup */
+        .skills-dynamic-wrapper { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 8px; 
+        }
+        
+        .skill-input-item { 
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+        }
+        
+        .btn-remove-skill { 
+            background: #ef4444; 
+            color: white; 
+            border: none; 
+            padding: 11px 14px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+        }
+        
+        .btn-remove-skill:hover { 
+            background: #b91c1c; 
+        }
+        
+        .btn-add-skill { 
+            background: var(--dark); 
+            color: white; 
+            border: none; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            margin-top: 10px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        
+        .btn-add-skill:hover { 
+            background: #1e293b; 
+        }
+
+        /* Live Preview Canvas Setup */
+        .preview-sticky-box { 
+            position: sticky; 
+            top: 90px; 
+            height: max-content; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+        
+        .preview-title { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: var(--dark); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        
+        .preview-title span { 
+            color: var(--primary); 
+        }
+        
+        .canvas-shadow-wrap { 
+            background: #e2e8f0; 
+            padding: 15px; 
+            border-radius: 16px; 
+            border: 1px solid var(--border-color); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 550px; 
+        }
+        
+        #resumeCanvas { 
+            width: 100%; 
+            max-width: 420px; 
+            height: auto; 
+            background: white; 
+            border-radius: 4px; 
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15); 
+            display: block; 
+        }
+
+        /* Verification & Action Buttons */
+        .recaptcha-wrapper { 
+            margin: 15px 0; 
+            display: flex; 
+            justify-content: center; 
+        }
+        
+        .action-buttons { 
+            display: flex; 
+            gap: 12px; 
+        }
+        
+        .action-btn { 
+            flex: 1; 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            border: none; 
+            text-align: center; 
+        }
+        
+        .btn-reset { 
+            background: #e2e8f0; 
+            color: var(--dark); 
+        }
+        
+        .btn-reset:hover { 
+            background: #cbd5e1; 
+        }
+        
+        .btn-download { 
+            background: var(--primary); 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); 
+        }
+        
+        .btn-download:hover { 
+            background: var(--primary-hover); 
+            transform: translateY(-1px); 
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
+        }
+
+        /* SEO Information Content Section */
+        .seo-content { 
+            background: #ffffff; 
+            padding: 45px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color); 
+        }
+        
+        .seo-content h3 { 
+            color: var(--dark); 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            margin-bottom: 12px; 
+            margin-top: 30px; 
+        }
+        
+        .seo-content h3:first-child { 
+            margin-top: 0; 
+        }
+        
+        .seo-content p { 
+            font-size: 0.98rem; 
+            color: var(--text-main); 
+            margin-bottom: 16px; 
+            font-weight: 500; 
+            text-align: justify; 
+        }
+        
+        .seo-content ul { 
+            margin-left: 20px; 
+            color: var(--text-main); 
+        }
+        
+        .seo-content ul li { 
+            margin-bottom: 8px; 
+            font-size: 0.95rem; 
+            font-weight: 500; 
+        }
+
+        /* Main Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+            width: 100%; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted); 
+        }
+        
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        .policy-links { margin-top: 25px; font-size: 0.92rem; }
-        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .policy-links a:hover { color: var(--primary); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition); 
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
 
-        @media (max-width: 991px) { .workspace-grid { grid-template-columns: 1fr; } .back-link-wrapper { grid-column: span 1; } .preview-sticky-box { position: static; } #resumeCanvas { max-width: 100%; } }
+        /* --- COOKIE BANNER CSS --- */
+        .cookie-banner { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: var(--dark); 
+            color: #ffffff; 
+            padding: 15px 20px; 
+            text-align: center; 
+            z-index: 9999; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .cookie-banner p { 
+            margin: 0; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        .cookie-banner button { 
+            background-color: var(--primary); 
+            color: #ffffff; 
+            border: none; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: var(--transition); 
+        }
+        
+        .cookie-banner button:hover { 
+            background-color: var(--primary-hover); 
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 991px) { 
+            .workspace-grid { grid-template-columns: 1fr; } 
+            .back-link-wrapper { grid-column: span 1; } 
+            .preview-sticky-box { position: static; } 
+            #resumeCanvas { max-width: 100%; } 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .mobile-toggle { display: block; }
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+                z-index: 999; 
+            }
+            .nav-menu.active { display: flex; }
+            
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+            
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+        }
     </style>
 
 </head>
@@ -160,8 +668,19 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
             <span class="brand-name">Student Help Club</span>
         </a>
-        <nav class="nav-menu">
+        
+        <!-- --- MOBILE TOGGLE BUTTON --- -->
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
@@ -326,7 +845,9 @@
                         <button type="button" class="action-btn btn-download" id="downloadBtn" onclick="triggerPDFDownload()">Download Resume PDF</button>
                     </div>
                 </form>
-            </div> <div class="shc-promo-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%;">
+            </div> 
+            
+            <div class="shc-promo-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%; margin-top: 30px;">
                 <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
                     <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
                     <div>
@@ -376,7 +897,9 @@
                 <h3>Q3: Can I upload my photo to the resume?</h3>
                 <p>Yes. The tool features an optional photo upload module where you can choose a circle or oval shape and align your profile picture exactly where you need it on the top header.</p>
             </article>
-        </div> <div class="preview-sticky-box">
+        </div> 
+        
+        <div class="preview-sticky-box">
             <div class="preview-title">
                 <div><i class="fas fa-eye"></i> Live <span>A4 Preview Screen</span></div>
             </div>
@@ -402,15 +925,65 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- MOBILE MENU LOGIC ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- COOKIE BANNER LOGIC ---
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
+                });
+            }
+        });
+
+        // --- RESUME CANVAS AND PDF GENERATION LOGIC ---
         const canvas = document.getElementById('resumeCanvas');
         const ctx = canvas.getContext('2d');
         let profileImageObj = null;
 
-        const formIds = ['fullName', 'title', 'email', 'phone', 'location', 'eduDegree', 'eduSchool', 'eduYear', 'eduMarks', 'expTitle', 'expCompany', 'expDesc', 'certifications', 'declaration', 'photoShape', 'photoPos', 'themeColor'];
+        const formIds = [
+            'fullName', 'title', 'email', 'phone', 'location', 
+            'eduDegree', 'eduSchool', 'eduYear', 'eduMarks', 
+            'expTitle', 'expCompany', 'expDesc', 'certifications', 
+            'declaration', 'photoShape', 'photoPos', 'themeColor'
+        ];
+        
         formIds.forEach(id => {
-            document.getElementById(id).addEventListener('input', updateLivePreviewCanvas);
-            document.getElementById(id).addEventListener('change', updateLivePreviewCanvas);
+            const el = document.getElementById(id);
+            if(el) {
+                el.addEventListener('input', updateLivePreviewCanvas);
+                el.addEventListener('change', updateLivePreviewCanvas);
+            }
         });
 
         function navigatorColorLabel(hex) {
@@ -440,23 +1013,28 @@
             updateLivePreviewCanvas();
         }
 
-        document.getElementById('photoInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    profileImageObj = new Image();
-                    profileImageObj.onload = function() { updateLivePreviewCanvas(); };
-                    profileImageObj.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                profileImageObj = null;
-                updateLivePreviewCanvas();
-            }
-        });
+        const photoInput = document.getElementById('photoInput');
+        if(photoInput) {
+            photoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        profileImageObj = new Image();
+                        profileImageObj.onload = function() { updateLivePreviewCanvas(); };
+                        profileImageObj.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    profileImageObj = null;
+                    updateLivePreviewCanvas();
+                }
+            });
+        }
 
-        window.addEventListener('load', function() { updateLivePreviewCanvas(); });
+        window.addEventListener('load', function() { 
+            updateLivePreviewCanvas(); 
+        });
 
         function updateLivePreviewCanvas() {
             ctx.fillStyle = "#ffffff";
@@ -481,21 +1059,31 @@
             let photoX = marginL;
             let photoY = 45;
 
-            if (position === 'center') { photoX = (canvas.width / 2) - (photoW / 2); y = 185; }
-            else if (position === 'right') { photoX = marginR - photoW; }
+            if (position === 'center') { 
+                photoX = (canvas.width / 2) - (photoW / 2); 
+                y = 185; 
+            }
+            else if (position === 'right') { 
+                photoX = marginR - photoW; 
+            }
 
             ctx.textAlign = (position === 'center') ? "center" : "left";
             let txtX = (position === 'center') ? canvas.width / 2 : marginL;
 
-            if (position === 'left' && profileImageObj) { txtX = marginL + photoW + 25; }
+            if (position === 'left' && profileImageObj) { 
+                txtX = marginL + photoW + 25; 
+            }
 
-            ctx.fillStyle = "#0f172a"; ctx.font = "bold 34px Arial";
+            ctx.fillStyle = "#0f172a"; 
+            ctx.font = "bold 34px Arial";
             ctx.fillText(name.toUpperCase(), txtX, position === 'left' && profileImageObj ? 80 : y);
             
-            ctx.fillStyle = activeThemeColor; ctx.font = "600 17px Arial";
+            ctx.fillStyle = activeThemeColor; 
+            ctx.font = "600 17px Arial";
             ctx.fillText(title, txtX, position === 'left' && profileImageObj ? 110 : y + 26);
             
-            ctx.fillStyle = "#475569"; ctx.font = "14px Arial";
+            ctx.fillStyle = "#475569"; 
+            ctx.font = "14px Arial";
             const metaStr = `📞 ${phone}   |   ✉️ ${email}   |   📍 ${loc}`;
             ctx.fillText(metaStr, txtX, position === 'left' && profileImageObj ? 136 : y + 52);
 
@@ -514,16 +1102,23 @@
 
             y = (position === 'center') ? 265 : (profileImageObj && position === 'left' ? 180 : y + 80);
 
-            ctx.strokeStyle = activeThemeColor; ctx.lineWidth = 3.5;
-            ctx.beginPath(); ctx.moveTo(marginL, y); ctx.lineTo(marginR, y); ctx.stroke();
+            ctx.strokeStyle = activeThemeColor; 
+            ctx.lineWidth = 3.5;
+            ctx.beginPath(); 
+            ctx.moveTo(marginL, y); 
+            ctx.lineTo(marginR, y); 
+            ctx.stroke();
 
             ctx.textAlign = "left";
 
             function drawSection(headerTitle) {
                 y += 52; 
-                ctx.fillStyle = "#0f172a"; ctx.font = "bold 17px Arial";
+                ctx.fillStyle = "#0f172a"; 
+                ctx.font = "bold 17px Arial";
                 ctx.fillText(headerTitle.toUpperCase(), marginL, y);
-                ctx.fillStyle = "#e2e8f0"; ctx.fillRect(marginL, y + 12, contentW, 1.5);
+                
+                ctx.fillStyle = "#e2e8f0"; 
+                ctx.fillRect(marginL, y + 12, contentW, 1.5);
                 y += 42; 
             }
 
@@ -534,36 +1129,52 @@
             const dur = document.getElementById('eduYear').value.trim() || "Duration Years";
             const mrk = document.getElementById('eduMarks').value.trim();
 
-            ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(deg, marginL, y);
-            ctx.fillStyle = activeThemeColor; ctx.font = "bold 14px Arial"; 
+            ctx.fillStyle = "#0f172a"; 
+            ctx.font = "bold 15px Arial"; 
+            ctx.fillText(deg, marginL, y);
+            
+            ctx.fillStyle = activeThemeColor; 
+            ctx.font = "bold 14px Arial"; 
             ctx.fillText(dur, marginR - ctx.measureText(dur).width, y);
             
             y += 24;
-            ctx.fillStyle = "#475569"; ctx.font = "14.5px Arial";
+            ctx.fillStyle = "#475569"; 
+            ctx.font = "14.5px Arial";
             ctx.fillText(sch + (mrk ? `  —  (Score: ${mrk})` : ''), marginL, y);
 
-            // --- Projects ---
+            // --- Projects / Experience ---
             const expTitle = document.getElementById('expTitle').value.trim();
             if (expTitle) {
                 drawSection("Work Experience / Projects");
                 const comp = document.getElementById('expCompany').value.trim();
                 const desc = document.getElementById('expDesc').value.trim();
 
-                ctx.fillStyle = "#0f172a"; ctx.font = "bold 15px Arial"; ctx.fillText(expTitle, marginL, y);
+                ctx.fillStyle = "#0f172a"; 
+                ctx.font = "bold 15px Arial"; 
+                ctx.fillText(expTitle, marginL, y);
+                
                 if (comp) {
-                    y += 22; ctx.fillStyle = activeThemeColor; ctx.font = "bold 13px Arial";
+                    y += 22; 
+                    ctx.fillStyle = activeThemeColor; 
+                    ctx.font = "bold 13px Arial";
                     ctx.fillText(`Tools Used: ${comp}`, marginL, y);
                 }
                 if (desc) {
-                    ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
+                    ctx.fillStyle = "#334155"; 
+                    ctx.font = "14.5px Arial";
                     const lines = splitTextWrap(desc, contentW, 14.5);
-                    lines.forEach(l => { y += 22; ctx.fillText(l, marginL, y); });
+                    lines.forEach(l => { 
+                        y += 22; 
+                        ctx.fillText(l, marginL, y); 
+                    });
                 }
             }
 
             // --- Skills ---
             let skillItems = [];
-            document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) skillItems.push(i.value.trim()); });
+            document.querySelectorAll('.skill-entry-field').forEach(i => { 
+                if(i.value.trim()) skillItems.push(i.value.trim()); 
+            });
             
             if (skillItems.length > 0) {
                 drawSection("Key Skills");
@@ -574,11 +1185,22 @@
                 skillItems.forEach(s => {
                     let textW = ctx.measureText(s.toUpperCase()).width;
                     let boxW = textW + 24;
-                    if (currentX + boxW > marginR) { currentX = marginL; y += rowHeight + 10; }
                     
-                    ctx.fillStyle = "#f8fafc"; ctx.fillRect(currentX, y - 14, boxW, rowHeight);
-                    ctx.strokeStyle = activeThemeColor; ctx.lineWidth = 1; ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
-                    ctx.fillStyle = activeThemeColor; ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
+                    if (currentX + boxW > marginR) { 
+                        currentX = marginL; 
+                        y += rowHeight + 10; 
+                    }
+                    
+                    ctx.fillStyle = "#f8fafc"; 
+                    ctx.fillRect(currentX, y - 14, boxW, rowHeight);
+                    
+                    ctx.strokeStyle = activeThemeColor; 
+                    ctx.lineWidth = 1; 
+                    ctx.strokeRect(currentX, y - 14, boxW, rowHeight);
+                    
+                    ctx.fillStyle = activeThemeColor; 
+                    ctx.fillText(s.toUpperCase(), currentX + 12, y + 3);
+                    
                     currentX += boxW + 12;
                 });
             }
@@ -587,30 +1209,44 @@
             const certs = document.getElementById('certifications').value.trim();
             if (certs) {
                 drawSection("Certifications & Achievements");
-                ctx.fillStyle = "#334155"; ctx.font = "14.5px Arial";
+                ctx.fillStyle = "#334155"; 
+                ctx.font = "14.5px Arial";
                 const clines = splitTextWrap(certs, contentW, 14.5);
-                clines.forEach(l => { y += 22; ctx.fillText(`• ${l}`, marginL, y); });
+                clines.forEach(l => { 
+                    y += 22; 
+                    ctx.fillText(`• ${l}`, marginL, y); 
+                });
             }
 
             // --- Declaration ---
             const dec = document.getElementById('declaration').value.trim();
             if (dec) {
                 drawSection("Declaration");
-                ctx.fillStyle = "#475569"; ctx.font = "italic 14px Arial";
+                ctx.fillStyle = "#475569"; 
+                ctx.font = "italic 14px Arial";
                 const dlines = splitTextWrap(dec, contentW, 14);
-                dlines.forEach(l => { y += 22; ctx.fillText(l, marginL, y); });
+                dlines.forEach(l => { 
+                    y += 22; 
+                    ctx.fillText(l, marginL, y); 
+                });
             }
         }
 
         function splitTextWrap(text, maxW, size) {
             ctx.font = `${size}px Arial`;
             const words = text.split(' ');
-            let lines = []; let cur = words[0] || "";
+            let lines = []; 
+            let cur = words[0] || "";
             for (let i = 1; i < words.length; i++) {
-                if (ctx.measureText(cur + " " + words[i]).width < maxW) { cur += " " + words[i]; }
-                else { lines.push(cur); cur = words[i]; }
+                if (ctx.measureText(cur + " " + words[i]).width < maxW) { 
+                    cur += " " + words[i]; 
+                } else { 
+                    lines.push(cur); 
+                    cur = words[i]; 
+                }
             }
-            lines.push(cur); return lines;
+            lines.push(cur); 
+            return lines;
         }
 
         function resetForm() {
@@ -622,13 +1258,20 @@
                 </div>
             `;
             document.getElementById('charCount').innerText = "0 / 400 characters";
-            profileImageObj = null; updateLivePreviewCanvas();
+            profileImageObj = null; 
+            updateLivePreviewCanvas();
         }
 
         function triggerPDFDownload() {
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (recaptchaResponse.length === 0) {
-                alert("Please complete the 'I'm not a robot' Google verification challenge.");
+            // Google reCAPTCHA Check
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (recaptchaResponse.length === 0) {
+                    alert("Please complete the 'I'm not a robot' Google verification challenge.");
+                    return;
+                }
+            } else {
+                alert("Security check initialization pending, please wait 2 seconds.");
                 return;
             }
 
@@ -648,7 +1291,11 @@
 
                 function hexToRgb(hex) {
                     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                    return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : { r: 0, g: 177, b: 79 };
+                    return result ? { 
+                        r: parseInt(result[1], 16), 
+                        g: parseInt(result[2], 16), 
+                        b: parseInt(result[3], 16) 
+                    } : { r: 0, g: 177, b: 79 };
                 }
                 const rgb = hexToRgb(activeThemeColor);
 
@@ -660,22 +1307,36 @@
                 const mR = 192;
                 const maxW = mR - mL;
 
-                pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(24);
+                pdf.setTextColor(15, 23, 42); 
+                pdf.setFont("Helvetica", "bold"); 
+                pdf.setFontSize(24);
                 
                 if (position === 'center') {
                     pdf.text(name.toUpperCase(), 105, py, { align: 'center' });
-                    py += 8; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    py += 8; 
+                    pdf.setTextColor(rgb.r, rgb.g, rgb.b); 
+                    pdf.setFontSize(13); 
+                    pdf.setFont("Helvetica", "bold");
                     pdf.text(title, 105, py, { align: 'center' });
-                    py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
+                    py += 6; 
+                    pdf.setTextColor(100, 116, 139); 
+                    pdf.setFontSize(10); 
+                    pdf.setFont("Helvetica", "normal");
                     pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, 105, py, { align: 'center' });
                     py += 6;
                 } else {
                     let tx = mL;
                     if (position === 'left' && profileImageObj) tx = mL + 32;
                     pdf.text(name.toUpperCase(), tx, py);
-                    py += 7; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(13); pdf.setFont("Helvetica", "bold");
+                    py += 7; 
+                    pdf.setTextColor(rgb.r, rgb.g, rgb.b); 
+                    pdf.setFontSize(13); 
+                    pdf.setFont("Helvetica", "bold");
                     pdf.text(title, tx, py);
-                    py += 6; pdf.setTextColor(100, 116, 139); pdf.setFontSize(10); pdf.setFont("Helvetica", "normal");
+                    py += 6; 
+                    pdf.setTextColor(100, 116, 139); 
+                    pdf.setFontSize(10); 
+                    pdf.setFont("Helvetica", "normal");
                     pdf.text(`Phone: ${phone}  |  Email: ${email}  |  Location: ${loc}`, tx, py);
                     py += 6;
                 }
@@ -696,84 +1357,135 @@
                             .curveTo(px + pW, 12, px + pW, 12 + pH, px + (pW / 2), 12 + pH)
                             .curveTo(px, 12 + pH, px, 12, px + (pW / 2), 12));
                     }
-                    try { pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH); } catch(e) {}
+                    try { 
+                        pdf.addImage(profileImageObj, 'JPEG', px, 12, pW, pH); 
+                    } catch(e) {}
+                    
                     pdf.restoreGraphicsState();
                     if (position === 'center' || position === 'right') py = 46;
                 }
 
                 py += 4;
-                pdf.setDrawColor(rgb.r, rgb.g, rgb.b); pdf.setLineWidth(1.0); pdf.line(mL, py, mR, py);
+                pdf.setDrawColor(rgb.r, rgb.g, rgb.b); 
+                pdf.setLineWidth(1.0); 
+                pdf.line(mL, py, mR, py);
 
                 function addSectionTitle(t) {
-                    py += 16; pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(12);
+                    py += 16; 
+                    pdf.setTextColor(15, 23, 42); 
+                    pdf.setFont("Helvetica", "bold"); 
+                    pdf.setFontSize(12);
                     pdf.text(t.toUpperCase(), mL, py);
-                    py += 2.5; pdf.setDrawColor(226, 232, 240); pdf.setLineWidth(0.5); pdf.line(mL, py, mR, py);
+                    py += 2.5; 
+                    pdf.setDrawColor(226, 232, 240); 
+                    pdf.setLineWidth(0.5); 
+                    pdf.line(mL, py, mR, py);
                     py += 8; 
                 }
 
-                // Education
+                // Education PDF Print
                 addSectionTitle("Education");
                 const eduDegree = document.getElementById('eduDegree').value.trim() || "Your Degree / Course";
                 const eduSchool = document.getElementById('eduSchool').value.trim() || "School / University Name";
                 const eduYear = document.getElementById('eduYear').value.trim() || "Passing Timeline";
                 const eduMarks = document.getElementById('eduMarks').value.trim();
 
-                pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
+                pdf.setTextColor(15, 23, 42); 
+                pdf.setFont("Helvetica", "bold"); 
+                pdf.setFontSize(11);
                 pdf.text(eduDegree, mL, py);
-                pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
-                py += 6; pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+                
+                pdf.setTextColor(rgb.r, rgb.g, rgb.b); 
+                pdf.text(eduYear, mR - pdf.getTextWidth(eduYear), py);
+                
+                py += 6; 
+                pdf.setTextColor(71, 85, 105); 
+                pdf.setFont("Helvetica", "normal"); 
+                pdf.setFontSize(10.5);
                 pdf.text(eduSchool + (eduMarks ? `  —  (Score: ${eduMarks})` : ''), mL, py);
 
-                // Experience / Projects
+                // Experience / Projects PDF Print
                 const expTitle = document.getElementById('expTitle').value.trim();
                 if (expTitle) {
                     addSectionTitle("Work Experience / Projects");
                     const expCompany = document.getElementById('expCompany').value.trim();
                     const expDesc = document.getElementById('expDesc').value.trim();
 
-                    pdf.setTextColor(15, 23, 42); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(11);
+                    pdf.setTextColor(15, 23, 42); 
+                    pdf.setFont("Helvetica", "bold"); 
+                    pdf.setFontSize(11);
                     pdf.text(expTitle, mL, py);
+                    
                     if (expCompany) {
-                        py += 6; pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFontSize(10);
+                        py += 6; 
+                        pdf.setTextColor(rgb.r, rgb.g, rgb.b); 
+                        pdf.setFontSize(10);
                         pdf.text(`Tools Used: ${expCompany}`, mL, py);
                     }
                     if (expDesc) {
-                        pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+                        pdf.setTextColor(51, 65, 85); 
+                        pdf.setFont("Helvetica", "normal"); 
+                        pdf.setFontSize(10.5);
                         const dlines = pdf.splitTextToSize(expDesc, maxW);
-                        dlines.forEach(l => { py += 5.5; pdf.text(l, mL, py); });
+                        dlines.forEach(l => { 
+                            py += 5.5; 
+                            pdf.text(l, mL, py); 
+                        });
                     }
                 }
 
-                // Skills
-                let sList = []; document.querySelectorAll('.skill-entry-field').forEach(i => { if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); });
+                // Skills PDF Print
+                let sList = []; 
+                document.querySelectorAll('.skill-entry-field').forEach(i => { 
+                    if(i.value.trim()) sList.push(i.value.trim().toUpperCase()); 
+                });
+                
                 if (sList.length > 0) {
                     addSectionTitle("Key Skills");
-                    pdf.setTextColor(rgb.r, rgb.g, rgb.b); pdf.setFont("Helvetica", "bold"); pdf.setFontSize(10.5);
+                    pdf.setTextColor(rgb.r, rgb.g, rgb.b); 
+                    pdf.setFont("Helvetica", "bold"); 
+                    pdf.setFontSize(10.5);
                     const slines = pdf.splitTextToSize(sList.join('   |   '), maxW);
-                    slines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+                    slines.forEach(l => { 
+                        pdf.text(l, mL, py); 
+                        py += 5.5; 
+                    });
                 }
 
-                // Achievements
+                // Achievements PDF Print
                 const certifications = document.getElementById('certifications').value.trim();
                 if (certifications) {
                     addSectionTitle("Certifications & Achievements");
-                    pdf.setTextColor(51, 65, 85); pdf.setFont("Helvetica", "normal"); pdf.setFontSize(10.5);
+                    pdf.setTextColor(51, 65, 85); 
+                    pdf.setFont("Helvetica", "normal"); 
+                    pdf.setFontSize(10.5);
                     const clines = pdf.splitTextToSize(certifications, maxW);
-                    clines.forEach(l => { pdf.text(`• ${l}`, mL, py); py += 5.5; });
+                    clines.forEach(l => { 
+                        pdf.text(`• ${l}`, mL, py); 
+                        py += 5.5; 
+                    });
                 }
 
-                // Declaration
+                // Declaration PDF Print
                 const declaration = document.getElementById('declaration').value.trim();
                 if (declaration) {
                     addSectionTitle("Declaration");
-                    pdf.setTextColor(71, 85, 105); pdf.setFont("Helvetica", "oblique"); pdf.setFontSize(10);
+                    pdf.setTextColor(71, 85, 105); 
+                    pdf.setFont("Helvetica", "oblique"); 
+                    pdf.setFontSize(10);
                     const dlines = pdf.splitTextToSize(declaration, maxW);
-                    dlines.forEach(l => { pdf.text(l, mL, py); py += 5.5; });
+                    dlines.forEach(l => { 
+                        pdf.text(l, mL, py); 
+                        py += 5.5; 
+                    });
                 }
 
                 const fileStringName = name.toLowerCase().replace(/\s+/g, '-') + '-resume.pdf';
                 pdf.save(fileStringName);
-                grecaptcha.reset();
+                
+                if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                    grecaptcha.reset();
+                }
                 
                 downloadBtn.innerText = "Download Resume PDF";
                 downloadBtn.style.opacity = "1";
