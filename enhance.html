@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -21,7 +22,6 @@
     <link rel="canonical" href="https://www.shctools.in/enhance.html">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
-    
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -90,7 +90,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* FIXED: Changed brand heading to div style to fix 'More than one h1 tag' Webmaster error */
         .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
@@ -98,10 +97,55 @@
             letter-spacing: -0.5px; 
         }
 
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
+
+        /* --- NAV & SEARCH BAR CSS --- */
         .nav-menu {
             display: flex;
             gap: 20px;
             align-items: center;
+            transition: var(--transition);
+        }
+
+        .search-container { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            margin-right: 15px; 
+        }
+        
+        #tool-search { 
+            padding: 8px 15px 8px 35px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            font-size: 0.9rem; 
+            outline: none; 
+            transition: var(--transition); 
+            width: 220px; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            cursor: pointer; 
+        }
+        
+        #tool-search:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); 
+            width: 250px; 
+        }
+        
+        .search-icon { 
+            position: absolute; 
+            left: 12px; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            pointer-events: none; 
         }
 
         .nav-link {
@@ -470,12 +514,110 @@
             color: var(--primary); 
         }
 
+        /* --- COOKIE BANNER CSS --- */
+        .cookie-banner { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: var(--dark); 
+            color: #ffffff; 
+            padding: 15px 20px; 
+            text-align: center; 
+            z-index: 9999; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .cookie-banner p { 
+            margin: 0; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        .cookie-banner button { 
+            background-color: var(--primary); 
+            color: #ffffff; 
+            border: none; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: var(--transition); 
+        }
+        
+        .cookie-banner button:hover { 
+            background-color: var(--primary-hover); 
+        }
+
+        /* --- MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
-            .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
-            .tool-card { padding: 25px; }
-            .editor-workspace { grid-template-columns: 1fr; }
-            .seo-content { padding: 30px 20px; }
+            .header { 
+                padding: 16px 4%; 
+            }
+            
+            .mobile-toggle { 
+                display: block; 
+            }
+            
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+                z-index: 999; 
+            }
+            
+            .nav-menu.active { 
+                display: flex; 
+            }
+            
+            /* Search Bar Full Width in Mobile */
+            .search-container { 
+                width: 100%; 
+                margin-right: 0; 
+                margin-bottom: 20px; 
+            }
+            
+            #tool-search, #tool-search:focus { 
+                width: 100%; 
+            }
+
+            .nav-link { 
+                margin-bottom: 15px; 
+                font-size: 1.1rem; 
+                width: 100%; 
+            }
+            
+            .btn-join { 
+                text-align: center; 
+                width: 100%; 
+                padding: 12px; 
+                margin-top: 10px; 
+            }
+            
+            .tool-card { 
+                padding: 25px; 
+            }
+            
+            .editor-workspace { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .seo-content { 
+                padding: 30px 20px; 
+            }
         }
     </style>
 </head>
@@ -486,8 +628,19 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <div class="brand-title">Student Help Club</div>
         </a>
-        <nav class="nav-menu">
+        
+        <!-- --- MOBILE TOGGLE BUTTON --- -->
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
@@ -625,7 +778,49 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
     <script>
+        // --- MOBILE MENU & COOKIE BANNER JAVASCRIPT ---
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Mobile Toggle Logic
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // Cookie Banner Logic
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
+                });
+            }
+        });
+
+        // --- IMAGE ENHANCER LOGIC ---
         const imageInput = document.getElementById('imageInput');
         const uploadBox = document.getElementById('uploadBox');
         const workspace = document.getElementById('editorWorkspace');
