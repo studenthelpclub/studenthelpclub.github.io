@@ -57,9 +57,17 @@
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
         .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
+
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
         
-        /* --- SEARCH BAR CSS --- */
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        /* --- NAV & SEARCH BAR CSS --- */
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
         .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
         #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
         #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); width: 250px; }
@@ -67,8 +75,8 @@
         
         .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
         .nav-link:hover { color: var(--primary); }
-        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); }
-        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
+        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); }
 
         /* Workspace Container */
         .workspace-container {
@@ -121,9 +129,36 @@
         .cookie-banner button { background-color: var(--primary); color: #ffffff; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: var(--transition); }
         .cookie-banner button:hover { background-color: var(--primary-hover); }
 
+        /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
+            
+            /* Mobile Toggle Visibility */
+            .mobile-toggle { display: block; }
+            
+            /* Dropdown Navigation Menu */
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+            }
+            .nav-menu.active { display: flex; }
+            
+            /* Search Bar Full Width in Mobile */
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+            
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+
             .legal-card { padding: 30px 20px; }
             .feature-box-grid { grid-template-columns: 1fr; }
         }
@@ -136,13 +171,18 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <span class="brand-name">Student Help Club</span>
         </a>
-        <nav class="nav-menu">
+        
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
             </div>
             <a href="index.html" class="nav-link">All Tools</a>
-            <a href="about_us.html" class="nav-link">About Us</a>
+            <a href="about_us.html" class="nav-link" style="color: var(--primary);">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" rel="noopener noreferrer" class="btn-join">Join Telegram</a>
         </nav>
     </header>
@@ -167,7 +207,7 @@
                 </div>
                 <div class="feature-item">
                     <h3><i class="fas fa-bolt"></i> Optimized Frameworks</h3>
-                    <p>Lightweight  rendering guarantees clean loading cycles and immediate export actions across low-end mobile configurations easily.</p>
+                    <p>Lightweight rendering guarantees clean loading cycles and immediate export actions across low-end mobile configurations easily.</p>
                 </div>
             </div>
 
@@ -200,6 +240,27 @@
     </div>
 
     <script>
+        // --- MOBILE MENU JAVASCRIPT ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+
+        // --- COOKIE BANNER SCRIPT ---
         document.addEventListener("DOMContentLoaded", function() {
             const cookieBanner = document.getElementById("cookie-consent-banner");
             const acceptBtn = document.getElementById("accept-cookies-btn");
