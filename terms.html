@@ -14,9 +14,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service - Student Help Club</title>
+    
     <meta name="description" content="Review the Terms of Service and user usage guidelines for navigating and operating Student Help Club (SHC) free software utilities.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://shctools.in/terms.html">
+
+    <!-- GOOGLE SEO JSON-LD SCHEMA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Terms of Service - Student Help Club",
+      "url": "https://shctools.in/terms.html",
+      "description": "Review the Terms of Service and user usage guidelines for navigating and operating Student Help Club (SHC) free software utilities.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "logo": "https://www.shctools.in/shc-logo.jpg"
+      }
+    }
+    </script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -26,6 +43,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- FULLY EXPANDED CSS -->
     <style>
         :root {
             --primary: #00b14f; 
@@ -38,10 +56,21 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
         
-        /* Premium Header */
+        body { 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
+        /* Unified Premium Header */
         .header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -51,62 +80,320 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
         }
         
-        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .brand .brand-name { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
-        .nav-link:hover { color: var(--primary); }
-        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); }
-        .btn-join:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            text-decoration: none; 
+        }
+        
+        .logo { 
+            width: 44px; 
+            height: 44px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        
+        .brand .brand-name { 
+            font-size: 1.35rem; 
+            color: var(--dark); 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+        }
+
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
+        
+        /* --- NAV & SEARCH BAR CSS --- */
+        .nav-menu { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+            transition: var(--transition);
+        }
+        
+        .search-container { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            margin-right: 15px; 
+        }
+        
+        #tool-search { 
+            padding: 8px 15px 8px 35px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            font-size: 0.9rem; 
+            outline: none; 
+            transition: var(--transition); 
+            width: 220px; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            cursor: pointer; 
+        }
+        
+        #tool-search:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); 
+            width: 250px; 
+        }
+        
+        .search-icon { 
+            position: absolute; 
+            left: 12px; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            pointer-events: none; 
+        }
+
+        .nav-link { 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            transition: var(--transition); 
+        }
+        
+        .nav-link:hover { 
+            color: var(--primary); 
+        }
+        
+        .btn-join { 
+            background: var(--primary); 
+            color: white; 
+            padding: 8px 16px; 
+            border-radius: 100px; 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            transition: var(--transition); 
+            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); 
+        }
+        
+        .btn-join:hover { 
+            transform: translateY(-2px); 
+            background: var(--primary-hover); 
+            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
+        }
 
         /* Workspace Container */
         .workspace-container {
-            max-width: 800px;
-            margin: 30px auto 60px;
+            max-width: 850px;
+            margin: 40px auto 80px;
             padding: 0 20px;
         }
 
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
-        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 6px; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            margin-bottom: 24px; 
+            transition: var(--transition); 
+        }
+        
+        .back-link:hover { 
+            color: var(--primary); 
+            transform: translateX(-3px); 
+        }
 
         /* Content Card Structure */
         .legal-card {
             background: #ffffff;
-            padding: 45px;
+            padding: 50px;
             border-radius: 24px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        .legal-card h1 { font-size: 1.9rem; color: var(--dark); font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .legal-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; border-bottom: 1px dashed var(--border-color); padding-bottom: 15px; }
-
-        .legal-card h2 { font-size: 1.3rem; color: var(--dark); font-weight: 700; margin-top: 30px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .legal-card h2 i { color: var(--primary); font-size: 1.1rem; }
+        .legal-card h1 { 
+            font-size: 2.2rem; 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            letter-spacing: -1px; 
+        }
         
-        .legal-card p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; line-height: 1.7; }
-        .legal-card ul { margin-left: 20px; margin-bottom: 20px; color: var(--text-main); }
-        .legal-card ul li { margin-bottom: 10px; font-size: 0.95rem; font-weight: 500; }
-        .legal-card ul li strong { color: var(--dark); }
+        .legal-card .subtitle { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            font-weight: 600; 
+            margin-bottom: 35px; 
+            border-bottom: 1px dashed var(--border-color); 
+            padding-bottom: 18px; 
+            display: block;
+        }
 
-        /* Footer */
-        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
-        .social-links { margin-bottom: 25px; }
-        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .legal-card h2 { 
+            font-size: 1.4rem; 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-top: 35px; 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+        
+        .legal-card h2 i { 
+            color: var(--primary); 
+            font-size: 1.2rem; 
+        }
+        
+        .legal-card p { 
+            font-size: 1rem; 
+            color: var(--text-main); 
+            margin-bottom: 18px; 
+            font-weight: 500; 
+            text-align: justify; 
+            line-height: 1.7; 
+        }
+        
+        .legal-card ul { 
+            margin-left: 20px; 
+            margin-bottom: 24px; 
+            color: var(--text-main); 
+        }
+        
+        .legal-card ul li { 
+            margin-bottom: 12px; 
+            font-size: 0.98rem; 
+            font-weight: 500; 
+        }
+        
+        .legal-card ul li strong { 
+            color: var(--dark); 
+        }
+
+        /* Clean Footer */
+        .footer { 
+            background: #ffffff; 
+            padding: 60px 20px 40px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 80px; 
+        }
+        
+        .social-links { 
+            margin-bottom: 25px; 
+        }
+        
+        .social-links a { 
+            font-size: 24px; 
+            margin: 0 16px; 
+            transition: var(--transition); 
+            display: inline-block; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+        }
+        
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        .policy-links { margin-top: 25px; font-size: 0.92rem; }
-        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .policy-links a:hover { color: var(--primary); }
+        
+        .policy-links { 
+            margin-top: 25px; 
+            font-size: 0.92rem; 
+        }
+        
+        .policy-links a { 
+            color: var(--text-muted); 
+            margin: 0 14px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: var(--transition); 
+        }
+        
+        .policy-links a:hover { 
+            color: var(--primary); 
+        }
 
+        /* --- COOKIE BANNER CSS --- */
+        .cookie-banner { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: var(--dark); 
+            color: #ffffff; 
+            padding: 15px 20px; 
+            text-align: center; 
+            z-index: 9999; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .cookie-banner p { 
+            margin: 0; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        .cookie-banner button { 
+            background-color: var(--primary); 
+            color: #ffffff; 
+            border: none; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: var(--transition); 
+        }
+        
+        .cookie-banner button:hover { 
+            background-color: var(--primary-hover); 
+        }
+
+        /* --- MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
+            .mobile-toggle { display: block; }
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+                z-index: 999; 
+            }
+            .nav-menu.active { display: flex; }
+            
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+            
             .legal-card { padding: 30px 20px; }
+            .legal-card h1 { font-size: 1.8rem; }
         }
     </style>
 
@@ -115,11 +402,22 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <span class="brand-name">Student Help Club</span>
         </a>
-        <nav class="nav-menu">
+        
+        <!-- --- MOBILE TOGGLE BUTTON --- -->
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
@@ -131,7 +429,7 @@
 
         <article class="legal-card">
             <h1>Terms of Service</h1>
-            <p class="subtitle">Effective Date: June 2, 2026. Review our workspace system operational frameworks guidelines.</p>
+            <span class="subtitle">Effective Date: June 2, 2026. Review our workspace system operational frameworks guidelines.</span>
             
             <p>By accessing or utilizing the utilities hosted across the <strong>Student Help Club (SHC)</strong> software portal, you completely consent to match the operational terms, binding compliance scripts, and usage guidelines outlined in this segment.</p>
             
@@ -164,10 +462,55 @@
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="about_us.html">About Us</a> | 
-            <a href="terms.html">Terms of Service</a> |
+            <a href="terms.html" style="color: var(--primary);">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MOBILE MENU LOGIC ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- COOKIE BANNER LOGIC ---
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
+                });
+            }
+        });
+    </script>
 </body>
 </html>
