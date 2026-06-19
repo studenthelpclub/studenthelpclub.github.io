@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -20,6 +19,32 @@
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://www.shctools.in/contact.html">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Us - Student Help Club",
+      "url": "https://www.shctools.in/contact.html",
+      "description": "Get in touch with the Student Help Club support team. Contact us officially via email or join our Telegram, YouTube, and WhatsApp channels.",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "studenthelpdeskofficial@gmail.com",
+          "contactType": "customer support"
+        },
+        "sameAs": [
+          "https://www.youtube.com/@vishalhelpclub",
+          "https://t.me/studenthelpclub",
+          "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+        ]
+      }
+    }
+    </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7332493779076670" crossorigin="anonymous"></script>
     
@@ -247,11 +272,34 @@
             transition: var(--transition);
         }
 
-        /* Custom Hover Coloration Rules */
-        .social-item.tg:hover { background: #e0f2fe; color: #0088cc; border-color: #38bdf8; transform: translateY(-2px); }
-        .social-item.yt:hover { background: #fee2e2; color: #ff0000; border-color: #f87171; transform: translateY(-2px); }
-        .social-item.wa:hover { background: #dcfce7; color: #25d366; border-color: #4ade80; transform: translateY(-2px); }
-        .social-item.mail:hover { background: #fef3c7; color: #d97706; border-color: #f59e0b; transform: translateY(-2px); }
+        /* Custom Hover Coloration Rules (Expanded) */
+        .social-item.tg:hover { 
+            background: #e0f2fe; 
+            color: #0088cc; 
+            border-color: #38bdf8; 
+            transform: translateY(-2px); 
+        }
+        
+        .social-item.yt:hover { 
+            background: #fee2e2; 
+            color: #ff0000; 
+            border-color: #f87171; 
+            transform: translateY(-2px); 
+        }
+        
+        .social-item.wa:hover { 
+            background: #dcfce7; 
+            color: #25d366; 
+            border-color: #4ade80; 
+            transform: translateY(-2px); 
+        }
+        
+        .social-item.mail:hover { 
+            background: #fef3c7; 
+            color: #d97706; 
+            border-color: #f59e0b; 
+            transform: translateY(-2px); 
+        }
 
         .social-item i {
             font-size: 1.4rem;
@@ -428,7 +476,6 @@
             <div class="brand-title">Student Help Club</div>
         </a>
         
-        <!-- --- MOBILE TOGGLE BUTTON --- -->
         <div class="mobile-toggle" id="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </div>
@@ -485,14 +532,13 @@
         <div class="policy-links">
             <a href="privacy-policy.html">Privacy Policy</a> | 
             <a href="about_us.html">About Us</a> | 
-            <a href="contact.html">Contact Us</a> | 
+            <a href="contact.html" style="color: var(--primary);">Contact Us</a> | 
             <a href="terms.html">Terms of Service</a> |
             <a href="disclaimer.html">Disclaimer</a>
         </div>
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
-    <!-- COOKIE CONSENT BANNER -->
     <div id="cookie-consent-banner" class="cookie-banner">
         <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
         <button id="accept-cookies-btn">Accept & Close</button>
