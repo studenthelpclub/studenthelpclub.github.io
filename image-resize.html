@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -20,6 +21,35 @@
 
     <link rel="canonical" href="https://www.shctools.in/image-resize.html">
 
+    <!-- GOOGLE SEO JSON-LD SCHEMA FOR WEB APPLICATION -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SHC Image Resizer & Cropper",
+      "url": "https://www.shctools.in/image-resize.html",
+      "description": "Adjust crop dimensions freely and compress images down to specific target KB parameters instantly. Free secure client-side image resizer tool.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg",
+        "sameAs": [
+          "https://www.youtube.com/@vishalhelpclub",
+          "https://t.me/studenthelpclub",
+          "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+        ]
+      }
+    }
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
@@ -30,10 +60,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 
+    <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" defer></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
+    <!-- FULLY EXPANDED CSS -->
     <style>
         :root {
             --primary: #00b14f; 
@@ -704,6 +736,7 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
             <h3>How the Smart <b>Client-Side Image Compression</b> Works</h3>
             <p>Our online document optimization utility runs entirely inside your <b>client-side browser interface</b>, keeping your files completely private. When you upload an image milestone or passport photograph, the calculation structure interprets raw visual frameworks instantly. Through an integrated optimized <b>dual-engine process</b>, the script alters <b>target dimensional width</b> rules and responsive metrics, scaling properties continuously down to your exact requested file sizes seamlessly without passing any data to external hosting spaces.</p>
@@ -744,6 +777,7 @@
         <button id="accept-cookies-btn">Accept & Close</button>
     </div>
 
+    <!-- MAIN JAVASCRIPT BLOCK EXPANDED -->
     <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
@@ -804,7 +838,9 @@
                         let file = e.target.files[0];
                         const fileName = file.name.toLowerCase();
                         
-                        if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading: ${file.name}`;
+                        if (statusText) {
+                            statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading: ${file.name}`;
+                        }
 
                         // HEIC Conversion Status
                         if (fileName.endsWith(".heic") || file.type === "image/heic" || file.type === "") {
@@ -821,17 +857,25 @@
                                     });
                                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                                     file = new File([blob], file.name.split('.')[0] + ".jpg", { type: "image/jpeg" });
-                                    if (statusText) statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> HEIC Ready: ${file.name}`;
+                                    if (statusText) {
+                                        statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> HEIC Ready: ${file.name}`;
+                                    }
                                 } else {
-                                    if (statusText) statusText.innerHTML = `<b style="color:orange;">HEIC library loading, try again...</b>`;
+                                    if (statusText) {
+                                        statusText.innerHTML = `<b style="color:orange;">HEIC library loading, try again...</b>`;
+                                    }
                                     return;
                                 }
                             } catch (err) {
-                                if (statusText) statusText.innerHTML = `<b style="color:red;">HEIC Conversion Failed!</b>`;
+                                if (statusText) {
+                                    statusText.innerHTML = `<b style="color:red;">HEIC Conversion Failed!</b>`;
+                                }
                                 return;
                             }
                         } else {
-                            if (statusText) statusText.innerHTML = `<i class="fas fa-image"></i> Selected: ${file.name}`;
+                            if (statusText) {
+                                statusText.innerHTML = `<i class="fas fa-image"></i> Selected: ${file.name}`;
+                            }
                         }
 
                         handleFile(file);
@@ -842,7 +886,9 @@
             function handleFile(file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    if (cropperInstance) { cropperInstance.destroy(); }
+                    if (cropperInstance) { 
+                        cropperInstance.destroy(); 
+                    }
                     
                     cropperImage.src = e.target.result;
                     settingsArea.style.display = 'block';
@@ -898,6 +944,7 @@
                             let scale = 1.0;
                             let bestBlob = null;
 
+                            // Binary Search Loop For Precise KB Optimization
                             for (let attempt = 0; attempt < 5; attempt++) {
                                 let tempW = Math.floor(w * scale);
                                 let tempH = Math.floor(h * scale);
