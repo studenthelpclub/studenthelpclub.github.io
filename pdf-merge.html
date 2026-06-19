@@ -22,7 +22,6 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
 
-
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -92,7 +91,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* FIXED: Switched to safe brand title div component layout to prevent double h1 node assignment */
         .brand .brand-title { 
             font-size: 1.35rem; 
             color: var(--dark); 
@@ -100,10 +98,55 @@
             letter-spacing: -0.5px; 
         }
 
+        /* --- MOBILE TOGGLE ICON CSS --- */
+        .mobile-toggle { 
+            display: none; 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            cursor: pointer; 
+        }
+
+        /* --- NAV & SEARCH BAR CSS --- */
         .nav-menu {
             display: flex;
             gap: 20px;
             align-items: center;
+            transition: var(--transition);
+        }
+
+        .search-container { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            margin-right: 15px; 
+        }
+        
+        #tool-search { 
+            padding: 8px 15px 8px 35px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            font-size: 0.9rem; 
+            outline: none; 
+            transition: var(--transition); 
+            width: 220px; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            cursor: pointer; 
+        }
+        
+        #tool-search:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); 
+            width: 250px; 
+        }
+        
+        .search-icon { 
+            position: absolute; 
+            left: 12px; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            pointer-events: none; 
         }
 
         .nav-link {
@@ -168,7 +211,6 @@
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
         }
 
-        /* FIXED: Set tool identity marked as absolute unique h1 master scope tracking */
         .tool-card h1 {
             font-size: 1.8rem;
             color: var(--dark);
@@ -366,7 +408,9 @@
             margin-top: 5px;
         }
 
-        .reset-btn:hover { color: red; }
+        .reset-btn:hover { 
+            color: red; 
+        }
 
         /* Render Output Display */
         .result-box {
@@ -511,9 +555,72 @@
             color: var(--primary); 
         }
 
+        /* --- COOKIE BANNER CSS --- */
+        .cookie-banner { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background-color: var(--dark); 
+            color: #ffffff; 
+            padding: 15px 20px; 
+            text-align: center; 
+            z-index: 9999; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .cookie-banner p { 
+            margin: 0; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        
+        .cookie-banner button { 
+            background-color: var(--primary); 
+            color: #ffffff; 
+            border: none; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: var(--transition); 
+        }
+        
+        .cookie-banner button:hover { 
+            background-color: var(--primary-hover); 
+        }
+
+        /* --- MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
-            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-menu { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                width: 100%; 
+                background: #ffffff; 
+                padding: 25px 20px; 
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+                border-bottom: 1px solid var(--border-color); 
+                align-items: flex-start; 
+                z-index: 999; 
+            }
+            .nav-menu.active { display: flex; }
+            
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+            
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
             #previewContainer iframe { height: 380px; }
@@ -527,8 +634,18 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <div class="brand-title">Student Help Club</div>
         </a>
-        <nav class="nav-menu">
+        
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
             <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
             <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
@@ -603,6 +720,7 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
             <h3>How the Smart <b>PDF Combination & Compressing Architecture</b> Runs</h3>
             <p>Our responsive multi-document structural manager processes array streams locally inside your <b>client-side browser space</b>, eliminating data interception issues completely. When multiple digital files are queued inside the interface tracking lines, the software initializes dual processing mechanics. For direct original preservation, the script extracts structural dictionary fields via <b>PDF-Lib assets</b> instantly. For specific sizing targets, a complex compression execution engine utilizes <b>PDF.js rendering loops</b> to turn layout arrays into adaptive canvas frames, packing them via <b>jsPDF matrices</b> matching your exact requested kilobyte threshold smoothly.</p>
@@ -612,29 +730,30 @@
             
             <h3>Step-by-Step Multi-Document Management Protocol</h3>
             <ul>
-                <li><strong>Acquire Document Assets:</strong> Use the dedicated graphical upload interface box to capture single or multiple captured images (Supports JPG, PNG, and responsive WebP systems).</li>
+                <li><strong>Acquire Document Assets:</strong> Use the dedicated graphical upload interface box to capture single or multiple PDF documents.</li>
                 <li><strong>Adjust Sheet Sequences:</strong> Move file segments upward or clear structural items using the intuitive directional arrows inside the list grid structure dynamically.</li>
                 <li><strong>Define Target Size Constraints:</strong> For standard high-definition archiving, select <b>Fast Merge</b> options. For form submissions with strict limits, input your desired maximum numeric KB target threshold wrapper value.</li>
                 <li><strong>Solve the Security Badge & Generate:</strong> Trigger the responsive reCAPTCHA checker to finalize structural scripts safely, render multi-page previews right on screen, and secure your consolidated file asset immediately.</li>
             </ul>
 
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+            
             <h3>Frequently Asked Questions (FAQs)</h3>
             
-            <h3>Q1: Will my uploaded images be saved on your servers during the PDF conversion?</h3>
+            <h3>Q1: Will my uploaded PDFs be saved on your servers during the conversion?</h3>
             <p>No, absolutely not. The entire computational pipeline runs 100% locally inside your client-side browser thread stack. Your private transcripts, assignments, or signature captures are processed completely locally and are never stored or logged externally.</p>
             
-            <h3>Q2: Can I combine images of different dimensions into a single PDF document?</h3>
-            <p>Yes. The underlying array compilation logic scans the original structural layout parameters of each image independently. It allocates custom canvas sheets inside the virtual document framework on a page-by-page pass, preventing visual cropping or aspect ratio distortion error-free.</p>
+            <h3>Q2: Can I merge PDFs with different dimensions into a single PDF document?</h3>
+            <p>Yes. The underlying array compilation logic scans the original structural layout parameters of each file independently. It allocates custom canvas sheets inside the virtual document framework on a page-by-page pass, preventing visual cropping or aspect ratio distortion error-free.</p>
             
-            <h3>Q3: Is there a maximum limit on the number of images I can compile at once?</h3>
-            <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of ultra-high-definition 4K image records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets of up to 50 sheets for clean performance loops.</p>
+            <h3>Q3: Is there a maximum limit on the number of PDFs I can compile at once?</h3>
+            <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of high-definition records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets for clean performance loops.</p>
         </article>
     </div>
 
     <footer class="footer">
         <div class="social-links">
-            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
@@ -649,9 +768,47 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
     <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- MOBILE MENU LOGIC ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- COOKIE BANNER LOGIC ---
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
+                });
+            }
+
+            // --- PDF MERGE AND RESIZE LOGIC ---
             const pdfInput = document.getElementById('pdfInput');
             const pdfDropZone = document.getElementById('pdfDropZone');
             const fileList = document.getElementById('fileList');
@@ -670,6 +827,24 @@
             // File Handling Logic Connections
             if(pdfDropZone) pdfDropZone.addEventListener('click', () => pdfInput.click());
             if(pdfInput) pdfInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+            if (pdfDropZone) {
+                pdfDropZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    pdfDropZone.classList.add('dragover');
+                });
+                pdfDropZone.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    pdfDropZone.classList.remove('dragover');
+                });
+                pdfDropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    pdfDropZone.classList.remove('dragover');
+                    if (e.dataTransfer.files) {
+                        handleFiles(e.dataTransfer.files);
+                    }
+                });
+            }
 
             function handleFiles(files) {
                 const newFiles = Array.from(files).filter(f => f.type === "application/pdf");
@@ -707,7 +882,10 @@
                 }
             };
 
-            window.removeFile = (i) => { selectedFiles.splice(i, 1); updateUI(); };
+            window.removeFile = (i) => { 
+                selectedFiles.splice(i, 1); 
+                updateUI(); 
+            };
             
             const resetBtnEl = document.getElementById('resetPdfBtn');
             if(resetBtnEl) resetBtnEl.onclick = () => location.reload();
@@ -752,7 +930,7 @@
                         } catch(e) { 
                             alert("Error merging PDFs layout properties."); 
                         } finally {
-                            fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge`;
+                            fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge (Original Quality)`;
                             fastMergeBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
                                 grecaptcha.reset();
@@ -844,7 +1022,7 @@
                         } catch(e) { 
                             alert("Precision engine calculation mistake."); 
                         } finally {
-                            mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize`;
+                            mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)`;
                             mergeBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
                                 grecaptcha.reset();
@@ -893,7 +1071,7 @@
                     };
                     reader.readAsArrayBuffer(blob);
                 } catch (e) {
-                    previewContainer.innerHTML = "<p>Preview generated, file asset ready to download.</p>";
+                    previewContainer.innerHTML = "<p style='padding: 20px; font-weight: 600; color: var(--dark);'>Preview generated, file asset ready to download.</p>";
                 }
 
                 if(finalPdfSize) finalPdfSize.innerText = `Final Size: ${(blob.size / 1024).toFixed(2)} KB`;
