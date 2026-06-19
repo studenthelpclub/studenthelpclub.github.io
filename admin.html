@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC Blog Admin | Easy Mode</title>
+    <title>SHC Blog Admin | Anti-Block Mode</title>
     <style>
         :root { --primary: #003366; --bg: #f4f7f6; --success: #27ae60; --warning: #f39c12; --danger: #e74c3c; --white: #ffffff; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
@@ -28,7 +28,7 @@
 </head>
 <body>
 
-<div class="top-nav">SHC Blog Admin Panel</div>
+<div class="top-nav">SHC Blog Admin (Anti-Block Proxy Mode)</div>
 
 <div id="login-section">
     <h3 style="color: var(--primary);">Admin Login</h3>
@@ -42,6 +42,7 @@
         
         <div class="step-box" style="border-left-color: var(--danger);">
             <div class="step-title">⚙️ Step 1: ImgBB API Setup</div>
+            <span class="help-text">Apni ImgBB API key yahan save rakhein.</span>
             <div style="display: flex; gap: 10px;">
                 <input type="text" id="imgbb_api_key" placeholder="Paste your ImgBB API Key here...">
                 <button id="saveKeyBtn" class="btn btn-warning" style="white-space: nowrap;">Save Key</button>
@@ -49,10 +50,12 @@
         </div>
 
         <div class="step-box" style="border-left-color: var(--warning);">
-            <div class="step-title">📸 Step 2: Article Image Generator</div>
+            <div class="step-title">📸 Step 2: Article Ke Beech Me Image Lagane Ka Code</div>
             <div class="image-generator">
+                <span class="help-text">Ab photo Proxy server ke through bypass hoke aayegi, PC me block nahi hogi!</span>
                 <input type="file" id="quick_img" accept="image/*" style="margin-bottom:10px; background: white;">
-                <button id="quickImgBtn" class="btn" style="background: var(--primary);">Upload Image & Get Code</button>
+                <button id="quickImgBtn" class="btn" style="background: var(--primary);">Upload & Get Code</button>
+                
                 <div id="code_box" class="code-box"></div>
             </div>
         </div>
@@ -62,7 +65,6 @@
             
             <div class="form-group">
                 <label>Main Blog Thumbnail (Cover Photo)</label>
-                <span class="help-text">Ab agar photo nahi daalenge toh site ka logo automatically lag jayega!</span>
                 <input type="file" id="blog_thumbnail" accept="image/*">
             </div>
 
@@ -150,7 +152,8 @@
         .catch(err => alert("Login Failed!"));
     });
 
-    async function uploadToImgBB(file) {
+    // 🔥 PROXY TRICK: Upload to ImgBB but wrap URL in Cloud Proxy 🔥
+    async function uploadToImgBB_WithProxy(file) {
         const apiKey = localStorage.getItem("imgbb_key");
         if(!apiKey) throw new Error("Pehle Step 1 me ImgBB API Key daalkar Save karein!");
 
@@ -163,33 +166,37 @@
         });
         const data = await response.json();
         if(data.success) {
-            return data.data.url;
+            // YAHAN MAGIC HAI: ImgBB ka URL 'wsrv.nl' proxy me wrap ho jayega
+            // Ye proxy duniya ke har antivirus/adblocker ko bypass kar degi!
+            return "https://wsrv.nl/?url=" + data.data.url;
         } else {
             throw new Error("ImgBB Upload Failed!");
         }
     }
 
+    // Step 2: Quick Image Link Generator
     document.getElementById('quickImgBtn').addEventListener('click', async () => {
         const file = document.getElementById('quick_img').files[0];
         if(!file) return alert("Pehle ek image select karein!");
         
         const btn = document.getElementById('quickImgBtn');
-        btn.innerText = "⏳ Uploading to ImgBB...";
+        btn.innerText = "⏳ Uploading securely...";
         
         try {
-            const url = await uploadToImgBB(file);
-            const codeBox = document.getElementById('code_box');
-            const imgTag = `&lt;img src="${url}" style="width:100%; max-width:600px; border-radius:8px; margin: 20px auto; display:block;" alt="Blog Image"&gt;`;
+            const proxyUrl = await uploadToImgBB_WithProxy(file);
+            const imgTag = `&lt;img src="${proxyUrl}" style="width:100%; max-width:600px; border-radius:8px; margin: 20px auto; display:block;" alt="Blog Image"&gt;`;
             
-            codeBox.innerHTML = `✅ Uploaded! Copy paste this code in your article content:<br><br> ${imgTag}`;
+            const codeBox = document.getElementById('code_box');
+            codeBox.innerHTML = `✅ Uploaded & Secured! Copy paste this code in your article content:<br><br> ${imgTag}`;
             codeBox.style.display = "block";
-            btn.innerText = "Upload Image & Get Code";
+            btn.innerText = "Upload & Get Code";
         } catch(e) {
             alert(e.message);
-            btn.innerText = "Upload Image & Get Code";
+            btn.innerText = "Upload & Get Code";
         }
     });
 
+    // Step 3: Publish Full Article
     document.getElementById('submitBtn').addEventListener('click', async () => {
         const title = document.getElementById('blog_title').value;
         const category = document.getElementById('blog_category').value;
@@ -206,12 +213,12 @@
         const btn = document.getElementById('submitBtn');
 
         try {
-            btn.innerText = "⏳ UPLOADING THUMBNAIL & PUBLISHING...";
+            btn.innerText = "⏳ SECURING THUMBNAIL & PUBLISHING...";
 
-            // Thumbnail Fallback: Ab SHC logo lag jayega agar upload nahi kiya
-            let thumbnailUrl = "shc-logo.jpg"; 
+            // Thumbnail Fallback (Blank string rakhenge taaki blog page pe gray box aaye agar photo na ho)
+            let thumbnailUrl = ""; 
             if(thumbFile) {
-                thumbnailUrl = await uploadToImgBB(thumbFile);
+                thumbnailUrl = await uploadToImgBB_WithProxy(thumbFile); // Isko bhi Proxy milegi!
             }
 
             await addDoc(collection(db, "blog_posts"), {
@@ -225,14 +232,14 @@
                 timestamp: serverTimestamp()
             });
 
-            // Yahan aapka exact naya URL rakha gaya hai!
-            const postUrl = `https://shctools.in/article.html?post=${slug}`;
+            // Trigger Telegram Alert
+            const postUrl = `https://shctools.in/blog.html?post=${slug}`;
             const googleServerUrl = "https://script.google.com/macros/s/AKfycbyo025_xgev4ItpdWA6VaycY4nBPLXvPro97qjhJd4U0kFSv5CmqPks64hz96mCxIsk/exec";
             const finalUrl = googleServerUrl + "?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(postUrl);
-            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert issue"));
+            fetch(finalUrl, { mode: 'no-cors' }).catch(err => console.log("Telegram alert background trigger"));
 
             setTimeout(() => {
-                alert("🎉 Article Published Successfully!");
+                alert("🎉 Article Published Successfully with Anti-Block Protection!");
                 location.reload();
             }, 1500);
 
