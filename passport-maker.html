@@ -1,347 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
+    <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'G-V8RJ9WQXJW');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Passport Size Photo Maker - Student Help Club</title>
+    <title>Free AI Passport Size Photo Maker & A4 Print Sheet Generator | Student Help Club</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Instantly create professional passport size photos with automated AI background removal. Generate 6, 12, or 18 photo print sheets on A4 size for free online.">
+    <meta name="keywords" content="passport size photo maker, auto passport photo generator, create passport photo online free, AI passport photo maker, 6 12 18 photo sheet, CSC passport print maker, background remover for passport">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://www.shctools.in/passport-maker.html">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free AI Passport Size Photo Maker",
+      "url": "https://www.shctools.in/passport-maker.html",
+      "description": "Create professional passport size photos with custom backgrounds and generate A4 print sheets (6, 12, or 18 photos) instantly using AI.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg",
+        "sameAs": [
+          "https://www.youtube.com/@vishalhelpclub",
+          "https://t.me/studenthelpclub",
+          "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+        ]
+      }
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" defer></script>
+    
     <style>
         :root {
-            --primary: #00873D; 
-            --primary-light: #e6f7ee;
+            --primary: #00b14f; 
+            --primary-hover: #009642;
             --dark: #0f172a; 
             --text-main: #334155; 
             --text-muted: #64748b; 
             --bg-body: #f8fafc; 
-            --border-light: #e2e8f0; 
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05);
+            --border-color: #e2e8f0; 
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        /* HEADER */
-        .header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); position: sticky; top: 0; z-index: 100;}
-        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 1.25rem; }
-        .logo { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-light); }
-        
-        /* MAIN TOOL CONTAINER */
-        .tool-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        
-        .tool-header { text-align: center; margin-bottom: 40px; }
-        .tool-header h1 { font-size: 2.2rem; color: var(--dark); font-weight: 800; margin-bottom: 10px; }
-        .tool-header p { color: var(--text-muted); font-size: 1.05rem; }
+        /* Unified Premium Header */
+        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
+        .brand .brand-title { font-size: 1.25rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
 
-        .workspace { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
-        @media (max-width: 800px) { .workspace { grid-template-columns: 1fr; } }
+        .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
 
-        /* UPLOAD & CONTROLS SECTION */
-        .control-panel { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border-light); position: relative; }
-        
-        .upload-area { border: 2px dashed #cbd5e1; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: var(--transition); background: #f8fafc; margin-bottom: 25px; }
-        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
-        .upload-area i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
-        .upload-area h3 { color: var(--dark); font-size: 1.1rem; margin-bottom: 5px; }
-        .upload-area p { font-size: 0.85rem; color: var(--text-muted); }
-        
-        .settings-group { margin-bottom: 20px; }
-        .settings-group label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px; font-size: 0.95rem; }
-        
-        /* Color Picker */
-        .color-options { display: flex; gap: 15px; }
-        .color-btn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm); }
-        .color-btn.active { border: 3px solid var(--dark); transform: scale(1.1); }
-        .c-blue { background: #3b82f6; }
-        .c-white { background: #ffffff; border: 1px solid #cbd5e1; }
-        .c-grey { background: #94a3b8; }
-        .c-red { background: #ef4444; }
+        /* Nav & Search Bar */
+        .nav-menu { display: flex; gap: 24px; align-items: center; transition: var(--transition); }
+        .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
+        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); cursor: pointer; }
+        #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); width: 250px; }
+        .search-icon { position: absolute; left: 12px; color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.92rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 18px; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 700; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); transition: var(--transition); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); background: var(--primary-hover); }
 
-        select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-size: 0.95rem; font-family: inherit; outline: none; }
-        select:focus { border-color: var(--primary); }
+        /* Workspace Layout */
+        .workspace-container { max-width: 850px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
+        
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; letter-spacing: -0.5px; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        .btn-generate { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: var(--transition); margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0, 135, 61, 0.2); }
-        .btn-generate:hover:not(:disabled) { background: #006e32; transform: translateY(-2px); }
-        .btn-generate:disabled { opacity: 0.6; cursor: not-allowed; }
-        
-        /* PREVIEW SECTION */
-        .preview-panel { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--border-light); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px; }
-        
-        .canvas-wrapper { box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; background: white; display: none; }
-        canvas { max-width: 100%; height: auto; display: block; }
-        
-        .empty-state { text-align: center; color: var(--text-muted); }
-        .empty-state i { font-size: 50px; color: #cbd5e1; margin-bottom: 15px; }
+        /* Upload Box */
+        .upload-container-box { position: relative; border: 2px dashed var(--primary); padding: 40px 20px; border-radius: 16px; text-align: center; background: #f0fdf4; transition: var(--transition); margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .upload-container-box:hover, .upload-container-box.dragover { background: #dcfce7; border-color: var(--primary-hover); }
+        .native-input-file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        .select-btn-ui { margin-top: 15px; background: var(--primary); color: white; padding: 12px 30px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; }
 
-        .btn-download { display: none; background: #0f172a; color: white; text-decoration: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; margin-top: 20px; transition: var(--transition); text-align: center; width: 100%;}
-        .btn-download:hover { background: #334155; }
+        /* Preview & Processing */
+        .preview-box { position: relative; max-width: 100%; border: 1px solid var(--border-color); border-radius: 16px; background-color: #fafafa; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; padding: 20px; overflow: hidden; }
+        #sourceImagePreview { max-width: 100%; max-height: 350px; border-radius: 8px; display: block; z-index: 2; position: relative; }
+        .scanner-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary); animation: scan 2s linear infinite alternate; display: none; z-index: 10; }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 98%; } }
+        .processing-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.7); backdrop-filter: blur(3px); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 5; }
 
-        /* AI INFO ALERT & LOADER */
-        .info-alert { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 0.9rem; color: #1e3a8a; display: flex; align-items: center; gap: 10px; }
+        .recaptcha-wrapper { margin: 25px 0; display: flex; justify-content: center; }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); transition: var(--transition); margin-top: 15px; }
+        .main-btn:hover { background: var(--primary-hover); }
+        .main-btn:disabled { background: var(--text-muted); cursor: not-allowed; box-shadow: none; }
+
+        /* Result Area */
+        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; }
+        .canvas-container-bg { display: inline-block; max-width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #fff; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px; margin-bottom: 20px; overflow: hidden; }
+        #finalPreview { max-width: 100%; max-height: 450px; display: block; border-radius: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         
-        .ai-loader-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); border-radius: 20px; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
-        .spinner { width: 50px; height: 50px; border: 5px solid var(--primary-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .ai-loader-text { font-weight: 700; color: var(--dark); font-size: 1.1rem; }
-        .ai-loader-subtext { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; }
+        /* Layout Dropdown */
+        .layout-group { margin-bottom: 25px; text-align: left; }
+        .layout-group label { display: block; font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .layout-select { width: 100%; padding: 14px 18px; border-radius: 12px; border: 2px solid var(--border-color); font-size: 1rem; font-family: inherit; font-weight: 500; color: var(--dark); outline: none; transition: var(--transition); background: #ffffff url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23334155%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") no-repeat right 15px top 50%; background-size: 12px auto; appearance: none; -webkit-appearance: none; }
+        .layout-select:focus, .layout-select:hover { border-color: var(--primary); background-color: #f0fdf4; }
+
+        /* Color Options */
+        .color-panel-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 0 0 12px; text-align: left; }
+        .color-picker-grid { display: flex; justify-content: flex-start; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .color-circle { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer; transition: var(--transition); }
+        .color-circle:hover, .color-circle.active { transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.2); border-color: var(--dark); }
+        
+        .download-btn { width: 100%; background: #0f172a; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .download-btn:hover { background: #1e293b; transform: translateY(-2px); }
+
+        /* Promo Banner */
+        .shc-promo-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 10px; margin-top: 30px; }
+        .shc-promo-container a { flex: 1; min-width: 280px; text-decoration: none; padding: 20px 25px; border-radius: 16px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden; }
+        
+        /* SEO Section */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 50px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 20px rgba(0,0,0,0.03); }
+        .seo-content h2 { color: var(--dark); font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .seo-content h3 { color: var(--dark); font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; margin-top: 35px; }
+        .seo-content p { font-size: 1.05rem; color: #475569; margin-bottom: 18px; line-height: 1.8; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 25px; margin-bottom: 20px; color: #475569; }
+        .seo-content ul li { margin-bottom: 12px; font-size: 1.05rem; font-weight: 500; line-height: 1.7; }
+        .seo-content strong { color: var(--dark); font-weight: 700; }
+
+        /* Footer */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); text-decoration: none; }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 4%; }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; z-index: 999; }
+            .nav-menu.active { display: flex; }
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
+            .seo-content h2 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
-            Student Help Club
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <div class="brand-title">Student Help Club</div>
         </a>
+        
+        <div class="mobile-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
+            <a href="about_us.html" class="nav-link">About Us</a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
+        </nav>
     </header>
 
-    <div class="tool-container">
-        
-        <div class="tool-header">
-            <h1>AI Passport Photo & Print Maker</h1>
-            <p>1-Click AI Background Removal & Automatic A4 Print Sheet Generator.</p>
-        </div>
+    <div class="workspace-container">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
-        <div class="workspace">
+        <div class="tool-card">
+            <h1>AI Passport Size Photo Maker</h1>
+            <p class="subtitle">Auto background removal & instant A4 print sheets (6, 12, 18 photos).</p>
             
-            <div class="control-panel">
+            <div class="upload-container-box" id="dropZone">
+                <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
+                <i class="fas fa-id-badge" style="font-size: 44px; color: var(--primary);"></i>
+                <p id="statusText" style="margin-top: 15px; font-weight: 600; font-size: 0.95rem;">Select or Drag Photo to Make Passport</p>
+                <div class="select-btn-ui">Choose Photo</div>
+            </div>
+
+            <div id="settingsArea" style="display: none; margin-top: 20px;">
+                <div class="preview-box">
+                    <div class="scanner-line" id="scannerLine"></div>
+                    <div class="processing-overlay" id="processOverlay">
+                        <i class="fas fa-microchip" style="font-size: 30px; color: var(--primary); margin-bottom:10px;"></i>
+                        <span style="font-weight:700; color:var(--dark); font-size:1.1rem;">AI Engine Active</span>
+                        <span style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Removing background & formatting...</span>
+                    </div>
+                    <img id="sourceImagePreview" src="" alt="Source Upload">
+                </div>
                 
-                <div class="ai-loader-overlay" id="ai-loader">
-                    <div class="spinner"></div>
-                    <div class="ai-loader-text">AI is removing background...</div>
-                    <div class="ai-loader-subtext">Please wait a few seconds</div>
+                <div class="recaptcha-wrapper">
+                    <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
 
-                <div class="info-alert">
-                    <i class="fas fa-robot" style="font-size: 20px; color: #2563eb;"></i> 
-                    <div><strong>AI Powered:</strong> Upload any normal photo. Our AI will automatically remove the background and set it for your passport sheet.</div>
-                </div>
+                <button id="processBtn" class="main-btn">Generate Passport Photo</button>
+            </div>
 
-                <div class="upload-area" onclick="document.getElementById('upload-img').click()">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Click to Upload Photo</h3>
-                    <p>JPG, PNG formats supported</p>
-                    <input type="file" id="upload-img" accept="image/*" style="display: none;">
-                </div>
+            <div id="resultArea" class="result-box">
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Passport Photo Ready!</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; margin-top: 25px;">
+                    
+                    <div class="canvas-container-bg" id="previewWrapper">
+                        <canvas id="renderCanvas" style="display: none;"></canvas>
+                        <img id="finalPreview" src="" alt="Passport Print Preview">
+                    </div>
+                    
+                    <div style="width: 100%; text-align: left; background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-color);">
+                        
+                        <div class="layout-group">
+                            <label>Select Print Layout (A4 Size)</label>
+                            <select id="sheetLayout" class="layout-select">
+                                <option value="single">Single Photo Only (No Sheet)</option>
+                                <option value="6">6 Photos Sheet</option>
+                                <option value="12">12 Photos Sheet</option>
+                                <option value="18">18 Photos Sheet (Standard)</option>
+                            </select>
+                        </div>
 
-                <div class="settings-group">
-                    <label>Select Background Color</label>
-                    <div class="color-options">
-                        <div class="color-btn c-blue active" data-color="#3b82f6"></div>
-                        <div class="color-btn c-white" data-color="#ffffff"></div>
-                        <div class="color-btn c-grey" data-color="#cbd5e1"></div>
-                        <div class="color-btn c-red" data-color="#ef4444"></div>
+                        <div class="color-panel-title">Select Background Color</div>
+                        <div class="color-picker-grid">
+                            <div class="color-circle active" data-color="#0047ab" title="Official Blue" style="background: #0047ab;"></div>
+                            <div class="color-circle" data-color="#ffffff" title="White Backdrop" style="background: #ffffff;"></div>
+                            <div class="color-circle" data-color="#add8e6" title="Light Blue Preset" style="background: #add8e6;"></div>
+                            <div class="color-circle" data-color="#f5f5f5" title="Light Grey Preset" style="background: #f5f5f5;"></div>
+                            <div class="color-circle" data-color="#ff0000" title="Red Preset" style="background: #ff0000;"></div>
+                            <div class="color-circle" data-color="transparent" title="Transparent" style="background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 8px 8px;"></div>
+                        </div>
+
+                        <button id="downloadBtn" class="download-btn">
+                            <i class="fas fa-download"></i> Download HD Print File
+                        </button>
+
                     </div>
                 </div>
-
-                <div class="settings-group">
-                    <label>Print Sheet Layout (A4 Size)</label>
-                    <select id="sheet-layout">
-                        <option value="single">Single Photo Only (No Sheet)</option>
-                        <option value="8">8 Photos Sheet (CSC Standard)</option>
-                        <option value="15">15 Photos Sheet</option>
-                        <option value="32" selected>32 Photos Full Sheet</option>
-                    </select>
-                </div>
-
-                <button class="btn-generate" id="btn-process" disabled>
-                    <i class="fas fa-magic"></i> Generate Passport Photo
-                </button>
             </div>
-
-            <div class="preview-panel">
-                <div class="empty-state" id="empty-state">
-                    <i class="fas fa-user-circle"></i>
-                    <h3>Preview will appear here</h3>
-                    <p>Upload a photo to see the AI magic.</p>
-                </div>
-                
-                <div class="canvas-wrapper" id="canvas-container">
-                    <canvas id="result-canvas"></canvas>
-                </div>
-                
-                <a href="#" id="download-btn" class="btn-download" download="SHC_Passport_Print.jpg">
-                    <i class="fas fa-download"></i> Download Print File
-                </a>
-            </div>
-
         </div>
+
+        <div class="shc-promo-container">
+            <a href="https://studenthelpclub.in" target="_blank" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                </div>
+                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+            <a href="https://jobs.studenthelpclub.in" target="_blank" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                </div>
+                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+        </div>
+        
+        <article class="seo-content">
+            <h2>Free AI Passport Size Photo Maker Online</h2>
+            <p>Welcome to the <strong>Student Help Club Passport Photo Maker</strong>. Generating professional, studio-quality passport photos has never been easier. Designed specifically for CSC operators, students, and job seekers, our AI-powered tool automatically removes messy backgrounds and replaces them with official colors.</p>
+            
+            <h3>Why Use Our Auto Passport Photo Generator?</h3>
+            <ul>
+                <li><strong>100% Free AI Background Removal:</strong> No need to use Photoshop or manual eraser tools. Our advanced AI detects the person and crops them perfectly.</li>
+                <li><strong>Official Background Colors:</strong> Quickly swap to Standard Blue, Pure White, or Red backgrounds required for various government forms, visas, and university admissions.</li>
+                <li><strong>Custom A4 Print Sheets:</strong> Forget the hassle of aligning photos manually for printing. Select our <strong>6, 12, or 18 Photos Sheet</strong> options, and the tool will instantly generate a ready-to-print A4 canvas.</li>
+                <li><strong>High-Definition (HD) Exports:</strong> We ensure your generated passport sheets are exported at maximum resolution (300 DPI) for crystal clear photo paper printing.</li>
+            </ul>
+
+            <h3>How to Create a Passport Photo in 3 Steps</h3>
+            <p>You can generate a full sheet of passport photos in less than 30 seconds:</p>
+            <ol style="margin-left: 25px; margin-bottom: 20px; color: #475569; font-size: 1.05rem; font-weight: 500; line-height: 1.7;">
+                <li><strong>Upload Your Photo:</strong> Click the upload area and select a clear, front-facing photo of yourself (JPG or PNG).</li>
+                <li><strong>Let AI Process:</strong> Verify the reCAPTCHA and click "Generate". The AI will automatically isolate your portrait and crop it to the standard 3.5cm x 4.5cm Indian passport ratio.</li>
+                <li><strong>Select Layout & Download:</strong> Choose your preferred background color, select how many photos you want on the A4 sheet (Single, 6, 12, or 18), and click Download to save your HD print file!</li>
+            </ol>
+
+            <h3>Data Privacy & Security</h3>
+            <p>Your privacy is strictly maintained. The images processed by our AI are immediately discarded after processing and are never stored on our servers. You can confidently process personal and client photos safely.</p>
+        </article>
     </div>
 
-    <script>
-        const uploadInput = document.getElementById('upload-img');
-        const colorBtns = document.querySelectorAll('.color-btn');
-        const sheetLayout = document.getElementById('sheet-layout');
-        const btnProcess = document.getElementById('btn-process');
-        const emptyState = document.getElementById('empty-state');
-        const canvasContainer = document.getElementById('canvas-container');
-        const resultCanvas = document.getElementById('result-canvas');
-        const downloadBtn = document.getElementById('download-btn');
-        const aiLoader = document.getElementById('ai-loader');
-        const ctx = resultCanvas.getContext('2d');
-
-        let uploadedImage = new Image();
-        let currentBgColor = '#3b82f6'; // Default Blue
-        let imageLoaded = false;
-
-        // Constants for Indian Passport Size at 300 DPI
-        const PASSPORT_WIDTH = 413;  // 3.5cm
-        const PASSPORT_HEIGHT = 531; // 4.5cm
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
         
-        // A4 Size at 300 DPI
-        const A4_WIDTH = 2480;
-        const A4_HEIGHT = 3508;
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
 
-        // API URL for Background Removal
-        const BG_REMOVE_API = "https://vishal62023-bg-remove.hf.space/remove-bg";
-
-        // Handle Image Upload & API Call
-        uploadInput.addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            // Show AI Loader
-            aiLoader.style.display = 'flex';
-            btnProcess.disabled = true;
-            btnProcess.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-            const formData = new FormData();
-            formData.append('file', file); // API me image bhejne ke liye standard parameter 'file'
-
-            try {
-                // Call Hugging Face API
-                const response = await fetch(BG_REMOVE_API, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error("API Server Error");
-                }
-
-                // Get transparent image as Blob
-                const blob = await response.blob();
-                const transparentImgUrl = URL.createObjectURL(blob);
-
-                // Load processed image to canvas
-                uploadedImage.onload = function() {
-                    imageLoaded = true;
-                    aiLoader.style.display = 'none';
-                    btnProcess.disabled = false;
-                    btnProcess.innerHTML = '<i class="fas fa-magic"></i> Generate Passport Photo';
-                    
-                    // Auto-trigger the generation once AI finishes
-                    btnProcess.click(); 
-                }
-                uploadedImage.src = transparentImgUrl;
-
-            } catch (error) {
-                console.error(error);
-                aiLoader.style.display = 'none';
-                btnProcess.innerHTML = '<i class="fas fa-exclamation-triangle"></i> AI Failed. Try Again.';
-                alert("Background removal API failed. Please check if the Hugging Face space is running or try another image.");
-            }
-        });
-
-        // Handle Background Color Selection
-        colorBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                colorBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentBgColor = this.getAttribute('data-color');
-                
-                // Live update preview if image is already loaded
-                if(imageLoaded) btnProcess.click();
-            });
-        });
-
-        // Handle Layout Change for Live Update
-        sheetLayout.addEventListener('change', function() {
-            if(imageLoaded) btnProcess.click();
-        });
-
-        // Generate Photo & Layout Logic
-        btnProcess.addEventListener('click', function() {
-            if (!imageLoaded) return;
-
-            emptyState.style.display = 'none';
-            canvasContainer.style.display = 'block';
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
             
-            const layout = sheetLayout.value;
+            // --- Mobile Menu Toggle ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
+                    }
+                });
+            }
 
-            // Step 1: Create the base passport photo
-            const singleCanvas = document.createElement('canvas');
-            singleCanvas.width = PASSPORT_WIDTH;
-            singleCanvas.height = PASSPORT_HEIGHT;
-            const sCtx = singleCanvas.getContext('2d');
+            // --- Tool Elements ---
+            const imageInput = document.getElementById('imageInput');
+            const dropZone = document.getElementById('dropZone');
+            const settingsArea = document.getElementById('settingsArea');
+            const processBtn = document.getElementById('processBtn');
+            const resultArea = document.getElementById('resultArea');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const sourceImagePreview = document.getElementById('sourceImagePreview');
+            const finalPreview = document.getElementById('finalPreview');
+            const statusText = document.getElementById('statusText');
+            
+            const layoutSelect = document.getElementById('sheetLayout');
+            const colorCircles = document.querySelectorAll('.color-circle');
+            const renderCanvas = document.getElementById('renderCanvas');
+            const ctx = renderCanvas.getContext('2d');
 
-            // Fill Background Color
-            sCtx.fillStyle = currentBgColor;
-            sCtx.fillRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+            let currentUploadedFile = null;
+            let aiProcessedImage = new Image();
+            let selectedBgColor = '#0047ab'; // Default Blue
+            let currentLayout = 'single';
+            
+            // Constants for Indian Passport Size at 300 DPI
+            const PASSPORT_WIDTH = 413;  // 3.5cm
+            const PASSPORT_HEIGHT = 531; // 4.5cm
+            const A4_WIDTH = 2480;       // A4 at 300 DPI
+            const A4_HEIGHT = 3508;
 
-            // Calculate auto-center crop
-            const scale = Math.max(PASSPORT_WIDTH / uploadedImage.width, PASSPORT_HEIGHT / uploadedImage.height);
-            const x = (PASSPORT_WIDTH / 2) - (uploadedImage.width / 2) * scale;
-            const y = (PASSPORT_HEIGHT / 2) - (uploadedImage.height / 2) * scale;
+            // Drag and Drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+            });
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
 
-            // Draw AI Processed transparent image
-            sCtx.drawImage(uploadedImage, x, y, uploadedImage.width * scale, uploadedImage.height * scale);
+            dropZone.addEventListener('drop', function(e) {
+                let dt = e.dataTransfer;
+                if (dt.files && dt.files.length > 0) {
+                    imageInput.files = dt.files;
+                    imageInput.dispatchEvent(new Event('change'));
+                }
+            });
 
-            // Draw black border around passport photo for cutting guide
-            sCtx.strokeStyle = "#000000";
-            sCtx.lineWidth = 4;
-            sCtx.strokeRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+            // Image Upload Handler
+            imageInput.addEventListener('change', async function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    let file = e.target.files[0];
+                    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB limit
+                    if (file.size > maxSizeInBytes) {
+                        alert("File is too large! Please upload an image under 5MB.");
+                        imageInput.value = ""; return; 
+                    }
+                    
+                    const fileName = file.name.toLowerCase();
+                    if (statusText) statusText.innerHTML = `<i class="fas fa-sync fa-spin"></i> Reading file...`;
 
-            // Step 2: Render based on selected layout
-            if (layout === 'single') {
-                resultCanvas.width = PASSPORT_WIDTH;
-                resultCanvas.height = PASSPORT_HEIGHT;
-                ctx.drawImage(singleCanvas, 0, 0);
-            } else {
-                // A4 Sheet Generation
-                resultCanvas.width = A4_WIDTH;
-                resultCanvas.height = A4_HEIGHT;
-                
-                // Fill A4 with White
-                ctx.fillStyle = "#ffffff";
-                ctx.fillRect(0, 0, A4_WIDTH, A4_HEIGHT);
+                    if (fileName.endsWith(".heic") || file.type.includes("heic")) {
+                        try {
+                            if (typeof heic2any !== 'undefined') {
+                                const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
+                                const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
+                                file = new File([blob], "converted.jpg", { type: "image/jpeg" });
+                            }
+                        } catch (err) { console.error("HEIC Error.", err); }
+                    }
 
-                const totalPhotos = parseInt(layout);
-                const marginX = 100;
-                const marginY = 100;
-                const gapX = 40;
-                const gapY = 50;
-                
-                let cols = 4; // 4 columns horizontally on A4
-                let drawn = 0;
+                    currentUploadedFile = file;
+                    statusText.innerHTML = `<i class="fas fa-check-circle" style="color:green;"></i> Photo loaded!`;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        sourceImagePreview.src = event.target.result;
+                        settingsArea.style.display = "block";
+                        resultArea.style.display = "none";
+                    };
+                    reader.readAsDataURL(currentUploadedFile);
+                }
+            });
 
-                outerLoop:
-                for (let row = 0; row < 8; row++) {
-                    for (let col = 0; col < cols; col++) {
-                        if (drawn >= totalPhotos) break outerLoop;
+            async function compressImage(file) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = event => {
+                        const img = new Image();
+                        img.src = event.target.result;
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const MAX_WIDTH = 2500; 
+                            let width = img.width;
+                            let height = img.height;
+                            if (width > MAX_WIDTH) { height = Math.round(height * MAX_WIDTH / width); width = MAX_WIDTH; }
+                            canvas.width = width; canvas.height = height;
+                            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                            canvas.toBlob((blob) => { resolve(new File([blob], file.name, { type: 'image/jpeg' })); }, 'image/jpeg', 0.85); 
+                        };
+                    };
+                });
+            }
+
+            // AI Processing Button
+            if(processBtn) {
+                processBtn.addEventListener('click', async function() {
+                    if (!currentUploadedFile) return;
+                    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
+                        if (grecaptcha.getResponse().length === 0) {
+                            alert("Please verify that you are not a robot."); return;
+                        }
+                    }
+
+                    const scannerLine = document.getElementById('scannerLine');
+                    const processOverlay = document.getElementById('processOverlay');
+                    scannerLine.style.display = "block";
+                    processOverlay.style.display = "flex";
+                    processBtn.disabled = true;
+                    
+                    let texts = ["Analyzing Portrait...", "Extracting Subject...", "Removing Background...", "Formatting to 3.5x4.5cm..."];
+                    let textIdx = 0;
+                    const intervalId = setInterval(() => {
+                        processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${texts[textIdx]}`;
+                        textIdx = (textIdx + 1) % texts.length;
+                    }, 2000);
+
+                    try {
+                        const optimizedFile = await compressImage(currentUploadedFile);
+                        const formData = new FormData();
+                        formData.append("file", optimizedFile);
+
+                        // Call Hugging Face API
+                        const response = await fetch("https://vishal62023-bg-remove.hf.space/remove-bg", {
+                            method: "POST", body: formData
+                        });
+
+                        if (!response.ok) throw new Error("Server error");
+
+                        const bgRemovedBlob = await response.blob();
+                        const url = URL.createObjectURL(bgRemovedBlob);
                         
-                        const drawX = marginX + (col * (PASSPORT_WIDTH + gapX));
-                        const drawY = marginY + (row * (PASSPORT_HEIGHT + gapY));
-                        
-                        ctx.drawImage(singleCanvas, drawX, drawY);
-                        drawn++;
+                        aiProcessedImage.onload = function() {
+                            buildPassportSheet(); // Auto build standard sheet
+                            resultArea.style.display = "block";
+                            resultArea.scrollIntoView({ behavior: 'smooth' });
+                            
+                            clearInterval(intervalId);
+                            scannerLine.style.display = "none";
+                            processOverlay.style.display = "none";
+                            processBtn.innerHTML = "Generate New Passport";
+                            processBtn.disabled = false;
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
+                        };
+                        aiProcessedImage.src = url;
+
+                    } catch(err) {
+                        alert("Error: AI server is busy. Please try again in a few moments.");
+                        clearInterval(intervalId);
+                        scannerLine.style.display = "none";
+                        processOverlay.style.display = "none";
+                        processBtn.innerHTML = "Generate Passport Photo";
+                        processBtn.disabled = false;
+                    }
+                });
+            }
+
+            // Layout & Color Change Listeners
+            layoutSelect.addEventListener('change', function() {
+                currentLayout = this.value;
+                buildPassportSheet();
+            });
+
+            colorCircles.forEach(circle => {
+                circle.addEventListener('click', function() {
+                    colorCircles.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedBgColor = this.getAttribute('data-color');
+                    buildPassportSheet();
+                });
+            });
+
+            // Master Function to Build Photo & Sheet
+            function buildPassportSheet() {
+                if (!aiProcessedImage.src) return;
+
+                // Step 1: Create Single Passport Node
+                const singleNode = document.createElement('canvas');
+                singleNode.width = PASSPORT_WIDTH;
+                singleNode.height = PASSPORT_HEIGHT;
+                const snCtx = singleNode.getContext('2d');
+
+                // Apply Background
+                if (selectedBgColor === 'transparent') {
+                    snCtx.clearRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+                } else {
+                    snCtx.fillStyle = selectedBgColor;
+                    snCtx.fillRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+                }
+
+                // Auto-center & Scale person to fit height
+                const scale = PASSPORT_HEIGHT / aiProcessedImage.height;
+                const drawWidth = aiProcessedImage.width * scale;
+                const drawHeight = aiProcessedImage.height * scale;
+                const x = (PASSPORT_WIDTH / 2) - (drawWidth / 2);
+                
+                snCtx.drawImage(aiProcessedImage, x, 0, drawWidth, drawHeight);
+
+                // Add Cutting Border
+                snCtx.strokeStyle = "#000000";
+                snCtx.lineWidth = 4;
+                snCtx.strokeRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+
+                // Step 2: Render to Main Canvas based on Layout
+                if (currentLayout === 'single') {
+                    renderCanvas.width = PASSPORT_WIDTH;
+                    renderCanvas.height = PASSPORT_HEIGHT;
+                    ctx.drawImage(singleNode, 0, 0);
+                } else {
+                    renderCanvas.width = A4_WIDTH;
+                    renderCanvas.height = A4_HEIGHT;
+                    
+                    // White A4 Background
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillRect(0, 0, A4_WIDTH, A4_HEIGHT);
+
+                    const totalPhotos = parseInt(currentLayout); // 6, 12, or 18
+                    
+                    // Layout calculations for A4
+                    const cols = 6; // Standard max cols on A4 for 3.5cm
+                    const startX = 150; 
+                    const startY = 150;
+                    const gapX = 30;
+                    const gapY = 40;
+                    
+                    let drawn = 0;
+                    
+                    // Dynamic rows based on selection
+                    outerLoop:
+                    for (let row = 0; row < 10; row++) {
+                        for (let col = 0; col < cols; col++) {
+                            if (drawn >= totalPhotos) break outerLoop;
+                            
+                            const dx = startX + (col * (PASSPORT_WIDTH + gapX));
+                            const dy = startY + (row * (PASSPORT_HEIGHT + gapY));
+                            ctx.drawImage(singleNode, dx, dy);
+                            drawn++;
+                        }
                     }
                 }
+
+                // Update Preview Image Data
+                finalPreview.src = renderCanvas.toDataURL("image/jpeg", 0.9);
             }
 
-            // Show Download Button
-            downloadBtn.style.display = 'block';
-            
-            // Set download link
-            downloadBtn.href = resultCanvas.toDataURL("image/jpeg", 1.0); // 1.0 for max quality print
-            downloadBtn.download = layout === 'single' ? "SHC_Single_Passport.jpg" : `SHC_A4_${layout}_Photos.jpg`;
+            // Download Handler
+            if(downloadBtn) {
+                downloadBtn.onclick = () => {
+                    const url = renderCanvas.toDataURL(selectedBgColor === 'transparent' ? "image/png" : "image/jpeg", 1.0);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = currentLayout === 'single' ? "SHC_Single_Passport.jpg" : `SHC_${currentLayout}_Passport_Sheet.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+            }
         });
-    </script>
+    </script>   
 </body>
 </html>
