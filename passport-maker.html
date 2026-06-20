@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager / Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8RJ9WQXJW"></script>
     <script>
          window.dataLayer = window.dataLayer || [];
@@ -13,19 +14,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free AI Passport Size Photo Maker & A4 Print Sheet Generator | Student Help Club</title>
     
-    <meta name="description" content="Instantly create professional passport size photos with automated AI background removal. Generate 6, 12, or 18 photo print sheets on A4 size for free online.">
-    <meta name="keywords" content="passport size photo maker, auto passport photo generator, create passport photo online free, AI passport photo maker, 6 12 18 photo sheet, CSC passport print maker, background remover for passport">
+    <meta name="description" content="Instantly create professional passport size photos with automated AI face detection and background removal. Generate 6, 12, or 18 photo print sheets on A4 size for free online.">
+    <meta name="keywords" content="passport size photo maker, auto passport photo generator, create passport photo online free, AI passport photo maker, 6 12 18 photo sheet, CSC passport print maker, smart crop background remover for passport">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://www.shctools.in/passport-maker.html">
 
+    <!-- WEBSITE SCHEMA -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Free AI Passport Size Photo Maker",
       "url": "https://www.shctools.in/passport-maker.html",
-      "description": "Create professional passport size photos with custom backgrounds and generate A4 print sheets (6, 12, or 18 photos) instantly using AI.",
+      "description": "Create professional passport size photos with custom backgrounds and generate A4 print sheets (6, 12, or 18 photos) instantly using AI smart crop.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -47,6 +49,7 @@
     }
     </script>
 
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
 
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
@@ -55,6 +58,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- HEIC Support & reCAPTCHA -->
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -68,6 +72,9 @@
             --bg-body: #f8fafc; 
             --border-color: #e2e8f0; 
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -207,7 +214,7 @@
 
         <div class="tool-card">
             <h1>AI Passport Size Photo Maker</h1>
-            <p class="subtitle">Auto background removal & instant A4 print sheets (6, 12, 18 photos).</p>
+            <p class="subtitle">Smart AI Face Detection & Auto background removal. Generate 6, 12, or 18 print sheets instantly.</p>
             
             <div class="upload-container-box" id="dropZone">
                 <input type="file" id="imageInput" class="native-input-file" accept="image/*,.heic">
@@ -216,13 +223,14 @@
                 <div class="select-btn-ui">Choose Photo</div>
             </div>
 
+            <!-- Pre-Processing UI -->
             <div id="settingsArea" style="display: none; margin-top: 20px;">
                 <div class="preview-box">
                     <div class="scanner-line" id="scannerLine"></div>
                     <div class="processing-overlay" id="processOverlay">
                         <i class="fas fa-microchip" style="font-size: 30px; color: var(--primary); margin-bottom:10px;"></i>
                         <span style="font-weight:700; color:var(--dark); font-size:1.1rem;">AI Engine Active</span>
-                        <span style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Removing background & formatting...</span>
+                        <span style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Removing background & Smart Cropping...</span>
                     </div>
                     <img id="sourceImagePreview" src="" alt="Source Upload">
                 </div>
@@ -234,16 +242,19 @@
                 <button id="processBtn" class="main-btn">Generate Passport Photo</button>
             </div>
 
+            <!-- Post-Processing Result Area -->
             <div id="resultArea" class="result-box">
                 <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Passport Photo Ready!</h3>
                 
                 <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; margin-top: 25px;">
                     
+                    <!-- Left: Preview -->
                     <div class="canvas-container-bg" id="previewWrapper">
                         <canvas id="renderCanvas" style="display: none;"></canvas>
                         <img id="finalPreview" src="" alt="Passport Print Preview">
                     </div>
                     
+                    <!-- Right: Controls -->
                     <div style="width: 100%; text-align: left; background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-color);">
                         
                         <div class="layout-group">
@@ -252,7 +263,7 @@
                                 <option value="single">Single Photo Only (No Sheet)</option>
                                 <option value="6">6 Photos Sheet</option>
                                 <option value="12">12 Photos Sheet</option>
-                                <option value="18">18 Photos Sheet (Standard)</option>
+                                <option value="18">18 Photos Sheet</option>
                             </select>
                         </div>
 
@@ -275,6 +286,7 @@
             </div>
         </div>
 
+        <!-- Promos -->
         <div class="shc-promo-container">
             <a href="https://studenthelpclub.in" target="_blank" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
                 <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
@@ -294,23 +306,24 @@
             </a>
         </div>
         
+        <!-- SEO Article -->
         <article class="seo-content">
             <h2>Free AI Passport Size Photo Maker Online</h2>
-            <p>Welcome to the <strong>Student Help Club Passport Photo Maker</strong>. Generating professional, studio-quality passport photos has never been easier. Designed specifically for CSC operators, students, and job seekers, our AI-powered tool automatically removes messy backgrounds and replaces them with official colors.</p>
+            <p>Welcome to the <strong>Student Help Club Passport Photo Maker</strong>. Generating professional, studio-quality passport photos has never been easier. Designed specifically for CSC operators, students, and job seekers, our AI-powered tool automatically detects your face, applies a smart crop, and replaces messy backgrounds with official colors.</p>
             
             <h3>Why Use Our Auto Passport Photo Generator?</h3>
             <ul>
-                <li><strong>100% Free AI Background Removal:</strong> No need to use Photoshop or manual eraser tools. Our advanced AI detects the person and crops them perfectly.</li>
-                <li><strong>Official Background Colors:</strong> Quickly swap to Standard Blue, Pure White, or Red backgrounds required for various government forms, visas, and university admissions.</li>
-                <li><strong>Custom A4 Print Sheets:</strong> Forget the hassle of aligning photos manually for printing. Select our <strong>6, 12, or 18 Photos Sheet</strong> options, and the tool will instantly generate a ready-to-print A4 canvas.</li>
+                <li><strong>AI Smart Face Crop:</strong> Our tool scans the transparent pixels to find your exact position. No matter if you uploaded a full-body picture or an off-center image, the AI perfectly aligns your head and shoulders front-facing.</li>
+                <li><strong>Official Background Colors:</strong> Quickly swap to Standard Blue, Pure White, or Light Grey backgrounds required for various government forms, visas, and university admissions.</li>
+                <li><strong>Custom A4 Print Sheets:</strong> Forget the hassle of aligning photos manually in Photoshop. Select our <strong>6, 12, or 18 Photos Sheet</strong> options, and the tool will instantly generate a perfectly margined, ready-to-print A4 canvas.</li>
                 <li><strong>High-Definition (HD) Exports:</strong> We ensure your generated passport sheets are exported at maximum resolution (300 DPI) for crystal clear photo paper printing.</li>
             </ul>
 
             <h3>How to Create a Passport Photo in 3 Steps</h3>
             <p>You can generate a full sheet of passport photos in less than 30 seconds:</p>
             <ol style="margin-left: 25px; margin-bottom: 20px; color: #475569; font-size: 1.05rem; font-weight: 500; line-height: 1.7;">
-                <li><strong>Upload Your Photo:</strong> Click the upload area and select a clear, front-facing photo of yourself (JPG or PNG).</li>
-                <li><strong>Let AI Process:</strong> Verify the reCAPTCHA and click "Generate". The AI will automatically isolate your portrait and crop it to the standard 3.5cm x 4.5cm Indian passport ratio.</li>
+                <li><strong>Upload Your Photo:</strong> Click the upload area and select a clear photo of yourself (JPG, PNG, or HEIC).</li>
+                <li><strong>Let AI Process:</strong> Verify the reCAPTCHA and click "Generate". The AI will automatically remove the background and smart-crop the photo to the standard 3.5cm x 4.5cm Indian passport ratio.</li>
                 <li><strong>Select Layout & Download:</strong> Choose your preferred background color, select how many photos you want on the A4 sheet (Single, 6, 12, or 18), and click Download to save your HD print file!</li>
             </ol>
 
@@ -319,6 +332,7 @@
         </article>
     </div>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="social-links">
             <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
@@ -336,6 +350,7 @@
         <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">© 2026 Student Help Club. Helping students worldwide.</p>
     </footer>
 
+    <!-- Logic Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
@@ -376,12 +391,12 @@
             let currentLayout = 'single';
             
             // Constants for Indian Passport Size at 300 DPI
-            const PASSPORT_WIDTH = 413;  // 3.5cm
-            const PASSPORT_HEIGHT = 531; // 4.5cm
+            const PASSPORT_WIDTH = 413;  // ~3.5cm
+            const PASSPORT_HEIGHT = 531; // ~4.5cm
             const A4_WIDTH = 2480;       // A4 at 300 DPI
             const A4_HEIGHT = 3508;
 
-            // Drag and Drop
+            // Drag and Drop Logic
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
                 dropZone.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
             });
@@ -436,6 +451,7 @@
                 }
             });
 
+            // Compress before sending to API
             async function compressImage(file) {
                 return new Promise((resolve) => {
                     const reader = new FileReader();
@@ -473,7 +489,7 @@
                     processOverlay.style.display = "flex";
                     processBtn.disabled = true;
                     
-                    let texts = ["Analyzing Portrait...", "Extracting Subject...", "Removing Background...", "Formatting to 3.5x4.5cm..."];
+                    let texts = ["Analyzing Portrait...", "Extracting Subject...", "Removing Background...", "Smart Cropping to 3.5x4.5cm..."];
                     let textIdx = 0;
                     const intervalId = setInterval(() => {
                         processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${texts[textIdx]}`;
@@ -535,17 +551,16 @@
                 });
             });
 
-            // Master Function to Build Photo & Sheet
+            // Master Function to Smart Crop & Build Sheet
             function buildPassportSheet() {
                 if (!aiProcessedImage.src) return;
 
-                // Step 1: Create Single Passport Node
                 const singleNode = document.createElement('canvas');
                 singleNode.width = PASSPORT_WIDTH;
                 singleNode.height = PASSPORT_HEIGHT;
                 const snCtx = singleNode.getContext('2d');
 
-                // Apply Background
+                // Step 1: Apply Selected Background
                 if (selectedBgColor === 'transparent') {
                     snCtx.clearRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
                 } else {
@@ -553,20 +568,69 @@
                     snCtx.fillRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
                 }
 
-                // Auto-center & Scale person to fit height
-                const scale = PASSPORT_HEIGHT / aiProcessedImage.height;
-                const drawWidth = aiProcessedImage.width * scale;
-                const drawHeight = aiProcessedImage.height * scale;
-                const x = (PASSPORT_WIDTH / 2) - (drawWidth / 2);
-                
-                snCtx.drawImage(aiProcessedImage, x, 0, drawWidth, drawHeight);
+                // Step 2: Smart Bounding Box Detection
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = aiProcessedImage.width;
+                tempCanvas.height = aiProcessedImage.height;
+                const tCtx = tempCanvas.getContext('2d');
+                tCtx.drawImage(aiProcessedImage, 0, 0);
 
-                // Add Cutting Border
+                const imgData = tCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
+                let minX = tempCanvas.width, minY = tempCanvas.height, maxX = 0, maxY = 0;
+                let found = false;
+
+                // Find the bounds of the non-transparent person
+                for (let y = 0; y < tempCanvas.height; y++) {
+                    for (let x = 0; x < tempCanvas.width; x++) {
+                        const alpha = imgData[(y * tempCanvas.width + x) * 4 + 3];
+                        if (alpha > 10) {
+                            if (x < minX) minX = x;
+                            if (x > maxX) maxX = x;
+                            if (y < minY) minY = y;
+                            if (y > maxY) maxY = y;
+                            found = true;
+                        }
+                    }
+                }
+
+                if (found) {
+                    const subjectWidth = maxX - minX;
+                    const subjectHeight = maxY - minY;
+
+                    // Add margins (15% head space, 5% body space)
+                    const topMargin = subjectHeight * 0.15;
+                    const bottomMargin = subjectHeight * 0.05;
+                    
+                    let targetH = subjectHeight + topMargin + bottomMargin;
+                    let targetW = targetH * (PASSPORT_WIDTH / PASSPORT_HEIGHT);
+
+                    // Ensure the width fits without cutting shoulders
+                    if (subjectWidth > targetW * 0.9) {
+                        targetW = subjectWidth / 0.85; // Leave 15% side margins
+                        targetH = targetW * (PASSPORT_HEIGHT / PASSPORT_WIDTH);
+                    }
+
+                    const subjectCenterX = minX + (subjectWidth / 2);
+                    const sourceX = subjectCenterX - (targetW / 2);
+                    const sourceY = minY - topMargin;
+
+                    // Draw the perfectly cropped area
+                    snCtx.drawImage(aiProcessedImage, sourceX, sourceY, targetW, targetH, 0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
+                } else {
+                    // Fallback to basic crop if empty
+                    const scale = PASSPORT_HEIGHT / aiProcessedImage.height;
+                    const drawWidth = aiProcessedImage.width * scale;
+                    const drawHeight = aiProcessedImage.height * scale;
+                    const x = (PASSPORT_WIDTH / 2) - (drawWidth / 2);
+                    snCtx.drawImage(aiProcessedImage, x, 0, drawWidth, drawHeight);
+                }
+
+                // Add Official Cutting Border
                 snCtx.strokeStyle = "#000000";
                 snCtx.lineWidth = 4;
                 snCtx.strokeRect(0, 0, PASSPORT_WIDTH, PASSPORT_HEIGHT);
 
-                // Step 2: Render to Main Canvas based on Layout
+                // Step 3: Render to Main Canvas based on Layout
                 if (currentLayout === 'single') {
                     renderCanvas.width = PASSPORT_WIDTH;
                     renderCanvas.height = PASSPORT_HEIGHT;
@@ -581,18 +645,24 @@
 
                     const totalPhotos = parseInt(currentLayout); // 6, 12, or 18
                     
-                    // Layout calculations for A4
-                    const cols = 6; // Standard max cols on A4 for 3.5cm
-                    const startX = 150; 
-                    const startY = 150;
-                    const gapX = 30;
-                    const gapY = 40;
+                    // Setup columns based on format
+                    let cols = 3;
+                    if (totalPhotos === 12) cols = 4;
+                    if (totalPhotos === 18) cols = 5; // A4 supports up to 5 cols width
+
+                    const rows = Math.ceil(totalPhotos / cols);
+                    const gapX = 50; 
+                    const gapY = 60;
+                    
+                    // Calculate perfectly centered margins for the A4 sheet
+                    const gridW = (cols * PASSPORT_WIDTH) + ((cols - 1) * gapX);
+                    const startX = (A4_WIDTH - gridW) / 2;
+                    const startY = 200; // Top margin padding
                     
                     let drawn = 0;
                     
-                    // Dynamic rows based on selection
                     outerLoop:
-                    for (let row = 0; row < 10; row++) {
+                    for (let row = 0; row < rows; row++) {
                         for (let col = 0; col < cols; col++) {
                             if (drawn >= totalPhotos) break outerLoop;
                             
@@ -604,7 +674,7 @@
                     }
                 }
 
-                // Update Preview Image Data
+                // Update Preview
                 finalPreview.src = renderCanvas.toDataURL("image/jpeg", 0.9);
             }
 
