@@ -1,112 +1,255 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-
+<!-- ================= MAIN PAGES ================= -->
 <url>
   <loc>https://shctools.in/</loc>
-  <lastmod>2026-06-04T17:42:09+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:38+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://shctools.in/index.html</loc>
-  <lastmod>2026-06-04T17:42:10+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/blog.html</loc>
+  <lastmod>2026-06-20T05:57:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html</loc>
+  <lastmod>2026-06-20T05:57:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://shctools.in/about_us.html</loc>
-  <lastmod>2026-06-04T17:42:10+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/image-resize.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/pdf-resize.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/image-bg-remover.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/resume-builder.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/enhance.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/pdf-invert.html</loc>
-  <lastmod>2026-06-04T17:42:11+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/word-counter.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/age-calculator.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/pdf-merge.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/img-to-pdf.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/pdf-split.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/pdf-to-img.html</loc>
-  <lastmod>2026-06-04T17:42:12+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://shctools.in/percentage-calculator.html</loc>
-  <lastmod>2026-06-04T17:42:13+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:39+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://shctools.in/privacy-policy.html</loc>
-  <lastmod>2026-06-04T17:42:13+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://shctools.in/contact.html</loc>
-  <lastmod>2026-06-04T17:42:13+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://shctools.in/terms.html</loc>
-  <lastmod>2026-06-04T17:42:13+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://shctools.in/disclaimer.html</loc>
-  <lastmod>2026-06-04T17:42:13+00:00</lastmod>
+  <lastmod>2026-06-20T05:57:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
+<!-- ================= TOOL PAGES ================= -->
+<url>
+  <loc>https://shctools.in/percentage-calculator.html</loc>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/image-resize.html</loc>
+  <lastmod>2026-06-20T05:57:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/pdf-resize.html</loc>
+  <lastmod>2026-06-20T05:57:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/image-bg-remover.html</loc>
+  <lastmod>2026-06-20T05:57:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/resume-builder.html</loc>
+  <lastmod>2026-06-20T05:57:40+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/enhance.html</loc>
+  <lastmod>2026-06-20T05:57:41+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/pdf-invert.html</loc>
+  <lastmod>2026-06-20T05:57:41+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/word-counter.html</loc>
+  <lastmod>2026-06-20T05:57:41+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/age-calculator.html</loc>
+  <lastmod>2026-06-20T05:57:41+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/pdf-merge.html</loc>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/img-to-pdf.html</loc>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/pdf-split.html</loc>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://shctools.in/pdf-to-img.html</loc>
+  <lastmod>2026-06-20T05:57:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+<!-- ================= SEO BLOG ARTICLES ================= -->
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-percentage-calculator-easily-calculate-discounts-tax-salary-hikes</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-percentage-calculator-fast-exam-marks-cgpa-to-percentage-converter</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=convert-pdf-to-jpg-online-high-resolution-image-extractor-for-social-media</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-pdf-to-image-converter-extract-pages-to-jpg-for-exam-portals</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=split-pdf-files-online-extract-invoices-contracts-and-corporate-pages-free</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-pdf-splitter-extract-specific-pages-from-large-syllabus-exam-pdfs</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=convert-jpg-png-to-pdf-online-scan-receipts-invoices-documents-free</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-image-to-pdf-converter-turn-photos-handwritten-notes-into-pdf</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=combine-pdf-files-online-merge-invoices-reports-and-scans-instantly</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-pdf-merger-combine-multiple-marksheets-documents-for-exam-portals</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=online-word-counter-for-seo-optimize-blog-length-character-limits</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-online-word-counter-count-words-characters-and-paragraphs-instantly</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=how-to-remove-black-background-from-pdf-reverse-scanned-negative-documents-free</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-pdf-color-invert-online-enable-dark-mode-save-printer-ink</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=increase-image-resolution-online-make-blurry-pictures-clear-in-seconds</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-ai-image-enhancer-unblur-photos-and-signatures-for-govt-exams</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=transparent-background-maker-free-ai-tool-to-remove-background-from-photos-signatures</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=free-ai-image-background-remover-change-photo-background-to-white-for-govt-exams</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=age-calculator-by-date-of-birth-check-your-exact-age-for-ssc-upsc-bank-exams</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=how-to-reduce-pdf-file-size-to-100kb-or-200kb-online-free-pdf-compressor</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=exact-age-calculator-online-calculate-your-age-in-years-months-and-days-for-government-exams</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=how-to-compress-pdf-file-size-online-for-free-the-ultimate-guide-for-students-job-seekers</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=create-a-professional-resume-online-in-5-minutes-the-best-free-cv-maker-for-job-seekers</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=how-to-create-a-winning-resume-online-for-free-the-ultimate-guide-for-freshers-students</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=the-complete-guide-to-resizing-photos-in-kb-for-online-application-forms-free-image-compressor</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://shctools.in/article.html?post=how-to-resize-a-photo-in-kb-for-online-forms-the-ultimate-free-image-resizer</loc>
+  <lastmod>2026-06-20T05:57:45+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
 
 </urlset>
