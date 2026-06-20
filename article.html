@@ -125,6 +125,10 @@
     </footer>
 
     <script type="module">
+        const urlParams = new URLSearchParams(window.location.search);
+if (!urlParams.get('post')) {
+    window.location.href = 'blog.html';
+}
         // --- MOBILE MENU JAVASCRIPT ---
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('nav-menu');
