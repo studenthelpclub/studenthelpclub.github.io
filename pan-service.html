@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium PAN Card Services - Student Help Club</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #00873D; 
+            --primary-light: #e6f7ee;
+            --dark: #0f172a; 
+            --text-main: #475569; 
+            --text-muted: #64748b; 
+            --bg-body: #f8fafc; 
+            --border-light: #e2e8f0; 
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; font-size: 15px; }
+        
+        /* HEADER */
+        .header { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); padding: 12px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--border-light);}
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-light); }
+        .brand-title { color: var(--dark); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.3px; }
+        
+        /* CONTAINER & BREADCRUMB */
+        .service-container { max-width: 1080px; margin: 35px auto 80px; padding: 0 20px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .breadcrumb a:hover { color: #006e32; }
+        
+        /* HERO HEADER */
+        .service-header { background: #ffffff; padding: 30px 40px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; gap: 20px; align-items: center; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.8); }
+        .service-icon { font-size: 32px; color: #2563eb; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); width: 70px; height: 70px; display: flex; justify-content: center; align-items: center; border-radius: 16px; flex-shrink: 0;}
+        .service-header h1 { font-size: 1.75rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .service-header p { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; }
+
+        /* GRID LAYOUT */
+        .content-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; align-items: start; }
+        .right-column { position: sticky; top: 90px; }
+
+        @media (max-width: 900px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .service-header { flex-direction: column; text-align: center; padding: 25px 20px; }
+            .right-column { position: static; }
+        }
+
+        /* LEFT COLUMN BOXES */
+        .section-box { background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: var(--shadow-sm); margin-bottom: 25px; border: 1px solid var(--border-light);}
+        .section-title { font-size: 1.15rem; color: var(--dark); font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; letter-spacing: -0.3px;}
+        .section-title i { color: var(--primary); font-size: 1rem; background: var(--primary-light); padding: 8px; border-radius: 10px; }
+        .section-text { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; margin-bottom: 14px; font-weight: 400;}
+        
+        /* REQUIRED DOCUMENTS LIST */
+        .doc-list { list-style: none; }
+        .doc-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; font-weight: 500; color: var(--dark); font-size: 0.95rem; background: var(--bg-body); padding: 12px 16px; border-radius: 12px; transition: var(--transition); border: 1px solid transparent;}
+        .doc-list li:hover { background: white; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); transform: translateY(-1px); }
+        .doc-icon { background: #10b981; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; flex-shrink: 0; margin-top: 2px; }
+        .doc-subtext { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; display: block; }
+
+        /* CROSS PROMO BANNER */
+        .promo-banner { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid var(--border-light); padding: 16px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 15px;}
+        .promo-text-wrap { display: flex; align-items: center; gap: 12px; }
+        .promo-icon { font-size: 20px; color: #4f46e5; }
+        .promo-title { font-weight: 700; color: var(--dark); font-size: 0.95rem; margin-bottom: 2px;}
+        .promo-desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+        .btn-promo { background: white; color: #4f46e5; border: 1px solid #e0e7ff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); white-space: nowrap; box-shadow: var(--shadow-sm);}
+        .btn-promo:hover { background: #4f46e5; border-color: #4f46e5; color: white;}
+
+        /* HOW TO APPLY STEPS */
+        .step-container { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+        .step-item { display: flex; gap: 14px; }
+        .step-number { width: 30px; height: 30px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
+        .step-content h4 { font-size: 0.95rem; color: var(--dark); font-weight: 700; margin-bottom: 3px; }
+        .step-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* SELF SERVICE LINKS & SLIDER CSS */
+        .pan-toggle-container { display: flex; margin-bottom: 15px; background: var(--bg-body); padding: 5px; border-radius: 12px; border: 1px solid var(--border-light); width: fit-content; }
+        .pan-toggle-btn { background: transparent; border: none; padding: 8px 18px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
+        .pan-toggle-btn.active { background: white; color: var(--primary); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+        
+        .link-grid { display: grid; gap: 12px; margin-top: 10px; }
+        .btn-outline { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: white; border: 1px solid var(--border-light); color: var(--dark); text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
+        .btn-outline .link-content { display: flex; align-items: center; gap: 12px; }
+        .btn-outline .link-content i { font-size: 1rem; color: var(--text-muted); transition: var(--transition); }
+        .btn-outline .arrow { color: var(--text-muted); transition: var(--transition); font-size: 0.9rem; }
+        .btn-outline:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+        .btn-outline:hover .link-content i { color: var(--primary); }
+        .btn-outline:hover .arrow { color: var(--primary); transform: translateX(3px); }
+
+        /* RIGHT COLUMN: PREMIUM SERVICE BOX */
+        .premium-box { background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%); color: white; padding: 35px 30px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid #334155; }
+        
+        .badge-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .premium-badge { background: #fbbf24; color: #000; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+        .rating { color: #fbbf24; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+        .premium-box h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; color: #f8fafc; }
+        .premium-box p.desc { color: #94a3b8; margin-bottom: 25px; font-size: 0.9rem; line-height: 1.5; }
+        
+        .price-container { background: rgba(0, 0, 0, 0.2); padding: 18px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 25px; text-align: center; }
+        .price { font-size: 2.2rem; font-weight: 800; color: #fbbf24; line-height: 1; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .price span { font-size: 0.9rem; color: #cbd5e1; font-weight: 500; align-self: flex-end; margin-bottom: 4px; }
+        .price-note { font-size: 0.75rem; color: #64748b; margin-top: 8px; }
+
+        .premium-features { list-style: none; margin-bottom: 25px; }
+        .premium-features li { margin-bottom: 10px; color: #e2e8f0; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .premium-features i { color: #10b981; font-size: 1rem; }
+
+        .btn-whatsapp { display: flex; justify-content: center; align-items: center; gap: 8px; background: #25D366; color: white; padding: 14px; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 1rem; transition: var(--transition); box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
+        .btn-whatsapp i { font-size: 1.2rem; }
+        .btn-whatsapp:hover { background: #20c05c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3); color: white;}
+        
+        .guarantee { text-align: center; font-size: 0.8rem; color: #64748b; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 6px; }
+        .guarantee i { color: #38bdf8; }
+
+        /* FOOTER */
+        .footer { background: #ffffff; padding: 50px 20px 30px; text-align: center; border-top: 1px solid var(--border-light); margin-top: 40px; }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { font-size: 20px; margin: 0 14px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; }
+        .social-links a.tg:hover { color: #0088cc; }
+        .social-links a.wa:hover { color: #25d366; }
+        .policy-links { margin-top: 20px; font-size: 0.85rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 12px; text-decoration: none; font-weight: 500; transition: var(--transition); display: inline-block; margin-bottom: 8px;}
+        .policy-links a:hover { color: var(--primary); }
+
+        @media (max-width: 600px) {
+            .promo-banner { flex-direction: column; align-items: flex-start; }
+            .btn-promo { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="brand">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo">
+            <div class="brand-title">Student Help Club</div>
+        </a>
+    </header>
+
+    <div class="service-container">
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> &nbsp;/&nbsp; <span style="color: var(--dark);">PAN Card Services</span>
+        </div>
+
+        <!-- Service Hero Section -->
+        <div class="service-header">
+            <div class="service-icon"><i class="fas fa-id-card"></i></div>
+            <div>
+                <h1>PAN Card Services</h1>
+                <p>A complete portal to apply for a new PAN, make corrections, or track your application status easily and securely.</p>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            
+            <!-- LEFT COLUMN: Information & Self Service -->
+            <div class="left-column">
+                
+                <!-- About PAN Card Section -->
+                <div class="section-box">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i> About PAN Card
+                    </h2>
+                    <p class="section-text">A Permanent Account Number (PAN) is a ten-character alphanumeric identifier issued by the Indian Income Tax Department. It is a vital document for all taxpayers and is mandatory for major financial transactions, opening a bank account, investing in mutual funds, and receiving taxable salary or professional fees.</p>
+                    <p class="section-text" style="margin-bottom: 0;">Whether you are a student turning 18, a job seeker, or someone who needs to update their existing details, having an accurate and updated PAN card is strictly necessary.</p>
+                </div>
+
+                <!-- Documents Required Section -->
+                <div class="section-box">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-invoice"></i> Required Documents
+                    </h2>
+                    <ul class="doc-list">
+                        <li>
+                            <div class="doc-icon"><i class="fas fa-check"></i></div>
+                            <div>
+                                Aadhaar Card
+                                <span class="doc-subtext">Must have your correct Date of Birth and your active mobile number linked for OTP verification.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doc-icon"><i class="fas fa-check"></i></div>
+                            <div>
+                                Passport Size Photographs
+                                <span class="doc-subtext">Two recent, clear, and colored photographs against a light background.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doc-icon"><i class="fas fa-check"></i></div>
+                            <div>
+                                Scanned Signature
+                                <span class="doc-subtext">Sign using a black ink pen on a blank white paper.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doc-icon"><i class="fas fa-check"></i></div>
+                            <div>
+                                Proof of Change (Corrections Only)
+                                <span class="doc-subtext">E.g., 10th Marksheet or Birth Certificate for DOB changes, Marriage Certificate for Name changes.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- CROSS PROMOTION BANNER FOR IMAGE RESIZER -->
+                    <div class="promo-banner">
+                        <div class="promo-text-wrap">
+                            <div class="promo-icon"><i class="fas fa-compress-arrows-alt"></i></div>
+                            <div>
+                                <div class="promo-title">Photo/Signature Size Too Big?</div>
+                                <div class="promo-desc">NSDL portals require photos under 50KB. Resize them instantly.</div>
+                            </div>
+                        </div>
+                        <a href="https://shctools.in/image-resize.html" target="_blank" class="btn-promo">
+                            Use Image Resizer
+                        </a>
+                    </div>
+                </div>
+
+                <!-- How to Apply Section -->
+                <div class="section-box">
+                    <h2 class="section-title">
+                        <i class="fas fa-list-ol"></i> How to Apply Online
+                    </h2>
+                    <p class="section-text">Follow these simple steps if you are submitting the application yourself on the official portal:</p>
+                    
+                    <div class="step-container">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Visit Official Portal & Register</h4>
+                                <p>Click the official NSDL/UTIITSL link below. Select Application Type (Form 49A for Indian Citizens) and generate your token number.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Fill Form & Upload Documents</h4>
+                                <p>Enter your personal details exactly as they appear on your Aadhaar card. Upload your resized photo, signature, and Aadhaar PDF.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Pay Processing Fee</h4>
+                                <p>Complete the payment of ₹107 (approx.) via UPI, Debit Card, or Net Banking. Download your acknowledgement slip.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Aadhaar e-KYC Verification</h4>
+                                <p>Verify your application using Aadhaar OTP. After successful verification, your E-PAN will be emailed within 3-5 days.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self Service Links Section (WITH SLIDER) -->
+                <div class="section-box">
+                    <h2 class="section-title">
+                        <i class="fas fa-external-link-alt"></i> Official Portals (Self Service)
+                    </h2>
+                    <p class="section-text">Select your preferred portal to proceed with your PAN application:</p>
+                    
+                    <!-- Toggle Slider for NSDL vs UTI -->
+                    <div class="pan-toggle-container">
+                        <button id="btn-nsdl" class="pan-toggle-btn active" onclick="switchPanTab('nsdl')">NSDL Portal</button>
+                        <button id="btn-uti" class="pan-toggle-btn" onclick="switchPanTab('uti')">UTIITSL Portal</button>
+                    </div>
+
+                    <!-- NSDL Links Grid (Default Visible) -->
+                    <div class="link-grid" id="nsdl-links">
+                        <a href="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-plus-circle"></i> Apply New PAN Card (NSDL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                        
+                        <a href="https://tin.tin.proteantech.in/pantan/StatusTrack.html" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-search"></i> Check Application Status (NSDL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                        
+                        <a href="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-edit"></i> PAN Correction / Update (NSDL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                    </div>
+
+                    <!-- UTI Links Grid (Default Hidden) -->
+                    <div class="link-grid" id="uti-links" style="display: none;">
+                        <a href="https://pan.utiitsl.com/newA.html" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-plus-circle"></i> Apply New PAN Card (UTIITSL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                        
+                        <a href="https://www.trackpan.utiitsl.com/PANONLINE/" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-search"></i> Check Application Status (UTIITSL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                        
+                        <a href="https://pan.utiitsl.com/csf.html" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                            <div class="link-content">
+                                <i class="fas fa-edit"></i> PAN Correction / Update (UTIITSL)
+                            </div>
+                            <i class="fas fa-arrow-right arrow"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Premium/Paid Service (Sticky) -->
+            <div class="right-column">
+                <div class="premium-box">
+                    
+                    <div class="badge-wrapper">
+                        <div class="premium-badge">SHC Assisted</div>
+                        <div class="rating"><i class="fas fa-star"></i> 4.9/5</div>
+                    </div>
+
+                    <h3>Form Nahi Bhar Pa Rahe? <br>Humse Karwayen!</h3>
+                    <p class="desc">Aap bas WhatsApp par documents bhejiye, baaki form bharne ka sara technical kaam hamari expert team karegi.</p>
+                    
+                    <div class="price-container">
+                        <!-- PRICE UPDATED TO 170 -->
+                        <div class="price">₹170 <span>/ file</span></div>
+                        <p class="price-note">*Govt fees of ₹107 is separate and paid directly to NSDL.</p>
+                    </div>
+
+                    <ul class="premium-features">
+                        <li><i class="fas fa-check-circle"></i> 100% Error-free application</li>
+                        <li><i class="fas fa-check-circle"></i> Photo & Sign resizing included</li>
+                        <li><i class="fas fa-check-circle"></i> Instant PDF Receipt on WhatsApp</li>
+                        <li><i class="fas fa-check-circle"></i> Tracking support till delivery</li>
+                    </ul>
+
+                    <!-- WhatsApp API Link UPDATED WITH NEW NUMBER -->
+                    <a href="https://wa.me/919776986830?text=Hi%20Student%20Help%20Club,%20Mujhe%20Naya%20PAN%20Card%20apply%20karwana%20hai." target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Chat to Apply
+                    </a>
+                    
+                    <div class="guarantee">
+                        <i class="fas fa-shield-alt"></i> Safe, Secure & Privacy Guaranteed
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 15px; font-size: 12px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR NSDL/UTI SLIDER -->
+    <script>
+        function switchPanTab(portal) {
+            const nsdlSection = document.getElementById('nsdl-links');
+            const utiSection = document.getElementById('uti-links');
+            const btnNsdl = document.getElementById('btn-nsdl');
+            const btnUti = document.getElementById('btn-uti');
+
+            if (portal === 'uti') {
+                nsdlSection.style.display = 'none';
+                utiSection.style.display = 'grid';
+                btnUti.classList.add('active');
+                btnNsdl.classList.remove('active');
+            } else {
+                nsdlSection.style.display = 'grid';
+                utiSection.style.display = 'none';
+                btnNsdl.classList.add('active');
+                btnUti.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
