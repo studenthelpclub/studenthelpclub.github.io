@@ -955,71 +955,77 @@
                         try {
                             const pdfjsLib = window['pdfjs-dist/build/pdf'];
                             if(!pdfjsLib || typeof window.jspdf === 'undefined') {
-                                alert("Libraries initializing, re-trigger in a second.");
+                                alert("Libraries initializing, please try again in a second.");
                                 return;
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            let scale = targetKb > 1500 ? 5.5 : (targetKb > 800 ? 4.0 : 2.5);
+                            // Optimization 1: Fixed safe scale to prevent browser Out-Of-Memory crashes
+                            let scale = targetKb > 1000 ? 3.0 : 2.0; 
 
-                            const getCanvases = async (s) => {
-                                let canvases = [];
-                                for (const f of selectedFiles) {
-                                    const pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise;
-                                    for (let i = 1; i <= pdf.numPages; i++) {
-                                        const page = await pdf.getPage(i);
-                                        const viewport = page.getViewport({scale: s});
-                                        const canvas = document.createElement('canvas');
-                                        const ctx = canvas.getContext('2d');
-                                        canvas.height = viewport.height; 
-                                        canvas.width = viewport.width;
-                                        await page.render({canvasContext: ctx, viewport: viewport}).promise;
-                                        canvases.push(canvas);
-                                    }
+                            let canvases = [];
+                            for (const f of selectedFiles) {
+                                const pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise;
+                                for (let i = 1; i <= pdf.numPages; i++) {
+                                    const page = await pdf.getPage(i);
+                                    const viewport = page.getViewport({scale: scale});
+                                    const canvas = document.createElement('canvas');
+                                    const ctx = canvas.getContext('2d');
+                                    canvas.height = viewport.height; 
+                                    canvas.width = viewport.width;
+                                    await page.render({canvasContext: ctx, viewport: viewport}).promise;
+                                    canvases.push(canvas);
                                 }
-                                return canvases;
-                            };
+                            }
 
-                            let pagesCanvas = await getCanvases(scale);
-                            let minQ = 0.0001, maxQ = 1.0, bestBlob = null, bestSize = 0;
+                            // Optimization 2: Reduced loop iterations to 10 for faster processing
+                            let minQ = 0.1, maxQ = 1.0, bestBlob = null, bestSize = 0;
+                            let iterations = 10; 
 
-                            for (let i = 0; i < 35; i++) {
+                            for (let i = 0; i < iterations; i++) {
                                 let q = (minQ + maxQ) / 2;
-                                const outPdf = new window.jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: 'a4', compress: false });
-                                const pWidth = outPdf.internal.pageSize.getWidth();
-                                const pHeight = outPdf.internal.pageSize.getHeight();
+                                
+                                // Optimization 3: Dynamic page sizes instead of forced A4
+                                const outPdf = new window.jspdf.jsPDF({ 
+                                    orientation: canvases[0].width > canvases[0].height ? 'l' : 'p', 
+                                    unit: 'px', 
+                                    format: [canvases[0].width, canvases[0].height], 
+                                    compress: true 
+                                });
 
-                                pagesCanvas.forEach((c, idx) => {
-                                    if (idx > 0) outPdf.addPage();
+                                canvases.forEach((c, idx) => {
+                                    if (idx > 0) {
+                                        outPdf.addPage([c.width, c.height], c.width > c.height ? 'l' : 'p');
+                                    }
                                     const imgData = c.toDataURL('image/jpeg', q);
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pWidth, pHeight, undefined, 'NONE');
+                                    // Optimization 4: Used 'FAST' compression alias
+                                    outPdf.addImage(imgData, 'JPEG', 0, 0, c.width, c.height, undefined, 'FAST');
                                 });
                                 
                                 const tempBlob = outPdf.output('blob');
                                 const currentSizeKb = tempBlob.size / 1024;
 
                                 if (currentSizeKb <= targetKb) {
-                                    if (currentSizeKb > bestSize) {
-                                        bestSize = currentSizeKb;
-                                        bestBlob = tempBlob;
-                                    }
-                                    minQ = q;
+                                    bestSize = currentSizeKb;
+                                    bestBlob = tempBlob;
+                                    minQ = q; // Can afford higher quality
                                 } else {
-                                    maxQ = q;
+                                    maxQ = q; // Need lower quality
                                 }
-                                if (i === 20 && bestSize < targetKb * 0.85 && scale < 8) {
-                                    scale += 2.0;
-                                    pagesCanvas = await getCanvases(scale);
-                                    minQ = 0.5;
-                                }
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 10) break;
+                                
+                                // Break early if size is within 5% of target
+                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= (targetKb * 0.05)) break;
                             }
 
-                            if (bestBlob) showResult(bestBlob);
-                            else alert("Could not reach target file size accurately.");
+                            if (bestBlob) {
+                                showResult(bestBlob);
+                            } else {
+                                alert("File is too heavy to compress to this KB. Try a higher limit.");
+                            }
 
                         } catch(e) { 
-                            alert("Precision engine calculation mistake."); 
+                            console.error(e);
+                            alert("Engine calculation error. File might be too large."); 
                         } finally {
                             mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)`;
                             mergeBtn.disabled = false;
