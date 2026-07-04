@@ -14,7 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart PDF Color Inverter Online - Student Help Club</title>
      
-    <meta name="description" content="Convert standard light documents into high-contrast dark mode layouts instantly inside your browser. Free secure client-side PDF color inversion tool by Student Help Club.">
+    <!-- ENHANCED SEO META DESCRIPTION -->
+    <meta name="description" content="Convert light PDF documents to dark mode instantly online. Free, secure, client-side PDF color inverter by Student Help Club. Read PDFs comfortably without eye strain.">
+    
     <meta name="keywords" content="pdf color inverter, pdf dark mode, invert pdf colors online, pdf background changer, student help club tools, read pdf in dark mode">
     <meta name="robots" content="index, follow">
 
@@ -400,6 +402,49 @@
             font-weight: 500;
         }
 
+        /* --- AI GLOSSARY SECTION CSS --- */
+        .feature-box-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 16px; 
+            margin-top: 25px;
+        }
+        
+        .feature-item { 
+            background: #f0fdf4; 
+            border: 1px solid rgba(0, 177, 79, 0.15); 
+            padding: 24px; 
+            border-radius: 16px; 
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08);
+        }
+        
+        .feature-item h4 { 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            font-size: 1.1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-top: 0; 
+        }
+        
+        .feature-item h4 i { 
+            color: var(--primary); 
+        }
+        
+        .feature-item p { 
+            margin-bottom: 0; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            line-height: 1.6;
+        }
+
         /* Clean Footer */
         .footer { 
             background: #ffffff; 
@@ -589,6 +634,7 @@
                 <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
             </a>
         </div>
+        
         <article class="seo-content">
             <h3>How the Localized <b>PDF Color Inversion</b> Engine Works</h3>
             <p>Our online <b>PDF dark mode</b> conversion utility operates strictly within your personal <b>client-side processing</b> environment, ensuring total data privacy. When a standard document is loaded, the integrated JavaScript engine maps the individual document arrays cleanly. By utilizing high-performance pixel manipulation via PDF.js, the application reverses RGB values mathematically, converting white backgrounds to deep blacks and dark text to highly readable white hues—generating a <b>high-contrast dark mode</b> layout without relying on external server transmissions.</p>
@@ -616,6 +662,39 @@
             <h3>Q3: Can this tool handle large textbook files?</h3>
             <p>Yes, the system is designed to handle multi-page documents efficiently. However, since processing happens entirely within your local device memory, extremely large files (e.g., hundreds of pages) may take slightly longer depending on your device's processing RAM capability.</p>
         </article>
+
+        <!-- NEW AI SEO SECTION ADDED HERE -->
+        <div class="seo-content" style="margin-top: 30px;">
+            <h2 style="font-size: 1.5rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
+                <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
+            </h2>
+            <p style="margin-bottom: 20px;">Understand the core AI search optimizations and digital frameworks we follow:</p>
+            
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
+                    <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
+                    <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
+                    <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
+                    <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
+                    <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                </div>
+            </div>
+        </div>
+        <!-- END OF NEW AI SEO SECTION -->
+
     </div>
 
     <footer class="footer">
