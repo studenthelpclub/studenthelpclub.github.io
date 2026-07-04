@@ -326,6 +326,76 @@
             margin-bottom: 15px;
         }
 
+        /* --- AI GLOSSARY SECTION CSS --- */
+        .glossary-section {
+            background: #ffffff;
+            padding: 45px 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+            margin-top: 30px;
+        }
+        
+        .glossary-section h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+        
+        .glossary-section p.subtitle {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+        
+        .feature-box-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 16px; 
+        }
+        
+        .feature-item { 
+            background: #f0fdf4; 
+            border: 1px solid rgba(0, 177, 79, 0.15); 
+            padding: 24px; 
+            border-radius: 16px; 
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08);
+        }
+        
+        .feature-item h4 { 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            font-size: 1.1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-top: 0; 
+        }
+        
+        .feature-item h4 i { 
+            color: var(--primary); 
+        }
+        
+        .feature-item p { 
+            margin-bottom: 0; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            line-height: 1.6;
+        }
+
         /* Clean Footer CSS Integration */
         .footer { 
             background: #ffffff; 
@@ -461,7 +531,7 @@
                 margin-top: 10px; 
             }
             
-            .contact-card { 
+            .contact-card, .glossary-section { 
                 padding: 35px 20px; 
             }
         }
@@ -520,6 +590,37 @@
                 <p>We strive to review and resolve all academic support requests, technical issues with calculator tools, or partnership inquiries within 24 to 48 business hours. Please ensure you state your primary requirement clearly when emailing our support desk instance.</p>
             </div>
         </div>
+
+        <!-- NEW AI SEO SECTION ADDED HERE -->
+        <section class="glossary-section">
+            <h2><i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary</h2>
+            <p class="subtitle">Understand the core AI search optimizations and digital frameworks we follow:</p>
+            
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
+                    <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
+                    <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
+                    <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
+                    <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
+                    <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                </div>
+            </div>
+        </section>
+        <!-- END OF NEW AI SEO SECTION -->
+
     </div>
 
     <footer class="footer">
