@@ -12,10 +12,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHC PDF Merge & Smart Resizer - Student Help Club</title>
+    <title>SHC PDF Merge - Student Help Club</title>
     
-    <meta name="description" content="Combine multiple PDF files into a single master document and compress target KB limits effortlessly. Free secure client-side PDF tool by Student Help Club.">
-    <meta name="keywords" content="pdf merge, merge pdf online, combine pdf files, pdf compressor, pdf size reducer, student help club pdf tools">
+    <meta name="description" content="Combine multiple PDF files into a single master document effortlessly. Free secure client-side PDF merging tool by Student Help Club.">
+    <meta name="keywords" content="pdf merge, merge pdf online, combine pdf files, student help club pdf tools">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://www.shctools.in/pdf-merge.html">
@@ -29,8 +29,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Only Required Libraries for Merging and Previewing -->
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js" defer></script>
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     
@@ -286,37 +286,9 @@
             padding-top: 20px;
         }
 
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            background: #fafafa;
-        }
-
-        .input-group label {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 0.92rem;
-        }
-
-        .input-group input[type="number"] {
-            width: 100px;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary-hover);
-            outline: none;
-        }
-
         .text-input-box {
             text-align: left;
-            margin-top: 15px;
+            margin-top: 5px;
         }
 
         .text-input-box label {
@@ -370,16 +342,6 @@
             transition: var(--transition);
         }
 
-        .btn-purple {
-            background: #6f42c1;
-            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.15);
-        }
-
-        .btn-purple:hover:not(:disabled) {
-            background: #5a32a3;
-            transform: translateY(-1px);
-        }
-
         .btn-green {
             background: var(--primary);
             box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
@@ -388,6 +350,7 @@
         .btn-green:hover:not(:disabled) {
             background: var(--primary-hover);
             transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
         }
 
         .main-btn:disabled {
@@ -511,6 +474,49 @@
             margin-bottom: 8px;
             font-size: 0.95rem;
             font-weight: 500;
+        }
+        
+        /* --- AI GLOSSARY SECTION CSS --- */
+        .feature-box-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 16px; 
+            margin-top: 25px;
+        }
+        
+        .feature-item { 
+            background: #f0fdf4; 
+            border: 1px solid rgba(0, 177, 79, 0.15); 
+            padding: 24px; 
+            border-radius: 16px; 
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08);
+        }
+        
+        .feature-item h4 { 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            font-size: 1.1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-top: 0; 
+        }
+        
+        .feature-item h4 i { 
+            color: var(--primary); 
+        }
+        
+        .feature-item p { 
+            margin-bottom: 0; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            line-height: 1.6;
         }
 
         /* Clean Footer */
@@ -656,8 +662,8 @@
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
 
         <div class="tool-card">
-            <h1>SHC PDF Merge & Smart Resizer</h1>
-            <p class="subtitle">Combine multiple PDF files into a single master document and compress target KB limits effortlessly.</p>
+            <h1>SHC PDF Merge</h1>
+            <p class="subtitle">Combine multiple PDF files into a single master document effortlessly.</p>
             
             <div class="upload-container" id="pdfDropZone">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -669,12 +675,7 @@
             <div id="fileList" style="margin: 20px 0; text-align: left;"></div>
 
             <div class="input-fields" id="resizeOptionBox" style="display: none;">
-                <div class="input-group">
-                    <label for="targetKb">Target Size (Max KB):</label>
-                    <input type="number" id="targetKb" value="500">
-                </div>
-
-                <div class="text-input-box" id="fileNameBox">
+                <div class="text-input-box" id="fileNameBox" style="margin-top: 0;">
                     <label for="customFileName">Output File Name:</label>
                     <input type="text" id="customFileName" placeholder="Enter file name (Optional)">
                 </div>
@@ -685,11 +686,8 @@
                     <div class="g-recaptcha" data-sitekey="6LfAwvgsAAAAAEfOQrXk3r_Cv1wwX0RzHn64yiF7"></div>
                 </div>
 
-                <button id="fastMergeBtn" class="main-btn btn-purple">
-                    <i class="fas fa-bolt"></i> Fast Merge (Original Quality)
-                </button>
                 <button id="mergeBtn" class="main-btn btn-green">
-                    <i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)
+                    <i class="fas fa-layer-group"></i> Merge PDFs
                 </button>
                 <button id="resetPdfBtn" class="reset-btn">Reset All Elements</button>
             </div>
@@ -722,22 +720,53 @@
         </div>
         
         <article class="seo-content">
-            <h3>How the Smart <b>PDF Combination & Compressing Architecture</b> Runs</h3>
-            <p>Our responsive multi-document structural manager processes array streams locally inside your <b>client-side browser space</b>, eliminating data interception issues completely. When multiple digital files are queued inside the interface tracking lines, the software initializes dual processing mechanics. For direct original preservation, the script extracts structural dictionary fields via <b>PDF-Lib assets</b> instantly. For specific sizing targets, a complex compression execution engine utilizes <b>PDF.js rendering loops</b> to turn layout arrays into adaptive canvas frames, packing them via <b>jsPDF matrices</b> matching your exact requested kilobyte threshold smoothly.</p>
+            <h3>How the Smart <b>PDF Combination Architecture</b> Runs</h3>
+            <p>Our responsive multi-document structural manager processes array streams locally inside your <b>client-side browser space</b>, eliminating data interception issues completely. When multiple digital files are queued inside the interface tracking lines, the software initializes precise processing mechanics. For direct original preservation, the script extracts structural dictionary fields via <b>PDF-Lib assets</b> instantly, linking your files without passing any data to external hosting spaces.</p>
             
             <h3>High Importance Asset for Competitive Recruitments and Assignment Submissions</h3>
-            <p>Prominent recruitment pipelines across India—including the <b>Staff Selection Commission (SSC)</b>, <b>Union Public Service Commission (UPSC)</b>, banking corporations, and multi-tier state recruitment engines—often mandate uploading combined identity credentials or continuous academic certificates inside single upload wrappers restricted below strict file size ceilings. Manually chaining sheets together can generate corrupted structural arrays or mismatched file constraints. This smart layout tool fixes layout problems instantly, helping candidates organize elements securely without tracking failures.</p>
+            <p>Prominent recruitment pipelines across India—including the <b>Staff Selection Commission (SSC)</b>, <b>Union Public Service Commission (UPSC)</b>, banking corporations, and multi-tier state recruitment engines—often mandate uploading combined identity credentials or continuous academic certificates inside single upload wrappers. Manually chaining sheets together can generate corrupted structural arrays. This smart layout tool fixes layout problems instantly, helping candidates organize elements securely without tracking failures.</p>
             
             <h3>Step-by-Step Multi-Document Management Protocol</h3>
             <ul>
                 <li><strong>Acquire Document Assets:</strong> Use the dedicated graphical upload interface box to capture single or multiple PDF documents.</li>
                 <li><strong>Adjust Sheet Sequences:</strong> Move file segments upward or clear structural items using the intuitive directional arrows inside the list grid structure dynamically.</li>
-                <li><strong>Define Target Size Constraints:</strong> For standard high-definition archiving, select <b>Fast Merge</b> options. For form submissions with strict limits, input your desired maximum numeric KB target threshold wrapper value.</li>
+                <li><strong>Define Output Details:</strong> Enter a custom name for your final merged file to keep your documents organized.</li>
                 <li><strong>Solve the Security Badge & Generate:</strong> Trigger the responsive reCAPTCHA checker to finalize structural scripts safely, render multi-page previews right on screen, and secure your consolidated file asset immediately.</li>
             </ul>
 
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
             
+            <!-- NEW AI SEO SECTION ADDED HERE -->
+            <h2 style="font-size: 1.5rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
+                <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
+            </h2>
+            <p style="margin-bottom: 20px;">Understand the core AI search optimizations and digital frameworks we follow:</p>
+            
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
+                    <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
+                    <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
+                    <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
+                    <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
+                    <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                </div>
+            </div>
+            
+            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
+
             <h3>Frequently Asked Questions (FAQs)</h3>
             
             <h3>Q1: Will my uploaded PDFs be saved on your servers during the conversion?</h3>
@@ -808,16 +837,14 @@
                 });
             }
 
-            // --- PDF MERGE AND RESIZE LOGIC ---
+            // --- PDF MERGE LOGIC ---
             const pdfInput = document.getElementById('pdfInput');
             const pdfDropZone = document.getElementById('pdfDropZone');
             const fileList = document.getElementById('fileList');
             const mergeBtn = document.getElementById('mergeBtn');
-            const fastMergeBtn = document.getElementById('fastMergeBtn');
             const actionButtons = document.getElementById('actionButtons');
             const pdfResultArea = document.getElementById('pdfResultArea');
             const downloadPdfBtn = document.getElementById('downloadPdfBtn');
-            const targetKbInput = document.getElementById('targetKb');
             const finalPdfSize = document.getElementById('finalPdfSize');
             const previewContainer = document.getElementById('previewContainer');
 
@@ -904,14 +931,14 @@
                 return false;
             }
 
-            // Fast Merge Implementation
-            if(fastMergeBtn) {
-                fastMergeBtn.addEventListener('click', async () => {
+            // Simple Fast Merge Implementation
+            if(mergeBtn) {
+                mergeBtn.addEventListener('click', async () => {
                     if (selectedFiles.length === 0) return;
                     if (!validateCaptcha()) return;
 
-                    fastMergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Merging...`;
-                    fastMergeBtn.disabled = true;
+                    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Merging...`;
+                    mergeBtn.disabled = true;
                     
                     setTimeout(async () => {
                         try {
@@ -930,99 +957,7 @@
                         } catch(e) { 
                             alert("Error merging PDFs layout properties."); 
                         } finally {
-                            fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge (Original Quality)`;
-                            fastMergeBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                grecaptcha.reset();
-                            }
-                        }
-                    }, 100);
-                });
-            }
-
-            // Merge & Resize Precision Logic Engine
-            if(mergeBtn) {
-                mergeBtn.addEventListener('click', async () => {
-                    if (selectedFiles.length === 0) return;
-                    if (!validateCaptcha()) return;
-
-                    const targetKb = parseFloat(targetKbInput.value);
-                    if (!targetKb) return alert("Please enter Target KB");
-
-                    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
-                    mergeBtn.disabled = true;
-                    
-                    setTimeout(async () => {
-                        try {
-                            const pdfjsLib = window['pdfjs-dist/build/pdf'];
-                            if(!pdfjsLib || typeof window.jspdf === 'undefined') {
-                                alert("Libraries initializing, re-trigger in a second.");
-                                return;
-                            }
-                            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-
-                            let scale = targetKb > 1500 ? 5.5 : (targetKb > 800 ? 4.0 : 2.5);
-
-                            const getCanvases = async (s) => {
-                                let canvases = [];
-                                for (const f of selectedFiles) {
-                                    const pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise;
-                                    for (let i = 1; i <= pdf.numPages; i++) {
-                                        const page = await pdf.getPage(i);
-                                        const viewport = page.getViewport({scale: s});
-                                        const canvas = document.createElement('canvas');
-                                        const ctx = canvas.getContext('2d');
-                                        canvas.height = viewport.height; 
-                                        canvas.width = viewport.width;
-                                        await page.render({canvasContext: ctx, viewport: viewport}).promise;
-                                        canvases.push(canvas);
-                                    }
-                                }
-                                return canvases;
-                            };
-
-                            let pagesCanvas = await getCanvases(scale);
-                            let minQ = 0.0001, maxQ = 1.0, bestBlob = null, bestSize = 0;
-
-                            for (let i = 0; i < 35; i++) {
-                                let q = (minQ + maxQ) / 2;
-                                const outPdf = new window.jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: 'a4', compress: false });
-                                const pWidth = outPdf.internal.pageSize.getWidth();
-                                const pHeight = outPdf.internal.pageSize.getHeight();
-
-                                pagesCanvas.forEach((c, idx) => {
-                                    if (idx > 0) outPdf.addPage();
-                                    const imgData = c.toDataURL('image/jpeg', q);
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, pWidth, pHeight, undefined, 'NONE');
-                                });
-                                
-                                const tempBlob = outPdf.output('blob');
-                                const currentSizeKb = tempBlob.size / 1024;
-
-                                if (currentSizeKb <= targetKb) {
-                                    if (currentSizeKb > bestSize) {
-                                        bestSize = currentSizeKb;
-                                        bestBlob = tempBlob;
-                                    }
-                                    minQ = q;
-                                } else {
-                                    maxQ = q;
-                                }
-                                if (i === 20 && bestSize < targetKb * 0.85 && scale < 8) {
-                                    scale += 2.0;
-                                    pagesCanvas = await getCanvases(scale);
-                                    minQ = 0.5;
-                                }
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= 10) break;
-                            }
-
-                            if (bestBlob) showResult(bestBlob);
-                            else alert("Could not reach target file size accurately.");
-
-                        } catch(e) { 
-                            alert("Precision engine calculation mistake."); 
-                        } finally {
-                            mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)`;
+                            mergeBtn.innerHTML = `<i class="fas fa-layer-group"></i> Merge PDFs`;
                             mergeBtn.disabled = false;
                             if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
                                 grecaptcha.reset();
@@ -1040,6 +975,7 @@
                 
                 try {
                     const pdfjsLib = window['pdfjs-dist/build/pdf'];
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
                     const reader = new FileReader();
                     reader.onload = async function() {
                         const typedarray = new Uint8Array(this.result);
