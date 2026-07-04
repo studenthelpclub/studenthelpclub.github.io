@@ -283,6 +283,49 @@
             color: var(--dark); 
         }
 
+        /* --- AI GLOSSARY SECTION CSS --- */
+        .feature-box-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 16px; 
+            margin-top: 25px;
+        }
+        
+        .feature-item { 
+            background: #f0fdf4; 
+            border: 1px solid rgba(0, 177, 79, 0.15); 
+            padding: 24px; 
+            border-radius: 16px; 
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08);
+        }
+        
+        .feature-item h4 { 
+            color: var(--dark); 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            font-size: 1.1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-top: 0; 
+        }
+        
+        .feature-item h4 i { 
+            color: var(--primary); 
+        }
+        
+        .feature-item p { 
+            margin-bottom: 0; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            line-height: 1.6;
+        }
+
         /* Clean Footer */
         .footer { 
             background: #ffffff; 
@@ -396,7 +439,6 @@
             .legal-card h1 { font-size: 1.8rem; }
         }
     </style>
-
 </head>
 <body>
 
@@ -449,6 +491,38 @@
             <h2><i class="fas fa-envelope-open-text"></i> 4. Terms Modifications</h2>
             <p>We maintain full authorization rights to modify or adjust these terms parameters immediately as interface standards evolve. Continued use of our tools indicates clear consent to our latest system compliance structures logs.</p>
         </article>
+
+        <!-- NEW AI SEO SECTION ADDED HERE -->
+        <div class="legal-card" style="margin-top: 30px;">
+            <h2 style="font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
+                <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
+            </h2>
+            <p>To ensure total transparency regarding our digital content and search engine practices, here is a glossary of the modern AI and SEO frameworks we adhere to:</p>
+            
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
+                    <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
+                    <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
+                    <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
+                    <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
+                    <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                </div>
+            </div>
+        </div>
+        <!-- END OF NEW AI SEO SECTION -->
 
     </div>
 
