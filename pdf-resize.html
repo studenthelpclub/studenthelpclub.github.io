@@ -676,6 +676,7 @@
             <div class="brand-title">Student Help Club</div>
         </a>
         
+        <!-- --- MOBILE TOGGLE BUTTON --- -->
         <div class="mobile-toggle" id="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </div>
@@ -1033,13 +1034,12 @@
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            // FIXED SCALING LOGIC FOR ACCURATE COMPRESSION
-                            // Determine dynamic scale based on the target KB limit
+                            // Determine dynamic scale based on the target KB limit to ensure size reduction works
                             let initialScale = 1.0;
-                            if(targetKb <= 200) initialScale = 0.8;
-                            else if(targetKb <= 500) initialScale = 1.0;
-                            else if(targetKb <= 1000) initialScale = 1.5;
-                            else initialScale = 2.0;
+                            if(targetKb <= 200) initialScale = 0.6;
+                            else if(targetKb <= 500) initialScale = 0.8;
+                            else if(targetKb <= 1000) initialScale = 1.0;
+                            else initialScale = 1.5;
 
                             const getCanvases = async (scaleMultiplier) => {
                                 let canvases = [];
@@ -1059,14 +1059,12 @@
                                 return canvases;
                             };
 
-                            // Fast Binary Search Loop (Optimized to 10 iterations max)
                             let currentScale = initialScale;
                             let pagesCanvas = await getCanvases(currentScale);
                             
-                            let minQ = 0.1, maxQ = 1.0, bestBlob = null, bestSize = 0;
-                            let iterations = 10; 
+                            let minQ = 0.1, maxQ = 0.9, bestBlob = null, bestSize = 0;
 
-                            for (let i = 0; i < iterations; i++) {
+                            for (let i = 0; i < 15; i++) {
                                 let q = (minQ + maxQ) / 2;
                                 
                                 const outPdf = new window.jspdf.jsPDF({ 
@@ -1099,12 +1097,11 @@
                                 if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= (targetKb * 0.05)) break;
                             }
                             
-                            // If compression by quality wasn't enough, shrink the physical dimensions (Scale Down)
-                            if (!bestBlob && currentScale > 0.4) {
-                                currentScale -= 0.3; // Reduce size
+                            // Extreme reduction if file is still too big
+                            if (!bestBlob) {
+                                currentScale = 0.4;
                                 pagesCanvas = await getCanvases(currentScale);
                                 
-                                // One more quick pass with lower scale
                                 const finalOutPdf = new window.jspdf.jsPDF({ 
                                     orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p', 
                                     unit: 'px', 
@@ -1114,7 +1111,7 @@
 
                                 pagesCanvas.forEach((c, idx) => {
                                     if (idx > 0) finalOutPdf.addPage([c.width, c.height], c.width > c.height ? 'l' : 'p');
-                                    finalOutPdf.addImage(c.toDataURL('image/jpeg', 0.5), 'JPEG', 0, 0, c.width, c.height, undefined, 'FAST');
+                                    finalOutPdf.addImage(c.toDataURL('image/jpeg', 0.3), 'JPEG', 0, 0, c.width, c.height, undefined, 'FAST');
                                 });
                                 bestBlob = finalOutPdf.output('blob');
                             }
