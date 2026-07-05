@@ -1048,10 +1048,19 @@
                             const targetKbPerPage = (targetKb * 0.9) / totalPages;
 
                             // Dynamic base scale depending on strictness of target size
-                            let scale = 1.5;
-                            if(targetKbPerPage <= 50) scale = 1.0;
-                            if(targetKbPerPage <= 25) scale = 0.7;
-                            if(targetKbPerPage <= 10) scale = 0.5;
+                            let scale = 1.2;
+                            let quality = 0.7;
+
+                            if (targetKbPerPage <= 100) { scale = 1.0; quality = 0.6; }
+                            if (targetKbPerPage <= 50)  { scale = 0.9; quality = 0.5; }
+                            if (targetKbPerPage <= 25)  { scale = 0.8; quality = 0.4; }
+
+                            // Warn if mathematically impossible to achieve without making it unreadable
+                            if (targetKbPerPage < 15) {
+                                alert(`Note: Fitting ${totalPages} pages into ${targetKb}KB is extreme (~${targetKbPerPage.toFixed(1)} KB/page). We will compress it to the lowest readable size to protect document quality.`);
+                                scale = 0.8;
+                                quality = 0.4;
+                            }
 
                             let outPdf = null;
                             let currentPageNum = 1;
@@ -1072,36 +1081,22 @@
                                     
                                     await page.render({canvasContext: ctx, viewport: viewport}).promise;
 
-                                    let minQ = 0.05, maxQ = 0.9, bestDataUrl = null;
-                                    
-                                    for (let step = 0; step < 6; step++) {
-                                        let q = (minQ + maxQ) / 2;
-                                        let dataUrl = canvas.toDataURL('image/jpeg', q);
-                                        let kb = (dataUrl.length * 0.75) / 1024; // Approx base64 to KB conversion
-                                        
-                                        if (kb <= targetKbPerPage) {
-                                            bestDataUrl = dataUrl;
-                                            minQ = q; 
-                                        } else {
-                                            maxQ = q; 
-                                        }
-                                    }
-
-                                    if (!bestDataUrl) bestDataUrl = canvas.toDataURL('image/jpeg', 0.05);
+                                    const imgData = canvas.toDataURL('image/jpeg', quality);
 
                                     if (!outPdf) {
-                                        outPdf = new window.jspdf.jsPDF({ 
-                                            orientation: canvas.width > canvas.height ? 'l' : 'p', 
-                                            unit: 'px', 
-                                            format: [canvas.width, canvas.height], 
-                                            compress: true 
+                                        outPdf = new window.jspdf.jsPDF({
+                                            orientation: canvas.width > canvas.height ? 'l' : 'p',
+                                            unit: 'px',
+                                            format: [canvas.width, canvas.height],
+                                            compress: true
                                         });
                                     } else {
                                         outPdf.addPage([canvas.width, canvas.height], canvas.width > canvas.height ? 'l' : 'p');
                                     }
 
-                                    outPdf.addImage(bestDataUrl, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
+                                    outPdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
                                     
+                                    // Clear memory to prevent freezing on large books
                                     canvas.width = 0;
                                     canvas.height = 0;
                                     currentPageNum++;
