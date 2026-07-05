@@ -45,623 +45,114 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-        }
-        
-        body { 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
         /* Unified Premium Header */
-        .header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 16px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
-        }
-        
-        .brand { 
-            display: flex; 
-            align-items: center; 
-            gap: 14px; 
-            text-decoration: none; 
-        }
-        
-        .logo { 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-color);
-        }
-        
-        .brand .brand-title { 
-            font-size: 1.35rem; 
-            color: var(--dark); 
-            font-weight: 800;
-            letter-spacing: -0.5px; 
-        }
+        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); }
+        .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
 
-        /* --- MOBILE TOGGLE ICON CSS --- */
-        .mobile-toggle { 
-            display: none; 
-            font-size: 1.6rem; 
-            color: var(--dark); 
-            cursor: pointer; 
-        }
-
-        /* --- NAV & SEARCH BAR CSS --- */
-        .nav-menu {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .search-container { 
-            position: relative; 
-            display: flex; 
-            align-items: center; 
-            margin-right: 15px; 
-        }
-        
-        #tool-search { 
-            padding: 8px 15px 8px 35px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 20px; 
-            font-size: 0.9rem; 
-            outline: none; 
-            transition: var(--transition); 
-            width: 220px; 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            cursor: pointer; 
-        }
-        
-        #tool-search:focus { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); 
-            width: 250px; 
-        }
-        
-        .search-icon { 
-            position: absolute; 
-            left: 12px; 
-            color: var(--text-muted); 
-            font-size: 0.9rem; 
-            pointer-events: none; 
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .btn-join {
-            background: var(--primary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 700;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2);
-        }
-
-        .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3);
-            background: var(--primary-hover);
-        }
+        .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
+        .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
+        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); cursor: pointer; }
+        #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); width: 250px; }
+        .search-icon { position: absolute; left: 12px; color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); background: var(--primary-hover); }
 
         /* Workspace Layout */
-        .workspace-container {
-            max-width: 800px;
-            margin: 30px auto 60px;
-            padding: 0 20px;
-        }
+        .workspace-container { max-width: 800px; margin: 30px auto 60px; padding: 0 20px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
+        /* Upload Zone */
+        .upload-container { border: 2px dashed var(--primary); background: #f0fdf4; padding: 40px 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: var(--transition); margin-bottom: 20px; }
+        .upload-container:hover { background: #e6fced; }
+        .upload-container i { font-size: 44px; color: var(--primary); margin-bottom: 12px; }
+        .select-btn { background: var(--primary); color: white; border: none; padding: 10px 24px; border-radius: 100px; font-weight: 700; font-size: 0.9rem; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15); pointer-events: none; }
 
-        .back-link:hover {
-            color: var(--primary);
-            transform: translateX(-3px);
-        }
-
-        .tool-card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
-        }
-
-        .tool-card h1 {
-            font-size: 1.8rem;
-            color: var(--dark);
-            font-weight: 800;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-            text-align: center;
-        }
-
-        .tool-card .subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* Modern Dashed Selection Area */
-        .upload-container {
-            border: 2px dashed var(--primary);
-            background: #f0fdf4;
-            padding: 40px 20px;
-            border-radius: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 20px;
-        }
+        /* File List */
+        .file-item { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; font-size: 0.92rem; font-weight: 600; color: var(--dark); }
+        .input-fields { margin: 20px 0; border-top: 1px solid var(--border-color); padding-top: 20px; }
+        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; background: #fafafa; }
+        .input-group label { font-weight: 700; color: var(--dark); font-size: 0.92rem; }
+        .input-group input[type="number"] { width: 100px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: var(--primary-hover); outline: none; }
         
-        .upload-container:hover {
-            background: #e6fced;
-        }
+        .text-input-box { text-align: left; margin-top: 15px; }
+        .text-input-box label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px; font-size: 0.92rem; }
+        .text-input-box input[type="text"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 1rem; background-color: #fafafa; outline: none; transition: var(--transition); }
+        .text-input-box input[type="text"]:focus { border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1); }
+        .recaptcha-wrapper { margin: 20px 0; display: flex; justify-content: center; }
 
-        .upload-container i {
-            font-size: 44px;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-
-        .select-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0, 177, 79, 0.15);
-            pointer-events: none;
-        }
-
-        /* Dynamic File List Group */
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8fafc;
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 10px;
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        /* Input Controls Box styling */
-        .input-fields {
-            margin: 20px 0;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            background: #fafafa;
-        }
-
-        .input-group label {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 0.92rem;
-        }
-
-        .input-group input[type="number"] {
-            width: 100px;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary-hover);
-            outline: none;
-        }
-
-        .text-input-box {
-            text-align: left;
-            margin-top: 15px;
-        }
-
-        .text-input-box label {
-            display: block;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-size: 0.92rem;
-        }
-
-        .text-input-box input[type="text"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            background-color: #fafafa;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .text-input-box input[type="text"]:focus {
-            border-color: var(--primary);
-            background-color: #fff;
-            box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1);
-        }
-
-        .recaptcha-wrapper {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Action Buttons Grid */
-        .btn-stack {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .main-btn {
-            width: 100%;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-purple {
-            background: #6f42c1;
-            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.15);
-        }
-
-        .btn-purple:hover:not(:disabled) {
-            background: #5a32a3;
-            transform: translateY(-1px);
-        }
-
-        .btn-green {
-            background: var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15);
-        }
-
-        .btn-green:hover:not(:disabled) {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25);
-        }
-
-        .main-btn:disabled {
-            background: #cbd5e1;
-            color: #94a3b8;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .reset-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            margin-top: 5px;
-        }
-
+        /* Buttons */
+        .btn-stack { display: none; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .main-btn { width: 100%; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .btn-purple { background: #6f42c1; box-shadow: 0 4px 12px rgba(111, 66, 193, 0.15); }
+        .btn-purple:hover:not(:disabled) { background: #5a32a3; transform: translateY(-1px); }
+        .btn-green { background: var(--primary); box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
+        .btn-green:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25); }
+        .main-btn:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
+        .reset-btn { background: none; border: none; color: var(--text-muted); font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: var(--transition); margin-top: 5px; }
         .reset-btn:hover { color: red; }
 
-        /* Render Output Display */
-        .result-box {
-            display: none;
-            margin-top: 35px;
-            padding: 30px;
-            background: #f0fdf4;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 177, 79, 0.2);
-            text-align: center;
-            animation: fadeIn 0.4s ease;
-        }
+        /* Results Display */
+        .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box h3 { color: var(--dark); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+        #previewContainer iframe { width: 100%; height: 500px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; }
+        .result-size-text { font-weight: 800; color: #0056b3; font-size: 1.4rem; margin: 20px 0 15px; }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); margin-top: 20px; }
+        .download-btn:hover { background: #0056b3; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* SEO Section */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .seo-content h3:not(:first-child) { margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 20px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
 
-        .result-box h3 {
-            color: var(--dark);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+        /* AI Glossary Section CSS */
+        .feature-box-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 25px; }
+        .feature-item { background: #f0fdf4; border: 1px solid rgba(0, 177, 79, 0.15); padding: 24px; border-radius: 16px; transition: var(--transition); }
+        .feature-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08); }
+        .feature-item h4 { color: var(--dark); font-weight: 800; margin-bottom: 8px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; margin-top: 0; }
+        .feature-item h4 i { color: var(--primary); }
+        .feature-item p { margin-bottom: 0; font-size: 0.95rem; color: var(--text-main); line-height: 1.6; }
 
-        #previewContainer iframe {
-            width: 100%;
-            height: 500px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-top: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            background: white;
-        }
-
-        .result-size-text {
-            font-weight: 800; 
-            color: #0056b3; 
-            font-size: 1.4rem; 
-            margin: 20px 0 15px;
-        }
-
-        .download-btn {
-            width: 100%;
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
-            margin-top: 20px;
-        }
-
-        .download-btn:hover {
-            background: #0056b3;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25);
-        }
-
-        /* Informative SEO Section */
-        .seo-content {
-            background: #ffffff;
-            padding: 45px;
-            margin-top: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-        }
-
-        .seo-content h3 {
-            color: var(--dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .seo-content h3:not(:first-child) {
-            margin-top: 30px;
-        }
-
-        .seo-content p {
-            font-size: 0.98rem;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            font-weight: 500;
-            text-align: justify;
-        }
-
-        .seo-content ul {
-            margin-left: 20px;
-            color: var(--text-main);
-        }
-
-        .seo-content ul li {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* --- AI GLOSSARY SECTION CSS --- */
-        .feature-box-grid { 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 16px; 
-            margin-top: 25px;
-        }
-        
-        .feature-item { 
-            background: #f0fdf4; 
-            border: 1px solid rgba(0, 177, 79, 0.15); 
-            padding: 24px; 
-            border-radius: 16px; 
-            transition: var(--transition);
-        }
-        
-        .feature-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08);
-        }
-        
-        .feature-item h4 { 
-            color: var(--dark); 
-            font-weight: 800; 
-            margin-bottom: 8px; 
-            font-size: 1.1rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            margin-top: 0; 
-        }
-        
-        .feature-item h4 i { 
-            color: var(--primary); 
-        }
-        
-        .feature-item p { 
-            margin-bottom: 0; 
-            font-size: 0.95rem; 
-            color: var(--text-main); 
-            line-height: 1.6;
-        }
-
-        /* Clean Footer */
-        .footer { 
-            background: #ffffff; 
-            padding: 60px 20px 40px; 
-            text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            margin-top: 80px; 
-        }
-        
-        .social-links { 
-            margin-bottom: 25px; 
-        }
-        
-        .social-links a { 
-            font-size: 24px; 
-            margin: 0 16px; 
-            transition: var(--transition); 
-            display: inline-block; 
-            color: var(--text-muted);
-        }
-        
+        /* Footer */
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
         .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
         .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
         .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
-        
-        .policy-links { 
-            margin-top: 25px; 
-            font-size: 0.92rem; 
-        }
-        
-        .policy-links a { 
-            color: var(--text-muted); 
-            margin: 0 14px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            transition: var(--transition);
-        }
-        
-        .policy-links a:hover { 
-            color: var(--primary); 
-        }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
 
-        /* --- COOKIE BANNER CSS --- */
-        .cookie-banner { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            background-color: var(--dark); 
-            color: #ffffff; 
-            padding: 15px 20px; 
-            text-align: center; 
-            z-index: 9999; 
-            display: none; 
-            justify-content: center; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            gap: 15px; 
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); 
-        }
-        
-        .cookie-banner p { 
-            margin: 0; 
-            font-size: 14px; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-        }
-        
-        .cookie-banner button { 
-            background-color: var(--primary); 
-            color: #ffffff; 
-            border: none; 
-            padding: 8px 16px; 
-            cursor: pointer; 
-            border-radius: 4px; 
-            font-weight: bold; 
-            transition: var(--transition); 
-        }
-        
-        .cookie-banner button:hover { 
-            background-color: var(--primary-hover); 
-        }
+        .cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--dark); color: #ffffff; padding: 15px 20px; text-align: center; z-index: 9999; display: none; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); }
+        .cookie-banner p { margin: 0; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .cookie-banner button { background-color: var(--primary); color: #ffffff; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: var(--transition); }
+        .cookie-banner button:hover { background-color: var(--primary-hover); }
 
-        /* --- MOBILE RESPONSIVE SETTINGS --- */
         @media (max-width: 768px) {
             .header { padding: 16px 4%; }
             .mobile-toggle { display: block; }
-            .nav-menu { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; 
-                left: 0; 
-                width: 100%; 
-                background: #ffffff; 
-                padding: 25px 20px; 
-                box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-                border-bottom: 1px solid var(--border-color); 
-                align-items: flex-start; 
-                z-index: 999; 
-            }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; z-index: 999; }
             .nav-menu.active { display: flex; }
-            
             .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
             #tool-search, #tool-search:focus { width: 100%; }
-
             .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
             .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
-            
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
             #previewContainer iframe { height: 380px; }
@@ -675,12 +166,7 @@
             <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <div class="brand-title">Student Help Club</div>
         </a>
-        
-        <!-- --- MOBILE TOGGLE BUTTON --- -->
-        <div class="mobile-toggle" id="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </div>
-
+        <div class="mobile-toggle" id="mobile-menu-btn"><i class="fas fa-bars"></i></div>
         <nav class="nav-menu" id="nav-menu">
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
@@ -715,7 +201,6 @@
                     <label for="targetKb">Target Size (Max KB):</label>
                     <input type="number" id="targetKb" value="500">
                 </div>
-
                 <div class="text-input-box" id="fileNameBox">
                     <label for="customFileName">Output File Name:</label>
                     <input type="text" id="customFileName" placeholder="Enter file name (Optional)">
@@ -737,10 +222,10 @@
             </div>
 
             <div id="pdfResultArea" class="result-box">
-                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Successfully Merged!</h3>
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Successfully Processed!</h3>
                 <div id="previewContainer"></div>
                 <p id="finalPdfSize" class="result-size-text"></p>
-                <button id="downloadPdfBtn" class="download-btn">Download Merged PDF</button>
+                <button id="downloadPdfBtn" class="download-btn">Download PDF</button>
             </div>
         </div>
 
@@ -780,7 +265,7 @@
 
             <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
             
-            <!-- NEW AI SEO SECTION ADDED HERE -->
+            <!-- AI SEO SECTION -->
             <h2 style="font-size: 1.5rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
                 <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
             </h2>
@@ -849,26 +334,20 @@
     <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
-            
-            // --- MOBILE MENU LOGIC ---
             const mobileBtn = document.getElementById('mobile-menu-btn');
             if (mobileBtn) {
                 mobileBtn.addEventListener('click', function() {
                     const menu = document.getElementById('nav-menu');
                     const icon = this.querySelector('i');
                     menu.classList.toggle('active');
-                    
                     if(menu.classList.contains('active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
+                        icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
                     } else {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
                     }
                 });
             }
 
-            // --- COOKIE BANNER LOGIC ---
             const cookieBanner = document.getElementById("cookie-consent-banner");
             const acceptBtn = document.getElementById("accept-cookies-btn");
             if (cookieBanner && acceptBtn) {
@@ -881,7 +360,6 @@
                 });
             }
 
-            // --- PDF MERGE AND RESIZE LOGIC ---
             const pdfInput = document.getElementById('pdfInput');
             const pdfDropZone = document.getElementById('pdfDropZone');
             const fileList = document.getElementById('fileList');
@@ -897,25 +375,15 @@
             let selectedFiles = [];
             let globalMergedBlob = null; 
 
-            // File Handling Logic Connections
             if(pdfDropZone) pdfDropZone.addEventListener('click', () => pdfInput.click());
             if(pdfInput) pdfInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
             if (pdfDropZone) {
-                pdfDropZone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    pdfDropZone.classList.add('dragover');
-                });
-                pdfDropZone.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    pdfDropZone.classList.remove('dragover');
-                });
+                pdfDropZone.addEventListener('dragover', (e) => { e.preventDefault(); pdfDropZone.classList.add('dragover'); });
+                pdfDropZone.addEventListener('dragleave', (e) => { e.preventDefault(); pdfDropZone.classList.remove('dragover'); });
                 pdfDropZone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    pdfDropZone.classList.remove('dragover');
-                    if (e.dataTransfer.files) {
-                        handleFiles(e.dataTransfer.files);
-                    }
+                    e.preventDefault(); pdfDropZone.classList.remove('dragover');
+                    if (e.dataTransfer.files) handleFiles(e.dataTransfer.files);
                 });
             }
 
@@ -942,7 +410,6 @@
                 
                 const hasFiles = selectedFiles.length > 0;
                 if(actionButtons) actionButtons.style.display = hasFiles ? 'flex' : 'none';
-                
                 const resizeBox = document.getElementById('resizeOptionBox');
                 if(resizeBox) resizeBox.style.display = hasFiles ? 'block' : 'none';
             }
@@ -955,15 +422,11 @@
                 }
             };
 
-            window.removeFile = (i) => { 
-                selectedFiles.splice(i, 1); 
-                updateUI(); 
-            };
+            window.removeFile = (i) => { selectedFiles.splice(i, 1); updateUI(); };
             
             const resetBtnEl = document.getElementById('resetPdfBtn');
             if(resetBtnEl) resetBtnEl.onclick = () => location.reload();
 
-            // Verification Check Guard Function
             function validateCaptcha() {
                 if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.getResponse === 'function') {
                     const res = grecaptcha.getResponse();
@@ -977,7 +440,6 @@
                 return false;
             }
 
-            // Fast Merge Implementation
             if(fastMergeBtn) {
                 fastMergeBtn.addEventListener('click', async () => {
                     if (selectedFiles.length === 0) return;
@@ -988,10 +450,7 @@
                     
                     setTimeout(async () => {
                         try {
-                            if(typeof PDFLib === 'undefined') {
-                                alert("Core engine parsing, try in a second.");
-                                return;
-                            }
+                            if(typeof PDFLib === 'undefined') { alert("Core engine parsing, try in a second."); return; }
                             const mergedPdf = await PDFLib.PDFDocument.create();
                             for (const f of selectedFiles) {
                                 const pdf = await PDFLib.PDFDocument.load(await f.arrayBuffer());
@@ -1005,15 +464,13 @@
                         } finally {
                             fastMergeBtn.innerHTML = `<i class="fas fa-bolt"></i> Fast Merge (Original Quality)`;
                             fastMergeBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                grecaptcha.reset();
-                            }
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
                         }
                     }, 100);
                 });
             }
 
-            // --- OPTIMIZED MEMORY-SAFE PAGE-BY-PAGE RESIZE ENGINE ---
+            // --- OPTIMIZED SMART RESIZER ENGINE (GUARANTEED EXACT KB & BEST READABILITY) ---
             if(mergeBtn) {
                 mergeBtn.addEventListener('click', async () => {
                     if (selectedFiles.length === 0) return;
@@ -1029,8 +486,7 @@
                         try {
                             const pdfjsLib = window['pdfjs-dist/build/pdf'];
                             if(!pdfjsLib || typeof window.jspdf === 'undefined') {
-                                alert("Libraries initializing, please try again.");
-                                return;
+                                alert("Libraries initializing, please try again."); return;
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
@@ -1044,28 +500,15 @@
                                 pdfDocs.push(pdf);
                             }
 
-                            // Calculate allowed KB per page leaving 10% safety margin for PDF structural overhead
-                            const targetKbPerPage = (targetKb * 0.9) / totalPages;
-
-                            // Dynamic base scale depending on strictness of target size
-                            let scale = 1.2;
-                            let quality = 0.7;
-
-                            if (targetKbPerPage <= 100) { scale = 1.0; quality = 0.6; }
-                            if (targetKbPerPage <= 50)  { scale = 0.9; quality = 0.5; }
-                            if (targetKbPerPage <= 25)  { scale = 0.8; quality = 0.4; }
-
-                            // Warn if mathematically impossible to achieve without making it unreadable
-                            if (targetKbPerPage < 15) {
-                                alert(`Note: Fitting ${totalPages} pages into ${targetKb}KB is extreme (~${targetKbPerPage.toFixed(1)} KB/page). We will compress it to the lowest readable size to protect document quality.`);
-                                scale = 0.8;
-                                quality = 0.4;
-                            }
+                            // Calculate Target Size per Page (reserving 5% for structural PDF metadata)
+                            const targetKbPerPage = (targetKb * 0.95) / totalPages;
 
                             let outPdf = null;
                             let currentPageNum = 1;
 
-                            // Process ONE page at a time directly to jsPDF to prevent browser RAM crashes
+                            // Scale Hierarchy (Priority: Clarity over Compression)
+                            const scalesToTry = [2.0, 1.5, 1.0, 0.7];
+
                             for (const pdf of pdfDocs) {
                                 for (let i = 1; i <= pdf.numPages; i++) {
                                     
@@ -1073,32 +516,62 @@
                                     await new Promise(r => setTimeout(r, 10)); // Force UI Update
 
                                     const page = await pdf.getPage(i);
-                                    const viewport = page.getViewport({scale: scale});
-                                    const canvas = document.createElement('canvas');
-                                    const ctx = canvas.getContext('2d');
-                                    canvas.height = viewport.height; 
-                                    canvas.width = viewport.width;
-                                    
-                                    await page.render({canvasContext: ctx, viewport: viewport}).promise;
+                                    let bestImgData = null;
 
-                                    const imgData = canvas.toDataURL('image/jpeg', quality);
+                                    // Try scales from High HD to Low SD to hit the target KB
+                                    for (let s of scalesToTry) {
+                                        const viewport = page.getViewport({scale: s});
+                                        const canvas = document.createElement('canvas');
+                                        const ctx = canvas.getContext('2d');
+                                        canvas.height = viewport.height; 
+                                        canvas.width = viewport.width;
+                                        await page.render({canvasContext: ctx, viewport: viewport}).promise;
 
-                                    if (!outPdf) {
-                                        outPdf = new window.jspdf.jsPDF({
-                                            orientation: canvas.width > canvas.height ? 'l' : 'p',
-                                            unit: 'px',
-                                            format: [canvas.width, canvas.height],
-                                            compress: true
-                                        });
-                                    } else {
-                                        outPdf.addPage([canvas.width, canvas.height], canvas.width > canvas.height ? 'l' : 'p');
+                                        let minQ = 0.15; // Minimum quality barrier to prevent horrible blur
+                                        let maxQ = 0.95;
+                                        let localBest = null;
+
+                                        // Binary search for perfect JPEG quality
+                                        for (let step = 0; step < 7; step++) {
+                                            let q = (minQ + maxQ) / 2;
+                                            let dataUrl = canvas.toDataURL('image/jpeg', q);
+                                            // Accurate base64 to KB math
+                                            let kb = ((dataUrl.length - 22) * 3 / 4) / 1024;
+                                            
+                                            if (kb <= targetKbPerPage) {
+                                                localBest = { url: dataUrl, w: canvas.width, h: canvas.height };
+                                                minQ = q; // Fits perfectly, push for better quality
+                                            } else {
+                                                maxQ = q; // Too heavy, drop quality
+                                            }
+                                        }
+
+                                        if (localBest) {
+                                            bestImgData = localBest;
+                                            break; // Found the perfect fit, stop trying lower scales!
+                                        }
+                                        
+                                        // If it failed at all qualities for this scale, keep the lowest quality version as an emergency fallback
+                                        if (!bestImgData) {
+                                            bestImgData = { url: canvas.toDataURL('image/jpeg', 0.15), w: canvas.width, h: canvas.height };
+                                        }
+                                        
+                                        canvas.width = 0; canvas.height = 0; // memory flush
                                     }
 
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
-                                    
-                                    // Clear memory to prevent freezing on large books
-                                    canvas.width = 0;
-                                    canvas.height = 0;
+                                    // Append verified Image string to PDF
+                                    if (!outPdf) {
+                                        outPdf = new window.jspdf.jsPDF({ 
+                                            orientation: bestImgData.w > bestImgData.h ? 'l' : 'p', 
+                                            unit: 'px', 
+                                            format: [bestImgData.w, bestImgData.h], 
+                                            compress: true 
+                                        });
+                                    } else {
+                                        outPdf.addPage([bestImgData.w, bestImgData.h], bestImgData.w > bestImgData.h ? 'l' : 'p');
+                                    }
+
+                                    outPdf.addImage(bestImgData.url, 'JPEG', 0, 0, bestImgData.w, bestImgData.h, undefined, 'FAST');
                                     currentPageNum++;
                                 }
                             }
@@ -1116,7 +589,7 @@
 
                         } catch(e) { 
                             console.error(e);
-                            alert("Engine calculation error. Try a higher Target KB or fewer pages."); 
+                            alert("Engine calculation error. File structure might be protected or too complex."); 
                         } finally {
                             mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)`;
                             mergeBtn.disabled = false;
