@@ -19,6 +19,30 @@
 
     <link rel="canonical" href="https://www.shctools.in/pdf-merge.html">
 
+    <!-- GOOGLE SEO JSON-LD SCHEMA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PDF Merge & Smart Resizer",
+      "url": "https://www.shctools.in/pdf-merge.html",
+      "description": "Combine multiple PDF files into a single master document and compress target KB limits effortlessly.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg"
+      }
+    }
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
@@ -107,7 +131,10 @@
         .result-box { display: none; margin-top: 35px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .result-box h3 { color: var(--dark); font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-        #previewContainer iframe { width: 100%; height: 500px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; }
+        
+        #previewContainer { margin-top: 15px; display: flex; flex-direction: column; gap: 15px; align-items: center;}
+        .preview-canvas-wrapper { width: 100%; padding: 10px; background: white; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        
         .result-size-text { font-weight: 800; color: #0056b3; font-size: 1.4rem; margin: 20px 0 15px; }
         .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15); margin-top: 20px; }
         .download-btn:hover { background: #0056b3; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 123, 255, 0.25); }
@@ -155,7 +182,6 @@
             .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
             .tool-card { padding: 25px; }
             .seo-content { padding: 30px 20px; }
-            #previewContainer iframe { height: 380px; }
         }
     </style>
 </head>
@@ -225,7 +251,7 @@
                 <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Successfully Processed!</h3>
                 <div id="previewContainer"></div>
                 <p id="finalPdfSize" class="result-size-text"></p>
-                <button id="downloadPdfBtn" class="download-btn">Download PDF</button>
+                <button id="downloadPdfBtn" class="download-btn">Download Final PDF</button>
             </div>
         </div>
 
@@ -262,10 +288,10 @@
                 <li><strong>Define Target Size Constraints:</strong> For standard high-definition archiving, select <b>Fast Merge</b> options. For form submissions with strict limits, input your desired maximum numeric KB target threshold wrapper value.</li>
                 <li><strong>Solve the Security Badge & Generate:</strong> Trigger the responsive reCAPTCHA checker to finalize structural scripts safely, render multi-page previews right on screen, and secure your consolidated file asset immediately.</li>
             </ul>
+        </article>
 
-            <br><hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;"><br>
-            
-            <!-- AI SEO SECTION -->
+        <!-- AI SEO SECTION -->
+        <div class="seo-content" style="margin-top: 30px;">
             <h2 style="font-size: 1.5rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
                 <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
             </h2>
@@ -306,7 +332,7 @@
             
             <h3>Q3: Is there a maximum limit on the number of PDFs I can compile at once?</h3>
             <p>There are no hardcoded execution restrictions on this responsive utility tool. However, compiling a massive quantity of high-definition records simultaneously can exhaust local client device system cache memory allocations, so we suggest merging documents in sets for clean performance loops.</p>
-        </article>
+        </div>
     </div>
 
     <footer class="footer">
@@ -503,12 +529,21 @@
                             // Calculate Target Size per Page (reserving 5% for structural PDF metadata)
                             const targetKbPerPage = (targetKb * 0.95) / totalPages;
 
+                            // Scale Hierarchy based on Strictness (Guarantees no blurring if space allows)
+                            let scalesToTry = [2.0, 1.5, 1.0, 0.8];
+                            
+                            // If user demands extreme compression, shift the scales lower so it doesn't crash or overflow
+                            if (targetKbPerPage <= 80) scalesToTry = [1.5, 1.0, 0.8, 0.6];
+                            if (targetKbPerPage <= 40) scalesToTry = [1.0, 0.8, 0.6, 0.5];
+                            if (targetKbPerPage <= 20) {
+                                scalesToTry = [0.8, 0.6, 0.4, 0.3];
+                                alert(`⚠️ Warning: You are trying to fit ${totalPages} pages into ${targetKb}KB (~${targetKbPerPage.toFixed(1)} KB/page). Quality will be reduced to meet this target.`);
+                            }
+
                             let outPdf = null;
                             let currentPageNum = 1;
 
-                            // Scale Hierarchy (Priority: Clarity over Compression)
-                            const scalesToTry = [2.0, 1.5, 1.0, 0.7];
-
+                            // Process ONE page at a time directly to jsPDF
                             for (const pdf of pdfDocs) {
                                 for (let i = 1; i <= pdf.numPages; i++) {
                                     
@@ -527,12 +562,11 @@
                                         canvas.width = viewport.width;
                                         await page.render({canvasContext: ctx, viewport: viewport}).promise;
 
-                                        let minQ = 0.15; // Minimum quality barrier to prevent horrible blur
-                                        let maxQ = 0.95;
+                                        let minQ = 0.1, maxQ = 0.95;
                                         let localBest = null;
 
                                         // Binary search for perfect JPEG quality
-                                        for (let step = 0; step < 7; step++) {
+                                        for (let step = 0; step < 5; step++) {
                                             let q = (minQ + maxQ) / 2;
                                             let dataUrl = canvas.toDataURL('image/jpeg', q);
                                             // Accurate base64 to KB math
@@ -540,7 +574,7 @@
                                             
                                             if (kb <= targetKbPerPage) {
                                                 localBest = { url: dataUrl, w: canvas.width, h: canvas.height };
-                                                minQ = q; // Fits perfectly, push for better quality
+                                                minQ = q; // Fits, try pushing quality up
                                             } else {
                                                 maxQ = q; // Too heavy, drop quality
                                             }
@@ -548,15 +582,19 @@
 
                                         if (localBest) {
                                             bestImgData = localBest;
-                                            break; // Found the perfect fit, stop trying lower scales!
-                                        }
-                                        
-                                        // If it failed at all qualities for this scale, keep the lowest quality version as an emergency fallback
-                                        if (!bestImgData) {
-                                            bestImgData = { url: canvas.toDataURL('image/jpeg', 0.15), w: canvas.width, h: canvas.height };
+                                            break; // Found the perfect fit! Stop trying lower, blurrier scales.
                                         }
                                         
                                         canvas.width = 0; canvas.height = 0; // memory flush
+                                    }
+                                    
+                                    // If even the lowest scale couldn't fit the extreme target, force lowest quality
+                                    if (!bestImgData) {
+                                        const fallbackViewport = page.getViewport({scale: scalesToTry[scalesToTry.length - 1]});
+                                        const fCanvas = document.createElement('canvas');
+                                        fCanvas.width = fallbackViewport.width; fCanvas.height = fallbackViewport.height;
+                                        await page.render({canvasContext: fCanvas.getContext('2d'), viewport: fallbackViewport}).promise;
+                                        bestImgData = { url: fCanvas.toDataURL('image/jpeg', 0.1), w: fCanvas.width, h: fCanvas.height };
                                     }
 
                                     // Append verified Image string to PDF
@@ -612,8 +650,8 @@
                         const typedarray = new Uint8Array(this.result);
                         const pdf = await pdfjsLib.getDocument({data: typedarray}).promise;
                         
-                        // Prevent browser crash by limiting preview to max 3 pages
-                        const previewLimit = Math.min(pdf.numPages, 3);
+                        // Prevent browser crash by limiting preview to max 5 pages
+                        const previewLimit = Math.min(pdf.numPages, 5);
 
                         for (let i = 1; i <= previewLimit; i++) {
                             const page = await pdf.getPage(i);
@@ -624,7 +662,12 @@
                             canvas.style.border = "1px solid #ddd";
                             canvas.style.marginBottom = "15px";
                             canvas.style.background = "#fff";
-                            previewContainer.appendChild(canvas);
+                            
+                            const wrapper = document.createElement('div');
+                            wrapper.style.width = "100%";
+                            wrapper.style.position = "relative";
+                            wrapper.appendChild(canvas);
+                            previewContainer.appendChild(wrapper);
 
                             const context = canvas.getContext('2d');
                             const baseViewport = page.getViewport({scale: 1.0});
@@ -639,11 +682,12 @@
                             await page.render({canvasContext: context, viewport: viewport}).promise;
                         }
 
-                        if (pdf.numPages > 3) {
-                            const msg = document.createElement('p');
-                            msg.style = "color: var(--text-muted); font-size: 14px; font-weight: 600; margin-top: 10px;";
-                            msg.innerText = `+ ${pdf.numPages - 3} more pages inside the actual document...`;
-                            previewContainer.appendChild(msg);
+                        // Added explicit Warning to clear user confusion
+                        if (pdf.numPages > previewLimit) {
+                            const msgBox = document.createElement('div');
+                            msgBox.style.cssText = "background: #fff3cd; color: #856404; padding: 16px; border-radius: 12px; border: 1px solid #ffeeba; text-align: center; margin-top: 10px; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0,0.05);";
+                            msgBox.innerHTML = `<h4 style="margin:0 0 8px 0; font-size:1.1rem; color:#d9534f;"><i class="fas fa-exclamation-triangle"></i> Preview Limited to ${previewLimit} Pages</h4><p style="margin:0; font-size:0.95rem;">Don't worry! All <b>${pdf.numPages} pages</b> have been successfully merged and resized inside the file. Click the <b>Download</b> button below to get your complete PDF.</p>`;
+                            previewContainer.appendChild(msgBox);
                         }
                     };
                     reader.readAsArrayBuffer(blob);
