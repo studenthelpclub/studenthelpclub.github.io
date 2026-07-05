@@ -1013,7 +1013,7 @@
                 });
             }
 
-            // Merge & Resize Precision Logic Engine
+            // --- OPTIMIZED MEMORY-SAFE PAGE-BY-PAGE RESIZE ENGINE ---
             if(mergeBtn) {
                 mergeBtn.addEventListener('click', async () => {
                     if (selectedFiles.length === 0) return;
@@ -1022,121 +1022,115 @@
                     const targetKb = parseFloat(targetKbInput.value);
                     if (!targetKb) return alert("Please enter Target KB");
 
-                    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+                    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Initializing Engine...`;
                     mergeBtn.disabled = true;
                     
                     setTimeout(async () => {
                         try {
                             const pdfjsLib = window['pdfjs-dist/build/pdf'];
                             if(!pdfjsLib || typeof window.jspdf === 'undefined') {
-                                alert("Libraries initializing, please try again in a second.");
+                                alert("Libraries initializing, please try again.");
                                 return;
                             }
                             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-                            // Determine dynamic scale based on the target KB limit to ensure size reduction works
-                            let initialScale = 1.0;
-                            if(targetKb <= 200) initialScale = 0.6;
-                            else if(targetKb <= 500) initialScale = 0.8;
-                            else if(targetKb <= 1000) initialScale = 1.0;
-                            else initialScale = 1.5;
+                            let totalPages = 0;
+                            let pdfDocs = [];
 
-                            const getCanvases = async (scaleMultiplier) => {
-                                let canvases = [];
-                                for (const f of selectedFiles) {
-                                    const pdf = await pdfjsLib.getDocument({data: await f.arrayBuffer()}).promise;
-                                    for (let i = 1; i <= pdf.numPages; i++) {
-                                        const page = await pdf.getPage(i);
-                                        const viewport = page.getViewport({scale: scaleMultiplier});
-                                        const canvas = document.createElement('canvas');
-                                        const ctx = canvas.getContext('2d');
-                                        canvas.height = viewport.height; 
-                                        canvas.width = viewport.width;
-                                        await page.render({canvasContext: ctx, viewport: viewport}).promise;
-                                        canvases.push(canvas);
-                                    }
-                                }
-                                return canvases;
-                            };
-
-                            let currentScale = initialScale;
-                            let pagesCanvas = await getCanvases(currentScale);
-                            
-                            let minQ = 0.1, maxQ = 0.9, bestBlob = null, bestSize = 0;
-
-                            for (let i = 0; i < 15; i++) {
-                                let q = (minQ + maxQ) / 2;
-                                
-                                const outPdf = new window.jspdf.jsPDF({ 
-                                    orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p', 
-                                    unit: 'px', 
-                                    format: [pagesCanvas[0].width, pagesCanvas[0].height], 
-                                    compress: true 
-                                });
-
-                                pagesCanvas.forEach((c, idx) => {
-                                    if (idx > 0) {
-                                        outPdf.addPage([c.width, c.height], c.width > c.height ? 'l' : 'p');
-                                    }
-                                    const imgData = c.toDataURL('image/jpeg', q);
-                                    outPdf.addImage(imgData, 'JPEG', 0, 0, c.width, c.height, undefined, 'FAST');
-                                });
-                                
-                                const tempBlob = outPdf.output('blob');
-                                const currentSizeKb = tempBlob.size / 1024;
-
-                                if (currentSizeKb <= targetKb) {
-                                    bestSize = currentSizeKb;
-                                    bestBlob = tempBlob;
-                                    minQ = q; // Can afford higher quality
-                                } else {
-                                    maxQ = q; // Need lower quality
-                                }
-                                
-                                // Break early if size is within 5% of target
-                                if (currentSizeKb <= targetKb && (targetKb - currentSizeKb) <= (targetKb * 0.05)) break;
-                            }
-                            
-                            // Extreme reduction if file is still too big
-                            if (!bestBlob) {
-                                currentScale = 0.4;
-                                pagesCanvas = await getCanvases(currentScale);
-                                
-                                const finalOutPdf = new window.jspdf.jsPDF({ 
-                                    orientation: pagesCanvas[0].width > pagesCanvas[0].height ? 'l' : 'p', 
-                                    unit: 'px', 
-                                    format: [pagesCanvas[0].width, pagesCanvas[0].height], 
-                                    compress: true 
-                                });
-
-                                pagesCanvas.forEach((c, idx) => {
-                                    if (idx > 0) finalOutPdf.addPage([c.width, c.height], c.width > c.height ? 'l' : 'p');
-                                    finalOutPdf.addImage(c.toDataURL('image/jpeg', 0.3), 'JPEG', 0, 0, c.width, c.height, undefined, 'FAST');
-                                });
-                                bestBlob = finalOutPdf.output('blob');
+                            for (const f of selectedFiles) {
+                                const arrayBuffer = await f.arrayBuffer();
+                                const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+                                totalPages += pdf.numPages;
+                                pdfDocs.push(pdf);
                             }
 
-                            if (bestBlob) {
-                                showResult(bestBlob);
+                            // Calculate allowed KB per page leaving 10% safety margin for PDF structural overhead
+                            const targetKbPerPage = (targetKb * 0.9) / totalPages;
+
+                            // Dynamic base scale depending on strictness of target size
+                            let scale = 1.5;
+                            if(targetKbPerPage <= 50) scale = 1.0;
+                            if(targetKbPerPage <= 25) scale = 0.7;
+                            if(targetKbPerPage <= 10) scale = 0.5;
+
+                            let outPdf = null;
+                            let currentPageNum = 1;
+
+                            // Process ONE page at a time directly to jsPDF to prevent browser RAM crashes
+                            for (const pdf of pdfDocs) {
+                                for (let i = 1; i <= pdf.numPages; i++) {
+                                    
+                                    mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Page ${currentPageNum} of ${totalPages}...`;
+                                    await new Promise(r => setTimeout(r, 10)); // Force UI Update
+
+                                    const page = await pdf.getPage(i);
+                                    const viewport = page.getViewport({scale: scale});
+                                    const canvas = document.createElement('canvas');
+                                    const ctx = canvas.getContext('2d');
+                                    canvas.height = viewport.height; 
+                                    canvas.width = viewport.width;
+                                    
+                                    await page.render({canvasContext: ctx, viewport: viewport}).promise;
+
+                                    let minQ = 0.05, maxQ = 0.9, bestDataUrl = null;
+                                    
+                                    for (let step = 0; step < 6; step++) {
+                                        let q = (minQ + maxQ) / 2;
+                                        let dataUrl = canvas.toDataURL('image/jpeg', q);
+                                        let kb = (dataUrl.length * 0.75) / 1024; // Approx base64 to KB conversion
+                                        
+                                        if (kb <= targetKbPerPage) {
+                                            bestDataUrl = dataUrl;
+                                            minQ = q; 
+                                        } else {
+                                            maxQ = q; 
+                                        }
+                                    }
+
+                                    if (!bestDataUrl) bestDataUrl = canvas.toDataURL('image/jpeg', 0.05);
+
+                                    if (!outPdf) {
+                                        outPdf = new window.jspdf.jsPDF({ 
+                                            orientation: canvas.width > canvas.height ? 'l' : 'p', 
+                                            unit: 'px', 
+                                            format: [canvas.width, canvas.height], 
+                                            compress: true 
+                                        });
+                                    } else {
+                                        outPdf.addPage([canvas.width, canvas.height], canvas.width > canvas.height ? 'l' : 'p');
+                                    }
+
+                                    outPdf.addImage(bestDataUrl, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
+                                    
+                                    canvas.width = 0;
+                                    canvas.height = 0;
+                                    currentPageNum++;
+                                }
+                            }
+
+                            mergeBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Finalizing PDF...`;
+                            await new Promise(r => setTimeout(r, 50));
+
+                            const finalBlob = outPdf.output('blob');
+
+                            if (finalBlob) {
+                                showResult(finalBlob);
                             } else {
-                                alert("File is too heavy to compress to this KB. Try a higher limit.");
+                                alert("Error generating document.");
                             }
 
                         } catch(e) { 
                             console.error(e);
-                            alert("Engine calculation error. File might be too large."); 
+                            alert("Engine calculation error. Try a higher Target KB or fewer pages."); 
                         } finally {
                             mergeBtn.innerHTML = `<i class="fas fa-compress-arrows-alt"></i> Merge & Resize (Target KB)`;
                             mergeBtn.disabled = false;
-                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                                grecaptcha.reset();
-                            }
+                            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') grecaptcha.reset();
                         }
                     }, 100);
                 });
             }
 
-            // Multi-Page Preview Engine Execution Block
             async function showResult(blob) {
                 globalMergedBlob = blob;
                 if(!previewContainer) return;
@@ -1150,7 +1144,10 @@
                         const typedarray = new Uint8Array(this.result);
                         const pdf = await pdfjsLib.getDocument({data: typedarray}).promise;
                         
-                        for (let i = 1; i <= pdf.numPages; i++) {
+                        // Prevent browser crash by limiting preview to max 3 pages
+                        const previewLimit = Math.min(pdf.numPages, 3);
+
+                        for (let i = 1; i <= previewLimit; i++) {
                             const page = await pdf.getPage(i);
                             
                             const canvas = document.createElement('canvas');
@@ -1173,6 +1170,13 @@
 
                             await page.render({canvasContext: context, viewport: viewport}).promise;
                         }
+
+                        if (pdf.numPages > 3) {
+                            const msg = document.createElement('p');
+                            msg.style = "color: var(--text-muted); font-size: 14px; font-weight: 600; margin-top: 10px;";
+                            msg.innerText = `+ ${pdf.numPages - 3} more pages inside the actual document...`;
+                            previewContainer.appendChild(msg);
+                        }
                     };
                     reader.readAsArrayBuffer(blob);
                 } catch (e) {
@@ -1186,7 +1190,6 @@
                 }
             }
 
-            // Download Trigger Pipeline
             if(downloadPdfBtn) {
                 downloadPdfBtn.onclick = (e) => {
                     e.preventDefault();
