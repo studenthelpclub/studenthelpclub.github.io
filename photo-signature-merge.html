@@ -15,8 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo & Signature Merger Tool - Student Help Club</title>
     
-    <meta name="description" content="Merge passport photo and signature instantly with background removal. Supports JPG, PNG, and HEIC. Compress images down to specific target KB parameters.">
-    <meta name="keywords" content="photo signature merger, remove signature background, reduce image kb, passport photo crop, student help club image tool, resize image to 50kb, heic to jpg">
+    <meta name="description" content="Merge passport photo and signature instantly with background removal. Supports JPG, PNG, HEIC, and HEIF. Compress images down to specific target KB parameters.">
+    <meta name="keywords" content="photo signature merger, remove signature background, reduce image kb, passport photo crop, student help club image tool, resize image to 50kb, heic to jpg, heif to jpg">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://www.shctools.in/photo-signature-merge.html">
@@ -61,7 +61,7 @@
 
     <!-- External Libraries -->
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
-    <!-- HEIC to JPG Library added -->
+    <!-- HEIC/HEIF to JPG Library -->
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
     
     <!-- FULLY EXPANDED CSS -->
@@ -194,16 +194,18 @@
 
         <div class="tool-card">
             <h1>Photo & Signature Merger</h1>
-            <p class="subtitle">Merge passport photo and signature instantly with transparent background removal. Supports JPG, PNG, & HEIC.</p>
+            <p class="subtitle">Merge passport photo and signature instantly with transparent background removal. Supports JPG, PNG, HEIC & HEIF.</p>
             
             <div class="input-row">
                 <div class="input-group">
                     <label for="photoUpload"><i class="fas fa-user"></i> 1. Select Photo</label>
-                    <input type="file" id="photoUpload" accept="image/*, .heic">
+                    <!-- HEIF Format Add kar diya gaya hai -->
+                    <input type="file" id="photoUpload" accept="image/*, .heic, .heif">
                 </div>
                 <div class="input-group">
                     <label for="sigUpload"><i class="fas fa-pen-nib"></i> 2. Select Signature</label>
-                    <input type="file" id="sigUpload" accept="image/*, .heic">
+                    <!-- HEIF Format Add kar diya gaya hai -->
+                    <input type="file" id="sigUpload" accept="image/*, .heic, .heif">
                 </div>
             </div>
 
@@ -257,7 +259,7 @@
             
             <h3>Step-by-Step Document Modification Guide</h3>
             <ul>
-                <li><strong>1. Upload Photo:</strong> Select your standard passport size photograph. Supports JPG, PNG, and iPhone HEIC files.</li>
+                <li><strong>1. Upload Photo:</strong> Select your standard passport size photograph. Supports JPG, PNG, and iPhone HEIC/HEIF files.</li>
                 <li><strong>2. Upload Signature:</strong> Select a photo of your signature (preferably signed on blank white paper). Our AI-level script will instantly remove the white background and enhance the ink.</li>
                 <li><strong>3. Set Target Size:</strong> Enter your required maximum file size in the KB field. The default is set to 50 KB, perfect for most forms.</li>
                 <li><strong>4. Merge & Download:</strong> Click the process button. The tool will place your transparent signature cleanly at the bottom of your photo, compress it to your exact KB, and make it ready for instant download.</li>
@@ -331,14 +333,14 @@
             const finalImageSize = document.getElementById('finalImageSize');
             let finalDataUrl = '';
 
-            // Helper function for HEIC conversion and fast URL object creation
+            // Helper function for HEIC/HEIF conversion and fast URL object creation
             async function getProcessableImageUrl(file) {
                 const fileName = file.name.toLowerCase();
                 
-                // Check if file is HEIC
-                if (fileName.endsWith(".heic") || file.type === "image/heic" || file.type === "") {
+                // Check if file is HEIC or HEIF
+                if (fileName.endsWith(".heic") || fileName.endsWith(".heif") || file.type === "image/heic" || file.type === "image/heif" || file.type === "") {
                     if (typeof heic2any === 'undefined') {
-                        throw new Error("HEIC converter library is still loading. Please try again in a few seconds.");
+                        throw new Error("HEIC/HEIF converter library is still loading. Please try again in a few seconds.");
                     }
                     
                     const convertedResult = await heic2any({ 
@@ -398,13 +400,13 @@
                     }
                     if(!fileName) fileName = "SHC_Merged_Photo";
 
-                    // UI Loading State (Helps users wait if they upload a HEIC file)
+                    // UI Loading State (Helps users wait if they upload a HEIC/HEIF file)
                     processBtn.disabled = true;
-                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Image (HEIC takes a moment)...`;
+                    processBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing Image (Apple formats take a moment)...`;
                     resultArea.style.display = 'none';
 
                     try {
-                        // Process the files to handle HEIC safely and get Blob URLs
+                        // Process the files to handle HEIC/HEIF safely and get Blob URLs
                         const photoUrl = await getProcessableImageUrl(photoFile);
                         const sigUrl = await getProcessableImageUrl(sigFile);
 
