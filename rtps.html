@@ -65,7 +65,7 @@
         .table-header-bar h2 { margin: 0; font-size: 16px; color: #1f2937; font-weight: 600; }
         
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
         th, td { padding: 15px 20px; text-align: left; }
         th { background-color: #ffffff; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; border-bottom: 2px solid #f3f4f6; }
         td { border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
@@ -95,6 +95,9 @@
         .btn-red { background: #ef4444; } 
         .btn-indigo { background: #4f46e5; }
         
+        /* New Forms Filled Box Style */
+        .forms-count-box { background: #eff6ff; color: #2563eb; padding: 8px 12px; border-radius: 8px; text-align: center; font-weight: 700; border: 1px solid #bfdbfe; font-size: 15px; min-width: 60px; display: inline-block; }
+
         .loader-row td { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
         .loader-row i { font-size: 24px; margin-bottom: 10px; color: #3b82f6; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -132,7 +135,7 @@
         </div>
     </div>
 
-    <!-- Main Content (No Sidebar) -->
+    <!-- Main Content -->
     <div class="main-content">
         <!-- Modern Top Header -->
         <div class="top-header">
@@ -176,6 +179,7 @@
                         <thead>
                             <tr>
                                 <th>Customer Profile</th>
+                                <th>Forms Filled</th> <!-- 🌟 New Column -->
                                 <th>License Status</th>
                                 <th>Max Device Limit</th>
                                 <th>Devices Used</th>
@@ -183,7 +187,7 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr class="loader-row"><td colspan="5"><i class="fas fa-spinner"></i><br>Fetching Secure Data...</td></tr>
+                            <tr class="loader-row"><td colspan="6"><i class="fas fa-spinner"></i><br>Fetching Secure Data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -201,14 +205,13 @@
     const db = firebase.firestore();
     const auth = firebase.auth();
     
-    // 🌟 MASTER ADMIN UID (Updated to your actual UID)
+    // 🌟 MASTER ADMIN UID
     const MASTER_ADMIN_UID = "h4htTChrzpepbAJQACNh0QyUunV2";
 
     // --- AUTHENTICATION STATE LISTENER ---
     auth.onAuthStateChanged((user) => {
         const overlay = document.getElementById('loginOverlay');
         if (user) {
-            // Check if the logged-in user is the REAL admin
             if (user.uid === MASTER_ADMIN_UID) {
                 overlay.style.display = 'none';
                 loadDashboardData(); 
@@ -266,7 +269,7 @@
             let total = 0, active = 0, pending = 0;
             
             if(snap.empty) {
-                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; padding:40px; color:#6b7280;'>No customers found in database!</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding:40px; color:#6b7280;'>No customers found in database!</td></tr>";
                 return;
             }
 
@@ -303,6 +306,12 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        <!-- 🌟 Live Form Count Placeholder -->
+                        <div class="forms-count-box" id="formCount_${id}">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </td>
                     <td>${statusBadge}</td>
                     <td>
                         <div class="limit-box">
@@ -329,6 +338,21 @@
             document.getElementById("totalUsers").innerText = total;
             document.getElementById("activeUsers").innerText = active;
             document.getElementById("pendingUsers").innerText = pending;
+
+            // 🌟 FETCH TOTAL FORMS FILLED FOR EACH USER
+            snap.forEach((doc) => {
+                let id = doc.id;
+                db.collection("users").doc(id).collection("submissions").get().then((subSnap) => {
+                    let countElement = document.getElementById(`formCount_${id}`);
+                    if(countElement) {
+                        countElement.innerHTML = `<i class="fas fa-file-alt" style="font-size: 12px; margin-right: 4px;"></i> ${subSnap.size}`;
+                    }
+                }).catch((err) => {
+                    let countElement = document.getElementById(`formCount_${id}`);
+                    if(countElement) countElement.innerText = "0";
+                    console.error("Error fetching form count for user:", id, err);
+                });
+            });
         });
     }
 
