@@ -61,8 +61,14 @@
 
         /* Premium Responsive Table */
         .table-wrapper { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; border: 1px solid #f3f4f6; }
-        .table-header-bar { padding: 18px 20px; border-bottom: 1px solid #f3f4f6; background: #fafafa; }
+        
+        /* 🌟 NEW SEARCH BAR HEADER CSS */
+        .table-header-bar { padding: 15px 20px; border-bottom: 1px solid #f3f4f6; background: #fafafa; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .table-header-bar h2 { margin: 0; font-size: 16px; color: #1f2937; font-weight: 600; }
+        .search-box { position: relative; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 14px; }
+        .search-box input { padding: 9px 15px 9px 35px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; outline: none; width: 260px; transition: 0.3s; background: #fff; font-weight: 500; }
+        .search-box input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         table { width: 100%; border-collapse: collapse; min-width: 900px; }
@@ -109,6 +115,7 @@
             .header-actions { width: 100%; justify-content: space-between; margin-top: 10px; }
             .header-actions .btn { flex: 1; justify-content: center; }
             .dashboard-container { padding: 15px; }
+            .search-box input { width: 100%; }
         }
     </style>
 </head>
@@ -171,15 +178,21 @@
 
             <!-- Table -->
             <div class="table-wrapper">
+                <!-- 🌟 UPDATED HEADER WITH SEARCH BAR -->
                 <div class="table-header-bar">
                     <h2>Recent Registrations & Licenses</h2>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search Name, Phone or Shop...">
+                    </div>
                 </div>
+                
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
                                 <th>Customer Profile</th>
-                                <th>Forms Filled</th> <!-- 🌟 New Column -->
+                                <th>Forms Filled</th>
                                 <th>License Status</th>
                                 <th>Max Device Limit</th>
                                 <th>Devices Used</th>
@@ -385,6 +398,25 @@
         if(confirm("FINAL WARNING: Permanently delete this customer account? All data will be lost.")) {
             db.collection("users").doc(id).delete();
         }
+    };
+
+    // --- 🌟 NEW LIVE SEARCH FILTER FUNCTION ---
+    window.filterTable = function() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            // Loader ya "No customers" wali line ko hide mat karna
+            if (row.classList.contains("loader-row") || row.innerText.includes("No customers found")) return;
+            
+            // Row ka saara data uthao aur search box ki value se milaao
+            let textContent = row.innerText.toLowerCase();
+            if (textContent.includes(input)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
     };
 </script>
 </body>
