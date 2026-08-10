@@ -306,6 +306,9 @@
                 let linkedDevicesCount = (u.registeredDevices && u.registeredDevices.length) ? u.registeredDevices.length : 0;
                 let usageColor = linkedDevicesCount >= maxPCs ? '#ef4444' : '#10b981';
                 let avatarLetter = u.name ? u.name.charAt(0).toUpperCase() : "U";
+                
+                // 🌟 NAYA CODE: Direct totalForms read (Quota Saver)
+                let formsCount = u.totalForms ? u.totalForms : 0;
 
                 html += `
                 <tr>
@@ -320,9 +323,9 @@
                         </div>
                     </td>
                     <td>
-                        <!-- 🌟 Live Form Count Placeholder -->
-                        <div class="forms-count-box" id="formCount_${id}">
-                            <i class="fas fa-spinner fa-spin"></i>
+                        <!-- 🌟 Direct Forms Count -->
+                        <div class="forms-count-box">
+                            <i class="fas fa-file-alt" style="font-size: 12px; margin-right: 4px;"></i> ${formsCount}
                         </div>
                     </td>
                     <td>${statusBadge}</td>
@@ -351,21 +354,8 @@
             document.getElementById("totalUsers").innerText = total;
             document.getElementById("activeUsers").innerText = active;
             document.getElementById("pendingUsers").innerText = pending;
-
-            // 🌟 FETCH TOTAL FORMS FILLED FOR EACH USER
-            snap.forEach((doc) => {
-                let id = doc.id;
-                db.collection("users").doc(id).collection("submissions").get().then((subSnap) => {
-                    let countElement = document.getElementById(`formCount_${id}`);
-                    if(countElement) {
-                        countElement.innerHTML = `<i class="fas fa-file-alt" style="font-size: 12px; margin-right: 4px;"></i> ${subSnap.size}`;
-                    }
-                }).catch((err) => {
-                    let countElement = document.getElementById(`formCount_${id}`);
-                    if(countElement) countElement.innerText = "0";
-                    console.error("Error fetching form count for user:", id, err);
-                });
-            });
+            
+            // ❌ Yahan se bhari-bharkam "snap.forEach" wali loop hata di gayi hai! (Performance Boost)
         });
     }
 
