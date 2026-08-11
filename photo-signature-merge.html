@@ -12,12 +12,49 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRO Photo & Aadhaar Tool - Student Help Club</title>
+    <title>RTPS Photo Signature & Aadhaar Merge PRO - Student Help Club</title>
     
-    <meta name="description" content="Merge passport photo and signature instantly, or professionally crop and merge Aadhaar card front and back sides offline with Center-Out Magic Detect.">
+    <meta name="description" content="Merge passport photo and signature instantly, or professionally crop, enhance, and merge Aadhaar card front and back sides offline. Specifically designed for RTPS Bihar & CSC VLEs.">
+    <meta name="keywords" content="RTPS photo signature merger, Jati Niwas Aay photo maker, Aadhaar card merge tool, RTPS Bihar 50kb photo, resize photo for caste certificate, student help club, merge aadhaar front back">
     <meta name="robots" content="index, follow">
 
+    <link rel="canonical" href="https://www.shctools.in/photo-signature-merge.html">
+
+    <!-- GOOGLE SEO JSON-LD SCHEMA FOR WEB APPLICATION -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SHC RTPS Photo Signature & Aadhaar Merger",
+      "url": "https://www.shctools.in/photo-signature-merge.html",
+      "description": "Create 50KB Photo with Signature and merge Aadhaar Card offline for RTPS Bihar Jati, Niwas, Aay Praman Patra applications.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Student Help Club",
+        "url": "https://www.shctools.in/",
+        "logo": "https://www.shctools.in/shc-logo.jpg",
+        "sameAs": [
+          "https://www.youtube.com/@vishalhelpclub",
+          "https://t.me/studenthelpclub",
+          "https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f"
+        ]
+      }
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3110600191216941" crossorigin="anonymous"></script>
+    
     <link rel="icon" type="image/jpg" href="shc-logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -27,6 +64,7 @@
     <!-- HEIC/HEIF to JPG Library -->
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
     
+    <!-- FULLY EXPANDED CSS -->
     <style>
         :root {
             --primary: #00b14f; 
@@ -40,31 +78,48 @@
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+        body { background: var(--bg-body); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         
-        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        /* Unified Premium Header */
+        .header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 6%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
         .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; }
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
-        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; }
+        .logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); }
+        .brand .brand-title { font-size: 1.35rem; color: var(--dark); font-weight: 800; letter-spacing: -0.5px; }
 
+        .mobile-toggle { display: none; font-size: 1.6rem; color: var(--dark); cursor: pointer; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; transition: var(--transition); }
+        
+        .search-container { position: relative; display: flex; align-items: center; margin-right: 15px; }
+        #tool-search { padding: 8px 15px 8px 35px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.9rem; outline: none; transition: var(--transition); width: 220px; background: var(--bg-body); color: var(--text-main); cursor: pointer; }
+        #tool-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.1); width: 250px; }
+        .search-icon { position: absolute; left: 12px; color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
+
+        .nav-link { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
+        .nav-link:hover { color: var(--primary); }
+        .btn-join { background: var(--primary); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: var(--transition); box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 177, 79, 0.3); background: var(--primary-hover); }
+
+        /* Workspace Layout */
         .workspace-container { max-width: 950px; margin: 30px auto 60px; padding: 0 20px; }
-        .tool-card { background: #ffffff; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
-        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; text-align: center; }
-        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; text-align: center; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; transition: var(--transition); }
+        .back-link:hover { color: var(--primary); transform: translateX(-3px); }
 
+        .tool-card { background: #ffffff; padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); }
+        .tool-card h1 { font-size: 1.8rem; color: var(--dark); font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
+        .tool-card .subtitle { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; margin-bottom: 30px; text-align: center; }
+
+        /* Tool Specific Styles */
         .mode-switch { display: flex; background: #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 30px; border: 1px solid var(--border-color); }
         .mode-switch input[type="radio"] { display: none; }
         .mode-switch label { flex: 1; text-align: center; padding: 14px; font-weight: 700; cursor: pointer; color: var(--text-muted); transition: var(--transition); font-size: 1rem; }
         .mode-switch input[type="radio"]:checked + label { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(0, 177, 79, 0.2); }
 
-        .input-group { margin-bottom: 20px; width: 100%; }
-        .input-group label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px; font-size: 0.95rem; }
-        input[type="file"], input[type="text"], input[type="number"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 1rem; background-color: #fafafa; outline: none; }
-        input:focus { border-color: var(--primary); background-color: #ffffff; }
+        .input-group { margin-bottom: 20px; width: 100%; text-align: left; }
+        .input-group label { display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px; font-size: 0.92rem; }
+        input[type="file"], input[type="text"], input[type="number"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 1rem; background-color: #fafafa; outline: none; transition: var(--transition); }
+        input:focus { border-color: var(--primary); background-color: #ffffff; box-shadow: 0 0 0 4px rgba(0, 177, 79, 0.1); }
 
-        .flex-group { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); padding: 14px; border-radius: 10px; background: #fafafa; margin-bottom: 20px;}
+        .flex-group { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; background: #fafafa; margin-bottom: 20px;}
 
         /* PRO Aadhaar Cropper Styling */
         .aadhaar-box { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 25px; }
@@ -81,21 +136,73 @@
         .slider-group span { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
         input[type="range"] { flex: 1; accent-color: var(--primary); }
 
-        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); }
-        .main-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        /* Document Enhancer Panel */
+        .enhancer-panel { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 15px; margin-bottom: 20px; }
+        .enhancer-panel h4 { font-size: 1rem; color: #d97706; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .enhancer-controls { display: flex; gap: 20px; flex-wrap: wrap; }
+        .enhancer-controls > div { flex: 1; min-width: 150px; }
+        
+        .toggle-switch { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; font-size: 0.95rem; color: var(--dark); margin-top: 10px;}
+        .toggle-switch input { display: none; }
+        .toggle-slider { width: 44px; height: 24px; background-color: #cbd5e1; border-radius: 34px; position: relative; transition: 0.3s; }
+        .toggle-slider::before { content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%; background-color: white; top: 3px; left: 3px; transition: 0.3s; }
+        .toggle-switch input:checked + .toggle-slider { background-color: var(--primary); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
 
-        .result-box { display: none; margin-top: 30px; padding: 30px; background: #f0fdf4; border-radius: 16px; border: 1px solid #bbf7d0; text-align: center; animation: fadeIn 0.4s ease; }
+        .main-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px rgba(0, 177, 79, 0.15); margin-bottom: 15px; }
+        .main-btn:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 177, 79, 0.25); }
+        .main-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .result-box { display: none; margin-top: 30px; padding: 30px; background: #f0fdf4; border-radius: 20px; border: 1px solid rgba(0, 177, 79, 0.2); text-align: center; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #finalPreview { max-width: 100%; max-height: 500px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; border: 1px solid #ccc; }
-        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
-        .download-btn:hover { background: #0056b3; }
+        #finalPreview { max-width: 100%; max-height: 500px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 15px; border: 1px solid #ccc; }
+        .result-main { font-size: 1.5rem; font-weight: 800; color: #0056b3; margin-bottom: 15px; }
+        .download-btn { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .download-btn:hover { background: #0056b3; transform: translateY(-1px); }
 
         canvas { display: none; }
 
+        /* Informative SEO Section */
+        .seo-content { background: #ffffff; padding: 45px; margin-top: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .seo-content h3 { color: var(--dark); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .seo-content h3:not(:first-child) { margin-top: 30px; }
+        .seo-content p { font-size: 0.98rem; color: var(--text-main); margin-bottom: 16px; font-weight: 500; text-align: justify; }
+        .seo-content ul { margin-left: 20px; color: var(--text-main); }
+        .seo-content ul li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
+
+        .feature-box-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 25px; }
+        .feature-item { background: #f0fdf4; border: 1px solid rgba(0, 177, 79, 0.15); padding: 24px; border-radius: 16px; transition: var(--transition); }
+        .feature-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 177, 79, 0.08); }
+        .feature-item h4 { color: var(--dark); font-weight: 800; margin-bottom: 8px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; margin-top: 0; }
+        .feature-item h4 i { color: var(--primary); }
+        .feature-item p { margin-bottom: 0; font-size: 0.95rem; color: var(--text-main); line-height: 1.6; }
+
+        .footer { background: #ffffff; padding: 60px 20px 40px; text-align: center; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { font-size: 24px; margin: 0 16px; transition: var(--transition); display: inline-block; color: var(--text-muted); }
+        .social-links a.yt:hover { color: #ff0000; transform: translateY(-3px); }
+        .social-links a.tg:hover { color: #0088cc; transform: translateY(-3px); }
+        .social-links a.wa:hover { color: #25d366; transform: translateY(-3px); }
+        .policy-links { margin-top: 25px; font-size: 0.92rem; }
+        .policy-links a { color: var(--text-muted); margin: 0 14px; text-decoration: none; font-weight: 600; transition: var(--transition); }
+        .policy-links a:hover { color: var(--primary); }
+
+        .cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--dark); color: #ffffff; padding: 15px 20px; text-align: center; z-index: 9999; display: none; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); }
+        .cookie-banner p { margin: 0; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .cookie-banner button { background-color: var(--primary); color: #ffffff; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: var(--transition); }
+        .cookie-banner button:hover { background-color: var(--primary-hover); }
+
         @media (max-width: 768px) {
-            .header { padding: 12px 4%; }
-            .nav-menu { display: none; }
-            .tool-card { padding: 20px; }
+            .header { padding: 16px 4%; }
+            .mobile-toggle { display: block; }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #ffffff; padding: 25px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); align-items: flex-start; z-index: 999; }
+            .nav-menu.active { display: flex; }
+            .search-container { width: 100%; margin-right: 0; margin-bottom: 20px; }
+            #tool-search, #tool-search:focus { width: 100%; }
+            .nav-link { margin-bottom: 15px; font-size: 1.1rem; width: 100%; }
+            .btn-join { text-align: center; width: 100%; padding: 12px; margin-top: 10px; }
+            .tool-card { padding: 25px; }
+            .seo-content { padding: 30px 20px; }
             .cropper-container-box { height: 280px; }
         }
     </style>
@@ -104,18 +211,29 @@
 
     <header class="header">
         <a href="index.html" class="brand">
-            <img src="shc-logo.jpg" alt="Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+            <img src="shc-logo.jpg" alt="Student Help Club Logo" class="logo" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
             <div class="brand-title">Student Help Club</div>
         </a>
-        <nav class="nav-menu">
+        <div class="mobile-toggle" id="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <nav class="nav-menu" id="nav-menu">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" onclick="window.location.href='index.html#tools-section'">
+            </div>
+            <a href="index.html" class="nav-link">All Tools</a>
+            <a href="blog.html" class="nav-link">Blog & Guides</a>
+            <a href="about_us.html" class="nav-link">About Us</a>
             <a href="https://t.me/studenthelpclub" target="_blank" class="btn-join">Join Telegram</a>
         </nav>
     </header>
 
     <div class="workspace-container">
+        
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
         <div class="tool-card">
-            <h1>Auto Format PRO Tools</h1>
-            <p class="subtitle">Select mode to process Photo + Signature OR Aadhaar Front + Back.</p>
+            <h1>RTPS Auto Format PRO Tool</h1>
+            <p class="subtitle">Merge Photo & Signature or Auto-Crop Aadhaar specifically for Jati, Niwas, Aay forms.</p>
             
             <div class="mode-switch">
                 <input type="radio" id="modePhotoSig" name="toolMode" value="photosig" checked>
@@ -139,19 +257,19 @@
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-file-alt"></i> 3. File Name (Optional)</label>
-                    <input type="text" id="fileNamePhoto" placeholder="e.g. Vishal_Form_Photo">
+                    <input type="text" id="fileNamePhoto" placeholder="e.g. RTPS_Jati_Photo">
                 </div>
                 <div class="flex-group">
                     <label style="margin-bottom: 0; font-weight: 700; color: var(--dark);">Target Size (Max KB):</label>
-                    <input type="number" id="targetKbPhoto" value="50" style="width: 100px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: #007bff;">
+                    <input type="number" id="targetKbPhoto" value="50" style="width: 100px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: #007bff; background: #fff;">
                 </div>
-                <button id="processPhotoBtn" class="main-btn"><i class="fas fa-magic"></i> Merge Photo & Signature</button>
+                <button id="processPhotoBtn" class="main-btn"><i class="fas fa-magic"></i> Merge Photo & Signature (50KB)</button>
             </div>
 
             <!-- ===================== PRO AADHAAR MODE ===================== -->
             <div id="aadhaarModeUI" style="display: none;">
                 <p style="color: #0ea5e9; font-weight: 600; text-align: center; margin-bottom: 20px; font-size: 0.95rem;">
-                    <i class="fas fa-info-circle"></i> Magic Detect dabaane se tool khud sabse bade card (Pura Aadhaar) ko pehchan lega.
+                    <i class="fas fa-info-circle"></i> Magic Detect automatically card dhoondh lega. Phir slider se photo ekdum seedhi karein.
                 </p>
                 
                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
@@ -204,35 +322,175 @@
                     </div>
                 </div>
 
+                <!-- Document Enhancer Panel -->
+                <div class="enhancer-panel">
+                    <h4><i class="fas fa-sliders-h"></i> Document Quality Enhancer</h4>
+                    <div class="enhancer-controls">
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Brightness (Chamak):</label>
+                            <input type="range" id="docBrightness" min="50" max="150" value="105" style="width: 100%;">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">Contrast (Gehrai):</label>
+                            <input type="range" id="docContrast" min="50" max="150" value="110" style="width: 100%;">
+                        </div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="docBWMode">
+                        <div class="toggle-slider"></div>
+                        Black & White Print Mode (Scan Effect)
+                    </label>
+                </div>
+
                 <div class="input-group" style="margin-top: 15px;">
                     <label><i class="fas fa-file-alt"></i> File Name (Optional)</label>
-                    <input type="text" id="fileNameAadhaar" placeholder="e.g. Vishal_Aadhaar">
+                    <input type="text" id="fileNameAadhaar" placeholder="e.g. RTPS_Aadhaar_Document">
                 </div>
 
                 <div class="flex-group">
                     <label style="margin-bottom: 0; font-weight: 700; color: var(--dark);">Target Size (Max KB):</label>
-                    <input type="number" id="targetKbAadhaar" value="100" style="width: 100px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: #007bff;">
+                    <input type="number" id="targetKbAadhaar" value="100" style="width: 100px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-weight: bold; color: #007bff; background: #fff;">
                 </div>
 
-                <button id="processAadhaarBtn" class="main-btn"><i class="fas fa-layer-group"></i> Merge Standard Aadhaar</button>
+                <button id="processAadhaarBtn" class="main-btn"><i class="fas fa-print"></i> Enhance & Merge Aadhaar</button>
             </div>
 
             <canvas id="resultCanvas"></canvas>
 
             <div id="resultArea" class="result-box">
-                <h3 style="color: var(--primary);"><i class="fas fa-check-circle"></i> Successfully Merged!</h3>
+                <h3><i class="fas fa-check-circle" style="color: var(--primary);"></i> Successfully Merged!</h3>
                 <img id="finalPreview" src="" alt="Result Preview">
                 <div id="finalImageSize" class="result-main"></div>
                 <button id="downloadBtn" class="download-btn"><i class="fas fa-download"></i> Download Final Image</button>
             </div>
         </div>
+
+        <!-- Promo Banner Integrated from SHC Layout -->
+        <div class="shc-promo-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; margin-top: 30px;">
+            <a href="https://studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 20px 25px; border-radius: 16px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🎓</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #166534; font-size: 17px; font-weight: 700;">IGNOU Assignments</h3>
+                    <p style="margin: 0; color: #15803d; font-size: 13px; font-weight: 500;">Buy High-Quality Solved PDFs</p>
+                </div>
+                <div style="margin-left: auto; color: #16a34a; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+            <a href="https://jobs.studenthelpclub.in" target="_blank" style="flex: 1; min-width: 280px; text-decoration: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px 25px; border-radius: 16px; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.02)';">
+                <div style="font-size: 32px; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">💼</div>
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: #1e40af; font-size: 17px; font-weight: 700;">Sarkari Job Updates</h3>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 13px; font-weight: 500;">Latest Vacancies & Results</p>
+                </div>
+                <div style="margin-left: auto; color: #2563eb; font-size: 20px; font-weight: bold;">➔</div>
+            </a>
+        </div>
+        
+        <article class="seo-content">
+            <h3>How the Smart <b>Client-Side Image Formatting</b> Works</h3>
+            <p>Our online document optimization utility runs entirely inside your <b>client-side browser interface</b>, keeping your files completely private. When you upload your Aadhaar document or passport photograph, the calculation structure interprets raw visual frameworks instantly. Through an integrated optimized <b>dual-engine process</b>, the script alters <b>target dimensional width</b> rules and responsive metrics, scaling properties continuously down to your exact requested file sizes seamlessly without passing any data to external hosting spaces.</p>
+            
+            <h3>Essential Tool for RTPS Jati, Niwas & State Government Forms</h3>
+            <p>Prominent recruitment frameworks and portals across India—such as <b>ServicePlus (RTPS Bihar)</b>, Staff Selection Commission (SSC), and State Public Service Commissions—require extremely specific file limitations. Usually, digital student profiles demand candidate photographs merged with signatures restricted strictly below 50 KB limits. Standard adjustments often deform original element dimensions. This intelligent <b>responsive cropper</b> eliminates technical errors, ensuring pixel guidelines and structural thresholds remain intact for structural form approvals.</p>
+            
+            <h3>Step-by-Step Document Modification Guide</h3>
+            <ul>
+                <li><strong>Upload Source Material:</strong> Drop your structural files or select standard photo dimensions using our flexible browser interface tracker. (Supports JPEG, PNG, and mobile HEIC frameworks).</li>
+                <li><strong>Establish Visual Boundaries:</strong> Drag the adjustable canvas corners freely or use the "Magic Detect" to isolate your essential physical identity bounds or signature spaces effortlessly.</li>
+                <li><strong>Specify Metric Boundaries:</strong> Insert custom target resolution width values or directly input the absolute maximum targeted file weight limit into the dedicated KB numeric wrapper field.</li>
+                <li><strong>Isolate and Download:</strong> Trigger the responsive engine to process relative canvas elements instantly. View the updated size calculation variables and acquire your download framework right away.</li>
+            </ul>
+        </article>
+
+        <!-- AI SEO SECTION FROM SHC LAYOUT -->
+        <div class="seo-content" style="margin-top: 30px;">
+            <h2 style="font-size: 1.5rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--primary); padding-left: 12px;">
+                <i class="fas fa-laptop-code" style="color: var(--primary);"></i> AI & Modern SEO Glossary
+            </h2>
+            <p style="margin-bottom: 20px;">Understand the core AI search optimizations and digital frameworks we follow:</p>
+            
+            <div class="feature-box-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
+                    <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
+                    <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
+                    <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
+                    <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
+                    <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.youtube.com/@vishalhelpclub?sub_confirmation=1" target="_blank" class="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://t.me/studenthelpclub" target="_blank" class="tg" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://whatsapp.com/channel/0029VbCJ2xI7IUYa1zMB6n1f" target="_blank" class="wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="policy-links">
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="about_us.html">About Us</a> | 
+            <a href="contact.html">Contact Us</a> | 
+            <a href="terms.html">Terms of Service</a> |
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px; color: var(--text-muted);">&copy; 2026 Student Help Club. Helping students worldwide.</p>
+    </footer>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-consent-banner" class="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By using our site, you consent to our <a href="privacy-policy.html" style="color: var(--primary); text-decoration: underline;">Privacy Policy</a>.</p>
+        <button id="accept-cookies-btn">Accept & Close</button>
+    </div>
+
+    <!-- MAIN JAVASCRIPT BLOCK EXPANDED -->
     <script>
     (function() {
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- UI Setup ---
+            // --- Mobile Menu Toggle Logic ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', function() {
+                    const menu = document.getElementById('nav-menu');
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('active');
+                    if(menu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // --- COOKIE BANNER LOGIC ---
+            const cookieBanner = document.getElementById("cookie-consent-banner");
+            const acceptBtn = document.getElementById("accept-cookies-btn");
+            if (cookieBanner && acceptBtn) {
+                if (!localStorage.getItem("cookiesAccepted")) {
+                    cookieBanner.style.display = "flex";
+                }
+                acceptBtn.addEventListener("click", function() {
+                    localStorage.setItem("cookiesAccepted", "true");
+                    cookieBanner.style.display = "none";
+                });
+            }
+
+            // --- Mode Switch Logic ---
             const modeRadios = document.querySelectorAll('input[name="toolMode"]');
             const photoSigUI = document.getElementById('photoSigModeUI');
             const aadhaarUI = document.getElementById('aadhaarModeUI');
@@ -258,7 +516,7 @@
             async function getProcessableImageUrl(file) {
                 const fileName = file.name.toLowerCase();
                 if (fileName.endsWith(".heic") || fileName.endsWith(".heif") || file.type === "image/heic") {
-                    if (typeof heic2any === 'undefined') throw new Error("HEIC converter is loading.");
+                    if (typeof heic2any === 'undefined') throw new Error("HEIC converter is loading. Please wait.");
                     const convertedResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 });
                     const blob = Array.isArray(convertedResult) ? convertedResult[0] : convertedResult;
                     return URL.createObjectURL(blob);
@@ -301,7 +559,7 @@
                 const btn = e.target;
                 const photoFile = document.getElementById('photoUpload').files[0];
                 const sigFile = document.getElementById('sigUpload').files[0];
-                let fileName = document.getElementById('fileNamePhoto').value.trim() || "SHC_Merged_Photo";
+                let fileName = document.getElementById('fileNamePhoto').value.trim() || "RTPS_Photo_Signature";
                 let targetKb = parseFloat(document.getElementById('targetKbPhoto').value) || 50;
 
                 if (!photoFile || !sigFile) { alert("Kripya Photo aur Signature dono select karein."); return; }
@@ -328,7 +586,7 @@
                     compressAndShowResult(fileName, targetKb);
 
                 } catch (error) { alert("Error: " + error.message);
-                } finally { btn.disabled = false; btn.innerHTML = `<i class="fas fa-magic"></i> Merge Photo & Signature`; }
+                } finally { btn.disabled = false; btn.innerHTML = `<i class="fas fa-magic"></i> Merge Photo & Signature (50KB)`; }
             });
 
             // ==========================================
@@ -358,6 +616,8 @@
 
                     if (isFront) fCropper = new Cropper(img, cropperOptions);
                     else bCropper = new Cropper(img, cropperOptions);
+                    
+                    setTimeout(updateLivePreview, 100);
 
                 } catch (err) { alert(err.message); }
             };
@@ -376,57 +636,61 @@
             document.getElementById('bAlignSlider').oninput = updateBRot;
             function updateBRot() { if(bCropper) bCropper.rotateTo(bBaseAngle + parseFloat(document.getElementById('bAlignSlider').value)); }
 
-            // NEW: Center-Out Density Detector (Ignores split parts and background)
+            // LIVE PREVIEW: CSS Filters for Cropper Images
+            function updateLivePreview() {
+                let brightness = document.getElementById('docBrightness').value;
+                let contrast = document.getElementById('docContrast').value;
+                let isBW = document.getElementById('docBWMode').checked;
+                
+                let filterStr = `brightness(${brightness}%) contrast(${contrast}%)`;
+                if(isBW) filterStr += ` grayscale(100%)`;
+
+                const cropperImages = document.querySelectorAll('.cropper-container img');
+                cropperImages.forEach(img => { img.style.filter = filterStr; });
+            }
+
+            document.getElementById('docBrightness').addEventListener('input', updateLivePreview);
+            document.getElementById('docContrast').addEventListener('input', updateLivePreview);
+            document.getElementById('docBWMode').addEventListener('change', updateLivePreview);
+
+            // Center-Out Density Detector
             function smartDensityDetect(cropper, imgId) {
                 if(!cropper) return;
                 const img = document.getElementById(imgId);
                 const tempC = document.createElement('canvas');
                 const tCtx = tempC.getContext('2d');
                 
-                // Scale down for superfast processing
                 const scale = Math.min(1, 800 / Math.max(img.naturalWidth, img.naturalHeight));
                 tempC.width = img.naturalWidth * scale;
                 tempC.height = img.naturalHeight * scale;
                 tCtx.drawImage(img, 0, 0, tempC.width, tempC.height);
 
                 const imgData = tCtx.getImageData(0, 0, tempC.width, tempC.height).data;
-                const w = tempC.width;
-                const h = tempC.height;
+                const w = tempC.width; const h = tempC.height;
 
                 const rowProfile = new Int32Array(h);
                 const colProfile = new Int32Array(w);
 
-                // Build density profile
                 for (let y = 0; y < h; y++) {
                     for (let x = 0; x < w; x++) {
                         const i = (y * w + x) * 4;
                         const luma = 0.2126 * imgData[i] + 0.7152 * imgData[i+1] + 0.0722 * imgData[i+2];
-                        if (luma > 130) { // Card Brightness Threshold
-                            rowProfile[y]++;
-                            colProfile[x]++;
-                        }
+                        if (luma > 130) { rowProfile[y]++; colProfile[x]++; }
                     }
                 }
 
-                // Find highest density peaks (The core of the largest complete card)
                 let maxRow = 0, peakY = Math.floor(h/2);
-                for(let y=0; y<h; y++) {
-                    if(rowProfile[y] > maxRow) { maxRow = rowProfile[y]; peakY = y; }
-                }
+                for(let y=0; y<h; y++) { if(rowProfile[y] > maxRow) { maxRow = rowProfile[y]; peakY = y; } }
                 
                 let maxCol = 0, peakX = Math.floor(w/2);
-                for(let x=0; x<w; x++) {
-                    if(colProfile[x] > maxCol) { maxCol = colProfile[x]; peakX = x; }
-                }
+                for(let x=0; x<w; x++) { if(colProfile[x] > maxCol) { maxCol = colProfile[x]; peakX = x; } }
 
                 if (maxRow === 0 || maxCol === 0) return;
 
-                // Inside-Out Expansion: Expand from the solid peak outwards until we hit empty space/gap
                 const rowThresh = maxRow * 0.15;
                 const colThresh = maxCol * 0.15;
 
-                let top = peakY, bottom = peakY;
-                let left = peakX, right = peakX;
+                let top = peakY, bottom = peakY, left = peakX, right = peakX;
 
                 while(top > 0 && rowProfile[top] >= rowThresh) top--;
                 while(bottom < h - 1 && rowProfile[bottom] >= rowThresh) bottom++;
@@ -445,15 +709,19 @@
             document.getElementById('fAutoDetect').onclick = () => smartDensityDetect(fCropper, 'frontCropperImg');
             document.getElementById('bAutoDetect').onclick = () => smartDensityDetect(bCropper, 'backCropperImg');
 
-            // Merge & Compress with Auto-Rotate and Skew Fix
+            // Merge, Enhance & Compress
             document.getElementById('processAadhaarBtn').addEventListener('click', (e) => {
                 const btn = e.target;
                 if(!fCropper || !bCropper) { alert("Kripya dono side upload karein."); return; }
 
-                let fileName = document.getElementById('fileNameAadhaar').value.trim() || "SHC_Aadhaar_Merge";
+                let fileName = document.getElementById('fileNameAadhaar').value.trim() || "RTPS_Aadhaar_Document";
                 let targetKb = parseFloat(document.getElementById('targetKbAadhaar').value) || 100;
+                
+                let brightness = document.getElementById('docBrightness').value;
+                let contrast = document.getElementById('docContrast').value;
+                let isBW = document.getElementById('docBWMode').checked;
 
-                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing...`;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Enhancing & Merging...`;
                 btn.disabled = true; resultArea.style.display = 'none';
 
                 setTimeout(() => {
@@ -461,7 +729,6 @@
                         let fCanvas = fCropper.getCroppedCanvas();
                         let bCanvas = bCropper.getCroppedCanvas();
 
-                        // Auto-Rotate Logic: Make vertical cards horizontal
                         function ensureHorizontal(c) {
                             if (c.height > c.width) {
                                 const rot = document.createElement('canvas');
@@ -478,7 +745,6 @@
                         fCanvas = ensureHorizontal(fCanvas);
                         bCanvas = ensureHorizontal(bCanvas);
 
-                        // Auto-Straighten / Auto-Fix Logic
                         const baseWidth = 800;
                         const baseHeight = 506; // (800 / 1.58 ratio)
                         const gap = 25;
@@ -489,12 +755,18 @@
                         ctx.fillStyle = "#ffffff"; 
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                         
+                        let filterStr = `brightness(${brightness}%) contrast(${contrast}%)`;
+                        if(isBW) filterStr += ` grayscale(100%)`;
+                        ctx.filter = filterStr;
+
                         ctx.drawImage(fCanvas, 0, 0, baseWidth, baseHeight);
                         ctx.drawImage(bCanvas, 0, baseHeight + gap, baseWidth, baseHeight);
+                        
+                        ctx.filter = 'none'; 
 
                         compressAndShowResult(fileName, targetKb);
                     } catch (err) { alert("Error: " + err.message);
-                    } finally { btn.innerHTML = `<i class="fas fa-layer-group"></i> Merge Standard Aadhaar`; btn.disabled = false; }
+                    } finally { btn.innerHTML = `<i class="fas fa-print"></i> Enhance & Merge Aadhaar`; btn.disabled = false; }
                 }, 100);
             });
 
