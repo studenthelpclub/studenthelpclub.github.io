@@ -62,7 +62,7 @@
         /* Premium Responsive Table */
         .table-wrapper { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); overflow: hidden; border: 1px solid #f3f4f6; }
         
-        /* 🌟 NEW SEARCH BAR HEADER CSS */
+        /* SEARCH BAR HEADER CSS */
         .table-header-bar { padding: 15px 20px; border-bottom: 1px solid #f3f4f6; background: #fafafa; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .table-header-bar h2 { margin: 0; font-size: 16px; color: #1f2937; font-weight: 600; }
         .search-box { position: relative; }
@@ -71,7 +71,7 @@
         .search-box input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
         th, td { padding: 15px 20px; text-align: left; }
         th { background-color: #ffffff; color: #6b7280; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; border-bottom: 2px solid #f3f4f6; }
         td { border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
@@ -91,17 +91,19 @@
         .limit-box { display: flex; align-items: center; gap: 8px; }
         .limit-input { width: 55px; padding: 6px; text-align: center; border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px; font-weight: 600; background: #f9fafb; outline: none; }
         .limit-input:focus { border-color: #3b82f6; background: white; }
+        .limit-input:disabled { background: #e5e7eb; cursor: not-allowed; }
         
         .action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
         .btn { border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: white; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s ease; }
         .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-green { background: #10b981; } 
         .btn-orange { background: #f59e0b; } 
         .btn-blue { background: #3b82f6; } 
         .btn-red { background: #ef4444; } 
         .btn-indigo { background: #4f46e5; }
         
-        /* New Forms Filled Box Style */
+        /* Forms Filled Box Style */
         .forms-count-box { background: #eff6ff; color: #2563eb; padding: 8px 12px; border-radius: 8px; text-align: center; font-weight: 700; border: 1px solid #bfdbfe; font-size: 15px; min-width: 60px; display: inline-block; }
 
         .loader-row td { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
@@ -178,7 +180,6 @@
 
             <!-- Table -->
             <div class="table-wrapper">
-                <!-- 🌟 UPDATED HEADER WITH SEARCH BAR -->
                 <div class="table-header-bar">
                     <h2>Recent Registrations & Licenses</h2>
                     <div class="search-box">
@@ -194,13 +195,14 @@
                                 <th>Customer Profile</th>
                                 <th>Forms Filled</th>
                                 <th>License Status</th>
+                                <th>Validity Status</th> <!-- 🌟 NAYA COLUMN -->
                                 <th>Max Device Limit</th>
                                 <th>Devices Used</th>
                                 <th>Quick Actions</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr class="loader-row"><td colspan="6"><i class="fas fa-spinner"></i><br>Fetching Secure Data...</td></tr>
+                            <tr class="loader-row"><td colspan="7"><i class="fas fa-spinner"></i><br>Fetching Secure Data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -282,7 +284,7 @@
             let total = 0, active = 0, pending = 0;
             
             if(snap.empty) {
-                tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding:40px; color:#6b7280;'>No customers found in database!</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='7' style='text-align:center; padding:40px; color:#6b7280;'>No customers found in database!</td></tr>";
                 return;
             }
 
@@ -306,9 +308,26 @@
                 let linkedDevicesCount = (u.registeredDevices && u.registeredDevices.length) ? u.registeredDevices.length : 0;
                 let usageColor = linkedDevicesCount >= maxPCs ? '#ef4444' : '#10b981';
                 let avatarLetter = u.name ? u.name.charAt(0).toUpperCase() : "U";
-                
-                // 🌟 NAYA CODE: Direct totalForms read (Quota Saver)
                 let formsCount = u.totalForms ? u.totalForms : 0;
+
+                // 🌟 NAYA LOGIC: TRIAL CALCULATION
+                let trialDays = u.trialDays ? parseInt(u.trialDays) : 8; // Default 8 set kiya hai
+                let joinTime = u.joinTimestamp ? parseInt(u.joinTimestamp) : Date.now();
+                let expiryTime = joinTime + (trialDays * 24 * 60 * 60 * 1000);
+                let currentTime = Date.now();
+                
+                let trialStatusHtml = '';
+                if (trialDays >= 9999) {
+                    trialStatusHtml = `<span style="color:#10b981; font-weight:700;"><i class="fas fa-infinity"></i> Lifetime</span>`;
+                } else {
+                    if (currentTime > expiryTime) {
+                        trialStatusHtml = `<span style="color:#ef4444; font-weight:700;"><i class="fas fa-times-circle"></i> Expired</span>`;
+                    } else {
+                        let timeLeft = expiryTime - currentTime;
+                        let daysLeft = Math.ceil(timeLeft / (1000 * 60 * 60 * 24));
+                        trialStatusHtml = `<span style="color:#f59e0b; font-weight:700;"><i class="fas fa-clock"></i> ${daysLeft} Days Left</span>`;
+                    }
+                }
 
                 html += `
                 <tr>
@@ -323,12 +342,24 @@
                         </div>
                     </td>
                     <td>
-                        <!-- 🌟 Direct Forms Count -->
                         <div class="forms-count-box">
                             <i class="fas fa-file-alt" style="font-size: 12px; margin-right: 4px;"></i> ${formsCount}
                         </div>
                     </td>
                     <td>${statusBadge}</td>
+                    
+                    <!-- 🌟 NAYA COLUMN: TRIAL MANAGEMENT -->
+                    <td>
+                        <div style="margin-bottom:8px; font-size:13px;">${trialStatusHtml}</div>
+                        <div class="limit-box" style="margin-bottom:6px;">
+                            <input type="number" id="trial_${id}" class="limit-input" value="${trialDays >= 9999 ? '' : trialDays}" placeholder="Days" ${trialDays >= 9999 ? 'disabled' : ''}>
+                            <button class="btn btn-blue" style="padding:6px 10px; font-size:11px;" onclick="updateTrial('${id}')" title="Save Days" ${trialDays >= 9999 ? 'disabled' : ''}><i class="fas fa-save"></i></button>
+                        </div>
+                        ${trialDays < 9999 
+                            ? `<button class="btn btn-indigo" style="font-size:10px; padding:6px; width:100%" onclick="toggleLifetime('${id}', true)"><i class="fas fa-gem"></i> Make Lifetime</button>` 
+                            : `<button class="btn btn-orange" style="font-size:10px; padding:6px; width:100%" onclick="toggleLifetime('${id}', false)"><i class="fas fa-undo"></i> Remove Lifetime</button>`}
+                    </td>
+
                     <td>
                         <div class="limit-box">
                             <input type="number" id="limit_${id}" class="limit-input" value="${maxPCs}" min="1">
@@ -354,8 +385,6 @@
             document.getElementById("totalUsers").innerText = total;
             document.getElementById("activeUsers").innerText = active;
             document.getElementById("pendingUsers").innerText = pending;
-            
-            // ❌ Yahan se bhari-bharkam "snap.forEach" wali loop hata di gayi hai! (Performance Boost)
         });
     }
 
@@ -377,6 +406,32 @@
         }
     };
 
+    // 🌟 NAYA FUNCTION: UPDATE TRIAL DAYS
+    window.updateTrial = function(id) {
+        let newVal = document.getElementById(`trial_${id}`).value;
+        if(newVal && parseInt(newVal) > 0) {
+            db.collection("users").doc(id).update({ trialDays: parseInt(newVal) })
+              .then(() => alert("Trial period updated successfully!"));
+        } else {
+            alert("Please enter a valid number of days.");
+        }
+    };
+
+    // 🌟 NAYA FUNCTION: MAKE LIFETIME OR REMOVE LIFETIME
+    window.toggleLifetime = function(id, makeLifetime) {
+        if (makeLifetime) {
+            if(confirm("Are you sure you want to upgrade this user to a Lifetime License?")) {
+                db.collection("users").doc(id).update({ trialDays: 9999 })
+                  .then(() => alert("Upgraded to Lifetime License!"));
+            }
+        } else {
+            if(confirm("Remove Lifetime License and set back to an 8-day trial?")) {
+                db.collection("users").doc(id).update({ trialDays: 8 })
+                  .then(() => alert("Reverted to standard Trial mode."));
+            }
+        }
+    };
+
     window.resetDevices = function(id) {
         if(confirm("Alert: This will disconnect all currently linked computers for this user. Are you sure?")) {
             db.collection("users").doc(id).update({ registeredDevices: [] })
@@ -390,16 +445,14 @@
         }
     };
 
-    // --- 🌟 NEW LIVE SEARCH FILTER FUNCTION ---
+    // --- LIVE SEARCH FILTER FUNCTION ---
     window.filterTable = function() {
         let input = document.getElementById("searchInput").value.toLowerCase();
         let rows = document.querySelectorAll("#tableBody tr");
 
         rows.forEach(row => {
-            // Loader ya "No customers" wali line ko hide mat karna
             if (row.classList.contains("loader-row") || row.innerText.includes("No customers found")) return;
             
-            // Row ka saara data uthao aur search box ki value se milaao
             let textContent = row.innerText.toLowerCase();
             if (textContent.includes(input)) {
                 row.style.display = "";
