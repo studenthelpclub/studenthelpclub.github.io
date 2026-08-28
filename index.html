@@ -261,6 +261,7 @@
     
     <style>
         :root {
+            /* Colors */
             --primary: #00873D; 
             --primary-light: #e6f7ee;
             --dark: #0f172a; 
@@ -269,6 +270,24 @@
             --bg-body: #f8fafc; 
             --border-color: #e2e8f0; 
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Typography Scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-md: 1.125rem;
+            --text-lg: 1.25rem;
+            --text-xl: 1.5rem;
+            --text-2xl: 2rem;
+            --text-3xl: 3rem;
+            
+            /* Border Radii Scale */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
         }
         
         html { 
@@ -286,6 +305,7 @@
             background: var(--bg-body); 
             color: var(--text-main); 
             line-height: 1.6; 
+            font-size: var(--text-base);
             -webkit-font-smoothing: antialiased; 
         }
         
@@ -321,7 +341,7 @@
         }
         
         .brand .brand-title { 
-            font-size: 1.35rem; 
+            font-size: var(--text-lg); 
             color: var(--dark); 
             font-weight: 800; 
             letter-spacing: -0.5px; 
@@ -339,25 +359,25 @@
             position: relative; 
             display: flex; 
             align-items: center; 
-            margin-right: 15px; 
+            margin-right: 0; /* Issue 15 fixed */
         }
         
         #tool-search { 
             padding: 8px 15px 8px 35px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 20px; 
-            font-size: 0.9rem; 
+            border: 1px solid #94a3b8; /* Issue 16 fixed: increased prominence */
+            border-radius: var(--radius-full); 
+            font-size: var(--text-sm); 
             outline: none; 
             transition: var(--transition); 
             width: 220px; 
-            background: var(--bg-body); 
+            background: #fcfcfc; 
             color: var(--text-main); 
             font-family: 'Plus Jakarta Sans', sans-serif; 
         }
         
         #tool-search:focus { 
             border-color: var(--primary); 
-            box-shadow: 0 0 0 3px rgba(0, 135, 61, 0.1); 
+            box-shadow: 0 0 0 3px rgba(0, 135, 61, 0.2); /* Issue 16 fixed */
             width: 250px; 
         }
         
@@ -365,14 +385,14 @@
             position: absolute; 
             left: 12px; 
             color: var(--text-muted); 
-            font-size: 0.9rem; 
+            font-size: var(--text-sm); 
             pointer-events: none; 
         }
         
         .nav-link { 
             text-decoration: none; 
             color: var(--text-main); 
-            font-size: 0.95rem; 
+            font-size: var(--text-sm); 
             font-weight: 600; 
             transition: var(--transition); 
         }
@@ -385,9 +405,9 @@
             background: var(--primary); 
             color: white; 
             padding: 8px 16px; 
-            border-radius: 100px; 
+            border-radius: var(--radius-full); 
             text-decoration: none; 
-            font-size: 0.9rem; 
+            font-size: var(--text-sm); 
             font-weight: 700; 
             transition: var(--transition); 
             box-shadow: 0 4px 10px rgba(0, 135, 61, 0.2); 
@@ -417,7 +437,7 @@
         }
         
         .hero h1 { 
-            font-size: 3rem; 
+            font-size: var(--text-3xl); 
             font-weight: 800; 
             letter-spacing: -1.2px; 
             line-height: 1.25; 
@@ -435,7 +455,7 @@
         
         .hero p { 
             color: var(--text-muted); 
-            font-size: 1.25rem; 
+            font-size: var(--text-lg); 
             margin-top: 18px; 
             max-width: 680px; 
             margin-left: auto; 
@@ -454,13 +474,14 @@
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 24px; 
+            align-items: stretch; 
         }
         
         /* Tool Cards */
         .card { 
             background: #ffffff; 
             padding: 32px 26px; 
-            border-radius: 20px; 
+            border-radius: var(--radius-xl); 
             text-align: left; 
             text-decoration: none; 
             color: var(--text-main); 
@@ -469,6 +490,7 @@
             transition: var(--transition); 
             display: flex; 
             flex-direction: column; 
+            height: 100%; /* Issue 5 fixed */
             position: relative; 
         }
         
@@ -480,11 +502,11 @@
         
         .badge { 
             align-self: flex-start; 
-            font-size: 0.72rem; 
+            font-size: var(--text-xs); 
             text-transform: uppercase; 
             font-weight: 700; 
             padding: 4px 10px; 
-            border-radius: 100px; 
+            border-radius: var(--radius-full); 
             letter-spacing: 0.6px; 
             margin-bottom: 18px; 
         }
@@ -493,13 +515,13 @@
         .badge.b-pdf { background: #fef2f2; color: #dc2626; }
         .badge.b-util { background: #fdf2f8; color: #db2777; }
         .badge.b-file { background: #f0fdf4; color: #16a34a; }
-        .badge.b-csc { background: #fffbeb; color: #d97706; }
+        .badge.b-csc { background: #ffe8cc; color: #b34700; } /* Issue 18 fixed: higher contrast */
         
         .card .icon-wrapper { 
             width: 52px; 
             height: 52px; 
             background: #f8fafc; 
-            border-radius: 12px; 
+            border-radius: var(--radius-md); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -524,11 +546,16 @@
         }
         
         .card h2 { 
-            margin-bottom: 8px; 
-            font-size: 1.25rem; 
+            margin-bottom: 0.5rem; 
+            font-size: var(--text-lg); 
             color: var(--dark); 
             font-weight: 700; 
             letter-spacing: -0.3px; 
+            min-height: 3rem; /* Issue 17 fixed */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
         .card p { 
@@ -542,15 +569,15 @@
         .seo-content { 
             background: #ffffff; 
             padding: 50px; 
-            margin-top: 60px; 
-            border-radius: 24px; 
+            margin-top: 2rem; /* Issue 14 fixed */
+            border-radius: var(--radius-2xl); 
             border: 1px solid var(--border-color); 
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02); 
         }
         
         .seo-content h2 { 
             color: var(--dark); 
-            font-size: 1.85rem; 
+            font-size: var(--text-2xl); 
             font-weight: 800; 
             letter-spacing: -0.5px; 
             margin-bottom: 15px; 
@@ -558,7 +585,7 @@
         
         .seo-content h3 { 
             color: var(--dark); 
-            font-size: 1.4rem; 
+            font-size: var(--text-xl); 
             font-weight: 700; 
             margin: 40px 0 20px; 
             display: flex; 
@@ -602,14 +629,19 @@
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
             gap: 20px; 
             margin-bottom: 20px; 
+            align-items: stretch; /* Issue 8 fixed */
         }
         
         .seo-box { 
             background: var(--bg-body); 
             border: 1px solid var(--border-color); 
-            border-radius: 16px; 
+            border-radius: var(--radius-lg); 
             padding: 25px 20px; 
             transition: var(--transition); 
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Issue 8 fixed */
+            text-decoration: none;
         }
         
         .seo-box:hover { 
@@ -617,16 +649,16 @@
             transform: translateY(-3px); 
         }
         
-        .seo-box i { 
+        .seo-box > i { 
             font-size: 28px; 
-            color: var(--primary); 
+            color: var(--primary); /* Issue 7 fixed: Unified iconography color */
             margin-bottom: 15px; 
             display: inline-block; 
         }
         
         .seo-box h4 { 
             color: var(--dark); 
-            font-size: 1.15rem; 
+            font-size: var(--text-md); 
             font-weight: 700; 
             margin-bottom: 10px; 
         }
@@ -636,51 +668,31 @@
             margin: 0; 
             text-align: left; 
             line-height: 1.6; 
-        }
-
-        .tools-tags { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            margin-top: 15px; 
-        }
-        
-        .tool-tag { 
-            background: #f1f5f9; 
-            color: var(--text-main); 
-            padding: 8px 16px; 
-            border-radius: 30px; 
-            font-size: 0.95rem; 
-            font-weight: 600; 
-            border: 1px solid var(--border-color); 
-            transition: var(--transition); 
-        }
-        
-        .tool-tag:hover { 
-            background: var(--primary); 
-            color: white; 
-            border-color: var(--primary); 
+            color: var(--text-main);
         }
 
         /* --- AI GLOSSARY SECTION CSS --- */
         .feature-box-grid { 
             display: grid; 
             grid-template-columns: 1fr; 
-            gap: 16px; 
+            gap: 8px; /* Issue 9 fixed */
             margin-top: 25px;
+            padding-left: 0; /* Issue 10 fixed */
         }
         
         .feature-item { 
-            background: #f0fdf4; 
-            border: 1px solid rgba(0, 135, 61, 0.15); 
-            padding: 24px; 
-            border-radius: 16px; 
+            background: transparent; /* Issue 11 fixed */
+            border: none;
+            border-left: 3px solid var(--primary); 
+            padding: 0.75rem 1rem; /* Issue 9 fixed */
+            border-radius: 0; 
             transition: var(--transition);
         }
         
         .feature-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 135, 61, 0.08);
+            transform: none; /* Issue 11 fixed */
+            box-shadow: none;
+            background: rgba(0, 135, 61, 0.03);
         }
         
         .feature-item h4 { 
@@ -715,7 +727,7 @@
         details.faq-item { 
             background: var(--bg-body); 
             border: 1px solid var(--border-color); 
-            border-radius: 12px; 
+            border-radius: var(--radius-md); 
             overflow: hidden; 
             transition: var(--transition); 
         }
@@ -1070,7 +1082,6 @@
                     <p>Apply for a new PAN, make corrections, or track your application status easily and securely.</p>
                 </a>
                 
-                <!-- NEW PHOTO SIGNATURE MERGE TOOL CARD -->
                 <a href="photo-signature-merge.html" class="card">
                     <span class="badge b-img">Image</span>
                     <div class="icon-wrapper"><i class="fas fa-id-badge"></i></div>
@@ -1083,17 +1094,34 @@
             <article class="seo-content">
                 
                 <h2>The All-In-One Web Tool Application Suite for Students</h2>
-                <p>Navigating through competitive portals, government job platforms, or regular university submissions often demands strict file standards. At <strong>Student Help Club (SHC)</strong>, we bridge that gap by offering custom-tailored automated programs that resolve file processing tasks smoothly. Our tools run locally via your browser window, ensuring data parameters are computed immediately without background server transfers—maximizing individual privacy metrics.</p>
+                <p>Student Help Club (SHC) bridges the gap between strict file standards and academic ease.</p>
+                <ul>
+                    <li>Navigate competitive portals and government job platforms.</li>
+                    <li>Meet university submission guidelines with precision.</li>
+                    <li>Ensure your documents are perfectly formatted in seconds.</li>
+                </ul>
                 
                 <h3><i class="fas fa-info-circle"></i> About Student Help Club (SHC)</h3>
-                <p><strong>Student Help Club (SHC)</strong> is India's premier educational portal and online utility toolkit designed exclusively to empower students, job seekers, and digital creators. Whether you are filling out complex Sarkari online forms, managing college documents, or preparing for government exams, SHC provides a comprehensive suite of safe, free, and incredibly fast tools to streamline your academic journey.</p>
+                <p>Easily format your files for government job portals and university submissions. <strong>Student Help Club (SHC)</strong> provides fast, secure tools to resize, compress, and edit your documents to exact requirements.</p>
                 
                 <h3><i class="fas fa-star"></i> Core Functionalities Engineered for Academic Ease</h3>
-                <ul>
-                    <li><strong>Optimal Image and PDF Compressions:</strong> Easily resize image resolutions down to standardized requirements such as 20KB or 50KB setups without losing identity traits or clarity parameters.</li>
-                    <li><strong>Smart Document Manipulation Frameworks:</strong> Merge separate reference assets together or isolate complex pages down to custom fragments using our dedicated layout engines.</li>
-                    <li><strong>Fast Data Computing:</strong> Calculate parameters like age criteria for dynamic recruitment forms or analyze final grading criteria breakdowns instantly.</li>
-                </ul>
+                <div class="seo-grid">
+                    <div class="seo-box">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <h4>Optimal Compressions</h4>
+                        <p>Easily resize image resolutions down to 20KB or 50KB setups without losing clarity parameters.</p>
+                    </div>
+                    <div class="seo-box">
+                        <i class="fas fa-file-pdf"></i>
+                        <h4>Smart Document Frameworks</h4>
+                        <p>Merge separate reference assets together or isolate complex pages down to custom fragments.</p>
+                    </div>
+                    <div class="seo-box">
+                        <i class="fas fa-calculator"></i>
+                        <h4>Fast Data Computing</h4>
+                        <p>Calculate age criteria for dynamic recruitment forms or analyze grading breakdowns instantly.</p>
+                    </div>
+                </div>
 
                 <div class="seo-grid" style="margin-top: 30px;">
                     <div class="seo-box">
@@ -1116,65 +1144,52 @@
                 <h3><i class="fas fa-globe"></i> Student Help Club Coverage</h3>
                 <p>Apart from our top-tier utility tools, SHC acts as a massive resource hub covering all your educational and career needs:</p>
                 <div class="seo-grid">
-                    <div class="seo-box">
-                        <i class="fas fa-book-open" style="color: #ea580c;"></i>
-                        <h4>IGNOU Assignments</h4>
-                        <p>Get access to premium IGNOU Solved Assignments, high-quality study materials, exam PDFs, and project guidelines curated to help you score top grades in your university courses.</p>
-                    </div>
-                    <div class="seo-box">
-                        <i class="fas fa-briefcase" style="color: #2563eb;"></i>
-                        <h4>Sarkari Job Portal</h4>
-                        <p>Stay updated with our dedicated jobs section featuring instant alerts for the latest Central & State Government Jobs, Admit Cards, Sarkari Results, and Merit lists.</p>
-                    </div>
-                    <div class="seo-box">
-                        <i class="fas fa-landmark" style="color: #8b5cf6;"></i>
-                        <h4>Govt Schemes & Yojna</h4>
-                        <p>Explore detailed guides, eligibility criteria, and direct application links for the latest National Scholarships, Fellowships, and Sarkari Yojna online forms.</p>
-                    </div>
+                    <a href="#" class="seo-box">
+                        <i class="fas fa-book-open"></i>
+                        <h4>IGNOU Assignments <i class="fas fa-chevron-right" aria-hidden="true" style="margin-left: 8px; font-size: 0.85em;"></i></h4>
+                        <p>Get access to premium IGNOU Solved Assignments, high-quality study materials, exam PDFs, and project guidelines.</p>
+                    </a>
+                    <a href="#" class="seo-box">
+                        <i class="fas fa-briefcase"></i>
+                        <h4>Sarkari Job Portal <i class="fas fa-chevron-right" aria-hidden="true" style="margin-left: 8px; font-size: 0.85em;"></i></h4>
+                        <p>Stay updated with our dedicated jobs section featuring instant alerts for the latest Central & State Government Jobs.</p>
+                    </a>
+                    <a href="#" class="seo-box">
+                        <i class="fas fa-landmark"></i>
+                        <h4>Govt Schemes & Yojna <i class="fas fa-chevron-right" aria-hidden="true" style="margin-left: 8px; font-size: 0.85em;"></i></h4>
+                        <p>Explore detailed guides, eligibility criteria, and direct application links for the latest National Scholarships.</p>
+                    </a>
                 </div>
 
-                <h3><i class="fas fa-tools"></i> Popular Tools on Student Help Club</h3>
-                <p>Navigate through our wide array of digital tools tailored for form-filling and daily academic workflows:</p>
-                <div class="tools-tags">
-                    <span class="tool-tag"><i class="fas fa-image"></i> Image Resizer in KB</span>
-                    <span class="tool-tag"><i class="fas fa-compress"></i> PDF Size Reducer</span>
-                    <span class="tool-tag"><i class="fas fa-user-tie"></i> ATS Resume Builder</span>
-                    <span class="tool-tag"><i class="fas fa-magic"></i> Background Remover</span>
-                    <span class="tool-tag"><i class="fas fa-calculator"></i> Age & Percentage Calculator</span>
-                    <span class="tool-tag"><i class="fas fa-object-ungroup"></i> PDF Split & Merge</span>
-                    <span class="tool-tag"><i class="fas fa-images"></i> PDF to Image Converter</span>
-                    <span class="tool-tag"><i class="fas fa-id-badge"></i> Photo & Sign Merger</span>
-                </div>
-
-                <!-- NEW AI SEO SECTION ADDED HERE -->
+                <!-- AI SEO SECTION -->
                 <h3 style="margin-top: 40px;"><i class="fas fa-laptop-code"></i> AI & Modern SEO Glossary</h3>
                 <p>Understand the core AI search optimizations and digital frameworks we follow to maintain top-tier digital presence:</p>
                 
                 <div class="feature-box-grid">
                     <div class="feature-item">
                         <h4><i class="fas fa-comment-dots"></i> 1. AEO (Answer Engine Optimization)</h4>
-                        <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants (like Google Assistant, Siri, or Alexa).</p>
+                        <p>Structuring digital content to provide direct, concise, and clear answers specifically designed for AI and voice assistants.</p>
                     </div>
                     <div class="feature-item">
                         <h4><i class="fas fa-brain"></i> 2. GEO (Generative Engine Optimization)</h4>
-                        <p>Optimizing content to ensure visibility and features within AI-generated search summaries, such as Google AI Overviews and Bing Copilot.</p>
+                        <p>Optimizing content to ensure visibility and features within AI-generated search summaries.</p>
                     </div>
                     <div class="feature-item">
                         <h4><i class="fas fa-network-wired"></i> 3. LLMO (Large Language Model Optimization)</h4>
-                        <p>Ensuring that Large Language Models (like ChatGPT, Gemini, and Claude) properly understand your brand and context, allowing them to naturally recommend your resources in their natural language responses.</p>
+                        <p>Ensuring that Large Language Models properly understand your brand and context in natural language.</p>
                     </div>
                     <div class="feature-item">
                         <h4><i class="fas fa-search"></i> 4. AISEO (AI Search Optimization)</h4>
-                        <p>A broad umbrella term covering all optimizations (including AEO, GEO, and LLMO) aimed at making content highly readable, contextual, and valuable for modern AI algorithms.</p>
+                        <p>A broad umbrella term covering all optimizations aimed at making content highly readable for modern AI algorithms.</p>
                     </div>
                     <div class="feature-item">
                         <h4><i class="fas fa-award"></i> 5. E-E-A-T (Google Framework)</h4>
-                        <p>Google's foundational quality guideline standing for <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. Creating content that meets these standards ensures higher ranking and better visibility on modern search platforms.</p>
+                        <p>Google's foundational quality guideline standing for Experience, Expertise, Authoritativeness, and Trustworthiness.</p>
                     </div>
                 </div>
-                <!-- END OF NEW AI SEO SECTION -->
+                <!-- END OF AI SEO SECTION -->
 
-                <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions (FAQs)</h3>
+                <h3 style="margin-top: 40px;"><i class="fas fa-question-circle"></i> Frequently Asked Questions (FAQs)</h3>
                 <div class="faq-container">
                     <details class="faq-item">
                         <summary class="faq-summary">Is Student Help Club completely free to use?</summary>
@@ -1231,7 +1246,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- Mobile Menu Toggle Logic (Expanded & Safe) ---
+            // --- Mobile Menu Toggle Logic ---
             const mobileBtn = document.getElementById('mobile-menu-btn');
             if (mobileBtn) {
                 mobileBtn.addEventListener('click', function() {
@@ -1249,7 +1264,7 @@
                 });
             }
 
-            // --- Cookie Consent Logic (Expanded & Safe) ---
+            // --- Cookie Consent Logic ---
             const cookieBanner = document.getElementById("cookie-consent-banner");
             const acceptBtn = document.getElementById("accept-cookies-btn");
 
@@ -1262,7 +1277,7 @@
                 cookieBanner.style.display = "none";
             });
 
-            // --- Live Search Logic for Tools (Expanded & Safe) ---
+            // --- Live Search Logic for Tools ---
             const searchInput = document.getElementById("tool-search");
             const cards = document.querySelectorAll(".card"); 
 
